@@ -1,0 +1,4 @@
+---
+applications:
+- name: e-manifest
+  memory: 128M
