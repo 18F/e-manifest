@@ -2,3 +2,4 @@
 applications:
 - name: e-manifest
   memory: 128M
+  domain: 18f.gov
