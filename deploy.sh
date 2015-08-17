@@ -1,7 +1,7 @@
 # deploy.sh
 
 # Build Jekyll static site
-( cd public/ ; jekyll build )
+( cd _static/ ; jekyll build --destination ../public )
 
 # Push to Cloud Foundry
 cf push
