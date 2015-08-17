@@ -1,4 +1,16 @@
 # The e-Manifest App for EPA
+
+This is a Ruby/Sinatra app, with a Jekyll static site in the `_static` directory. The Jekyll site will be generated in the `public/` directory, which Sinatra routes to automatically.
+
+Don't edit the `public/` folder directly! Jekyll will overwrite everything when building the site.
+
+## Running Locally
+
+1. Install Ruby
+2. Run `bundle install` to grab the required gems.
+3. Run `bash serve.sh`. This will build the Jekyll site and start the Sinatra server.
+4. Go to `localhost:9292` and enjoy!
+
 ## Public domain
 
 This project is in the worldwide [public domain](LICENSE.md). As stated in [CONTRIBUTING](CONTRIBUTING.md):
