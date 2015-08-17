@@ -8,8 +8,14 @@ Don't edit the `public/` folder directly! Jekyll will overwrite everything when 
 
 1. Install Ruby
 2. Run `bundle install` to grab the required gems.
-3. Run `bash serve.sh`. This will build the Jekyll site and start the Sinatra server.
+3. Run `rake serve`. This will build the Jekyll site and start the Sinatra server.
 4. Go to `localhost:9292` and enjoy!
+
+## Rake Tasks
+
+- To build the static site, run `rake build`.
+- To build and serve the app, run `rake serve`.
+- To deploy to 18F's cloud, run `rake deploy`.
 
 ## Public domain
 
