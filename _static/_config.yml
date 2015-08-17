@@ -1,0 +1,30 @@
+# Site settings
+title: EPA e-Manifest
+description: > # this means to ignore newlines until "baseurl:"
+  EPA e-Manifest
+baseurl: ""
+url: "https://e-manifest.18f.gov"
+
+# Header
+header:
+  logo_text: EPA e-Manifest
+  logo_img: epa-logo-100px.png
+  nav:
+    - text: API Diagnostics
+      link: /api-diagnostics
+
+# Edit pages
+edit_page:
+  enabled: false
+
+# Build settings
+markdown: redcarpet
+redcarpet:
+  extensions: [hard_wrap, tables]
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: template/page

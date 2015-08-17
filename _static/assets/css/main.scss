@@ -1,0 +1,41 @@
+---
+# Main CSS Styles: all styles are compiled to this file
+---
+
+@import "template/colors",
+        "template/syntax-highlighting",
+        "template";
+
+/* Custom Styles */
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+
+code {
+  font-family: 'Source Code Pro', monospace;
+}
+
+header.site-header {
+  background: #01972E;
+}
+
+table {
+  font-size: 16px;
+  
+  pre code {
+    font-size: 16px;
+  }
+  
+  &.api {
+    text-align: left;
+    
+    th h2 {
+      margin: 0;
+    }
+  }
+}
