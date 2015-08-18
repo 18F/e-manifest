@@ -37,7 +37,6 @@
   http_verb: PATCH
   resource_url: /manifest/update/:manifest_tracking_number
   parameters: |
-    manifest_tracking_number
     fields_to_update
   response_format: JSON
   response: |
