@@ -1,10 +1,33 @@
 require 'sinatra'
 require 'json'
+require 'sinatra/activerecord'
 
-# API Routes
+configure :development do
+ set :database, 'postgres://localhost/e-manifest'
+ set :show_exceptions, true
+end
+
+configure :production do
+  db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/e-manifest')
+
+  ActiveRecord::Base.establish_connection(
+   :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+   :host     => db.host,
+   :username => db.user,
+   :password => db.password,
+   :database => db.path[1..-1],
+   :encoding => 'utf8'
+  )
+end
+
+### API Routes ###
 
 # Submit Manifest
 post '/api/manifest/submit/:manifest_tracking_number' do |mtn|
+  @manifest_row = Manifest.new(content: request.body.read)
+  @manifest_row.save
+  
+  request.body.rewind
   "Manifest #{mtn} submitted!\n"\
   "Request body: #{request.body.read}\n"
 end
@@ -12,22 +35,7 @@ end
 # Search for Manifests
 get '/api/manifest/search' do
   content_type :json
-  {
-    params: {
-      manifest_tracking_number: params['manifest_tracking_number'],
-      generator_name: params['generator_name'],
-      generator_id: params['generator_id'],
-      waste_codes: params['waste_codes'],
-      city: params['city'],
-      state: params['state']
-    },
-    results: [
-      manifest_tracking_number: 12345,
-      generator_name: 'ACME, Inc',
-      generator_id: 12345,
-      date: Time.new
-    ]
-  }.to_json
+  Manifest.all.to_json
 end
 
 # Update Manifest
@@ -41,4 +49,13 @@ patch '/api/manifest/update/:manifest_tracking_number' do
     errors: [],
     warnings: ['Waste code 1234 not recognized']
   }.to_json
+end
+
+# Reset Database
+get '/reset' do
+end
+
+### Data Models ###
+
+class Manifest < ActiveRecord::Base
 end

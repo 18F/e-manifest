@@ -1,3 +1,6 @@
+require './app'
+require 'sinatra/activerecord/rake'
+
 task default: 'build'
 
 # Build Jekyll static site
@@ -6,6 +9,8 @@ task :build do
 end
 
 # Serve the Ruby/Sinatra app
+# Start local postgres DB using:
+#   postgres -D /usr/local/var/postgres
 task :serve do
   Rake::Task['build'].invoke
   system 'rackup'
