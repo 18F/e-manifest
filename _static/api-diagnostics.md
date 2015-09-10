@@ -6,7 +6,7 @@ permalink: /api-diagnostics/
 # Submit Manifest
 
 **POST** /api/manifest/submit/12345
-Data: `<xml>My Manifest</xml>`
+Data: `{ "manifest": 12345 }`
 <a href="javascript:submitManifest();">Run »</a>
 
 Response:
@@ -39,7 +39,7 @@ Response:
     $.ajax({
       type: 'POST',
       url: '/api/manifest/submit/12345',
-      data: '<xml>My Manifest</xml>'
+      data: '{ "manifest": 12345 }'
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
