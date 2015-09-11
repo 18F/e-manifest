@@ -38,19 +38,6 @@ get '/api/manifest/search' do
   Manifest.all.to_json
 end
 
-# Update Manifest
-patch '/api/manifest/update/:manifest_tracking_number' do
-  content_type :json
-  {
-    params: {
-      fields_to_update: params['fields_to_update']
-    },
-    status: 'success',
-    errors: [],
-    warnings: ['Waste code 1234 not recognized']
-  }.to_json
-end
-
 # Reset Database
 get '/reset' do
 end

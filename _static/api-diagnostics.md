@@ -20,13 +20,7 @@ Response:
 Response:
 <pre><code id="search-manifest-response"></code></pre>
 
-# Update Manifest
 
-**PATCH** /api/manifest/update/12345
-<a href="javascript:updateManifest();">Run »</a>
-
-Response:
-<pre><code id="update-manifest-response"></code></pre>
 
 
 <script>
@@ -60,15 +54,6 @@ Response:
     });
   }
   
-  function updateManifest() {
-    $.ajax({
-      type: 'PATCH',
-      url: '/api/manifest/update/12345',
-    })
-    .done(function(data, textStatus, xhr) {
-      var res = xhr.status + " " + xhr.statusText;
-      res += "\n" + prettyJson(data);
-      $('#update-manifest-response').text(res);
     });
   }
   
