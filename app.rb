@@ -2,13 +2,16 @@ require 'sinatra'
 require 'json'
 require 'sinatra/activerecord'
 
+
+### Database Configuration ###
+
 configure :development do
  set :database, 'postgres://localhost/e-manifest'
  set :show_exceptions, true
 end
 
 configure :production do
-  db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/e-manifest')
+  db = URI.parse(ENV['DATABASE_URL'])
 
   ActiveRecord::Base.establish_connection(
    :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
@@ -19,6 +22,7 @@ configure :production do
    :encoding => 'utf8'
   )
 end
+
 
 ### API Routes ###
 
@@ -40,7 +44,10 @@ end
 
 # Reset Database
 get '/reset' do
+  Manifest.delete_all
+  "Database has been reset!"
 end
+
 
 ### Data Models ###
 

@@ -20,7 +20,10 @@ Response:
 Response:
 <pre><code id="search-manifest-response"></code></pre>
 
+# Reset Database
 
+Warning: All data will be deleted and reset!
+<a href="javascript:resetDatabase();">Reset Database »</a>
 
 
 <script>
@@ -38,7 +41,7 @@ Response:
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
       res += "\n" + data;
-      $('#submit-manifest-response').text(res);
+      $('#submit-manifest-response').append(res);
     });
   }
   
@@ -54,6 +57,9 @@ Response:
     });
   }
   
+  function resetDatabase() {
+    $.get('/reset', function(data) {
+      alert(data);
     });
   }
   
