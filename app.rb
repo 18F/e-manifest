@@ -6,7 +6,7 @@ require 'sinatra/activerecord'
 ### Database Configuration ###
 
 configure :development do
- set :database, 'postgres://localhost/e-manifest'
+ set :database, 'postgres://localhost/e-manifest' unless ENV['DATABASE_URL'].present?
  set :show_exceptions, true
 end
 
@@ -30,7 +30,7 @@ end
 post '/api/manifest/submit/:manifest_tracking_number' do |mtn|
   @manifest_row = Manifest.new(content: request.body.read)
   @manifest_row.save
-  
+
   request.body.rewind
   "Manifest #{mtn} submitted!\n"\
   "Request body: #{request.body.read}\n"

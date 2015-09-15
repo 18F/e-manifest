@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20150909210014) do
   enable_extension "plpgsql"
 
   create_table "manifests", force: :cascade do |t|
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.json     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
