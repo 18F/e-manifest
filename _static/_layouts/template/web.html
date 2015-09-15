@@ -1,12 +1,50 @@
-<html>
+<html lang="en">
 <head>
   <title>{{ page.title }}</title>
+
+  <link rel="stylesheet" href="/assets/usa/css/google-fonts.css">
+  <link rel="stylesheet" href="/assets/usa/css/prism.css">
+  <link rel="stylesheet" href="/assets/usa/css/styleguide.css">
+  <link rel="stylesheet" href="/assets/usa/css/fixes.css">
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="/assets/usa/js/components.js"></script>
 </head>
 
-<body>
-  <h1>Web Interface</h1>
+<body class="visual-style">
+  <header class="usa-site-header" role="banner">
 
-  <div>
-    {{ content }}
+    <div class="usa-disclaimer">
+      <span class="usa-disclaimer-official">
+        <img class="usa-flag_icon" alt="US flag signifying that this is a United States Federal Government website" src="/assets/usa/img/us_flag_small.png">
+        An official website of the United States Government
+      </span>
+      <span class="usa-disclaimer-stage">This site is currently in discovery. <a href="https://18f.gsa.gov/dashboard/stages/#discovery">Learn more.</a></span>
+    </div>
+
+    <nav class="usa-site-navbar">
+      <a href="#" id="menu-btn">&#9776; MENU</a>
+      <div class="logo" id="logo">
+        <h1 style="max-width: 40rem; font-size: 4rem;">
+          <a href="/web" accesskey="1" title="Home" aria-label="Home">
+            EPA e-Manifest
+          </a>
+        </h1>
+      </div>
+      <ul class="usa-button-list usa-unstyled-list">
+        <li>
+          <a class="usa-button" href="/web/search.html">Search</a>
+        </li>
+        <li>
+          <a class="usa-button" href="/web">Industry</a>
+        </li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <div class="main-content" id="main-content" sytle="width: none;">
+    <div class="styleguide-content usa-content">
+      {{ content }}
+    </div>
   </div>
 </body>
