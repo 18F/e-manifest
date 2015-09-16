@@ -1,7 +1,7 @@
 class CreateManifests < ActiveRecord::Migration
  def self.up
    create_table :manifests do |t|
-     t.text :content
+     t.json :content
      t.timestamps null: false
    end
  end
