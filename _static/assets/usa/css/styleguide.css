@@ -2381,7 +2381,7 @@ fieldset {
   padding: 5rem 3rem 3rem 3rem;
   overflow: scroll;
   display: none;
-  /*z-index: -1; */
+  /*z-index: -1;*/
   }
   .lt-ie9 .sidenav {
     width: 25%; }

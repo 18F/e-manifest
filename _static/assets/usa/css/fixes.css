@@ -27,3 +27,10 @@ div.divider-bar {
   border-bottom: 3px black solid;
   padding-bottom: 30px;">
 }
+
+input.ng-invalid.ng-touched {
+  border: 3px solid #cd2026;
+  width: calc(100% + 1.5rem);
+}
+.usa-input-error label {
+  margin-top: 0; }
