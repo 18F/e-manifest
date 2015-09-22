@@ -11,9 +11,12 @@ Don't edit the `public/` folder directly! Jekyll will overwrite everything when 
 ## Running Locally
 
 1. Install Ruby
-2. Run `bundle install` to grab the required gems.
-3. Run `rake serve`. This will build the Jekyll site and start the Sinatra server.
-4. Go to `localhost:9292` and enjoy!
+2. Install Bundler (`gem install bundler`) 
+3. Install Postgres and make sure postgres/bin is on your $PATH.
+4. Create an `emanifest` database in your postgres instance.
+5. Run `bundle install` to grab the required gems.
+6. Run `rake serve`. This will build the Jekyll site and start the Sinatra server. If you have set a postgres username and password, try this: `DATABASE_URL=postgres://<postgres user>:<password>@localhost/emanifest rake serve` or configure the DATABASE_URL environment variable as you see fit.
+7. Go to `localhost:9292` and enjoy!
 
 ## Rake Tasks
 
