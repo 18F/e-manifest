@@ -2,7 +2,7 @@ require 'json'
 require 'savon'
 
 $register_sign_service_client = Savon.client(
-  :wsdl => "https://devngn.epacdxnode.net/cdx-register/services/RegisterSignService?wsdl"
+  :wsdl => "https://devngn.epacdxnode.net/cdx-register/services/RegisterSignService?wsdl",
   :pretty_print_xml => true,
   :log => true,
   :soap_version => 2,
