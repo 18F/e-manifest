@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'json'
 require 'sinatra/activerecord'
-
+require_relative 'cdx_client'
 
 ### Database Configuration ###
 
@@ -48,6 +48,10 @@ get '/reset' do
   "Database has been reset!"
 end
 
+post '/api/user/authenticate' do
+  authentication = JSON.parse(request.body.read)
+  authenticate_user authentication
+end
 
 ### Data Models ###
 

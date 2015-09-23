@@ -25,6 +25,14 @@ Response:
 Warning: All data will be deleted and reset!
 <a href="javascript:resetDatabase();">Reset Database »</a>
 
+# Authenticate User
+
+**POST** /api/user/authenticate
+Data: `{ "userId": username, "password": password  }`
+<a href="javascript:authenticateUser();">Run »</a>
+
+Response:
+<pre><code id="authenticate-user-response"></code></pre>
 
 <script>
   
@@ -62,5 +70,19 @@ Warning: All data will be deleted and reset!
       alert(data);
     });
   }
+
+  function authenticateUser() {
+    $.ajax({
+      type: 'POST',
+      url: '/api/user/authenticate',
+      data: '{ "userId": "fail", "password": "fail" }'
+    })
+    .done(function(data, textStatus, xhr) {
+      var res = xhr.status + " " + xhr.statusText;
+      res += "\n" + prettyJson(data);
+      $('#authenticate-user-response').text(res);
+    });
+  }
   
+
 </script>

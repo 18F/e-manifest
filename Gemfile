@@ -9,3 +9,5 @@ gem 'pry'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
+
+gem 'savon', '~>2.0'

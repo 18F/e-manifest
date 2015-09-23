@@ -5,3 +5,6 @@ Gemfile.lock
 
 # Ignore Cloud Foundry files
 cf-ssh.yml
+
+# Ignore emacs autosave
+**/*~
