@@ -7,6 +7,12 @@
     var self = $scope.industry = {};
 
     self.name = 'Hello World!!';
+
+    self.data = {};
+
+    self.submit = function() {
+      console.log(self.data);
+    };
   }]);
 
 

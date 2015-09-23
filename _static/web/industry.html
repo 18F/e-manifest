@@ -2,611 +2,612 @@
 title: Welcome to e-Manifest Industry
 layout: template/web
 ---
+<div ng-controller="IndustryController">
+  <div> <!-- Generator Section -->
+    <h2 class="usa-heading">Generator</h1>
 
-<div> <!-- Generator Section -->
-  <h2 class="usa-heading">Generator</h1>
+    <label for="generator_us_epa_id_number">U.S. EPA ID Number (1)</label>
+    <input id="generator_us_epa_id_number" ng-model="industry.data.generator_us_epa_id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
 
-  <label for="generator_us_epa_id_number">U.S. EPA ID Number (1)</label>
-  <input id="generator_us_epa_id_number" ng-model="generator_us_epa_id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
+    <label for="generator_emergency_response_phone">Emergency Response Phone (3)</label>
+    <input id="generator_emergency_response_phone" ng-model="industry.data.generator_emergency_response_phone" type="text" class="medium-input" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/">
 
-  <label for="generator_emergency_response_phone">Emergency Response Phone (3)</label>
-  <input id="generator_emergency_response_phone" ng-model="generator_emergency_response_phone" type="text" class="medium-input" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/">
+    <label for="generator_manifest_tracking_number">Manifest Tracking Number (4)</label>
+    <input id="generator_manifest_tracking_number" ng-model="industry.data.generator_manifest_tracking_number" type="text" class="medium-input" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
 
-  <label for="generator_manifest_tracking_number">Manifest Tracking Number (4)</label>
-  <input id="generator_manifest_tracking_number" ng-model="generator_manifest_tracking_number" type="text" class="medium-input" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
-
-  <input id="generator_no_us_epa_id_number" type="checkbox" ng-model="generator_no_us_epa_id_number" tabindex="0">
-  <label for="generator_no_us_epa_id_number">No U.S. EPI ID Number</label>
-</div>
-
-<div> <!-- Mailing Address Section -->
-  <h3 class="usa-heading">Mailing Address</h3>
-
-  <label for="generator_name">Name (5)</label>
-  <input id="generator_name" ng-model="generator_name" type="text">
-
-  <label for="generator_address_1">Address 1 (5)</label>
-  <input id="generator_address_1" ng-model="generator_address_1" type="text">
-
-  <label for="generator_address_2">Address 2 (5)</label>
-  <input id="generator_address_2" ng-model="generator_address_2" type="text">
-
-  <label for="generator_address_city">City 2 (5)</label>
-  <input id="generator_address_city" ng-model="generator_address_city" type="text">
-
-  <label for="generator_address_state">State 2 (5)</label>
-  <select ng-model="generator_address_state" id="generator_address_state" class="medium-input">
-    <option value="AL">Alabama</option>
-  	<option value="AK">Alaska</option>
-  	<option value="AZ">Arizona</option>
-  	<option value="AR">Arkansas</option>
-  	<option value="CA">California</option>
-  	<option value="CO">Colorado</option>
-  	<option value="CT">Connecticut</option>
-  	<option value="DE">Delaware</option>
-  	<option value="DC">District Of Columbia</option>
-  	<option value="FL">Florida</option>
-  	<option value="GA">Georgia</option>
-  	<option value="HI">Hawaii</option>
-  	<option value="ID">Idaho</option>
-  	<option value="IL">Illinois</option>
-  	<option value="IN">Indiana</option>
-  	<option value="IA">Iowa</option>
-  	<option value="KS">Kansas</option>
-  	<option value="KY">Kentucky</option>
-  	<option value="LA">Louisiana</option>
-  	<option value="ME">Maine</option>
-  	<option value="MD">Maryland</option>
-  	<option value="MA">Massachusetts</option>
-  	<option value="MI">Michigan</option>
-  	<option value="MN">Minnesota</option>
-  	<option value="MS">Mississippi</option>
-  	<option value="MO">Missouri</option>
-  	<option value="MT">Montana</option>
-  	<option value="NE">Nebraska</option>
-  	<option value="NV">Nevada</option>
-  	<option value="NH">New Hampshire</option>
-  	<option value="NJ">New Jersey</option>
-  	<option value="NM">New Mexico</option>
-  	<option value="NY">New York</option>
-  	<option value="NC">North Carolina</option>
-  	<option value="ND">North Dakota</option>
-  	<option value="OH">Ohio</option>
-  	<option value="OK">Oklahoma</option>
-  	<option value="OR">Oregon</option>
-  	<option value="PA">Pennsylvania</option>
-  	<option value="RI">Rhode Island</option>
-  	<option value="SC">South Carolina</option>
-  	<option value="SD">South Dakota</option>
-  	<option value="TN">Tennessee</option>
-  	<option value="TX">Texas</option>
-  	<option value="UT">Utah</option>
-  	<option value="VT">Vermont</option>
-  	<option value="VA">Virginia</option>
-  	<option value="WA">Washington</option>
-  	<option value="WV">West Virginia</option>
-  	<option value="WI">Wisconsin</option>
-  	<option value="WY">Wyoming</option>
-  </select>
-
-  <label for="generator_address_zip_code">Zip code (5)</label>
-  <input id="generator_address_zip_code" ng-model="generator_address_zip_code" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{5,10}$/">
-
-  <label for="generator_phone_number">Phone number (5)</label>
-  <input id="generator_phone_number" ng-model="generator_phone_number" class="medium-input" type="text" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/">
-
-  <ul class="usa-unstyled-list">
-    <li>
-      <input id="generator_site_address_same_as_mailing_address" type="radio" checked="true" ng-model="generator_site_address_same_as_mailing_address" value="yes" tabindex="0">
-      <label for="generator_site_address_same_as_mailing_address">Generator site address is same as mailing address</label>
-    </li>
-    <li>
-      <input id="generator_site_address_different_as_mailing_address" type="radio" ng-model="generator_site_address_same_as_mailing_address" value="no" tabindex="0">
-      <label for="generator_site_address_different_as_mailing_address">Generator site address is different as mailing address</label>
-    </li>
-  </ul>
-</div>
-
-<div> <!-- Transporter Section -->
-  <h3 class="usa-heading">Transporter</h3>
-
-  <div class="preview"> <!-- Trasporter Entry SubSection -->
-    <fieldset>
-      <legend>Transporter 1</legend>
-
-      <label for="transporter_company_name_1">Company Name (6)</label>
-      <input id="transporter_company_name_1" ng-model="transporter_company_name" type="text">
-
-      <label for="transporter_us_epa_id_number_1">U.S. EPA ID Number (6)</label>
-      <input id="transporter_us_epa_id_number_1" ng-model="transporter_us_epa_id_number_1" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
-    </fieldset>
+    <input id="generator_no_us_epa_id_number" type="checkbox" ng-model="industry.data.generator_no_us_epa_id_number" tabindex="0">
+    <label for="generator_no_us_epa_id_number">No U.S. EPI ID Number</label>
   </div>
 
-  <div class="preview">
-    <a href="#">Add an additional transporter</a>
-  </div>
-</div>
+  <div> <!-- Mailing Address Section -->
+    <h3 class="usa-heading">Mailing Address</h3>
 
-<div> <!-- Designated Facility Section -->
-  <h3 class="usa-heading">Designated Facility</h3>
+    <label for="generator_name">Name (5)</label>
+    <input id="generator_name" ng-model="industry.data.generator_name" type="text"
 
-  <label for="designated_facility_name">Name (8)</label>
-  <input id="designated_facility_name" ng-model="designated_facility_name" type="text">
+    <label for="generator_address_1">Address 1 (5)</label>
+    <input id="generator_address_1" ng-model="industry.data.generator_address_1" type="text">
 
-  <label for="designated_facility_address_1">Address 1 (8)</label>
-  <input id="designated_facility_address_1" ng-model="designated_facility_address_1" type="text">
+    <label for="generator_address_2">Address 2 (5)</label>
+    <input id="generator_address_2" ng-model="industry.data.generator_address_2" type="text">
 
-  <label for="designated_facility_address_2">Address 2 (8)</label>
-  <input id="designated_facility_address_2" ng-model="designated_facility_address_2" type="text">
+    <label for="generator_address_city">City 2 (5)</label>
+    <input id="generator_address_city" ng-model="industry.data.generator_address_city" type="text">
 
-  <label for="designated_facility_address_city">City 2 (8)</label>
-  <input id="designated_facility_address_city" ng-model="designated_facility_address_city" type="text">
+    <label for="generator_address_state">State 2 (5)</label>
+    <select ng-model="industry.data.generator_address_state" id="generator_address_state" class="medium-input">
+      <option value="AL">Alabama</option>
+    	<option value="AK">Alaska</option>
+    	<option value="AZ">Arizona</option>
+    	<option value="AR">Arkansas</option>
+    	<option value="CA">California</option>
+    	<option value="CO">Colorado</option>
+    	<option value="CT">Connecticut</option>
+    	<option value="DE">Delaware</option>
+    	<option value="DC">District Of Columbia</option>
+    	<option value="FL">Florida</option>
+    	<option value="GA">Georgia</option>
+    	<option value="HI">Hawaii</option>
+    	<option value="ID">Idaho</option>
+    	<option value="IL">Illinois</option>
+    	<option value="IN">Indiana</option>
+    	<option value="IA">Iowa</option>
+    	<option value="KS">Kansas</option>
+    	<option value="KY">Kentucky</option>
+    	<option value="LA">Louisiana</option>
+    	<option value="ME">Maine</option>
+    	<option value="MD">Maryland</option>
+    	<option value="MA">Massachusetts</option>
+    	<option value="MI">Michigan</option>
+    	<option value="MN">Minnesota</option>
+    	<option value="MS">Mississippi</option>
+    	<option value="MO">Missouri</option>
+    	<option value="MT">Montana</option>
+    	<option value="NE">Nebraska</option>
+    	<option value="NV">Nevada</option>
+    	<option value="NH">New Hampshire</option>
+    	<option value="NJ">New Jersey</option>
+    	<option value="NM">New Mexico</option>
+    	<option value="NY">New York</option>
+    	<option value="NC">North Carolina</option>
+    	<option value="ND">North Dakota</option>
+    	<option value="OH">Ohio</option>
+    	<option value="OK">Oklahoma</option>
+    	<option value="OR">Oregon</option>
+    	<option value="PA">Pennsylvania</option>
+    	<option value="RI">Rhode Island</option>
+    	<option value="SC">South Carolina</option>
+    	<option value="SD">South Dakota</option>
+    	<option value="TN">Tennessee</option>
+    	<option value="TX">Texas</option>
+    	<option value="UT">Utah</option>
+    	<option value="VT">Vermont</option>
+    	<option value="VA">Virginia</option>
+    	<option value="WA">Washington</option>
+    	<option value="WV">West Virginia</option>
+    	<option value="WI">Wisconsin</option>
+    	<option value="WY">Wyoming</option>
+    </select>
 
-  <label for="designated_facility_address_state">State 2 (8)</label>
-  <select ng-model="designated_facility_address_state" id="designated_facility_address_state" class="medium-input">
-    <option value="AL">Alabama</option>
-  	<option value="AK">Alaska</option>
-  	<option value="AZ">Arizona</option>
-  	<option value="AR">Arkansas</option>
-  	<option value="CA">California</option>
-  	<option value="CO">Colorado</option>
-  	<option value="CT">Connecticut</option>
-  	<option value="DE">Delaware</option>
-  	<option value="DC">District Of Columbia</option>
-  	<option value="FL">Florida</option>
-  	<option value="GA">Georgia</option>
-  	<option value="HI">Hawaii</option>
-  	<option value="ID">Idaho</option>
-  	<option value="IL">Illinois</option>
-  	<option value="IN">Indiana</option>
-  	<option value="IA">Iowa</option>
-  	<option value="KS">Kansas</option>
-  	<option value="KY">Kentucky</option>
-  	<option value="LA">Louisiana</option>
-  	<option value="ME">Maine</option>
-  	<option value="MD">Maryland</option>
-  	<option value="MA">Massachusetts</option>
-  	<option value="MI">Michigan</option>
-  	<option value="MN">Minnesota</option>
-  	<option value="MS">Mississippi</option>
-  	<option value="MO">Missouri</option>
-  	<option value="MT">Montana</option>
-  	<option value="NE">Nebraska</option>
-  	<option value="NV">Nevada</option>
-  	<option value="NH">New Hampshire</option>
-  	<option value="NJ">New Jersey</option>
-  	<option value="NM">New Mexico</option>
-  	<option value="NY">New York</option>
-  	<option value="NC">North Carolina</option>
-  	<option value="ND">North Dakota</option>
-  	<option value="OH">Ohio</option>
-  	<option value="OK">Oklahoma</option>
-  	<option value="OR">Oregon</option>
-  	<option value="PA">Pennsylvania</option>
-  	<option value="RI">Rhode Island</option>
-  	<option value="SC">South Carolina</option>
-  	<option value="SD">South Dakota</option>
-  	<option value="TN">Tennessee</option>
-  	<option value="TX">Texas</option>
-  	<option value="UT">Utah</option>
-  	<option value="VT">Vermont</option>
-  	<option value="VA">Virginia</option>
-  	<option value="WA">Washington</option>
-  	<option value="WV">West Virginia</option>
-  	<option value="WI">Wisconsin</option>
-  	<option value="WY">Wyoming</option>
-  </select>
+    <label for="generator_address_zip_code">Zip code (5)</label>
+    <input id="generator_address_zip_code" ng-model="industry.data.generator_address_zip_code" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{5,10}$/">
 
-  <label for="designated_facility_address_zip_code">Zip code (8)</label>
-  <input id="designated_facility_address_zip_code" ng-model="designated_facility_address_zip_code" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{5,10}$/">
-
-  <label for="designated_facility_phone_number">Phone number (8)</label>
-  <input id="designated_facility_phone_number" ng-model="designated_facility_phone_number" class="medium-input" type="text" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/">
-
-  <label for="designated_facility_us_epa_id_number">U.S. EPA ID Number (8)</label>
-  <input id="designated_facility_us_epa_id_number" ng-model="designated_facility_us_epa_id_number" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
-</div>
-
-<div> <!-- Waste Section -->
-  <h3 class="usa-heading">Waste</h3>
-
-  <ul class="usa-unstyled-list">
-    <li>
-      <input id="waste_non_hazardous_material_present" ng-model="waste_non_hazardous_material_present" type="radio" checked="true" value="yes" tabindex="0">
-      <label for="waste_non_hazardous_material_present">There are non-hazardous material present in this shipment</label>
-    </li>
-    <li>
-      <input id="waste_only_hazardous_material_present" ng-model="waste_non_hazardous_material_present" type="radio" value="no" tabindex="0">
-      <label for="waste_only_hazardous_material_present">This shipment is only hazardous material</label>
-    </li>
-  </ul>
-
-  <div class="preview"> <!-- Waste Entry SubSection -->
-    <fieldset>
-      <legend>Manifest Item 1</legend>
-
-      <label>HM (9a)</label>
-      <ul class="usa-unstyled-list">
-        <li>
-          <input id="maifest_item_hazardous_material_1" ng-model="maifest_item_hazardous_material_1" type="radio" checked="true" value="yes" tabindex="0">
-          <label for="maifest_item_hazardous_material_1">Hazardous material</label>
-        </li>
-        <li>
-          <input id="maifest_item_non_hazardous_material_1" ng-model="maifest_item_hazardous_material_1" type="radio" value="no" tabindex="0">
-          <label for="maifest_item_non_hazardous_material_1">Non-hazardous material</label>
-        </li>
-      </ul>
-
-      <h4>U.S. DOT Description</h4>
-
-      <label for="manifest_item_proper_shipping_name_1">Proper Shipping Name</label>
-      <input id="manifest_item_proper_shipping_name_1" ng-model="manifest_item_proper_shipping_name_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,225}$/">
-
-      <label for="manifest_item_proper_hazard_class">Hazard Class</label>
-      <input id="manifest_item_proper_hazard_class" ng-model="manifest_item_proper_hazard_class" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
-
-      <label for="manifest_item_id_number_1">ID Number</label>
-      <input id="manifest_item_id_number_1" ng-model="manifest_item_id_number_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,6}$/">
-
-      <label for="manifest_item_packing_group_1">
-        Packing Group
-        <span class="usa-additional_text">Optional</span>
-      </label>
-      <input id="manifest_item_packing_group_1" ng-model="manifest_item_packing_group_1" type="text">
-
-      <label for="manifest_item_number_of_containers_1">Number of Containers (10)</label>
-      <input id="manifest_item_number_of_containers_1" ng-model="manifest_item_number_of_containers_1" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
-
-      <label for="manifest_item_container_type_1">Container Type (10)</label>
-      <select ng-model="manifest_item_container_type_1" id="manifest_item_container_type_1" class="medium-input">
-        <option value="BA">BA (Burlap)</option>
-        <option value="CR">CR (Crate)</option>
-      </select>
-
-      <label for="manifest_item_total_quantity_1">Total Quantity (11)</label>
-      <input id="manifest_item_total_quantity_1" ng-model="manifest_item_total_quantity_1" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
-
-      <div>
-        <div class="usa-input-grid usa-input-grid-small">
-          <label for="manifest_item_unit_wt_vol_1">Unit Wt./Vol. (12)</label>
-          <input id="manifest_item_unit_wt_vol_1" ng-model="manifest_item_unit_wt_vol_1" type="text">
-        </div>
-
-        <div class="usa-input-grid usa-input-grid-small">
-          <label for="manifest_item_unit_of_measure_1">Unit of Measure (12)</label>
-          <select ng-model="manifest_item_unit_of_measure_1" id="manifest_item_unit_of_measure_1" class="small-input">
-            <option value="G">G (Gallon)</option>
-            <option value="Q">Q (Quart)</option>
-          </select>
-        </div>
-      </div>
-
-      <div> <!-- Waste Entry Code SubSub Section -->
-        <h4>U.S. EPA Federal Waste Codes</h4>
-
-        <label for="manifest_item_epa_waste_code_1">Federal Waste Codes (13)</label>
-        <input id="manifest_item_epa_waste_code_1" ng-model="manifest_item_epa_waste_code_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
-
-        <h4>State/Other Waste Codes</h4>
-
-        <label for="manifest_item_state_waste_code_1_1">State/Other Waste Code (13)</label>
-        <input id="manifest_item_state_waste_code_1_1" ng-model="manifest_item_state_waste_code_1_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
-      </div>
-
-      <br />
-
-      <div>
-        <a href="#">Add additional state/other waste code</a>
-      </div>
-    </fieldset>
-  </div>
-
-  <div class="preview">
-    <a href="#">Add an additional waste entry</a>
-  </div>
-
-  <div> <!-- Waste Details SubSection -->
-    <label for="waste_handeling_instructions">Special Handeling Instructions and Additional Information (14)</label>
-    <textarea id="waste_handeling_instructions" ng-model="waste_handeling_instructions"></textarea>
-
-    <label for="waste_pcb_description">PCB Description (14)</label>
-    <textarea id="waste_pcb_description" ng-model="waste_pcb_description"></textarea>
-
-    <label for="waste_generator_signatory">Name of Generator/Offeror Signatory (15)</label>
-    <input id="waste_generator_signatory" ng-model="waste_generator_signatory" type="text">
-  </div>
-
-  <div> <!-- Waste Signature SubSection -->
-    <h4>Date of Signature (15)</h4>
-
-    <div class="usa-date-of-birth" style="padding-top: 10px;">
-      <div class="usa-datefield usa-form-group usa-form-group-month">
-        <label for="waste_generator_signatory_date_month">Month</label>
-        <input class="usa-form-control" id="waste_generator_signatory_date_month" ng-model="waste_generator_signatory_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
-      </div>
-      <div class="usa-datefield usa-form-group usa-form-group-day">
-        <label for="waste_generator_signatory_date_day">Day</label>
-        <input class="usa-form-control" id="waste_generator_signatory_date_day" ng-model="waste_generator_signatory_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
-      </div>
-      <div class="usa-datefield usa-form-group usa-form-group-year">
-        <label for="waste_generator_signatory_date_year">Year</label>
-        <input class="usa-form-control" id="waste_generator_signatory_date_year" ng-model="waste_generator_signatory_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="divider-bar" style="padding-top: 100px;">
-</div>
-
-<div> <!-- International Section -->
-  <h2 class="usa-heading">International</h1>
-
-  <ul class="usa-unstyled-list">
-    <li>
-      <input id="international_shipment_no" ng-model="international_shipment" type="radio" checked="true" value="no" tabindex="0">
-      <label for="international_shipment_no">Domestic Shipment</label>
-    </li>
-    <li>
-      <input id="international_shipment_yes" ng-model="international_shipment" type="radio" value="yes" tabindex="0">
-      <label for="international_shipment_yes">International Shipment</label>
-    </li>
-  </ul>
-
-  <div class="preview"> <!-- International Shipment Details SubSection -->
+    <label for="generator_phone_number">Phone number (5)</label>
+    <input id="generator_phone_number" ng-model="industry.data.generator_phone_number" class="medium-input" type="text" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/">
 
     <ul class="usa-unstyled-list">
       <li>
-        <input id="international_shipment_export" ng-model="international_export_import" type="radio" checked="true" value="no" tabindex="0">
-        <label for="international_shipment_export">Export from U.S.</label>
+        <input id="generator_site_address_same_as_mailing_address" type="radio" checked="true" ng-model="industry.data.generator_site_address_same_as_mailing_address" value="yes" tabindex="0">
+        <label for="generator_site_address_same_as_mailing_address">Generator site address is same as mailing address</label>
       </li>
       <li>
-        <input id="international_shipment_import" ng-model="international_export_import" type="radio" value="yes" tabindex="0">
-        <label for="international_shipment_import">Import to U.S.</label>
+        <input id="generator_site_address_different_as_mailing_address" type="radio" ng-model="industry.data.generator_site_address_same_as_mailing_address" value="no" tabindex="0">
+        <label for="generator_site_address_different_as_mailing_address">Generator site address is different as mailing address</label>
+      </li>
+    </ul>
+  </div>
+
+  <div> <!-- Transporter Section -->
+    <h3 class="usa-heading">Transporter</h3>
+
+    <div class="preview"> <!-- Trasporter Entry SubSection -->
+      <fieldset>
+        <legend>Transporter 1</legend>
+
+        <label for="transporter_company_name_1">Company Name (6)</label>
+        <input id="transporter_company_name_1" ng-model="industry.data.transporter_company_name" type="text">
+
+        <label for="transporter_us_epa_id_number_1">U.S. EPA ID Number (6)</label>
+        <input id="transporter_us_epa_id_number_1" ng-model="industry.data.transporter_us_epa_id_number_1" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
+      </fieldset>
+    </div>
+
+    <div class="preview">
+      <a href="#">Add an additional transporter</a>
+    </div>
+  </div>
+
+  <div> <!-- Designated Facility Section -->
+    <h3 class="usa-heading">Designated Facility</h3>
+
+    <label for="designated_facility_name">Name (8)</label>
+    <input id="designated_facility_name" ng-model="industry.data.designated_facility_name" type="text">
+
+    <label for="designated_facility_address_1">Address 1 (8)</label>
+    <input id="designated_facility_address_1" ng-model="industry.data.designated_facility_address_1" type="text">
+
+    <label for="designated_facility_address_2">Address 2 (8)</label>
+    <input id="designated_facility_address_2" ng-model="industry.data.designated_facility_address_2" type="text">
+
+    <label for="designated_facility_address_city">City 2 (8)</label>
+    <input id="designated_facility_address_city" ng-model="industry.data.designated_facility_address_city" type="text">
+
+    <label for="designated_facility_address_state">State 2 (8)</label>
+    <select ng-model="industry.data.designated_facility_address_state" id="designated_facility_address_state" class="medium-input">
+      <option value="AL">Alabama</option>
+    	<option value="AK">Alaska</option>
+    	<option value="AZ">Arizona</option>
+    	<option value="AR">Arkansas</option>
+    	<option value="CA">California</option>
+    	<option value="CO">Colorado</option>
+    	<option value="CT">Connecticut</option>
+    	<option value="DE">Delaware</option>
+    	<option value="DC">District Of Columbia</option>
+    	<option value="FL">Florida</option>
+    	<option value="GA">Georgia</option>
+    	<option value="HI">Hawaii</option>
+    	<option value="ID">Idaho</option>
+    	<option value="IL">Illinois</option>
+    	<option value="IN">Indiana</option>
+    	<option value="IA">Iowa</option>
+    	<option value="KS">Kansas</option>
+    	<option value="KY">Kentucky</option>
+    	<option value="LA">Louisiana</option>
+    	<option value="ME">Maine</option>
+    	<option value="MD">Maryland</option>
+    	<option value="MA">Massachusetts</option>
+    	<option value="MI">Michigan</option>
+    	<option value="MN">Minnesota</option>
+    	<option value="MS">Mississippi</option>
+    	<option value="MO">Missouri</option>
+    	<option value="MT">Montana</option>
+    	<option value="NE">Nebraska</option>
+    	<option value="NV">Nevada</option>
+    	<option value="NH">New Hampshire</option>
+    	<option value="NJ">New Jersey</option>
+    	<option value="NM">New Mexico</option>
+    	<option value="NY">New York</option>
+    	<option value="NC">North Carolina</option>
+    	<option value="ND">North Dakota</option>
+    	<option value="OH">Ohio</option>
+    	<option value="OK">Oklahoma</option>
+    	<option value="OR">Oregon</option>
+    	<option value="PA">Pennsylvania</option>
+    	<option value="RI">Rhode Island</option>
+    	<option value="SC">South Carolina</option>
+    	<option value="SD">South Dakota</option>
+    	<option value="TN">Tennessee</option>
+    	<option value="TX">Texas</option>
+    	<option value="UT">Utah</option>
+    	<option value="VT">Vermont</option>
+    	<option value="VA">Virginia</option>
+    	<option value="WA">Washington</option>
+    	<option value="WV">West Virginia</option>
+    	<option value="WI">Wisconsin</option>
+    	<option value="WY">Wyoming</option>
+    </select>
+
+    <label for="designated_facility_address_zip_code">Zip code (8)</label>
+    <input id="designated_facility_address_zip_code" ng-model="industry.data.designated_facility_address_zip_code" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{5,10}$/">
+
+    <label for="designated_facility_phone_number">Phone number (8)</label>
+    <input id="designated_facility_phone_number" ng-model="industry.data.designated_facility_phone_number" class="medium-input" type="text" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/">
+
+    <label for="designated_facility_us_epa_id_number">U.S. EPA ID Number (8)</label>
+    <input id="designated_facility_us_epa_id_number" ng-model="industry.data.designated_facility_us_epa_id_number" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
+  </div>
+
+  <div> <!-- Waste Section -->
+    <h3 class="usa-heading">Waste</h3>
+
+    <ul class="usa-unstyled-list">
+      <li>
+        <input id="waste_non_hazardous_material_present" ng-model="industry.data.waste_non_hazardous_material_present" type="radio" checked="true" value="yes" tabindex="0">
+        <label for="waste_non_hazardous_material_present">There are non-hazardous material present in this shipment</label>
+      </li>
+      <li>
+        <input id="waste_only_hazardous_material_present" ng-model="industry.data.waste_non_hazardous_material_present" type="radio" value="no" tabindex="0">
+        <label for="waste_only_hazardous_material_present">This shipment is only hazardous material</label>
       </li>
     </ul>
 
-    <fieldset>
-      <label for="international_shipment_port_of_entry">Port of Entry (16)</label>
-      <input id="international_shipment_port_of_entry" ng-model="international_shipment_port_of_entry" type="text">
+    <div class="preview"> <!-- Waste Entry SubSection -->
+      <fieldset>
+        <legend>Manifest Item 1</legend>
 
-      <div> <!-- International Shipment Date SubSection -->
-        <h4>Date Leaving U.S. (16)</h4>
-
-        <div class="usa-date-of-birth" style="padding-top: 10px;">
-          <div class="usa-datefield usa-form-group usa-form-group-month">
-            <label for="international_shipment_date_leaving_us_month">Month</label>
-            <input class="usa-form-control" id="international_shipment_date_leaving_us_month" ng-model="international_shipment_date_leaving_us_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
-          </div>
-          <div class="usa-datefield usa-form-group usa-form-group-day">
-            <label for="international_shipment_date_leaving_us_day">Day</label>
-            <input class="usa-form-control" id="international_shipment_date_leaving_us_day" ng-model="international_shipment_date_leaving_us_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
-          </div>
-          <div class="usa-datefield usa-form-group usa-form-group-year">
-            <label for="international_shipment_date_leaving_us_year">Year</label>
-            <input class="usa-form-control" id="international_shipment_date_leaving_us_year" ng-model="international_shipment_date_leaving_us_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
-          </div>
-        </div>
-      </div>
-    </fieldset>
-  </div>
-</div>
-
-<div class="divider-bar">
-</div>
-
-<div> <!-- Transporter Signature Section -->
-  <h2 class="usa-heading">Transporter</h1>
-
-  <div class="preview">
-    <fieldset>
-      <legend>Transporter 1</legend>
-
-      <label for="transporter_signatory_name_1">Name of signatory (17)</label>
-      <input id="transporter_signatory_name_1" ng-model="transporter_signatory_name_1" type="text">
-
-      <div> <!-- International Shipment Date SubSection -->
-        <h4>Date of Signature (17)</h4>
-
-        <div class="usa-date-of-birth" style="padding-top: 10px;">
-          <div class="usa-datefield usa-form-group usa-form-group-month">
-            <label for="transporter_signatory_date_month_1">Month</label>
-            <input class="usa-form-control" id="transporter_signatory_date_month_1" ng-model="transporter_signatory_date_month_1" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
-          </div>
-          <div class="usa-datefield usa-form-group usa-form-group-day">
-            <label for="transporter_signatory_date_day_1">Day</label>
-            <input class="usa-form-control" id="transporter_signatory_date_day_1" ng-model="transporter_signatory_date_day_1" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
-          </div>
-          <div class="usa-datefield usa-form-group usa-form-group-year">
-            <label for="transporter_signatory_date_year_1">Year</label>
-            <input class="usa-form-control" id="transporter_signatory_date_year_1" ng-model="transporter_signatory_date_year_1" pattern="[0-9]{4}" type="text" value="" maxlength="4">
-          </div>
-        </div>
-      </div>
-    </fieldset>
-  </div>
-</div>
-
-<div class="divider-bar">
-</div>
-
-<div> <!-- Designated Facility Discrepancy Section -->
-  <h2 class="usa-heading">Designated Facility</h1>
-
-  <input id="designated_facility_discrepancy" type="checkbox" ng-model="designated_facility_discrepancy">
-  <label for="designated_facility_discrepancy">Discrepancy</label>
-
-  <div class="preview"> <!-- Designated Facility Discrepancy Details SubSection -->
-    <fieldset>
-      <label for="designated_facility_discrepancy_description">Discrepancy Description (18)</label>
-      <textarea id="designated_facility_discrepancy_description" ng-model="designated_facility_discrepancy_description"></textarea>
-
-      <div>
-        <h4>Discrepancy Indication (18a)</h4>
-
+        <label>HM (9a)</label>
         <ul class="usa-unstyled-list">
           <li>
-            <input id="designated_facility_discrepancy_category_quantity" type="checkbox" ng-model="designated_facility_discrepancy_category_quantity">
-            <label for="designated_facility_discrepancy_category_quantity">Quantity</label>
+            <input id="maifest_item_hazardous_material_1" ng-model="industry.data.maifest_item_hazardous_material_1" type="radio" checked="true" value="yes" tabindex="0">
+            <label for="maifest_item_hazardous_material_1">Hazardous material</label>
           </li>
           <li>
-            <input id="designated_facility_discrepancy_category_type" type="checkbox" ng-model="designated_facility_discrepancy_category_type">
-            <label for="designated_facility_discrepancy_category_type">Type</label>
-          </li>
-          <li>
-            <input id="designated_facility_discrepancy_category_residue" type="checkbox" ng-model="designated_facility_discrepancy_category_residue">
-            <label for="designated_facility_discrepancy_category_residue">Residue</label>
+            <input id="maifest_item_non_hazardous_material_1" ng-model="industry.data.maifest_item_hazardous_material_1" type="radio" value="no" tabindex="0">
+            <label for="maifest_item_non_hazardous_material_1">Non-hazardous material</label>
           </li>
         </ul>
 
-        <ul class="usa-unstyled-list">
-          <li>
-            <input id="designated_facility_discrepancy_no_rejection" type="radio" checked="true" ng-model="designated_facility_discrepancy_type" value="no" tabindex="0">
-            <label for="designated_facility_discrepancy_no_rejection">No Rejection</label>
-          </li>
-          <li>
-            <input id="designated_facility_discrepancy_partial_rejection" type="radio" ng-model="designated_facility_discrepancy_type" value="partial" tabindex="0">
-            <label for="designated_facility_discrepancy_partial_rejection">Partial Rejection</label>
-          </li>
-          <li>
-            <input id="designated_facility_discrepancy_full_rejection" type="radio" ng-model="designated_facility_discrepancy_type" value="full" tabindex="0">
-            <label for="designated_facility_discrepancy_full_rejection">Full Rejection</label>
-          </li>
-        </ul>
+        <h4>U.S. DOT Description</h4>
 
-        <label for="designated_facility_discrepancy_name">Name (18b)</label>
-        <input id="designated_facility_discrepancy_name" ng-model="designated_facility_discrepancy_name" type="text">
+        <label for="manifest_item_proper_shipping_name_1">Proper Shipping Name</label>
+        <input id="manifest_item_proper_shipping_name_1" ng-model="industry.data.manifest_item_proper_shipping_name_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,225}$/">
 
-        <label for="designated_facility_discrepancy_address_1">Address 1 (18b)</label>
-        <input id="designated_facility_discrepancy_address_1" ng-model="designated_facility_discrepancy_address_1" type="text">
+        <label for="manifest_item_proper_hazard_class">Hazard Class</label>
+        <input id="manifest_item_proper_hazard_class" ng-model="industry.data.manifest_item_proper_hazard_class" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
 
-        <label for="designated_facility_discrepancy_address_2">Address 2 (18b)</label>
-        <input id="designated_facility_discrepancy_address_2" ng-model="designated_facility_discrepancy_address_2" type="text">
+        <label for="manifest_item_id_number_1">ID Number</label>
+        <input id="manifest_item_id_number_1" ng-model="industry.data.manifest_item_id_number_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,6}$/">
 
-        <label for="designated_facility_discrepancy_address_city">City 2 (18b)</label>
-        <input id="designated_facility_discrepancy_address_city" ng-model="designated_facility_discrepancy_address_city" type="text">
+        <label for="manifest_item_packing_group_1">
+          Packing Group
+          <span class="usa-additional_text">Optional</span>
+        </label>
+        <input id="manifest_item_packing_group_1" ng-model="industry.data.manifest_item_packing_group_1" type="text">
 
-        <label for="designated_facility_discrepancy_address_state">State 2 (18b)</label>
-        <select ng-model="designated_facility_discrepancy_address_state" id="designated_facility_discrepancy_address_state" class="medium-input">
-          <option value="AL">Alabama</option>
-          <option value="AK">Alaska</option>
-          <option value="AZ">Arizona</option>
-          <option value="AR">Arkansas</option>
-          <option value="CA">California</option>
-          <option value="CO">Colorado</option>
-          <option value="CT">Connecticut</option>
-          <option value="DE">Delaware</option>
-          <option value="DC">District Of Columbia</option>
-          <option value="FL">Florida</option>
-          <option value="GA">Georgia</option>
-          <option value="HI">Hawaii</option>
-          <option value="ID">Idaho</option>
-          <option value="IL">Illinois</option>
-          <option value="IN">Indiana</option>
-          <option value="IA">Iowa</option>
-          <option value="KS">Kansas</option>
-          <option value="KY">Kentucky</option>
-          <option value="LA">Louisiana</option>
-          <option value="ME">Maine</option>
-          <option value="MD">Maryland</option>
-          <option value="MA">Massachusetts</option>
-          <option value="MI">Michigan</option>
-          <option value="MN">Minnesota</option>
-          <option value="MS">Mississippi</option>
-          <option value="MO">Missouri</option>
-          <option value="MT">Montana</option>
-          <option value="NE">Nebraska</option>
-          <option value="NV">Nevada</option>
-          <option value="NH">New Hampshire</option>
-          <option value="NJ">New Jersey</option>
-          <option value="NM">New Mexico</option>
-          <option value="NY">New York</option>
-          <option value="NC">North Carolina</option>
-          <option value="ND">North Dakota</option>
-          <option value="OH">Ohio</option>
-          <option value="OK">Oklahoma</option>
-          <option value="OR">Oregon</option>
-          <option value="PA">Pennsylvania</option>
-          <option value="RI">Rhode Island</option>
-          <option value="SC">South Carolina</option>
-          <option value="SD">South Dakota</option>
-          <option value="TN">Tennessee</option>
-          <option value="TX">Texas</option>
-          <option value="UT">Utah</option>
-          <option value="VT">Vermont</option>
-          <option value="VA">Virginia</option>
-          <option value="WA">Washington</option>
-          <option value="WV">West Virginia</option>
-          <option value="WI">Wisconsin</option>
-          <option value="WY">Wyoming</option>
+        <label for="manifest_item_number_of_containers_1">Number of Containers (10)</label>
+        <input id="manifest_item_number_of_containers_1" ng-model="industry.data.manifest_item_number_of_containers_1" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
+
+        <label for="manifest_item_container_type_1">Container Type (10)</label>
+        <select ng-model="industry.data.manifest_item_container_type_1" id="manifest_item_container_type_1" class="medium-input">
+          <option value="BA">BA (Burlap)</option>
+          <option value="CR">CR (Crate)</option>
         </select>
 
-        <label for="designated_facility_discrepancy_address_zip_code">Zip code (18b)</label>
-        <input id="designated_facility_discrepancy_address_zip_code" ng-model="designated_facility_discrepancy_address_zip_code" class="medium-input" type="text">
+        <label for="manifest_item_total_quantity_1">Total Quantity (11)</label>
+        <input id="manifest_item_total_quantity_1" ng-model="industry.data.manifest_item_total_quantity_1" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
 
-        <label for="designated_facility_discrepancy_address_phone_number">Phone number (18b)</label>
-        <input id="designated_facility_discrepancy_address_phone_number" ng-model="designated_facility_discrepancy_address_phone_number" class="medium-input" type="text">
-
-        <label for="designated_facility_discrepancy_us_epa_id_number">U.S. EPA ID Number (18b)</label>
-        <input id="designated_facility_discrepancy_us_epa_id_number" ng-model="designated_facility_discrepancy_us_epa_id_number" type="text" class="medium-input">
-      </div>
-
-      <div> <!-- Designated Facility Discrepancy Date SubSection -->
-        <h4>Date of Signature (18b)</h4>
-
-        <div class="usa-date-of-birth" style="padding-top: 10px;">
-          <div class="usa-datefield usa-form-group usa-form-group-month">
-            <label for="designated_facility_discrepancy_date_month">Month</label>
-            <input class="usa-form-control" id="designated_facility_discrepancy_date_month" ng-model="designated_facility_discrepancy_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+        <div>
+          <div class="usa-input-grid usa-input-grid-small">
+            <label for="manifest_item_unit_wt_vol_1">Unit Wt./Vol. (12)</label>
+            <input id="manifest_item_unit_wt_vol_1" ng-model="industry.data.manifest_item_unit_wt_vol_1" type="text">
           </div>
-          <div class="usa-datefield usa-form-group usa-form-group-day">
-            <label for="designated_facility_discrepancy_date_day">Day</label>
-            <input class="usa-form-control" id="designated_facility_discrepancy_date_day" ng-model="designated_facility_discrepancy_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
-          </div>
-          <div class="usa-datefield usa-form-group usa-form-group-year">
-            <label for="designated_facility_discrepancy_date_year">Year</label>
-            <input class="usa-form-control" id="designated_facility_discrepancy_date_year" ng-model="designated_facility_discrepancy_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+
+          <div class="usa-input-grid usa-input-grid-small">
+            <label for="manifest_item_unit_of_measure_1">Unit of Measure (12)</label>
+            <select ng-model="industry.data.manifest_item_unit_of_measure_1" id="manifest_item_unit_of_measure_1" class="small-input">
+              <option value="G">G (Gallon)</option>
+              <option value="Q">Q (Quart)</option>
+            </select>
           </div>
         </div>
-      </div>
-    </fieldset>
-  </div>
-</div>
 
-<div> <!-- Hazardous Waste Report Section -->
-  <h2 class="usa-heading">Hazardous Waste Report Management Method Codes</h1>
+        <div> <!-- Waste Entry Code SubSub Section -->
+          <h4>U.S. EPA Federal Waste Codes</h4>
 
-  <label for="report_management_method_codes">Method Codes (19)</label>
-  <input id="report_management_method_codes" ng-model="report_management_method_codes" type="text">
-</div>
+          <label for="manifest_item_epa_waste_code_1">Federal Waste Codes (13)</label>
+          <input id="manifest_item_epa_waste_code_1" ng-model="industry.data.manifest_item_epa_waste_code_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
 
+          <h4>State/Other Waste Codes</h4>
 
-<div> <!-- Certification Section -->
-  <h2 class="usa-heading">Certification of receipt of hazardous materials covered by the manifest except as noted in Item 18a</h1>
+          <label for="manifest_item_state_waste_code_1_1">State/Other Waste Code (13)</label>
+          <input id="manifest_item_state_waste_code_1_1" ng-model="industry.data.manifest_item_state_waste_code_1_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
+        </div>
 
-  <label for="certification_name">Name of Signatory (20)</label>
-  <input id="certification_name" ng-model="certification_name" type="text">
+        <br />
 
-  <div> <!-- Certification Date SubSection -->
-    <h4>Date of Signature (20)</h4>
+        <div>
+          <a href="#">Add additional state/other waste code</a>
+        </div>
+      </fieldset>
+    </div>
 
-    <div class="usa-date-of-birth" style="padding-top: 10px;">
-      <div class="usa-datefield usa-form-group usa-form-group-month">
-        <label for="certification_date_month">Month</label>
-        <input class="usa-form-control" id="certification_date_month" ng-model="certification_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
-      </div>
-      <div class="usa-datefield usa-form-group usa-form-group-day">
-        <label for="certification_date_day">Day</label>
-        <input class="usa-form-control" id="certification_date_day" ng-model="certification_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
-      </div>
-      <div class="usa-datefield usa-form-group usa-form-group-year">
-        <label for="certification_date_year">Year</label>
-        <input class="usa-form-control" id="certification_date_year" ng-model="certification_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+    <div class="preview">
+      <a href="#">Add an additional waste entry</a>
+    </div>
+
+    <div> <!-- Waste Details SubSection -->
+      <label for="waste_handeling_instructions">Special Handeling Instructions and Additional Information (14)</label>
+      <textarea id="waste_handeling_instructions" ng-model="industry.data.waste_handeling_instructions"></textarea>
+
+      <label for="waste_pcb_description">PCB Description (14)</label>
+      <textarea id="waste_pcb_description" ng-model="industry.data.waste_pcb_description"></textarea>
+
+      <label for="waste_generator_signatory">Name of Generator/Offeror Signatory (15)</label>
+      <input id="waste_generator_signatory" ng-model="industry.data.waste_generator_signatory" type="text">
+    </div>
+
+    <div> <!-- Waste Signature SubSection -->
+      <h4>Date of Signature (15)</h4>
+
+      <div class="usa-date-of-birth" style="padding-top: 10px;">
+        <div class="usa-datefield usa-form-group usa-form-group-month">
+          <label for="waste_generator_signatory_date_month">Month</label>
+          <input class="usa-form-control" id="waste_generator_signatory_date_month" ng-model="industry.data.waste_generator_signatory_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+        </div>
+        <div class="usa-datefield usa-form-group usa-form-group-day">
+          <label for="waste_generator_signatory_date_day">Day</label>
+          <input class="usa-form-control" id="waste_generator_signatory_date_day" ng-model="industry.data.waste_generator_signatory_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+        </div>
+        <div class="usa-datefield usa-form-group usa-form-group-year">
+          <label for="waste_generator_signatory_date_year">Year</label>
+          <input class="usa-form-control" id="waste_generator_signatory_date_year" ng-model="industry.data.waste_generator_signatory_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="button_wrapper" style="padding-top: 30px;">
-  <button class="usa-button-big" type="button">Continue</button>
+  <div class="divider-bar" style="padding-top: 100px;">
+  </div>
+
+  <div> <!-- International Section -->
+    <h2 class="usa-heading">International</h1>
+
+    <ul class="usa-unstyled-list">
+      <li>
+        <input id="international_shipment_no" ng-model="industry.data.international_shipment" type="radio" checked="true" value="no" tabindex="0">
+        <label for="international_shipment_no">Domestic Shipment</label>
+      </li>
+      <li>
+        <input id="international_shipment_yes" ng-model="industry.data.international_shipment" type="radio" value="yes" tabindex="0">
+        <label for="international_shipment_yes">International Shipment</label>
+      </li>
+    </ul>
+
+    <div class="preview"> <!-- International Shipment Details SubSection -->
+
+      <ul class="usa-unstyled-list">
+        <li>
+          <input id="international_shipment_export" ng-model="industry.data.international_export_import" type="radio" checked="true" value="no" tabindex="0">
+          <label for="international_shipment_export">Export from U.S.</label>
+        </li>
+        <li>
+          <input id="international_shipment_import" ng-model="industry.data.international_export_import" type="radio" value="yes" tabindex="0">
+          <label for="international_shipment_import">Import to U.S.</label>
+        </li>
+      </ul>
+
+      <fieldset>
+        <label for="international_shipment_port_of_entry">Port of Entry (16)</label>
+        <input id="international_shipment_port_of_entry" ng-model="industry.data.international_shipment_port_of_entry" type="text">
+
+        <div> <!-- International Shipment Date SubSection -->
+          <h4>Date Leaving U.S. (16)</h4>
+
+          <div class="usa-date-of-birth" style="padding-top: 10px;">
+            <div class="usa-datefield usa-form-group usa-form-group-month">
+              <label for="international_shipment_date_leaving_us_month">Month</label>
+              <input class="usa-form-control" id="international_shipment_date_leaving_us_month" ng-model="industry.data.international_shipment_date_leaving_us_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+            </div>
+            <div class="usa-datefield usa-form-group usa-form-group-day">
+              <label for="international_shipment_date_leaving_us_day">Day</label>
+              <input class="usa-form-control" id="international_shipment_date_leaving_us_day" ng-model="industry.data.international_shipment_date_leaving_us_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+            </div>
+            <div class="usa-datefield usa-form-group usa-form-group-year">
+              <label for="international_shipment_date_leaving_us_year">Year</label>
+              <input class="usa-form-control" id="international_shipment_date_leaving_us_year" ng-model="industry.data.international_shipment_date_leaving_us_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="divider-bar">
+  </div>
+
+  <div> <!-- Transporter Signature Section -->
+    <h2 class="usa-heading">Transporter</h1>
+
+    <div class="preview">
+      <fieldset>
+        <legend>Transporter 1</legend>
+
+        <label for="transporter_signatory_name_1">Name of signatory (17)</label>
+        <input id="transporter_signatory_name_1" ng-model="industry.data.transporter_signatory_name_1" type="text">
+
+        <div> <!-- International Shipment Date SubSection -->
+          <h4>Date of Signature (17)</h4>
+
+          <div class="usa-date-of-birth" style="padding-top: 10px;">
+            <div class="usa-datefield usa-form-group usa-form-group-month">
+              <label for="transporter_signatory_date_month_1">Month</label>
+              <input class="usa-form-control" id="transporter_signatory_date_month_1" ng-model="industry.data.transporter_signatory_date_month_1" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+            </div>
+            <div class="usa-datefield usa-form-group usa-form-group-day">
+              <label for="transporter_signatory_date_day_1">Day</label>
+              <input class="usa-form-control" id="transporter_signatory_date_day_1" ng-model="industry.data.transporter_signatory_date_day_1" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+            </div>
+            <div class="usa-datefield usa-form-group usa-form-group-year">
+              <label for="transporter_signatory_date_year_1">Year</label>
+              <input class="usa-form-control" id="transporter_signatory_date_year_1" ng-model="industry.data.transporter_signatory_date_year_1" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="divider-bar">
+  </div>
+
+  <div> <!-- Designated Facility Discrepancy Section -->
+    <h2 class="usa-heading">Designated Facility</h1>
+
+    <input id="designated_facility_discrepancy" type="checkbox" ng-model="industry.data.designated_facility_discrepancy">
+    <label for="designated_facility_discrepancy">Discrepancy</label>
+
+    <div class="preview"> <!-- Designated Facility Discrepancy Details SubSection -->
+      <fieldset>
+        <label for="designated_facility_discrepancy_description">Discrepancy Description (18)</label>
+        <textarea id="designated_facility_discrepancy_description" ng-model="industry.data.designated_facility_discrepancy_description"></textarea>
+
+        <div>
+          <h4>Discrepancy Indication (18a)</h4>
+
+          <ul class="usa-unstyled-list">
+            <li>
+              <input id="designated_facility_discrepancy_category_quantity" type="checkbox" ng-model="industry.data.designated_facility_discrepancy_category_quantity">
+              <label for="designated_facility_discrepancy_category_quantity">Quantity</label>
+            </li>
+            <li>
+              <input id="designated_facility_discrepancy_category_type" type="checkbox" ng-model="industry.data.designated_facility_discrepancy_category_type">
+              <label for="designated_facility_discrepancy_category_type">Type</label>
+            </li>
+            <li>
+              <input id="designated_facility_discrepancy_category_residue" type="checkbox" ng-model="industry.data.designated_facility_discrepancy_category_residue">
+              <label for="designated_facility_discrepancy_category_residue">Residue</label>
+            </li>
+          </ul>
+
+          <ul class="usa-unstyled-list">
+            <li>
+              <input id="designated_facility_discrepancy_no_rejection" type="radio" checked="true" ng-model="industry.data.designated_facility_discrepancy_type" value="no" tabindex="0">
+              <label for="designated_facility_discrepancy_no_rejection">No Rejection</label>
+            </li>
+            <li>
+              <input id="designated_facility_discrepancy_partial_rejection" type="radio" ng-model="industry.data.designated_facility_discrepancy_type" value="partial" tabindex="0">
+              <label for="designated_facility_discrepancy_partial_rejection">Partial Rejection</label>
+            </li>
+            <li>
+              <input id="designated_facility_discrepancy_full_rejection" type="radio" ng-model="industry.data.designated_facility_discrepancy_type" value="full" tabindex="0">
+              <label for="designated_facility_discrepancy_full_rejection">Full Rejection</label>
+            </li>
+          </ul>
+
+          <label for="designated_facility_discrepancy_name">Name (18b)</label>
+          <input id="designated_facility_discrepancy_name" ng-model="industry.data.designated_facility_discrepancy_name" type="text">
+
+          <label for="designated_facility_discrepancy_address_1">Address 1 (18b)</label>
+          <input id="designated_facility_discrepancy_address_1" ng-model="industry.data.designated_facility_discrepancy_address_1" type="text">
+
+          <label for="designated_facility_discrepancy_address_2">Address 2 (18b)</label>
+          <input id="designated_facility_discrepancy_address_2" ng-model="industry.data.designated_facility_discrepancy_address_2" type="text">
+
+          <label for="designated_facility_discrepancy_address_city">City 2 (18b)</label>
+          <input id="designated_facility_discrepancy_address_city" ng-model="industry.data.designated_facility_discrepancy_address_city" type="text">
+
+          <label for="designated_facility_discrepancy_address_state">State 2 (18b)</label>
+          <select ng-model="industry.data.designated_facility_discrepancy_address_state" id="designated_facility_discrepancy_address_state" class="medium-input">
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+          </select>
+
+          <label for="designated_facility_discrepancy_address_zip_code">Zip code (18b)</label>
+          <input id="designated_facility_discrepancy_address_zip_code" ng-model="industry.data.designated_facility_discrepancy_address_zip_code" class="medium-input" type="text">
+
+          <label for="designated_facility_discrepancy_address_phone_number">Phone number (18b)</label>
+          <input id="designated_facility_discrepancy_address_phone_number" ng-model="industry.data.designated_facility_discrepancy_address_phone_number" class="medium-input" type="text">
+
+          <label for="designated_facility_discrepancy_us_epa_id_number">U.S. EPA ID Number (18b)</label>
+          <input id="designated_facility_discrepancy_us_epa_id_number" ng-model="industry.data.designated_facility_discrepancy_us_epa_id_number" type="text" class="medium-input">
+        </div>
+
+        <div> <!-- Designated Facility Discrepancy Date SubSection -->
+          <h4>Date of Signature (18b)</h4>
+
+          <div class="usa-date-of-birth" style="padding-top: 10px;">
+            <div class="usa-datefield usa-form-group usa-form-group-month">
+              <label for="designated_facility_discrepancy_date_month">Month</label>
+              <input class="usa-form-control" id="designated_facility_discrepancy_date_month" ng-model="industry.data.designated_facility_discrepancy_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+            </div>
+            <div class="usa-datefield usa-form-group usa-form-group-day">
+              <label for="designated_facility_discrepancy_date_day">Day</label>
+              <input class="usa-form-control" id="designated_facility_discrepancy_date_day" ng-model="industry.data.designated_facility_discrepancy_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+            </div>
+            <div class="usa-datefield usa-form-group usa-form-group-year">
+              <label for="designated_facility_discrepancy_date_year">Year</label>
+              <input class="usa-form-control" id="designated_facility_discrepancy_date_year" ng-model="industry.data.designated_facility_discrepancy_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div> <!-- Hazardous Waste Report Section -->
+    <h2 class="usa-heading">Hazardous Waste Report Management Method Codes</h1>
+
+    <label for="report_management_method_codes">Method Codes (19)</label>
+    <input id="report_management_method_codes" ng-model="industry.data.report_management_method_codes" type="text">
+  </div>
+
+
+  <div> <!-- Certification Section -->
+    <h2 class="usa-heading">Certification of receipt of hazardous materials covered by the manifest except as noted in Item 18a</h1>
+
+    <label for="certification_name">Name of Signatory (20)</label>
+    <input id="certification_name" ng-model="industry.data.certification_name" type="text">
+
+    <div> <!-- Certification Date SubSection -->
+      <h4>Date of Signature (20)</h4>
+
+      <div class="usa-date-of-birth" style="padding-top: 10px;">
+        <div class="usa-datefield usa-form-group usa-form-group-month">
+          <label for="certification_date_month">Month</label>
+          <input class="usa-form-control" id="certification_date_month" ng-model="industry.data.certification_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+        </div>
+        <div class="usa-datefield usa-form-group usa-form-group-day">
+          <label for="certification_date_day">Day</label>
+          <input class="usa-form-control" id="certification_date_day" ng-model="industry.data.certification_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+        </div>
+        <div class="usa-datefield usa-form-group usa-form-group-year">
+          <label for="certification_date_year">Year</label>
+          <input class="usa-form-control" id="certification_date_year" ng-model="industry.data.certification_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="button_wrapper" style="padding-top: 30px;">
+    <button class="usa-button-big" type="button" ng-click="industry.submit()">Continue</button>
+  </div>
 </div>
