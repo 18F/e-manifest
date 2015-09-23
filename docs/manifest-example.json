@@ -45,7 +45,7 @@
   "international_shipment_port_of_entry": "newark",
   "maifest_item_hazardous_material_1": "yes",
   "manifest_item_container_type_1": "BA",
-  "manifest_item_epa_waste_code_1": undefined,
+  "manifest_item_epa_waste_code_1": "ABC1,DEF2,GHI3",
   "manifest_item_id_number_1": "1234",
   "manifest_item_number_of_containers_1": "1",
   "manifest_item_packing_group_1": "group1",
