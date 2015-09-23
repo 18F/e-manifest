@@ -282,21 +282,21 @@ layout: template/web
       </div>
 
       <div> <!-- Waste Entry Code SubSub Section -->
-        <h4>U.S. EPA Waste Codes</h4>
+        <h4>U.S. EPA Federal Waste Codes</h4>
 
-        <label for="manifest_item_epa_waste_code_1_1">Waste Codes (13)</label>
-        <input id="manifest_item_epa_waste_code_1_1" ng-model="manifest_item_epa_waste_code_1_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
+        <label for="manifest_item_epa_waste_code_1">Federal Waste Codes (13)</label>
+        <input id="manifest_item_epa_waste_code_1" ng-model="manifest_item_epa_waste_code_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
 
-        <h4>State Waste Codes</h4>
+        <h4>State/Other Waste Codes</h4>
 
-        <label for="manifest_item_state_waste_code_1_1">Waste Codes (13)</label>
+        <label for="manifest_item_state_waste_code_1_1">State/Other Waste Code (13)</label>
         <input id="manifest_item_state_waste_code_1_1" ng-model="manifest_item_state_waste_code_1_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
       </div>
 
       <br />
 
       <div>
-        <a href="#">Add additional state waste code</a>
+        <a href="#">Add additional state/other waste code</a>
       </div>
     </fieldset>
   </div>
@@ -461,7 +461,7 @@ layout: template/web
 
         <ul class="usa-unstyled-list">
           <li>
-            <input id="designated_facility_discrepancy_no_rejection" type="radio" checked="true" ng-model="designated_facility_discrepancy_type" value="partial" tabindex="0">
+            <input id="designated_facility_discrepancy_no_rejection" type="radio" checked="true" ng-model="designated_facility_discrepancy_type" value="no" tabindex="0">
             <label for="designated_facility_discrepancy_no_rejection">No Rejection</label>
           </li>
           <li>
