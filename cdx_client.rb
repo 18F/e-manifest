@@ -9,7 +9,7 @@ $register_sign_service_client = Savon.client(
   :soap_version => 2,
   :multipart => true,
   :convert_request_keys_to => :none,
-  :filters => [:password, :credential]
+  :filters => [:password, :credential, :answer]
 )
 
 $register_auth_service_client = Savon.client(
@@ -20,6 +20,32 @@ $register_auth_service_client = Savon.client(
   :convert_request_keys_to => :none,
   :filters => [:password]
 )
+
+def authenticate(args)
+  signature_user = authenticate_user(args)
+  token = authenticate_system
+  activity_id = create_activity({:token => token, :signature_user => signature_user,
+                                 :dataflow_name => "eManifest", :activity_description => "development test",
+                                 :role_name => "TSDF", :role_code => 112090})
+  question = get_question({:token => token, :activity_id => activity_id, :user => signature_user})
+
+  authenticate_response = {
+    :token => token,
+    :activityId => activity_id,
+    :question => question,
+    :userId => signature_user[:UserId]
+  }
+rescue Savon::SOAPFault => error
+  puts error.to_hash
+  fault_detail = error.to_hash[:fault][:detail]
+  if (fault_detail.key?(:register_auth_fault))
+    description = fault_detail[:register_auth_fault][:description]
+  else
+    description = fault_detail[:register_fault][:description]
+  end
+  puts description
+  error_description = {:description => description}
+end
 
 def authenticate_user(args)
   puts args
@@ -38,19 +64,8 @@ def authenticate_user(args)
     :LastName => user[:last_name],
     :MiddleInitial => user[:middle_initial]
   }
-
-  token = authenticate_system
-  activity_id = create_activity({:token => token, :signature_user => signature_user,
-                                 :dataflow_name => "eManifest", :activity_description => "development test",
-                                 :role_name => "TSDF", :role_code => 112090})
-  question = get_question({:token => token, :activity_id => activity_id, :user => signature_user})
-  return {:token => token, :activityId => activity_id, :question => question,
-          :userId => signature_user[:UserId]}
 rescue Savon::SOAPFault => error
-  puts error.to_hash
-  description = error.to_hash[:fault][:detail][:register_auth_fault][:description] 
-  puts description
-  return {:description => description}
+  raise error
 end
 
 def authenticate_system
@@ -64,7 +79,6 @@ def authenticate_system
   puts response.body
   puts "---"
   token = response.body[:authenticate_response][:security_token]
-  return token
 rescue Savon::SOAPFault => error
   raise error
 end
@@ -83,7 +97,6 @@ def create_activity(args)
   puts response.body
   puts "---"
   activity_id = response.body[:create_activity_with_properties_response][:activity_id]
-  return activity_id
 rescue Savon::SOAPFault => error
   raise error
 end
@@ -101,7 +114,64 @@ def get_question(args)
   question = response.body[:get_question_response][:question]
   question_id = question[:question_id]
   question_text = question[:text]
-  return {:questionId => question_id, :questionText => question_text}
+  question_response = {:questionId => question_id, :questionText => question_text}
 rescue Savon::SOAPFault => error
   raise error
 end
+
+def sign_manifest(args)
+  is_valid_answer = validate_answer(args)
+  document_id = sign(args)
+  sign_response = { :documentId => document_id }
+rescue Savon::SOAPFault => error
+  puts error.to_hash
+  description = error.to_hash[:fault][:detail][:register_fault][:description] 
+  puts description
+  return {:description => description}
+end
+
+def validate_answer(args)
+  response =
+    $register_sign_service_client.call(:validate_answer,
+                                       message: {
+                                         :securityToken => args["token"],
+                                         :activityId => args["activityId"],
+                                         :userId => args["userId"],
+                                         :questionId => args["questionId"],
+                                         :answer => args["answer"]
+                                       })
+  puts "---"
+  puts response.body
+  puts "---"
+  is_valid_answer = response.body[:validate_answer_response][:valid_answer]
+rescue Savon::SOAPFault => error
+  # throws on invalid answer
+  raise error
+end
+
+def sign(args)
+  manifest_id = args["id"]
+  name = "e-manifest " + manifest_id
+  
+  signature_document = {
+    :Name => name,
+    :Format => "BIN",
+    :Content => args[:manifest_content]
+  }
+  
+  response =
+    $register_sign_service_client.call(:sign,
+                                       message: {
+                                         :securityToken => args["token"],
+                                         :activityId => args["activityId"],
+                                         :signatureDocument => signature_document
+                                       })
+  puts "---"
+  puts response.body
+  puts "---"
+  document_id = response.body[:sign_response][:document_id]
+rescue Savon::SOAPFault => error
+  # throws on invalid answer
+  raise error
+end
+

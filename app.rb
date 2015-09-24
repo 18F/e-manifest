@@ -50,9 +50,24 @@ end
 
 post '/api/user/authenticate' do
   authentication = JSON.parse(request.body.read)
-  response = authenticate_user authentication
-  return response.to_json
+  response = authenticate authentication
+  content_type :json
+  response.to_json
 end
+
+post '/api/manifest/sign' do
+  sign_request = JSON.parse(request.body.read)
+  manifest_id = sign_request["id"]
+  manifest_content = Manifest.find(manifest_id)[:content].to_json
+  sign_request[:manifest_content] = manifest_content
+  puts manifest_content
+  puts sign_request
+  response = sign_manifest sign_request
+  content_type :json
+  response.to_json
+end
+
+
 
 ### Data Models ###
 

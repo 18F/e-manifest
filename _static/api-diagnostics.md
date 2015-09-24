@@ -36,6 +36,23 @@ Data: `{ "userId": username, "password": password  }`
 Response:
 <pre><code id="authenticate-user-response"></code></pre>
 
+# Sign Manifest
+
+**POST** /api/manifest/sign
+(data from authenticate user request + answer to the question)
+Data: `{ "token": token, "activityId": activity id, "userId": user id,
+"questionId": question id, "answer": answer }`
+<label for="manifestId">manifest id: <input id="manifestId"></label>
+<label for="answer">Answer to CROMERR question: <input id="answer"></label>
+<label for="token">CROMERR token: <input id="token"></label>
+<label for="activityId">CROMERR activity id: <input id="activityId"></label>
+<label for="userId">CROMERR user id: <input id="userId"></label>
+<label for="questionId">CROMERR question id: <input id="questionId"></label>
+<a href="javascript:signManifest();">Run »</a>
+
+Response:
+<pre><code id="sign-manifest-response"></code></pre>
+
 <script>
   
   function prettyJson(data) {
@@ -85,8 +102,36 @@ Response:
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
-      res += "\n" + data;
+      res += "\n" + prettyJson(data);
       $('#authenticate-user-response').text(res);
+      $('#userId').val(data["userId"]);
+      $('#token').val(data["token"]);
+      $('#activityId').val(data["activityId"]);
+      $('#questionId').val(data["question"]["questionId"]);
+      $('#answer').val("");
+    });
+  }
+
+  function signManifest() {
+    var manifestId = $("#manifestId").val();
+    var token = $("#token").val();
+    var activityId = $("#activityId").val();
+    var userId = $("#userId").val();
+    var questionId = $("#questionId").val();
+    var answer = $("#answer").val();
+    
+    $.ajax({
+      type: 'POST',
+      url: '/api/manifest/sign',
+      contentType: 'application/json',
+      data: JSON.stringify({ "id": manifestId, "token": token,
+            "activityId": activityId, "userId": userId,
+            "questionId": questionId, "answer": answer })
+    })
+    .done(function(data, textStatus, xhr) {
+      var res = xhr.status + " " + xhr.statusText;
+      res += "\n" + prettyJson(data);
+      $('#sign-manifest-response').text(res);
     });
   }
   
