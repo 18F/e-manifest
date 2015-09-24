@@ -24,6 +24,17 @@ Don't edit the `public/` folder directly! Jekyll will overwrite everything when 
 - To build and serve the app, run `rake serve`.
 - To deploy to 18F's cloud, run `rake deploy`.
 
+## CROMERR Signing
+
+In order to access the development CDX system for CROMERR signing of a manifest, one needs a system account set up with rights to sign on behalf of authenticated users.
+
+The username and password should be placed in a `secret.rb` file located in the root with the following form:
+
+	$cdx_username = "put username here"
+	$cdx_password = "put password here"
+
+In other words, `cp secret.rb.template secret.rb` and edit the file.
+
 ## Public domain
 
 This project is in the worldwide [public domain](LICENSE.md). As stated in [CONTRIBUTING](CONTRIBUTING.md):
