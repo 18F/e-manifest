@@ -28,7 +28,7 @@ end
 
 # Submit Manifest
 post '/api/manifest/submit/:manifest_tracking_number' do |mtn|
-  @manifest_row = Manifest.new(content: request.body.read)
+  @manifest_row = Manifest.new(content: JSON.parse(request.body.read))
   @manifest_row.save
 
   request.body.rewind
