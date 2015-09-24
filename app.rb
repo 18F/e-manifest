@@ -58,11 +58,19 @@ end
 post '/api/manifest/sign' do
   sign_request = JSON.parse(request.body.read)
   manifest_id = sign_request["id"]
-  manifest_content = Manifest.find(manifest_id)[:content].to_json
+  manifest = Manifest.find(manifest_id)
+  manifest_content = manifest[:content].to_json
   sign_request[:manifest_content] = manifest_content
   puts manifest_content
   puts sign_request
   response = sign_manifest sign_request
+
+  if (response.key?(:documentId))
+    manifest[:document_id] = response[:documentId]
+    manifest[:activity_id] = sign_request["activityId"]
+    manifest.save
+  end
+  
   content_type :json
   response.to_json
 end
