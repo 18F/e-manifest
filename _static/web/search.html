@@ -1,6 +1,225 @@
----
-title: Welcome to e-Manifest Search
-layout: template/web
----
+<html lang="en">
+<head>
+    <title>Welcome to e-Manifest Search</title>
 
-<h2 class="usa-heading">Search</h1>
+    <link rel="stylesheet" href="/assets/usa/css/google-fonts.css">
+    <link rel="stylesheet" href="/assets/usa/css/prism.css">
+    <link rel="stylesheet" href="/assets/usa/css/styleguide.css">
+    <link rel="stylesheet" href="/assets/usa/css/fixes.css">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+
+    <script src="/assets/usa/js/components.js"></script>
+    <script src="/assets/js/app.js"></script>
+</head>
+    
+<body class="visual-style" ng-app="app">
+  <header class="usa-site-header" role="banner">
+
+    <div class="usa-disclaimer">
+      <span class="usa-disclaimer-official">
+        <img class="usa-flag_icon" alt="US flag signifying that this is a United States Federal Government website" src="/assets/usa/img/us_flag_small.png">
+        An official website of the United States Government
+      </span>
+      <span class="usa-disclaimer-stage">This site is currently in discovery. <a href="https://18f.gsa.gov/dashboard/stages/#discovery">Learn more.</a></span>
+    </div>
+
+    <nav class="usa-site-navbar">
+      <a href="#" id="menu-btn">&#9776; MENU</a>
+      <div class="logo" id="logo">
+        <h1 style="max-width: 40rem; font-size: 4rem;">
+          <a href="/web" accesskey="1" title="Home" aria-label="Home">
+            EPA e-Manifest
+          </a>
+        </h1>
+      </div>
+      <ul class="usa-button-list usa-unstyled-list">
+        <li>
+          <a class="usa-button" href="/web/search.html">Search</a>
+        </li>
+        <li>
+          <a class="usa-button" href="/web/industry.html">Industry</a>
+        </li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <div class="main-content" id="main-content" sytle="width: none;">
+    <div class="styleguide-content usa-content ">
+      <h2 class="usa-heading">Search</h1>
+        <div class="usa-grid-full">
+        <div class="preview usa-width-one-half"> <!-- Trasporter Entry SubSection -->
+        <fieldset>
+          <legend>Filtered Manifest</legend>
+
+            <label for="generator_name">Generator Name</label>
+            <input id="generator_name" name="generator_name" type="text">
+
+            <label for="tsdf_name">Disposal Facility Name</label>
+            <input id="tsdf_name" name="tsdf_name" type="text">
+            <div class="usa-grid">
+                <div class="usa-width-one-half">
+                    <label for="origin_state">Origin State</label>
+                    <select name="origin_state" id="origin_state" class="usa-input-grid-tiny tiny-input">
+                        <option value="AL">--</option>
+                        <option value="AL">AL</option>
+                        <option value="AK">AK</option>
+                        <option value="AZ">AZ</option>
+                        <option value="AR">AR</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="CT">CT</option>
+                        <option value="DE">DE</option>
+                        <option value="DC">DC</option>
+                        <option value="FL">FL</option>
+                        <option value="GA">GA</option>
+                        <option value="HI">HI</option>
+                        <option value="ID">ID</option>
+                        <option value="IL">IL</option>
+                        <option value="IN">IN</option>
+                        <option value="IA">IA</option>
+                        <option value="KS">KS</option>
+                        <option value="KY">KY</option>
+                        <option value="LA">LA</option>
+                        <option value="ME">ME</option>
+                        <option value="MD">MD</option>
+                        <option value="MA">MA</option>
+                        <option value="MI">MI</option>
+                        <option value="MN">MN</option>
+                        <option value="MS">MS</option>
+                        <option value="MO">MO</option>
+                        <option value="MT">MT</option>
+                        <option value="NE">NE</option>
+                        <option value="NV">NV</option>
+                        <option value="NH">NH</option>
+                        <option value="NJ">NJ</option>
+                        <option value="NM">NM</option>
+                        <option value="NY">NY</option>
+                        <option value="NC">NC</option>
+                        <option value="ND">ND</option>
+                        <option value="OH">OH</option>
+                        <option value="OK">OK</option>
+                        <option value="OR">OR</option>
+                        <option value="PA">PA</option>
+                        <option value="RI">RI</option>
+                        <option value="SC">SC</option>
+                        <option value="SD">SD</option>
+                        <option value="TN">TN</option>
+                        <option value="TX">TX</option>
+                        <option value="UT">UT</option>
+                        <option value="VT">VT</option>
+                        <option value="VA">VA</option>
+                        <option value="WA">WA</option>
+                        <option value="WV">WV</option>
+                        <option value="WI">WI</option>
+                        <option value="WY">WY</option>
+                      </select>
+                </div>
+                <div class="usa-width-one-half">
+                    <label for="origin_state">Destination State</label>
+                    <select name="origin_state" id="origin_state" class="tiny-input">
+                        <option value="AL">--</option>
+                        <option value="AL">AL</option>
+                        <option value="AK">AK</option>
+                        <option value="AZ">AZ</option>
+                        <option value="AR">AR</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="CT">CT</option>
+                        <option value="DE">DE</option>
+                        <option value="DC">DC</option>
+                        <option value="FL">FL</option>
+                        <option value="GA">GA</option>
+                        <option value="HI">HI</option>
+                        <option value="ID">ID</option>
+                        <option value="IL">IL</option>
+                        <option value="IN">IN</option>
+                        <option value="IA">IA</option>
+                        <option value="KS">KS</option>
+                        <option value="KY">KY</option>
+                        <option value="LA">LA</option>
+                        <option value="ME">ME</option>
+                        <option value="MD">MD</option>
+                        <option value="MA">MA</option>
+                        <option value="MI">MI</option>
+                        <option value="MN">MN</option>
+                        <option value="MS">MS</option>
+                        <option value="MO">MO</option>
+                        <option value="MT">MT</option>
+                        <option value="NE">NE</option>
+                        <option value="NV">NV</option>
+                        <option value="NH">NH</option>
+                        <option value="NJ">NJ</option>
+                        <option value="NM">NM</option>
+                        <option value="NY">NY</option>
+                        <option value="NC">NC</option>
+                        <option value="ND">ND</option>
+                        <option value="OH">OH</option>
+                        <option value="OK">OK</option>
+                        <option value="OR">OR</option>
+                        <option value="PA">PA</option>
+                        <option value="RI">RI</option>
+                        <option value="SC">SC</option>
+                        <option value="SD">SD</option>
+                        <option value="TN">TN</option>
+                        <option value="TX">TX</option>
+                        <option value="UT">UT</option>
+                        <option value="VT">VT</option>
+                        <option value="VA">VA</option>
+                        <option value="WA">WA</option>
+                        <option value="WV">WV</option>
+                        <option value="WI">WI</option>
+                        <option value="WY">WY</option>
+                  </select>
+                </div>
+            </div>
+            <div class="usa-grid">
+                <div class="usa-width-one-half">
+                    <label for="from_date">From</label>
+                    <input id="from_date" name="from_date" type="text">
+                </div>
+                <div class="usa-width-one-half">
+                    <label for="to_date">To</label>
+                    <input id="to_date" name="to_date" type="text">
+                </div>
+            </div>
+            <br>
+            <div>
+                <a href="#">Add additional filters</a>
+            </div>
+            <div class="button_wrapper" style="padding-top: 30px;">
+                <button class="usa-button-big" type="button">Filter</button>
+            </div>
+            </fieldset>
+        </div>
+        <div class="results usa-width-one-half">
+            <table class="usa-table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Tracking</th>
+                <th scope="col">Generator</th>
+                <th scope="col">Disposal Facility</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">DS1234421D</td>
+                <td>Target </td>
+                <td>Heritage</td>
+                <td>9/3/2015</td>
+              </tr>
+              <tr>
+                <td scope="row">DS1234421D</td>
+                <td>Walgreens </td>
+                <td>Heritage</td>
+                <td>9/3/2015</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+</div>
+</div>
+</body>
