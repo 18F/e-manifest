@@ -29,6 +29,8 @@ Warning: All data will be deleted and reset!
 
 **POST** /api/user/authenticate
 Data: `{ "userId": username, "password": password  }`
+<label for="username">CROMERR username: <input id="username"></label>
+<label for="password">CROMERR password: <input id="password"></label>
 <a href="javascript:authenticateUser();">Run »</a>
 
 Response:
@@ -72,14 +74,18 @@ Response:
   }
 
   function authenticateUser() {
+    var username = $("#username").val();
+    var password = $("#password").val();
+    
     $.ajax({
       type: 'POST',
       url: '/api/user/authenticate',
-      data: '{ "userId": "fail", "password": "fail" }'
+      contentType: 'application/json',
+      data: JSON.stringify({ "userId": username, "password": password })
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
-      res += "\n" + prettyJson(data);
+      res += "\n" + data;
       $('#authenticate-user-response').text(res);
     });
   }

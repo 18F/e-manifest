@@ -50,7 +50,8 @@ end
 
 post '/api/user/authenticate' do
   authentication = JSON.parse(request.body.read)
-  authenticate_user authentication
+  response = authenticate_user authentication
+  return response.to_json
 end
 
 ### Data Models ###
