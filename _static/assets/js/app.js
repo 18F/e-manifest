@@ -17,6 +17,17 @@
     };
   }]);
 
+    var app2 = angular.module('app2', []);
+    
+    app2.controller('SearchController', function($scope, $http) {
+
+        $scope.filter = function() {
+            $http.get('/api/manifest/search').success(
+                function(response) {$scope.results = response; 
+            });
+        };
+  });
+    
   $(function() {
     $('#manifest_item_epa_waste_code_1').selectize({
       delimiter: ',',

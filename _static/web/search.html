@@ -13,10 +13,12 @@
     <script src="/assets/js/app.js"></script>
 </head>
     
-<body class="visual-style" ng-app="app">
+<body class="visual-style" ng-app="app2">
   <header class="usa-site-header" role="banner">
 
-    <div class="usa-disclaimer">
+    
+    
+    <div class="usa-disclaimer" >
       <span class="usa-disclaimer-official">
         <img class="usa-flag_icon" alt="US flag signifying that this is a United States Federal Government website" src="/assets/usa/img/us_flag_small.png">
         An official website of the United States Government
@@ -44,7 +46,7 @@
     </nav>
 
   </header>
-
+<div ng-controller="SearchController">
   <div class="main-content" id="main-content" sytle="width: none;">
     <div class="styleguide-content usa-content ">
       <h2 class="usa-heading">Search</h1>
@@ -52,7 +54,7 @@
         <div class="preview usa-width-one-half"> <!-- Trasporter Entry SubSection -->
         <fieldset>
           <legend>Filtered Manifest</legend>
-
+            <form>
             <label for="generator_name">Generator Name</label>
             <input id="generator_name" name="generator_name" type="text">
 
@@ -188,9 +190,9 @@
             <div>
                 <a href="#">Add additional filters</a>
             </div>
-            <div class="button_wrapper" style="padding-top: 30px;">
-                <button class="usa-button-big" type="button">Filter</button>
-            </div>
+    
+            <button class="usa-button-big" type="button" ng-click="filter()">Filter</button>
+            </form>
             </fieldset>
         </div>
         <div class="results usa-width-one-half">
@@ -204,15 +206,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td scope="row">DS1234421D</td>
-                <td>Target </td>
-                <td>Heritage</td>
-                <td>9/3/2015</td>
-              </tr>
-              <tr>
-                <td scope="row">DS1234421D</td>
-                <td>Walgreens </td>
+              <tr ng-repeat="x in results" data-href="manifest-detail.html" class="result-item">
+                <td scope="row">{{x.id}}</td>
+                <td >Target </td>
                 <td>Heritage</td>
                 <td>9/3/2015</td>
               </tr>
@@ -220,6 +216,7 @@
           </table>
         </div>
     </div>
+</div>
 </div>
 </div>
 </body>
