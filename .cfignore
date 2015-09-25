@@ -1,2 +1,4 @@
 tmp/
 _static/
+# Ignore emacs autosave
+**/*~
