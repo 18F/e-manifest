@@ -79,10 +79,12 @@
         };
   });
 
-  $(function() {
-    $('.manifest_item_epa_waste_code').selectize({
-      delimiter: ',',
-      create: true
+  if ($().selectize) {
+    $(function() {
+      $('.manifest_item_epa_waste_code').selectize({
+        delimiter: ',',
+        create: true
+      });
     });
-  });
+  }
 })();
