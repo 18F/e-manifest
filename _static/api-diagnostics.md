@@ -41,7 +41,7 @@ Response:
 **POST** /api/manifest/sign
 (data from authenticate user request + answer to the question)
 Data: `{ "token": token, "activityId": activity id, "userId": user id,
-"questionId": question id, "answer": answer }`
+"questionId": question id, "answer": answer, "id": e-manifest id }`
 <label for="manifestId">manifest id: <input id="manifestId"></label>
 <label for="answer">Answer to CROMERR question: <input id="answer"></label>
 <label for="token">CROMERR token: <input id="token"></label>
