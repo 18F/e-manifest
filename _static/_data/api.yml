@@ -45,3 +45,40 @@
       "errors": [],
       "warnings": ["Waste code 1234 not recognized"]
     }
+
+- title: Authenticate User
+  description: Authenticates a user with CROMERR for signing a manifest. Values in the response are needed to sign the manifest.
+  http_verb: POST
+  resource_url: /user/authenticate
+  parameters: |
+    userId
+    password
+  response_format: JSON
+  response: |
+    {
+      "token": "csm:IiKaBeSJKqLQCD [...] Y6_HuVuzpDk,.",
+      "activityId": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
+      "question": {
+        "questionId": "15",
+        "questionText": "What was your high school's mascot?"
+      },
+      "userId": "USER_X"
+    }
+
+
+- title: Sign Manifest
+  description: Signs a specified manifest with CROMERR.
+  http_verb: POST
+  resource_url: /manifest/sign
+  parameters: |
+    token
+    activityId
+    userId
+    questionId
+    answer
+    id (e-manifest id)
+  response_format: JSON
+  response: |
+    {
+      "documentId": "be83916a-a4d3-4ae8-aa68-9d56c16b1bce"
+    }
