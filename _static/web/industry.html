@@ -2,7 +2,7 @@
 title: Welcome to e-Manifest Industry
 layout: template/web
 ---
-<div ng-controller="IndustryController">
+<div id="industry-controller" ng-controller="IndustryController">
   <div> <!-- Generator Section -->
     <h2 class="usa-heading">Generator</h1>
 
@@ -110,20 +110,27 @@ layout: template/web
   <div> <!-- Transporter Section -->
     <h3 class="usa-heading">Transporter</h3>
 
-    <div class="preview"> <!-- Trasporter Entry SubSection -->
+    <div class="preview" ng-repeat="transporter in industry.data.transporters"> <!-- Trasporter Entry SubSection -->
       <fieldset>
-        <legend>Transporter 1</legend>
+        <legend>
+          <span>Transporter</span>
+          <span ng-bind="$index + 1"></span>
+        </legend>
 
-        <label for="transporter_company_name_1">Company Name (6)</label>
-        <input id="transporter_company_name_1" ng-model="industry.data.transporter_company_name" type="text">
+        <label for="transporter_company_name_[[$index]]">Company Name (6)</label>
+        <input id="transporter_company_name_[[$index]]" ng-model="transporter.company_name" type="text">
 
-        <label for="transporter_us_epa_id_number_1">U.S. EPA ID Number (6)</label>
-        <input id="transporter_us_epa_id_number_1" ng-model="industry.data.transporter_us_epa_id_number_1" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
+        <label for="transporter_us_epa_id_number_[[$index]]">U.S. EPA ID Number (6)</label>
+        <input id="transporter_us_epa_id_number_[[$index]]" ng-model="transporter.us_epa_id_number" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
       </fieldset>
+
+      <div style="padding-top: 20px;" ng-show="$index > 0">
+        <a href="" ng-click="industry.removeTransporter($index)">Remove transporter</a>
+      </div>
     </div>
 
     <div class="preview">
-      <a href="#">Add an additional transporter</a>
+      <a href="" ng-click="industry.addTransporter()">Add an additional transporter</a>
     </div>
   </div>
 
@@ -221,60 +228,63 @@ layout: template/web
       </li>
     </ul>
 
-    <div class="preview"> <!-- Waste Entry SubSection -->
+    <div class="preview" ng-repeat="manifest_item in industry.data.manifest_items"> <!-- Waste Entry SubSection -->
       <fieldset>
-        <legend>Manifest Item 1</legend>
+        <legend>
+          <span>Manifest Item</span>
+          <span ng-bind="$index + 1"></span>
+        </legend>
 
         <label>HM (9a)</label>
         <ul class="usa-unstyled-list">
           <li>
-            <input id="maifest_item_hazardous_material_1" ng-model="industry.data.maifest_item_hazardous_material_1" type="radio" checked="true" value="yes" tabindex="0">
-            <label for="maifest_item_hazardous_material_1">Hazardous material</label>
+            <input id="maifest_item_hazardous_material_[[$index]]" ng-model="maifest_item.hazardous_material" type="radio" value="yes" tabindex="0">
+            <label for="maifest_item_hazardous_material_[[$index]]">Hazardous material</label>
           </li>
           <li>
-            <input id="maifest_item_non_hazardous_material_1" ng-model="industry.data.maifest_item_hazardous_material_1" type="radio" value="no" tabindex="0">
-            <label for="maifest_item_non_hazardous_material_1">Non-hazardous material</label>
+            <input id="maifest_item_non_hazardous_material_[[$index]]" ng-model="maifest_item.hazardous_material" type="radio" value="no" tabindex="0">
+            <label for="maifest_item_non_hazardous_material_[[$index]]">Non-hazardous material</label>
           </li>
         </ul>
 
         <h4>U.S. DOT Description</h4>
 
-        <label for="manifest_item_proper_shipping_name_1">Proper Shipping Name</label>
-        <input id="manifest_item_proper_shipping_name_1" ng-model="industry.data.manifest_item_proper_shipping_name_1" type="text">
+        <label for="manifest_item_proper_shipping_name_[[$index]]">Proper Shipping Name</label>
+        <input id="manifest_item_proper_shipping_name_[[$index]]" ng-model="manifest_item.proper_shipping_name_[[$index]]" type="text">
 
         <label for="manifest_item_proper_hazard_class">Hazard Class</label>
-        <input id="manifest_item_proper_hazard_class" ng-model="industry.data.manifest_item_proper_hazard_class" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
+        <input id="manifest_item_proper_hazard_class" ng-model="manifest_item.proper_hazard_class" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
 
-        <label for="manifest_item_id_number_1">ID Number</label>
-        <input id="manifest_item_id_number_1" ng-model="industry.data.manifest_item_id_number_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,6}$/">
+        <label for="manifest_item_id_number_[[$index]]">ID Number</label>
+        <input id="manifest_item_id_number_[[$index]]" ng-model="manifest_item.id_number_[[$index]]" type="text" ng-pattern="/^[a-zA-Z0-9]{0,6}$/">
 
-        <label for="manifest_item_packing_group_1">
+        <label for="manifest_item_packing_group_[[$index]]">
           Packing Group
           <span class="usa-additional_text">Optional</span>
         </label>
-        <input id="manifest_item_packing_group_1" ng-model="industry.data.manifest_item_packing_group_1" type="text">
+        <input id="manifest_item_packing_group_[[$index]]" ng-model="manifest_item.packing_group_[[$index]]" type="text">
 
-        <label for="manifest_item_number_of_containers_1">Number of Containers (10)</label>
-        <input id="manifest_item_number_of_containers_1" ng-model="industry.data.manifest_item_number_of_containers_1" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
+        <label for="manifest_item_number_of_containers_[[$index]]">Number of Containers (10)</label>
+        <input id="manifest_item_number_of_containers_[[$index]]" ng-model="manifest_item.number_of_containers_[[$index]]" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
 
-        <label for="manifest_item_container_type_1">Container Type (10)</label>
-        <select ng-model="industry.data.manifest_item_container_type_1" id="manifest_item_container_type_1" class="medium-input">
+        <label for="manifest_item_container_type_[[$index]]">Container Type (10)</label>
+        <select ng-model="manifest_item.container_type_[[$index]]" id="manifest_item_container_type_[[$index]]" class="medium-input">
           <option value="BA">BA (Burlap)</option>
           <option value="CR">CR (Crate)</option>
         </select>
 
-        <label for="manifest_item_total_quantity_1">Total Quantity (11)</label>
-        <input id="manifest_item_total_quantity_1" ng-model="industry.data.manifest_item_total_quantity_1" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
+        <label for="manifest_item_total_quantity_[[$index]]">Total Quantity (11)</label>
+        <input id="manifest_item_total_quantity_[[$index]]" ng-model="manifest_item.total_quantity_[[$index]]" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
 
         <div>
           <div class="usa-input-grid usa-input-grid-small">
-            <label for="manifest_item_unit_wt_vol_1">Unit Wt./Vol. (12)</label>
-            <input id="manifest_item_unit_wt_vol_1" ng-model="industry.data.manifest_item_unit_wt_vol_1" type="text">
+            <label for="manifest_item_unit_wt_vol_[[$index]]">Unit Wt./Vol. (12)</label>
+            <input id="manifest_item_unit_wt_vol_[[$index]]" ng-model="manifest_item.unit_wt_vol_[[$index]]" type="text">
           </div>
 
           <div class="usa-input-grid usa-input-grid-small">
-            <label for="manifest_item_unit_of_measure_1">Unit of Measure (12)</label>
-            <select ng-model="industry.data.manifest_item_unit_of_measure_1" id="manifest_item_unit_of_measure_1" class="small-input">
+            <label for="manifest_item_unit_of_measure_[[$index]]">Unit of Measure (12)</label>
+            <select ng-model="manifest_item.unit_of_measure_[[$index]]" id="manifest_item_unit_of_measure_[[$index]]" class="small-input">
               <option value="G">G (Gallon)</option>
               <option value="Q">Q (Quart)</option>
             </select>
@@ -284,25 +294,34 @@ layout: template/web
         <div> <!-- Waste Entry Code SubSub Section -->
           <h4>U.S. EPA Federal Waste Codes</h4>
 
-          <label for="manifest_item_epa_waste_code_1">Federal Waste Codes (13)</label>
-          <input id="manifest_item_epa_waste_code_1" ng-model="industry.data.manifest_item_epa_waste_code_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
+          <label for="manifest_item_epa_waste_code_[[$index]]">Federal Waste Codes (13)</label>
+          <input class="manifest_item_epa_waste_code" id="manifest_item.epa_waste_code_[[$index]]" ng-model="industry.data.manifest_item_epa_waste_code" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
 
           <h4>State/Other Waste Codes</h4>
 
-          <label for="manifest_item_state_waste_code_1_1">State/Other Waste Code (13)</label>
-          <input id="manifest_item_state_waste_code_1_1" ng-model="industry.data.manifest_item_state_waste_code_1_1" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
+          <div ng-repeat="state in manifest_item.state_waste_codes">
+            <label for="manifest_item_state_waste_code_[[$parent.$index]][[$index]]">
+              State/Other Waste Code (13)
+              <a href="" ng-click="industry.removeStateWasteCode($parent.$index, $index)" ng-show="$index > 0" class="usa-additional_text">Remove</a>
+            </label>
+            <input id="manifest_item_state_waste_code_[[$parent.$index]][[$index]]" ng-model="state.waste_code" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
+          </div>
         </div>
 
         <br />
 
         <div>
-          <a href="#">Add additional state/other waste code</a>
+          <a href="" ng-click="industry.addStateWasteCode($index)">Add additional state/other waste code</a>
         </div>
       </fieldset>
+
+      <div style="padding-top: 20px;" ng-show="$index > 0">
+        <a href="" ng-click="industry.removeManifestItem($index)">Remove waste entry</a>
+      </div>
     </div>
 
     <div class="preview">
-      <a href="#">Add an additional waste entry</a>
+      <a href="" ng-click="industry.addManifestItem()">Add an additional waste entry</a>
     </div>
 
     <div> <!-- Waste Details SubSection -->
@@ -344,7 +363,7 @@ layout: template/web
 
     <ul class="usa-unstyled-list">
       <li>
-        <input id="international_shipment_no" ng-model="industry.data.international_shipment" type="radio" checked="true" value="no" tabindex="0">
+        <input id="international_shipment_no" ng-model="industry.data.international_shipment" type="radio" value="no" tabindex="0">
         <label for="international_shipment_no">Domestic Shipment</label>
       </li>
       <li>
@@ -353,7 +372,7 @@ layout: template/web
       </li>
     </ul>
 
-    <div class="preview"> <!-- International Shipment Details SubSection -->
+    <div class="preview" ng-if="industry.data.international_shipment === 'yes'"> <!-- International Shipment Details SubSection -->
 
       <ul class="usa-unstyled-list">
         <li>
@@ -395,31 +414,37 @@ layout: template/web
   <div class="divider-bar">
   </div>
 
-  <div> <!-- Transporter Signature Section -->
-    <h2 class="usa-heading">Transporter</h1>
+  <div ng-repeat="transporter in industry.data.transporters"> <!-- Transporter Signature Section -->
+    <h2 class="usa-heading">
+      <span>Transporter</span>
+      <span ng-bind="$index + 1"></span>
+    </h1>
 
     <div class="preview">
       <fieldset>
-        <legend>Transporter 1</legend>
+        <legend>
+          <span>Transporter</span>
+          <span ng-bind="transporter.company_name"></span>
+        </legend>
 
-        <label for="transporter_signatory_name_1">Name of signatory (17)</label>
-        <input id="transporter_signatory_name_1" ng-model="industry.data.transporter_signatory_name_1" type="text">
+        <label for="transporter_signatory_name">Name of signatory (17)</label>
+        <input id="transporter_signatory_name" ng-model="transporter.signatory_name" type="text">
 
         <div> <!-- International Shipment Date SubSection -->
           <h4>Date of Signature (17)</h4>
 
           <div class="usa-date-of-birth" style="padding-top: 10px;">
             <div class="usa-datefield usa-form-group usa-form-group-month">
-              <label for="transporter_signatory_date_month_1">Month</label>
-              <input class="usa-form-control" id="transporter_signatory_date_month_1" ng-model="industry.data.transporter_signatory_date_month_1" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+              <label for="transporter_signatory_date_month">Month</label>
+              <input class="usa-form-control" id="transporter_signatory_date_month" ng-model="industry.data.transporter_signatory_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
             </div>
             <div class="usa-datefield usa-form-group usa-form-group-day">
-              <label for="transporter_signatory_date_day_1">Day</label>
-              <input class="usa-form-control" id="transporter_signatory_date_day_1" ng-model="industry.data.transporter_signatory_date_day_1" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+              <label for="transporter_signatory_date_day">Day</label>
+              <input class="usa-form-control" id="transporter_signatory_date_day" ng-model="industry.data.transporter_signatory_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
             </div>
             <div class="usa-datefield usa-form-group usa-form-group-year">
-              <label for="transporter_signatory_date_year_1">Year</label>
-              <input class="usa-form-control" id="transporter_signatory_date_year_1" ng-model="industry.data.transporter_signatory_date_year_1" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+              <label for="transporter_signatory_date_year">Year</label>
+              <input class="usa-form-control" id="transporter_signatory_date_year" ng-model="industry.data.transporter_signatory_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
             </div>
           </div>
         </div>
@@ -436,7 +461,7 @@ layout: template/web
     <input id="designated_facility_discrepancy" type="checkbox" ng-model="industry.data.designated_facility_discrepancy">
     <label for="designated_facility_discrepancy">Discrepancy</label>
 
-    <div class="preview"> <!-- Designated Facility Discrepancy Details SubSection -->
+    <div class="preview" ng-show="industry.data.designated_facility_discrepancy"> <!-- Designated Facility Discrepancy Details SubSection -->
       <fieldset>
         <label for="designated_facility_discrepancy_description">Discrepancy Description (18)</label>
         <textarea id="designated_facility_discrepancy_description" ng-model="industry.data.designated_facility_discrepancy_description"></textarea>
