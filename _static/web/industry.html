@@ -250,41 +250,41 @@ layout: template/web
         <h4>U.S. DOT Description</h4>
 
         <label for="manifest_item_proper_shipping_name_[[$index]]">Proper Shipping Name</label>
-        <input id="manifest_item_proper_shipping_name_[[$index]]" ng-model="manifest_item.proper_shipping_name_[[$index]]" type="text">
+        <input id="manifest_item_proper_shipping_name_[[$index]]" ng-model="manifest_item.proper_shipping_name" type="text">
 
         <label for="manifest_item_proper_hazard_class">Hazard Class</label>
         <input id="manifest_item_proper_hazard_class" ng-model="manifest_item.proper_hazard_class" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
 
         <label for="manifest_item_id_number_[[$index]]">ID Number</label>
-        <input id="manifest_item_id_number_[[$index]]" ng-model="manifest_item.id_number_[[$index]]" type="text" ng-pattern="/^[a-zA-Z0-9]{0,6}$/">
+        <input id="manifest_item_id_number_[[$index]]" ng-model="manifest_item.id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,6}$/">
 
         <label for="manifest_item_packing_group_[[$index]]">
           Packing Group
           <span class="usa-additional_text">Optional</span>
         </label>
-        <input id="manifest_item_packing_group_[[$index]]" ng-model="manifest_item.packing_group_[[$index]]" type="text">
+        <input id="manifest_item_packing_group_[[$index]]" ng-model="manifest_item.packing_group" type="text">
 
         <label for="manifest_item_number_of_containers_[[$index]]">Number of Containers (10)</label>
-        <input id="manifest_item_number_of_containers_[[$index]]" ng-model="manifest_item.number_of_containers_[[$index]]" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
+        <input id="manifest_item_number_of_containers_[[$index]]" ng-model="manifest_item.number_of_containers" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
 
         <label for="manifest_item_container_type_[[$index]]">Container Type (10)</label>
-        <select ng-model="manifest_item.container_type_[[$index]]" id="manifest_item_container_type_[[$index]]" class="medium-input">
+        <select ng-model="manifest_item.container_type_[[$index]]" id="manifest_item_container_type" class="medium-input">
           <option value="BA">BA (Burlap)</option>
           <option value="CR">CR (Crate)</option>
         </select>
 
         <label for="manifest_item_total_quantity_[[$index]]">Total Quantity (11)</label>
-        <input id="manifest_item_total_quantity_[[$index]]" ng-model="manifest_item.total_quantity_[[$index]]" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
+        <input id="manifest_item_total_quantity_[[$index]]" ng-model="manifest_item.total_quantity" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
 
         <div>
           <div class="usa-input-grid usa-input-grid-small">
             <label for="manifest_item_unit_wt_vol_[[$index]]">Unit Wt./Vol. (12)</label>
-            <input id="manifest_item_unit_wt_vol_[[$index]]" ng-model="manifest_item.unit_wt_vol_[[$index]]" type="text">
+            <input id="manifest_item_unit_wt_vol_[[$index]]" ng-model="manifest_item.unit_wt_vol" type="text">
           </div>
 
           <div class="usa-input-grid usa-input-grid-small">
             <label for="manifest_item_unit_of_measure_[[$index]]">Unit of Measure (12)</label>
-            <select ng-model="manifest_item.unit_of_measure_[[$index]]" id="manifest_item_unit_of_measure_[[$index]]" class="small-input">
+            <select ng-model="manifest_item.unit_of_measure" id="manifest_item.unit_of_measure" class="small-input">
               <option value="G">G (Gallon)</option>
               <option value="Q">Q (Quart)</option>
             </select>
@@ -295,7 +295,7 @@ layout: template/web
           <h4>U.S. EPA Federal Waste Codes</h4>
 
           <label for="manifest_item_epa_waste_code_[[$index]]">Federal Waste Codes (13)</label>
-          <input class="manifest_item_epa_waste_code" id="manifest_item.epa_waste_code_[[$index]]" ng-model="industry.data.manifest_item_epa_waste_code" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
+          <input class="manifest_item_epa_waste_code" id="manifest_item.epa_waste_code_[[$index]]" ng-model="manifest_item.epa_waste_code" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
 
           <h4>State/Other Waste Codes</h4>
 
