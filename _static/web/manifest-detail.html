@@ -1,0 +1,152 @@
+---
+title: Welcome to e-Manifest Detail Page
+layout: template/web
+---
+<a href="/web/search.html">&lt; Back to manifest listing</a>
+
+<div class="usa-grid-full" ng-controller="ManifestDetailController">
+    <div class="preview usa-width-one-half">
+        <fieldset>
+            <table>
+                <tr ng-repeat="x in data.content.searchCriteria">
+                    <td ng-bind="x.title"></td>
+                    <td ng-bind="x.name"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div class="preview usa-width-one-half"> 
+        <h2 ng-bind="data.content.title"></h2>
+        <h3>Generator</h2>
+        <table>
+            <tr>
+                <td>Generator ID Number</td>
+                <td ng-bind="data.content.generator_us_epa_id_number"></td>
+            </tr>
+            <tr>
+                <td>Emergency Phone Number</td>
+                <td ng-bind="data.content.generator_emergency_response_phone"></td>
+            </tr>
+            <tr>
+                <td>Manifest Tracking Number</td>
+                <td ng-bind="data.content.generator_manifest_tracking_number"></td>
+            </tr>
+            <tr>
+                <td>Generator's Name</td>
+                <td ng-bind="data.content.generator_name"></td>
+            </tr>
+            <tr>
+                <td>Mailing Address</td>
+                <td ng-bind="data.content.generator_address_1 "></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td ng-bind="data.content.generator_city_state_zip"></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td ng-bind="data.content.generator_phone_number "></td>
+            </tr>
+        </table>
+        
+        <div ng-repeat="transporter in data.content.transporters">
+            <h2>Transporter</h2>
+            <table>
+                <tr>
+                    <td>Company Name</td>
+                    <td ng-bind="data.content.transporter_company_name"></td>
+                </tr>
+                <tr>
+                    <td>U.S. EPA ID Number</td>
+                    <td ng-bind="data.content.transporter_us_epa_id_number"></td>
+                </tr>
+            </table>
+        </div>
+        
+        <h3>Designated Facility</h2>
+        <table>
+            <tr>
+                <td>Company Name</td>
+                <td ng-bind="data.content.designated_facility_name"></td>
+            </tr>
+            <tr>
+                <td>Mailing Address</td>
+                <td ng-bind="data.content.designated_facility_address_1 "></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td ng-bind="data.content.designated_facility_city_state_zip"></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td ng-bind="data.content.designated_facility_phone_number "></td>
+            </tr>
+            <tr>
+                <td>U.S. EPA ID Number</td>
+                <td ng-bind="data.content.designated_facility_us_epa_id_number "></td>
+            </tr>
+        </table>
+        
+        <h3>Waste</h2>
+        <table ng-repeat="waste in data.content.wastes">
+            <tr>
+                <td>HM</td>
+                <td ng-bind="waste.id"></td>
+            </tr>
+            <tr>
+                <td>U.S. DOT Description</td>
+                <td ng-bind="waste.id"></td>
+            </tr>
+            <tr>
+                <td>Total Quantity</td>
+                <td ng-bind="waste.id"></td>
+            </tr>
+            <tr>
+                <td>Unit Wt./Vol.</td>
+                <td ng-bind="waste.id"></td>
+            </tr>
+            <tr>
+                <td>U.S. EPA Waste Codes</td>
+                <td ng-bind="waste.id"></td>
+            </tr>
+            <tr>
+                <td>State Waste Codes</td>
+                <td ng-bind="waste.id"></td>
+            </tr>
+        </table>
+        
+        <table>
+            <tr>
+                <td>Generator's/Officer's Name</td>
+                <td ng-bind="data.content.designated_facility_name"></td>
+                <td>Date</td>
+                <td ng-bind="data.content.designated_facility_name"></td>
+            </tr>
+        </table>
+        
+        <table>
+            <tr>
+                <td>Hazardous Waste Reports<br>Management Method Codes</td>
+                <td ng-bind="data.content.designated_facility_name"></td>
+            </tr>
+        </table>
+        
+         <table>
+            <tr>
+                <td>Designated Facility Officer or<br>Operator Name</td>
+                <td ng-bind="data.content.designated_facility_name"></td>
+            </tr>
+             <tr>
+                <td>Date Signed</td>
+                <td ng-bind="data.content.designated_facility_name"></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td>Date Submitted</td>
+                <td ng-bind="data.content.designated_facility_name"></td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,65 +1,19 @@
-<html lang="en">
-<head>
-    <title>Welcome to e-Manifest Search</title>
-
-    <link rel="stylesheet" href="/assets/usa/css/google-fonts.css">
-    <link rel="stylesheet" href="/assets/usa/css/prism.css">
-    <link rel="stylesheet" href="/assets/usa/css/styleguide.css">
-    <link rel="stylesheet" href="/assets/usa/css/fixes.css">
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-
-    <script src="/assets/usa/js/components.js"></script>
-    <script src="/assets/js/app.js"></script>
-</head>
-    
-<body class="visual-style" ng-app="app2">
-  <header class="usa-site-header" role="banner">
-
-    
-    
-    <div class="usa-disclaimer" >
-      <span class="usa-disclaimer-official">
-        <img class="usa-flag_icon" alt="US flag signifying that this is a United States Federal Government website" src="/assets/usa/img/us_flag_small.png">
-        An official website of the United States Government
-      </span>
-      <span class="usa-disclaimer-stage">This site is currently in discovery. <a href="https://18f.gsa.gov/dashboard/stages/#discovery">Learn more.</a></span>
-    </div>
-
-    <nav class="usa-site-navbar">
-      <a href="#" id="menu-btn">&#9776; MENU</a>
-      <div class="logo" id="logo">
-        <h1 style="max-width: 40rem; font-size: 4rem;">
-          <a href="/web" accesskey="1" title="Home" aria-label="Home">
-            EPA e-Manifest
-          </a>
-        </h1>
-      </div>
-      <ul class="usa-button-list usa-unstyled-list">
-        <li>
-          <a class="usa-button" href="/web/search.html">Search</a>
-        </li>
-        <li>
-          <a class="usa-button" href="/web/industry.html">Industry</a>
-        </li>
-      </ul>
-    </nav>
-
-  </header>
+---
+title: Welcome to e-Manifest Search
+layout: template/web
+---
 <div ng-controller="SearchController">
-  <div class="main-content" id="main-content" sytle="width: none;">
-    <div class="styleguide-content usa-content ">
-      <h2 class="usa-heading">Search</h1>
+    <legend ng-bind="msg"></legend>
         <div class="usa-grid-full">
         <div class="preview usa-width-one-half"> <!-- Trasporter Entry SubSection -->
         <fieldset>
           <legend>Filtered Manifest</legend>
             <form>
             <label for="generator_name">Generator Name</label>
-            <input id="generator_name" name="generator_name" type="text">
+            <input id="generator_name" ng-model="data.generator_name" name="generator_name" type="text">
 
             <label for="tsdf_name">Disposal Facility Name</label>
-            <input id="tsdf_name" name="tsdf_name" type="text">
+            <input id="tsdf_name" ng-model="data.tsdf_name" name="tsdf_name" type="text">
             <div class="usa-grid">
                 <div class="usa-width-one-half">
                     <label for="origin_state">Origin State</label>
@@ -206,17 +160,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="x in results" data-href="manifest-detail.html" class="result-item">
-                <td scope="row">{{x.id}}</td>
-                <td >Target </td>
-                <td>Heritage</td>
-                <td>9/3/2015</td>
+              <tr ng-repeat="x in filtered" ng-click="manifestDetail(x)" data-href="manifest-detail.html" class="result-item">
+                <td scope="row" ng-bind="x.id"></td>
+                <td ng-bind="x.content.generator_name">></td>
+                <td ng-bind="x.content.designated_facility_name"></td>
+                <td ng-bind="x.updated_at"></td>
               </tr>
             </tbody>
           </table>
         </div>
     </div>
 </div>
-</div>
-</div>
-</body>

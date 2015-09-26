@@ -68,18 +68,74 @@
     };
   }]);
 
-    var app2 = angular.module('app2', []);
+    app.controller('SearchController', function($scope, $http) {
 
-    app2.controller('SearchController', function($scope, $http) {
+        var self = $scope.search = {};
+        $scope.data = {};
+        $scope.filtered = {};
+        $scope.results = {};
+
+        $scope.msg = "Search!";
+        
+        $http.get('/api/manifest/search').success(
+            function(response) {
+                for(var i = 0; i < response.length; i++)
+                {
+                    var item = response[i];
+                        item.content = item.content.replace(/[=]/g, ":");
+                        item.content = item.content.replace(/[>]/g, "");
+                        item.content = jQuery.parseJSON(item.content);
+                    
+                    console.log(item.id);
+                    console.log(item.content.generator_name);
+                }
+
+                $scope.results = response;
+                $scope.filtered = response;
+            });
 
         $scope.filter = function() {
-            $http.get('/api/manifest/search').success(
-                function(response) {$scope.results = response;
-            });
-        };
-  });
+            var gname = $scope.data.generator_name;
+            var tname = $scope.data.tsdf_name;
+            var items = new Array();
 
-  app2.controller('LoginController', function($scope, $http) {
+            for(var i = 0; i < $scope.results.length; i++)
+            {
+                var isAdded = false;
+                var item = $scope.results[i];
+
+                if(gname != undefined && gname == item.content.generator_name)
+                {
+                    items.push(item);
+                    isAdded = true;
+                }
+
+                if(isAdded == false && tname != undefined && tname == item.content.designated_facility_name)
+                {
+                   items.push(item); 
+                }
+            }
+
+            $scope.filtered = items; 
+        };
+        
+        $scope.manifestDetail = function(data) {
+            window.location.href = '/web/manifest-detail.html?id='+data.id;
+        }
+    });
+    
+    app.controller('ManifestDetailController', function($scope, $http) {
+        $http.get('/api/manifest/id/9').success(
+            function(response) {
+                response.content = response.content.replace(/[=]/g, ":");
+                response.content = response.content.replace(/[>]/g, "");
+                response.content = jQuery.parseJSON(response.content);
+              $scope.data = response;
+            });
+    });
+    
+var app2 = angular.module('app2', []);
+    app2.controller('LoginController', function($scope, $http) {
     
     $scope.authenticate = function() {
       self.data = {

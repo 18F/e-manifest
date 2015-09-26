@@ -42,6 +42,12 @@ get '/api/manifest/search' do
   Manifest.all.to_json
 end
 
+# Search for Manifests
+get '/api/manifest/id/:manifestid' do
+  response = Manifest.find(params["manifestid"])
+  response.to_json
+end
+
 # Reset Database
 get '/reset' do
   Manifest.delete_all
@@ -80,4 +86,5 @@ end
 ### Data Models ###
 
 class Manifest < ActiveRecord::Base
+    self.primary_key = "id"
 end

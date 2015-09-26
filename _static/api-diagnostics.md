@@ -20,6 +20,16 @@ Response:
 Response:
 <pre><code id="search-manifest-response"></code></pre>
 
+# Get for Manifest
+
+**GET** /api/manifest/id/*
+<label for="username">Manifest ID: <input id="manifest_id"></label>
+<a href="javascript:getManifest();">Run »</a>
+
+Response:
+<pre><code id="get-manifest-response"></code></pre>
+
+
 # Reset Database
 
 Warning: All data will be deleted and reset!
@@ -135,5 +145,18 @@ Response:
     });
   }
   
+  function getManifest() {
+    var manifestId = $("#manifest_id").val();
+    
+    $.ajax({
+      type: 'GET',
+      url: '/api/manifest/id/'+manifestId,
+    })
+    .done(function(data, textStatus, xhr) {
+      var res = xhr.status + " " + xhr.statusText;
+          res += "\n" + prettyJson(data);
+      $('#get-manifest-response').text(res);
+    });
+  }
 
 </script>
