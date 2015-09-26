@@ -79,6 +79,21 @@
         };
   });
 
+  app2.controller('LoginController', function($scope, $http) {
+    
+    $scope.authenticate = function() {
+      self.data = {
+        userId: $("#userId").val(),
+        password: $("#password").val()
+      };
+      
+      $http.post('/api/user/authenticate', self.data).success(
+        function(response) {
+          $scope.results = response;
+        });
+    };
+  });
+
   if ($().selectize) {
     $(function() {
       $('.manifest_item_epa_waste_code').selectize({
