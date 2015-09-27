@@ -83,9 +83,14 @@
                 for(var i = 0; i < response.length; i++)
                 {
                     var item = response[i];
+                    
+                    //fix for my local env.
+                    if(typeof item.content == "string")
+                    {
                         item.content = item.content.replace(/[=]/g, ":");
                         item.content = item.content.replace(/[>]/g, "");
                         item.content = jQuery.parseJSON(item.content);
+                    }
                     
                     console.log(item.id);
                     console.log(item.content.generator_name);
@@ -144,9 +149,14 @@
         var id = getQueryParams(document.location.search).id;;
         $http.get('/api/manifest/id/'+id).success(
             function(response) {
-                response.content = response.content.replace(/[=]/g, ":");
-                response.content = response.content.replace(/[>]/g, "");
-                response.content = jQuery.parseJSON(response.content);
+                //fix for my local env.
+                console.log(typeof response.content);
+                if(typeof response.content == "string")
+                {
+                    response.content = response.content.replace(/[=]/g, ":");
+                    response.content = response.content.replace(/[>]/g, "");
+                    response.content = jQuery.parseJSON(response.content);
+                }
               $scope.data = response;
             });
     }]);
