@@ -7,7 +7,7 @@ layout: template/web
 <div class="usa-grid-full" ng-controller="ManifestDetailController">
     <div class="preview usa-width-one-half">
         <fieldset>
-            <table>
+            <table class="usa-table-borderless">
                 <tr ng-repeat="x in data.content.searchCriteria">
                     <td ng-bind="x.title"></td>
                     <td ng-bind="x.name"></td>
@@ -18,7 +18,7 @@ layout: template/web
     <div class="preview usa-width-one-half"> 
         <h2 ng-bind="data.content.title"></h2>
         <h3>Generator</h2>
-        <table>
+        <table class="usa-table-borderless">
             <tr>
                 <td>Generator ID Number</td>
                 <td ng-bind="data.content.generator_us_epa_id_number"></td>
@@ -51,7 +51,7 @@ layout: template/web
         
         <div ng-repeat="transporter in data.content.transporters">
             <h2>Transporter</h2>
-            <table>
+            <table class="usa-table-borderless">
                 <tr>
                     <td>Company Name</td>
                     <td ng-bind="data.content.transporter_company_name"></td>
@@ -64,7 +64,7 @@ layout: template/web
         </div>
         
         <h3>Designated Facility</h2>
-        <table>
+        <table class="usa-table-borderless">
             <tr>
                 <td>Company Name</td>
                 <td ng-bind="data.content.designated_facility_name"></td>
@@ -115,7 +115,7 @@ layout: template/web
             </tr>
         </table>
         
-        <table>
+        <table class="usa-table-borderless">
             <tr>
                 <td>Generator's/Officer's Name</td>
                 <td ng-bind="data.content.designated_facility_name"></td>
@@ -124,14 +124,14 @@ layout: template/web
             </tr>
         </table>
         
-        <table>
+        <table class="usa-table-borderless">
             <tr>
                 <td>Hazardous Waste Reports<br>Management Method Codes</td>
                 <td ng-bind="data.content.designated_facility_name"></td>
             </tr>
         </table>
         
-         <table>
+         <table class="usa-table-borderless">
             <tr>
                 <td>Designated Facility Officer or<br>Operator Name</td>
                 <td ng-bind="data.content.designated_facility_name"></td>
@@ -142,7 +142,7 @@ layout: template/web
             </tr>
         </table>
 
-        <table>
+        <table class="usa-table-borderless">
             <tr>
                 <td>Date Submitted</td>
                 <td ng-bind="data.content.designated_facility_name"></td>

@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  var app = angular.module('app', []);
+  var app = angular.module('app', ['ngRoute']);
 
   // HACK: jekyll liquid {{}} tags conflict with angular, so changing to [[]] for now
   app.config(function($interpolateProvider) {
@@ -68,6 +68,7 @@
     };
   }]);
 
+    
     app.controller('SearchController', function($scope, $http) {
 
         var self = $scope.search = {};
@@ -124,15 +125,31 @@
         }
     });
     
-    app.controller('ManifestDetailController', function($scope, $http) {
-        $http.get('/api/manifest/id/9').success(
+    app.controller('ManifestDetailController', ['$scope','$http',function($scope, $http) {
+   
+        function getQueryParams(qs) {
+            qs = qs.split('+').join(' ');
+
+            var params = {},
+                tokens,
+                re = /[?&]?([^=]+)=([^&]*)/g;
+
+            while (tokens = re.exec(qs)) {
+                params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+            }
+
+            return params;
+        }
+        
+        var id = getQueryParams(document.location.search).id;;
+        $http.get('/api/manifest/id/'+id).success(
             function(response) {
                 response.content = response.content.replace(/[=]/g, ":");
                 response.content = response.content.replace(/[>]/g, "");
                 response.content = jQuery.parseJSON(response.content);
               $scope.data = response;
             });
-    });
+    }]);
     
 var app2 = angular.module('app2', []);
     app2.controller('LoginController', function($scope, $http) {
@@ -158,4 +175,6 @@ var app2 = angular.module('app2', []);
       });
     });
   }
-})();
+}
+
+)();
