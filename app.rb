@@ -50,7 +50,7 @@ end
 
 # Reset Database
 get '/reset' do
-  Manifest.delete_all
+  #Manifest.delete_all
   "Database has been reset!"
 end
 
