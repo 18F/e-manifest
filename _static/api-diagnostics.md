@@ -95,9 +95,9 @@ Response:
   }
   
   function resetDatabase() {
-    $.get('/reset', function(data) {
+    /*$.get('/reset', function(data) {
       alert(data);
-    });
+    });*/
   }
 
   function authenticateUser() {

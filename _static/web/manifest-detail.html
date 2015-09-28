@@ -13,6 +13,7 @@ layout: template/web
                     <td ng-bind="x.name"></td>
                 </tr>
             </table>
+            <button class="usa-button-big" type="button">Download</button>
         </fieldset>
     </div>
     <div class="preview usa-width-one-half"> 
@@ -37,7 +38,7 @@ layout: template/web
             </tr>
             <tr>
                 <td>Mailing Address</td>
-                <td ng-bind="data.content.generator_address_1 "></td>
+                <td ng-bind="data.content.generator_address_1"></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -54,11 +55,11 @@ layout: template/web
             <table class="usa-table-borderless">
                 <tr>
                     <td>Company Name</td>
-                    <td ng-bind="data.content.transporter_company_name"></td>
+                    <td ng-bind="transporter.company_name"></td>
                 </tr>
                 <tr>
                     <td>U.S. EPA ID Number</td>
-                    <td ng-bind="data.content.transporter_us_epa_id_number"></td>
+                    <td ng-bind="transporter.us_epa_id_number"></td>
                 </tr>
             </table>
         </div>
@@ -88,64 +89,62 @@ layout: template/web
         </table>
         
         <h3>Waste</h2>
-        <table ng-repeat="waste in data.content.wastes">
+        <table class="usa-table-borderless" ng-repeat="waste in data.content.manifest_items">
             <tr>
                 <td>HM</td>
                 <td ng-bind="waste.id"></td>
             </tr>
             <tr>
                 <td>U.S. DOT Description</td>
-                <td ng-bind="waste.id"></td>
+                <td ng-bind="waste.proper_shipping_name"></td>
             </tr>
             <tr>
                 <td>Total Quantity</td>
-                <td ng-bind="waste.id"></td>
+                <td ng-bind="waste.number_of_containers"></td>
             </tr>
             <tr>
                 <td>Unit Wt./Vol.</td>
-                <td ng-bind="waste.id"></td>
-            </tr>
-            <tr>
-                <td>U.S. EPA Waste Codes</td>
-                <td ng-bind="waste.id"></td>
+                <td ng-bind="waste.unit_wt_vol"></td>
             </tr>
             <tr>
                 <td>State Waste Codes</td>
-                <td ng-bind="waste.id"></td>
+                <td ng-bind="waste.state_waste_codes.waste_code"></td>
             </tr>
         </table>
         
         <table class="usa-table-borderless">
             <tr>
                 <td>Generator's/Officer's Name</td>
-                <td ng-bind="data.content.designated_facility_name"></td>
+                <td ng-bind="data.content.waste_generator_signatory"></td>
+            </tr>
+            <tr>
                 <td>Date</td>
-                <td ng-bind="data.content.designated_facility_name"></td>
+                <td ng-bind-template="[[ data.content.waste_generator_signatory_date_month ]]/[[  data.content.waste_generator_signatory_date_month ]]/[[  data.content.waste_generator_signatory_date_year ]]"></td>
             </tr>
         </table>
         
-        <table class="usa-table-borderless">
+        <table class="usa-table-borderless" ng-show="data.content.report_management_method_codes != null">
             <tr>
                 <td>Hazardous Waste Reports<br>Management Method Codes</td>
-                <td ng-bind="data.content.designated_facility_name"></td>
+                <td ng-bind="data.content.report_management_method_codes"></td>
             </tr>
         </table>
         
          <table class="usa-table-borderless">
             <tr>
                 <td>Designated Facility Officer or<br>Operator Name</td>
-                <td ng-bind="data.content.designated_facility_name"></td>
+                <td ng-bind="data.content.certification_name"></td>
             </tr>
              <tr>
                 <td>Date Signed</td>
-                <td ng-bind="data.content.designated_facility_name"></td>
+                <td ng-bind-template="[[ data.content.certification_date_month ]]/[[  data.content.certification_date_month ]]/[[  data.content.certification_date_year ]]"></td>
             </tr>
         </table>
 
         <table class="usa-table-borderless">
             <tr>
                 <td>Date Submitted</td>
-                <td ng-bind="data.content.designated_facility_name"></td>
+                <td ng-bind-template="[[ data.content.certification_date_month ]]/[[  data.content.certification_date_month ]]/[[  data.content.certification_date_year ]]"></td>
             </tr>
         </table>
     </div>

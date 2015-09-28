@@ -76,7 +76,7 @@
         $scope.filtered = {};
         $scope.results = {};
 
-        $scope.msg = "Search!";
+        $scope.msg = "Search";
         
         $http.get('/api/manifest/search').success(
             function(response) {
