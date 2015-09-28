@@ -228,7 +228,9 @@ layout: template/web
       </li>
     </ul>
 
-    <div class="preview" ng-repeat="manifest_item in industry.data.manifest_items"> <!-- Waste Entry SubSection -->
+    <div class="preview"
+         ng-show="industry.data.waste_non_hazardous_material_present === 'yes'"
+         ng-repeat="manifest_item in industry.data.manifest_items"> <!-- Waste Entry SubSection -->
       <fieldset>
         <legend>
           <span>Manifest Item</span>
@@ -325,7 +327,7 @@ layout: template/web
     </div>
 
     <div> <!-- Waste Details SubSection -->
-      <label for="waste_handeling_instructions">Special Handeling Instructions and Additional Information (14)</label>
+      <label for="waste_handeling_instructions">Special Handling Instructions and Additional Information (14)</label>
       <textarea id="waste_handeling_instructions" ng-model="industry.data.waste_handeling_instructions"></textarea>
 
       <label for="waste_pcb_description">PCB Description (14)</label>
