@@ -161,8 +161,7 @@
             });
     }]);
     
-var app2 = angular.module('app2', []);
-    app2.controller('LoginController', function($scope, $http) {
+  app.controller('LoginController', function($scope, $http) {
     
     $scope.authenticate = function() {
       self.data = {
@@ -174,6 +173,10 @@ var app2 = angular.module('app2', []);
         function(response) {
           $scope.results = response;
         });
+    };
+  }).directive("signLogin", function() {
+    return {
+      templateUrl: "sign-login.html"
     };
   });
 
