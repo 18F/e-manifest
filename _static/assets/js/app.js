@@ -162,7 +162,8 @@
     }]);
     
   app.controller('LoginController', function($scope, $http) {
-    
+    $scope.state = 'login';
+
     $scope.authenticate = function() {
       self.data = {
         userId: $("#userId").val(),
@@ -172,11 +173,17 @@
       $http.post('/api/user/authenticate', self.data).success(
         function(response) {
           $scope.results = response;
+          $scope.state = 'answer';
+          console.log("show me the answer");
         });
     };
   }).directive("signLogin", function() {
     return {
       templateUrl: "sign-login.html"
+    };
+  }).directive("signAnswer", function() {
+    return {
+      templateUrl: "sign-answer.html"
     };
   });
 

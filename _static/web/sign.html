@@ -48,7 +48,8 @@
 
   </header>
   <div ng-controller="LoginController">
-    <div sign-login />
+    <div sign-login ng-hide="[[ state !== 'login' ]]"/>
+    <div sign-answer ng-hide="[[ state !== 'answer' ]]"/>
   </div>
 </div>
 </body>
