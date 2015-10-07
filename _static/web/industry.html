@@ -89,8 +89,8 @@ layout: template/web
     	<option value="WY">Wyoming</option>
     </select>
 
-    <label for="generator_address_zip_code">Zip code (5)</label>
-    <input id="generator_address_zip_code" ng-model="industry.data.generator_address_zip_code" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{5,10}$/">
+    <label for="generator_address_zip_code">ZIP code (5)</label>
+    <input id="generator_address_zip_code" ng-model="industry.data.generator_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
     <label for="generator_phone_number">Phone number (5)</label>
     <input id="generator_phone_number" ng-model="industry.data.generator_phone_number" class="medium-input" type="text" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/">
@@ -204,8 +204,8 @@ layout: template/web
     	<option value="WY">Wyoming</option>
     </select>
 
-    <label for="designated_facility_address_zip_code">Zip code (8)</label>
-    <input id="designated_facility_address_zip_code" ng-model="industry.data.designated_facility_address_zip_code" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{5,10}$/">
+    <label for="designated_facility_address_zip_code">ZIP code (8)</label>
+    <input id="designated_facility_address_zip_code" ng-model="industry.data.designated_facility_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
     <label for="designated_facility_phone_number">Phone number (8)</label>
     <input id="designated_facility_phone_number" ng-model="industry.data.designated_facility_phone_number" class="medium-input" type="text" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/">
@@ -566,8 +566,8 @@ layout: template/web
             <option value="WY">Wyoming</option>
           </select>
 
-          <label for="designated_facility_discrepancy_address_zip_code">Zip code (18b)</label>
-          <input id="designated_facility_discrepancy_address_zip_code" ng-model="industry.data.designated_facility_discrepancy_address_zip_code" class="medium-input" type="text">
+          <label for="designated_facility_discrepancy_address_zip_code">ZIP code (18b)</label>
+          <input id="designated_facility_discrepancy_address_zip_code" ng-model="industry.data.designated_facility_discrepancy_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
           <label for="designated_facility_discrepancy_address_phone_number">Phone number (18b)</label>
           <input id="designated_facility_discrepancy_address_phone_number" ng-model="industry.data.designated_facility_discrepancy_address_phone_number" class="medium-input" type="text">
