@@ -10,7 +10,8 @@ layout: template/web
     <input id="generator_us_epa_id_number" ng-model="industry.data.generator_us_epa_id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
 
     <label for="generator_emergency_response_phone">Emergency Response Phone (3)</label>
-    <input id="generator_emergency_response_phone" ng-model="industry.data.generator_emergency_response_phone" type="text" class="medium-input" ng-pattern="phonePattern">
+    <input id="generator_emergency_response_phone" ng-model="industry.data.generator_emergency_response_phone" type="text" class="medium-input" ng-pattern="phonePattern"
+           ng-change="industry.data.generator_emergency_response_phone = formatCanonicalPhone(industry.data.generator_emergency_response_phone)">
 
     <label for="generator_manifest_tracking_number">Manifest Tracking Number (4)</label>
     <input id="generator_manifest_tracking_number" ng-model="industry.data.generator_manifest_tracking_number" type="text" class="medium-input" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
