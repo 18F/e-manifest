@@ -40,7 +40,7 @@ Warning: All data will be deleted and reset!
 **POST** /api/user/authenticate
 Data: `{ "userId": username, "password": password  }`
 <label for="username">CROMERR username: <input id="username"></label>
-<label for="password">CROMERR password: <input id="password"></label>
+<label for="password">CROMERR password: <input type="password" id="password"></label>
 <a href="javascript:authenticateUser();">Run »</a>
 
 Response:
@@ -53,7 +53,7 @@ Response:
 Data: `{ "token": token, "activityId": activity id, "userId": user id,
 "questionId": question id, "answer": answer, "id": e-manifest id }`
 <label for="manifestId">manifest id: <input id="manifestId"></label>
-<label for="answer">Answer to CROMERR question: <input id="answer"></label>
+<label for="answer">Answer to CROMERR question: <input type="password" id="answer"></label>
 <label for="token">CROMERR token: <input id="token"></label>
 <label for="activityId">CROMERR activity id: <input id="activityId"></label>
 <label for="userId">CROMERR user id: <input id="userId"></label>
