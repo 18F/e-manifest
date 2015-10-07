@@ -2,7 +2,7 @@
 title: Welcome to e-Manifest Industry
 layout: template/web
 ---
-<div id="industry-controller" ng-controller="IndustryController">
+<div id="industry-controller" ng-controller="IndustryController" ng-form="industryForm">
   <div> <!-- Generator Section -->
     <h2 class="usa-heading">Generator</h1>
 
@@ -10,8 +10,10 @@ layout: template/web
     <input id="generator_us_epa_id_number" ng-model="industry.data.generator_us_epa_id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
 
     <label for="generator_emergency_response_phone">Emergency Response Phone (3)</label>
-    <input id="generator_emergency_response_phone" ng-model="industry.data.generator_emergency_response_phone" type="text" class="medium-input" ng-pattern="phonePattern"
-           ng-change="industry.data.generator_emergency_response_phone = formatCanonicalPhone(industry.data.generator_emergency_response_phone)">
+    <input id="generator_emergency_response_phone" ng-model="industry.data.generator_emergency_response_phone"
+           type="text" class="medium-input" ng-pattern="phonePattern" name="generatorEmergencyResponsePhone"
+           ng-change="industry.data.generator_emergency_response_phone =
+                    formatCanonicalPhone(industryForm.generatorEmergencyResponsePhone.$valid, industry.data.generator_emergency_response_phone)">
 
     <label for="generator_manifest_tracking_number">Manifest Tracking Number (4)</label>
     <input id="generator_manifest_tracking_number" ng-model="industry.data.generator_manifest_tracking_number" type="text" class="medium-input" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
@@ -94,7 +96,10 @@ layout: template/web
     <input id="generator_address_zip_code" ng-model="industry.data.generator_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
     <label for="generator_phone_number">Phone number (5)</label>
-    <input id="generator_phone_number" ng-model="industry.data.generator_phone_number" class="medium-input" type="text" ng-pattern="phonePattern">
+    <input id="generator_phone_number" ng-model="industry.data.generator_phone_number" class="medium-input"
+           type="text" ng-pattern="phonePattern" name="generatorPhoneNumber"
+           ng-change="industry.data.generator_phone_number =
+                      formatCanonicalPhone(industryForm.generatorPhoneNumber.$valid, industry.data.generator_phone_number)">
 
     <ul class="usa-unstyled-list">
       <li>
@@ -209,7 +214,10 @@ layout: template/web
     <input id="designated_facility_address_zip_code" ng-model="industry.data.designated_facility_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
     <label for="designated_facility_phone_number">Phone number (8)</label>
-    <input id="designated_facility_phone_number" ng-model="industry.data.designated_facility_phone_number" class="medium-input" type="text" ng-pattern="phonePattern">
+    <input id="designated_facility_phone_number" ng-model="industry.data.designated_facility_phone_number"
+           class="medium-input" type="text" ng-pattern="phonePattern" name="designatedFacilityPhoneNumber"
+           ng-change="industry.data.designated_facility_phone_number =
+                    formatCanonicalPhone(industryForm.designatedFacilityPhoneNumber.$valid, industry.data.designated_facility_phone_number)">
 
     <label for="designated_facility_us_epa_id_number">U.S. EPA ID Number (8)</label>
     <input id="designated_facility_us_epa_id_number" ng-model="industry.data.designated_facility_us_epa_id_number" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
@@ -571,7 +579,12 @@ layout: template/web
           <input id="designated_facility_discrepancy_address_zip_code" ng-model="industry.data.designated_facility_discrepancy_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
           <label for="designated_facility_discrepancy_address_phone_number">Phone number (18b)</label>
-          <input id="designated_facility_discrepancy_address_phone_number" ng-model="industry.data.designated_facility_discrepancy_address_phone_number" class="medium-input" type="text" ng-pattern="phonePattern">
+          <input id="designated_facility_discrepancy_address_phone_number"
+                 ng-model="industry.data.designated_facility_discrepancy_address_phone_number"
+                 class="medium-input" type="text" ng-pattern="phonePattern"
+                 name="designatedFacilityDiscrepancyAddressPhoneNumber"
+                 ng-change="industry.data.designated_facility_discrepancy_address_phone_number =
+                    formatCanonicalPhone(industryForm.designatedFacilityDiscrepancyAddressPhoneNumber.$valid, industry.data.designated_facility_discrepancy_address_phone_number)">
 
           <label for="designated_facility_discrepancy_us_epa_id_number">U.S. EPA ID Number (18b)</label>
           <input id="designated_facility_discrepancy_us_epa_id_number" ng-model="industry.data.designated_facility_discrepancy_us_epa_id_number" type="text" class="medium-input">

@@ -67,7 +67,11 @@
       });
     };
 
-    $scope.formatCanonicalPhone = function(phoneNumber) {
+    $scope.formatCanonicalPhone = function(isValid, phoneNumber) {
+      if (!isValid) {
+        return phoneNumber;
+      }
+      
       var phoneDigits = phoneNumber.replace(/\D/g, "");
       var containsPlusOnePrefix = (phoneDigits.length === 11);
 
