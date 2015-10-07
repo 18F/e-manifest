@@ -229,7 +229,6 @@ layout: template/web
     </ul>
 
     <div class="preview"
-         ng-show="industry.data.waste_non_hazardous_material_present === 'yes'"
          ng-repeat="manifest_item in industry.data.manifest_items"> <!-- Waste Entry SubSection -->
       <fieldset>
         <legend>
@@ -237,8 +236,8 @@ layout: template/web
           <span ng-bind="$index + 1"></span>
         </legend>
 
-        <label>HM (9a)</label>
-        <ul class="usa-unstyled-list">
+        <label ng-show="industry.data.waste_non_hazardous_material_present === 'yes'">HM (9a)</label>
+        <ul ng-show="industry.data.waste_non_hazardous_material_present === 'yes'" class="usa-unstyled-list">
           <li>
             <input id="maifest_item_hazardous_material_[[$index]]" ng-model="maifest_item.hazardous_material" type="radio" value="yes" tabindex="0">
             <label for="maifest_item_hazardous_material_[[$index]]">Hazardous material</label>
