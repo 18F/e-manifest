@@ -288,12 +288,8 @@ layout: template/web
         <div>
           <div class="usa-input-grid usa-input-grid-small">
             <label for="manifest_item_unit_wt_vol_[[$index]]">Unit Wt./Vol. (12)</label>
-            <input id="manifest_item_unit_wt_vol_[[$index]]" ng-model="manifest_item.unit_wt_vol" type="text">
-          </div>
-
-          <div class="usa-input-grid usa-input-grid-small">
-            <label for="manifest_item_unit_of_measure_[[$index]]">Unit of Measure (12)</label>
-            <select ng-model="manifest_item.unit_of_measure" id="manifest_item.unit_of_measure" class="small-input">
+            <select ng-model="manifest_item.unit_wt_vol" id="manifest_item_unit_wt_vol_[[$index]]"
+                    class="small-input">
               <option value="G">G (Gallon)</option>
               <option value="Q">Q (Quart)</option>
             </select>
