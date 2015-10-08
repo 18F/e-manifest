@@ -40,25 +40,15 @@
     };
 
     self.data.manifest_items = [{
-      state_waste_codes: [{waste_code: ''}]
     }];
 
     self.addManifestItem = function() {
       self.data.manifest_items.push({
-        state_waste_codes: [{waste_code: ''}]
       });
     };
 
     self.removeManifestItem = function(index) {
       self.data.manifest_items.splice(index, 1);
-    };
-
-    self.addStateWasteCode = function(index) {
-      self.data.manifest_items[index].state_waste_codes.push({waste_code: ''});
-    };
-
-    self.removeStateWasteCode = function(parentIndex, index) {
-      self.data.manifest_items[parentIndex].state_waste_codes.splice(index, 1);
     };
 
     self.submit = function() {
@@ -205,14 +195,19 @@
     };
   });
 
-  if ($().selectize) {
-    $(function() {
-      $('.manifest_item_epa_waste_code').selectize({
-        delimiter: ',',
-        create: true
+  var selectize = function(selector) {
+    if ($().selectize) {
+      $(function() {
+        $(selector).selectize({
+          delimiter: ',',
+          create: true
+        });
       });
-    });
-  }
+    }
+  };
+
+  selectize('.manifest_item_epa_waste_code');
+  selectize('.manifest_item_state_waste_code');
 }
 
 )();

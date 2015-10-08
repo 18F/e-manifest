@@ -26,7 +26,7 @@ layout: template/web
     <h3 class="usa-heading">Mailing Address</h3>
 
     <label for="generator_name">Name (5)</label>
-    <input id="generator_name" ng-model="industry.data.generator_name" type="text"
+    <input id="generator_name" ng-model="industry.data.generator_name" type="text">
 
     <label for="generator_address_1">Address 1 (5)</label>
     <input id="generator_address_1" ng-model="industry.data.generator_address_1" type="text">
@@ -304,19 +304,8 @@ layout: template/web
 
           <h4>State/Other Waste Codes</h4>
 
-          <div ng-repeat="state in manifest_item.state_waste_codes">
-            <label for="manifest_item_state_waste_code_[[$parent.$index]][[$index]]">
-              State/Other Waste Code (13)
-              <a href="" ng-click="industry.removeStateWasteCode($parent.$index, $index)" ng-show="$index > 0" class="usa-additional_text">Remove</a>
-            </label>
-            <input id="manifest_item_state_waste_code_[[$parent.$index]][[$index]]" ng-model="state.waste_code" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
-          </div>
-        </div>
-
-        <br />
-
-        <div>
-          <a href="" ng-click="industry.addStateWasteCode($index)">Add additional state/other waste code</a>
+          <label for="manifest_item_state_waste_code_[[$index]]">State/Other Waste Code (13)</label>
+          <input class="manifest_item_state_waste_code" id="manifest_item.epa_state_code_[[$index]]" ng-model="manifest_item.state_waste_code" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
         </div>
       </fieldset>
 
