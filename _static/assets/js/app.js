@@ -8,7 +8,7 @@
     $interpolateProvider.startSymbol('[[').endSymbol(']]');
   });
 
-  app.controller('IndustryController', ['$scope', '$http', function($scope, $http) {
+  app.controller('IndustryController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
     var self = $scope.industry = {};
 
     self.name = 'Hello World!!';
@@ -43,8 +43,13 @@
     }];
 
     self.addManifestItem = function() {
+      var nextManifestIndex = self.data.manifest_items.length;
+      console.log("adding manifest item");
       self.data.manifest_items.push({
       });
+      
+      delaySelectize('.manifest_item_epa_waste_code_' + nextManifestIndex);
+      delaySelectize('.manifest_item_state_waste_code_' + nextManifestIndex);
     };
 
     self.removeManifestItem = function(index) {
@@ -74,6 +79,27 @@
     };
     
     $scope.phonePattern = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?\(?\s*(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*\)?\s*(?:[.-]\s*)?)([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
+
+    var delaySelectize = function(selector) {
+      $timeout(function() {
+        selectize(selector);
+      }, 0);
+    };
+
+    var selectize = function(selector) {
+      if ($().selectize) {
+        $(function() {
+          $(selector).selectize({
+            delimiter: ',',
+            create: true
+          });
+        });
+      }
+    };
+
+    selectize('.manifest_item_epa_waste_code_0');
+    selectize('.manifest_item_state_waste_code_0');
+
   }]);
 
     
@@ -195,19 +221,6 @@
     };
   });
 
-  var selectize = function(selector) {
-    if ($().selectize) {
-      $(function() {
-        $(selector).selectize({
-          delimiter: ',',
-          create: true
-        });
-      });
-    }
-  };
-
-  selectize('.manifest_item_epa_waste_code');
-  selectize('.manifest_item_state_waste_code');
 }
 
 )();
