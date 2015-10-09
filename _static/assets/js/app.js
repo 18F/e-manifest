@@ -99,6 +99,7 @@
 
     selectize('.manifest_item_epa_waste_code_0');
     selectize('.manifest_item_state_waste_code_0');
+    selectize('.report_management_method_codes');
 
   }]);
 
