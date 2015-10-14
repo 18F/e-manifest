@@ -15,9 +15,9 @@ module CDX
 
     private
 
-    def puts(message)
-      output_stream.puts(message)
-    end
+    extend Forwardable
+
+    def_delegators :output_stream, :puts
 
     def user_id
       opts['userId']

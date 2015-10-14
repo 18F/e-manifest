@@ -37,16 +37,16 @@ def authenticate_user(args, output_stream=$stdout)
   CDX::User.new(args, output_stream).authenticate
 end
 
-def authenticate_system
-  puts CDX::Client::Signin.operations
+def authenticate_system(output_stream=$stdout)
+  output_stream.puts CDX::Client::Signin.operations
   response = CDX::Client::Signin.call(:authenticate,
                                                 message: {
                                                   :userId => $cdx_username, :credential => $cdx_password,
                                                   :domain => "default", :authenticationMethod => "password"
                                                 })
-  puts "---"
-  puts response.body
-  puts "---"
+  output_stream.puts "---"
+  output_stream.puts response.body
+  output_stream.puts "---"
   token = response.body[:authenticate_response][:security_token]
 rescue Savon::SOAPFault => error
   raise error

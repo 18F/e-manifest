@@ -16,7 +16,7 @@ module CDX
       }
     end
 
-    def self.signing
+    def self.signin
       new({
         :multipart => true,
         :filters => [:password, :credential, :answer]
@@ -31,9 +31,9 @@ module CDX
 
     extend Forwardable
 
-    def_delegators :savon, :call
+    def_delegators :savon, :call, :operations
 
-    Signing = signing
+    Signin = signin
     Auth = auth
   end
 end

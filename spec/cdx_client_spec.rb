@@ -10,23 +10,23 @@ RSpec.describe 'cdx_client script' do
     # but, trying to make sure I keep the code working the same, while
     # encapsulating it a little!
 
-    let(:signing_client) { CDX::Client.signing }
+    let(:signin_client) { CDX::Client.signin }
     let(:auth_client) { CDX::Client.auth }
 
     it 'signing client should be multipart' do
-      expect(signing_client.savon.globals[:multipart]).to eq(true)
+      expect(signin_client.savon.globals[:multipart]).to eq(true)
     end
 
     it 'signing client should have the right filters' do
-      expect(signing_client.savon.globals[:filters]).to include(:password, :credential, :answer)
+      expect(signin_client.savon.globals[:filters]).to include(:password, :credential, :answer)
     end
 
     it 'signing client should have default keys' do
-      expect(signing_client.savon.globals[:wsdl]).to_not be_nil
-      expect(signing_client.savon.globals[:pretty_print_xml]).to_not be_nil
-      expect(signing_client.savon.globals[:log]).to_not be_nil
-      expect(signing_client.savon.globals[:soap_version]).to_not be_nil
-      expect(signing_client.savon.globals[:convert_request_keys_to]).to_not be_nil
+      expect(signin_client.savon.globals[:wsdl]).to_not be_nil
+      expect(signin_client.savon.globals[:pretty_print_xml]).to_not be_nil
+      expect(signin_client.savon.globals[:log]).to_not be_nil
+      expect(signin_client.savon.globals[:soap_version]).to_not be_nil
+      expect(signin_client.savon.globals[:convert_request_keys_to]).to_not be_nil
     end
 
     it 'auth client should have the right filters' do
@@ -96,6 +96,48 @@ RSpec.describe 'cdx_client script' do
       authenticate_user_call
       expect(output_stream.string).to include(user_input_data.to_s)
       expect(output_stream.string).to include(auth_response.hash.to_s)
+    end
+  end
+
+  describe '#authenticate_system' do
+    let(:output_stream) { StringIO.new('') }
+    let(:operations_response) { {'some' => 'operations'} }
+    let(:auth_response) {
+      double('response', body: {
+        authenticate_response: {
+          security_token: 'security_token'
+        }
+      })
+    }
+
+    before do
+      allow(CDX::Client::Signin).to receive(:operations).and_return(operations_response)
+      allow(CDX::Client::Signin).to receive(:call).and_return(auth_response)
+    end
+
+    it 'makes a request for operations and logs to stdout' do
+      expect(CDX::Client::Signin).to receive(:operations).and_return(operations_response)
+      authenticate_system(output_stream)
+      expect(output_stream.string).to include(operations_response.to_s)
+    end
+
+    it 'makes the right authentication request via the right client' do
+      expect(CDX::Client::Signin).to receive(:call).with(:authenticate, {
+        message: {
+          :userId => $cdx_username, :credential => $cdx_password,
+          :domain => "default", :authenticationMethod => "password"
+        }
+      }).and_return(auth_response)
+      authenticate_system(output_stream)
+    end
+
+    it 'logs the response body' do
+      authenticate_system(output_stream)
+      expect(output_stream.string).to include(auth_response.body.to_s)
+    end
+
+    it 'returns the authentication token' do
+      expect(authenticate_system(output_stream)).to eq('security_token')
     end
   end
 end
