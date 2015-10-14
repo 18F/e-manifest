@@ -2,27 +2,6 @@ require 'json'
 require 'savon-multipart'
 require_relative 'secret'
 
-# These global variables are only used in this file,
-# and therefore can be namespaced
-$register_sign_service_client = Savon.client(
-  :wsdl => "https://devngn.epacdxnode.net/cdx-register/services/RegisterSignService?wsdl",
-  :pretty_print_xml => true,
-  :log => true,
-  :soap_version => 2,
-  :multipart => true,
-  :convert_request_keys_to => :none,
-  :filters => [:password, :credential, :answer]
-)
-
-$register_auth_service_client = Savon.client(
-  :wsdl => "https://devngn.epacdxnode.net/cdx-register/services/RegisterAuthService?wsdl",
-  :pretty_print_xml => true,
-  :log => true,
-  :soap_version => 2,
-  :convert_request_keys_to => :none,
-  :filters => [:password]
-)
-
 module CDX
   class Client
     attr_reader :savon
@@ -53,6 +32,9 @@ module CDX
         :filters => [:password]
       })
     end
+
+    Signing = signing
+    Auth = auth
   end
 end
 
@@ -87,7 +69,7 @@ def authenticate_user(args)
   user_id = args["userId"]
   password = args["password"]
 
-  response = $register_auth_service_client.call(:authenticate, :message => {
+  response = CDX::Client::Auth.call(:authenticate, :message => {
                                                   :userId => user_id, :password => password
                                                 })
   puts response.hash
@@ -104,8 +86,8 @@ rescue Savon::SOAPFault => error
 end
 
 def authenticate_system
-  puts $register_sign_service_client.operations
-  response = $register_sign_service_client.call(:authenticate,
+  puts CDX::Client::Signin.operations
+  response = CDX::Client::Signin.call(:authenticate,
                                                 message: {
                                                   :userId => $cdx_username, :credential => $cdx_password,
                                                   :domain => "default", :authenticationMethod => "password"
@@ -121,7 +103,7 @@ end
 def create_activity(args)
   properties = [{:Property => {:Key => "activityDescription", :Value => args[:activity_description]}},
                 {:Property => {:Key => "roleCode", :Value => args[:role_code]}}]
-  response = $register_sign_service_client.call(:create_activity_with_properties,
+  response = CDX::Client::Signin.call(:create_activity_with_properties,
                                                 message: {
                                                   :securityToken => args[:token],
                                                   :signatureUser => args[:signature_user],
@@ -137,7 +119,7 @@ rescue Savon::SOAPFault => error
 end
 
 def get_question(args)
-  response = $register_sign_service_client.call(:get_question,
+  response = CDX::Client::Signin.call(:get_question,
                                                 message: {
                                                   :securityToken => args[:token],
                                                   :activityId => args[:activity_id],
@@ -167,7 +149,7 @@ end
 
 def validate_answer(args)
   response =
-    $register_sign_service_client.call(:validate_answer,
+    CDX::Client::Signin.call(:validate_answer,
                                        message: {
                                          :securityToken => args["token"],
                                          :activityId => args["activityId"],
@@ -195,7 +177,7 @@ def sign(args)
   }
   
   response =
-    $register_sign_service_client.call(:sign,
+    CDX::Client::Signin.call(:sign,
                                        message: {
                                          :securityToken => args["token"],
                                          :activityId => args["activityId"],
