@@ -40,16 +40,23 @@
     };
 
     self.data.manifest_items = [{
+      epa_waste_code: "",
+      state_waste_code: ""
     }];
 
     self.addManifestItem = function() {
       var nextManifestIndex = self.data.manifest_items.length;
-      console.log("adding manifest item");
       self.data.manifest_items.push({
+        epa_waste_code: "",
+        state_waste_code: ""
       });
       
-      delaySelectize('.manifest_item_epa_waste_code_' + nextManifestIndex);
-      delaySelectize('.manifest_item_state_waste_code_' + nextManifestIndex);
+      delaySelectize('.manifest_item_epa_waste_code_' + nextManifestIndex, function(wasteCodes) {
+        self.data.manifest_items[nextManifestIndex].epa_waste_codes = wasteCodes;
+      });
+      delaySelectize('.manifest_item_state_waste_code_' + nextManifestIndex, function(wasteCodes) {
+        self.data.manifest_items[nextManifestIndex].state_waste_codes = wasteCodes;
+      });
     };
 
     self.removeManifestItem = function(index) {
@@ -80,26 +87,37 @@
     
     $scope.phonePattern = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?\(?\s*(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*\)?\s*(?:[.-]\s*)?)([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
 
-    var delaySelectize = function(selector) {
+    var delaySelectize = function(selector, setter) {
       $timeout(function() {
-        selectize(selector);
+        selectize(selector, setter);
       }, 0);
     };
 
-    var selectize = function(selector) {
+    var selectize = function(selector, setter) {
       if ($().selectize) {
         $(function() {
           $(selector).selectize({
             delimiter: ',',
-            create: true
+            create: true,
+            onBlur: function() {
+              var value = this.$input.val();
+              var modelValue = value.split(",");
+              setter.call(this, modelValue);
+            }
           });
         });
       }
     };
 
-    selectize('.manifest_item_epa_waste_code_0');
-    selectize('.manifest_item_state_waste_code_0');
-    selectize('.report_management_method_codes');
+    selectize('.manifest_item_epa_waste_code_0', function(wasteCodes) {
+      self.data.manifest_items[0].epa_waste_codes = wasteCodes;
+    });
+    selectize('.manifest_item_state_waste_code_0', function(wasteCodes) {
+      self.data.manifest_items[0].state_waste_codes = wasteCodes;
+    });
+    selectize('.report_management_method_codes', function(methodCodes) {
+      self.data.report_management_method_codes = methodCodes;
+    });
 
   }]);
 

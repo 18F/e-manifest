@@ -107,8 +107,12 @@ layout: template/web
                 <td ng-bind="waste.unit_wt_vol"></td>
             </tr>
             <tr>
+                <td>U.S. EPA Federal Waste Codes</td>
+                <td ng-bind="waste.epa_waste_codes"></td>
+            </tr>
+            <tr>
                 <td>State Waste Codes</td>
-                <td ng-bind="waste.state_waste_codes.waste_code"></td>
+                <td ng-bind="waste.state_waste_codes"></td>
             </tr>
         </table>
         
@@ -125,7 +129,7 @@ layout: template/web
         
         <table class="usa-table-borderless" ng-show="data.content.report_management_method_codes != null">
             <tr>
-                <td>Hazardous Waste Reports<br>Management Method Codes</td>
+                <td>Hazardous Waste Report<br>Management Method Codes</td>
                 <td ng-bind="data.content.report_management_method_codes"></td>
             </tr>
         </table>
