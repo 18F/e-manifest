@@ -66,12 +66,16 @@ RSpec.describe 'cdx_client script' do
       {'userId' => 'userId', 'password' => 'password'}
     }
 
+    let(:authenticate_user_call) {
+      authenticate_user(user_input_data, output_stream)
+    }
+
     before do
       allow(CDX::Client::Auth).to receive(:call).and_return(auth_response)
     end
 
     it 'should return a re-packaged response' do
-      expect(authenticate_user(user_input_data, output_stream)).to eq({
+      expect(authenticate_user_call).to eq({
         UserId: 'user_id',
         FirstName: 'first_name',
         LastName: 'last_name',
@@ -85,11 +89,11 @@ RSpec.describe 'cdx_client script' do
           :userId => 'userId', :password => 'password'
         }
       }).and_return(auth_response)
-      authenticate_user(user_input_data, output_stream)
+      authenticate_user_call
     end
 
     it 'throws some debugging into stdout' do
-      authenticate_user(user_input_data, output_stream)
+      authenticate_user_call
       expect(output_stream.string).to include(user_input_data.to_s)
       expect(output_stream.string).to include(auth_response.hash.to_s)
     end
