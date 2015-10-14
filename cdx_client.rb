@@ -1,4 +1,6 @@
 require 'json'
+require 'forwardable'
+
 require 'savon-multipart'
 require_relative 'secret'
 
@@ -33,6 +35,10 @@ module CDX
       })
     end
 
+    extend Forwardable
+
+    def_delegators :savon, :call
+
     Signing = signing
     Auth = auth
   end
@@ -64,15 +70,15 @@ rescue Savon::SOAPFault => error
   error_description = {:description => description}
 end
 
-def authenticate_user(args)
-  puts args
+def authenticate_user(args, output_stream=$stdout)
+  output_stream.puts args
   user_id = args["userId"]
   password = args["password"]
 
   response = CDX::Client::Auth.call(:authenticate, :message => {
                                                   :userId => user_id, :password => password
                                                 })
-  puts response.hash
+  output_stream.puts response.hash
   user = response.hash[:envelope][:body][:authenticate_response][:user]
 
   signature_user = {
