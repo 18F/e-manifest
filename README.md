@@ -1,6 +1,6 @@
 # The e-Manifest App for EPA
 
-Visit [18F Consulting](https://pages.18f.gov/consulting/projects/epa/e-manifest/) for details about this project.
+Visit [18F Consulting](https://pages.18f.gov/consulting/projects/epa/e-manifest/) for details about this project, or check out our [Trello board](https://trello.com/b/0geMlbgF/epa-emanifest) to see what we're working on right now.
 
 This is a Ruby/Sinatra app, with a Jekyll static site in the `_static` directory. The Jekyll site will be generated in the `public/` directory, which Sinatra routes to automatically.
 
