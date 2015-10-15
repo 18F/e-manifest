@@ -234,4 +234,101 @@ RSpec.describe 'cdx_client script' do
       })
     end
   end
+
+  describe '#authenticate' do
+    let(:opts) {
+      {'userId' => 'userId', 'password' => 'password'}
+    }
+
+    let(:user_signature) {
+      {
+        UserId: 'user_id',
+        FirstName: 'first_name',
+        LastName: 'last_name',
+        MiddleInitial: 'middle_initial'
+      }
+    }
+
+    let(:security_token) { 'security_token' }
+    let(:activity_id) { 'activity_id' }
+
+    let(:question) {
+      {
+        questionId: 'question_id',
+        questionText: 'text'
+      }
+    }
+
+    before do
+      allow_any_instance_of(CDX::User).to receive(:authenticate).and_return(user_signature)
+      allow_any_instance_of(CDX::System).to receive(:authenticate).and_return(security_token)
+      allow_any_instance_of(CDX::Activity).to receive(:create).and_return(activity_id)
+      allow_any_instance_of(CDX::Question).to receive(:get).and_return(question)
+    end
+
+    it 'makes the right requests' do
+      expect_any_instance_of(CDX::User).to receive(:authenticate).and_return(user_signature)
+      expect_any_instance_of(CDX::System).to receive(:authenticate).and_return(security_token)
+      expect_any_instance_of(CDX::Activity).to receive(:create).and_return(activity_id)
+      expect_any_instance_of(CDX::Question).to receive(:get).and_return(question)
+      authenticate(opts, output_stream)
+    end
+
+    it 'returns the repackaged data' do
+      expect(authenticate(opts, output_stream)).to eq({
+        :token => security_token,
+        :activityId => activity_id,
+        :question => question,
+        :userId => user_signature[:UserId]
+      })
+    end
+
+    describe 'when there is an authentication error' do
+      let(:error) {
+        e = Savon::SOAPFault.new('something went wrong', double)
+        allow(e).to receive(:to_hash).and_return({
+          fault: {
+            detail: {
+              register_auth_fault: {
+                description: 'bad credentials'
+              }
+            }
+          }
+        })
+        e
+      }
+
+      it 'logs the error' do
+        allow_any_instance_of(CDX::User).to receive(:authenticate).and_raise(error)
+        authenticate(opts, output_stream)
+        expect(output_stream.string).to include('bad credentials')
+      end
+
+      it 'returns the error as repackaged data' do
+        allow_any_instance_of(CDX::User).to receive(:authenticate).and_raise(error)
+        expect(authenticate(opts, output_stream)).to eq({description: 'bad credentials'})
+      end
+    end
+
+    describe 'when there is a register error' do
+      let(:error) {
+        e = Savon::SOAPFault.new('something went wrong', double)
+        allow(e).to receive(:to_hash).and_return({
+          fault: {
+            detail: {
+              register_fault: {
+                description: 'bad register???'
+              }
+            }
+          }
+        })
+        e
+      }
+
+      it 'returns the error as repackaged data' do
+        allow_any_instance_of(CDX::User).to receive(:authenticate).and_raise(error)
+        expect(authenticate(opts, output_stream)).to eq({description: 'bad register???'})
+      end
+    end
+  end
 end

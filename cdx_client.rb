@@ -30,6 +30,7 @@ end
 def authenticate(args, output_stream=$stdout)
   signature_user =  CDX::User.new(args, output_stream).authenticate
   token =           CDX::System.new(output_stream).authenticate
+
   activity_id =     CDX::Activity.new({
     :token => token,
     :signature_user => signature_user,
@@ -38,7 +39,12 @@ def authenticate(args, output_stream=$stdout)
     :role_name => "TSDF",
     :role_code => 112090
   }, output_stream).create
-  question = get_question({:token => token, :activity_id => activity_id, :user => signature_user})
+
+  question = get_question({
+    :token => token,
+    :activity_id => activity_id,
+    :user => signature_user
+  })
 
   authenticate_response = {
     :token => token,
@@ -47,14 +53,14 @@ def authenticate(args, output_stream=$stdout)
     :userId => signature_user[:UserId]
   }
 rescue Savon::SOAPFault => error
-  puts error.to_hash
+  output_stream.puts error.to_hash
   fault_detail = error.to_hash[:fault][:detail]
   if (fault_detail.key?(:register_auth_fault))
     description = fault_detail[:register_auth_fault][:description]
   else
     description = fault_detail[:register_fault][:description]
   end
-  puts description
+  output_stream.puts description
   error_description = {:description => description}
 end
 
