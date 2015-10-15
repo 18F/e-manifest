@@ -56,7 +56,7 @@ end
 
 post '/api/user/authenticate' do
   authentication = JSON.parse(request.body.read)
-  response = authenticate authentication
+  response = CDX::Authenticator.new(authentication).perform
   content_type :json
   response.to_json
 end
@@ -69,14 +69,14 @@ post '/api/manifest/sign' do
   sign_request[:manifest_content] = manifest_content
   puts manifest_content
   puts sign_request
-  response = sign_manifest sign_request
+  response = CDX::Manifest.new(sign_request).sign
 
   if (response.key?(:documentId))
     manifest[:document_id] = response[:documentId]
     manifest[:activity_id] = sign_request["activityId"]
     manifest.save
   end
-  
+
   content_type :json
   response.to_json
 end

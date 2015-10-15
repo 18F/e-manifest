@@ -44,7 +44,7 @@ RSpec.describe 'cdx_client script' do
     end
   end
 
-  describe '#authenticate_user' do
+  describe '#CDX::User.new(args, output_stream).authenticate' do
     let(:auth_response) {
       double('respones', hash: {
         envelope: {
@@ -67,7 +67,7 @@ RSpec.describe 'cdx_client script' do
     }
 
     let(:authenticate_user_call) {
-      authenticate_user(user_input_data, output_stream)
+      CDX::User.new(user_input_data, output_stream).authenticate
     }
 
     before do
@@ -99,7 +99,7 @@ RSpec.describe 'cdx_client script' do
     end
   end
 
-  describe '#authenticate_system' do
+  describe 'CDX::System.new(output_stream).authenticate' do
     let(:operations_response) { {'some' => 'operations'} }
 
     let(:auth_response) {
@@ -117,7 +117,7 @@ RSpec.describe 'cdx_client script' do
 
     it 'makes a request for operations and logs to stdout' do
       expect(CDX::Client::Signin).to receive(:operations).and_return(operations_response)
-      authenticate_system(output_stream)
+      CDX::System.new(output_stream).authenticate
       expect(output_stream.string).to include(operations_response.to_s)
     end
 
@@ -128,20 +128,20 @@ RSpec.describe 'cdx_client script' do
           :domain => "default", :authenticationMethod => "password"
         }
       }).and_return(auth_response)
-      authenticate_system(output_stream)
+      CDX::System.new(output_stream).authenticate
     end
 
     it 'logs the response body' do
-      authenticate_system(output_stream)
+      CDX::System.new(output_stream).authenticate
       expect(output_stream.string).to include(auth_response.body.to_s)
     end
 
     it 'returns the authentication token' do
-      expect(authenticate_system(output_stream)).to eq('security_token')
+      expect(CDX::System.new(output_stream).authenticate).to eq('security_token')
     end
   end
 
-  describe '#create_activity' do
+  describe 'CDX::Activity.new(args, output_stream).create' do
     let(:auth_response) {
       double('response', body: {
         create_activity_with_properties_response: {
@@ -173,20 +173,20 @@ RSpec.describe 'cdx_client script' do
         expect(options[:message][:properties].first[:Property][:Value]).to eq('activity_description')
         expect(options[:message][:properties].last[:Property][:Value]).to eq('role_code')
       }.and_return(auth_response)
-      create_activity(args, output_stream)
+      CDX::Activity.new(args, output_stream).create
     end
 
     it 'returns the activity_id from the response' do
-      expect(create_activity(args, output_stream)).to eq('activity_id')
+      expect(CDX::Activity.new(args, output_stream).create).to eq('activity_id')
     end
 
     it 'logs the response body' do
-      create_activity(args, output_stream)
+      CDX::Activity.new(args, output_stream).create
       expect(output_stream.string).to include(auth_response.body.to_s)
     end
   end
 
-  describe '#get_question' do
+  describe 'CDX::Question.new(opts, output_stream).get' do
     let(:opts) {
       {
         token: 'token',
@@ -219,23 +219,23 @@ RSpec.describe 'cdx_client script' do
         expect(options[:message][:activityId]).to eq('activity_id')
         expect(options[:message][:userId]).to eq('UserId')
       }.and_return(auth_response)
-      get_question(opts, output_stream)
+      CDX::Question.new(opts, output_stream).get
     end
 
     it 'outputs the response body' do
-      get_question(opts, output_stream)
+      CDX::Question.new(opts, output_stream).get
       expect(output_stream.string).to include(auth_response.body.to_s)
     end
 
     it 'constructs a return value from the response' do
-      expect(get_question(opts, output_stream)).to eq({
+      expect(CDX::Question.new(opts, output_stream).get).to eq({
         questionId: 'question_id',
         questionText: 'text'
       })
     end
   end
 
-  describe '#authenticate' do
+  describe 'CDX::Authenticator.new(args, output_stream).perform' do
     let(:opts) {
       {'userId' => 'userId', 'password' => 'password'}
     }
@@ -271,11 +271,11 @@ RSpec.describe 'cdx_client script' do
       expect_any_instance_of(CDX::System).to receive(:authenticate).and_return(security_token)
       expect_any_instance_of(CDX::Activity).to receive(:create).and_return(activity_id)
       expect_any_instance_of(CDX::Question).to receive(:get).and_return(question)
-      authenticate(opts, output_stream)
+      CDX::Authenticator.new(opts, output_stream).perform
     end
 
     it 'returns the repackaged data' do
-      expect(authenticate(opts, output_stream)).to eq({
+      expect(CDX::Authenticator.new(opts, output_stream).perform).to eq({
         :token => security_token,
         :activityId => activity_id,
         :question => question,
@@ -300,13 +300,13 @@ RSpec.describe 'cdx_client script' do
 
       it 'logs the error' do
         allow_any_instance_of(CDX::User).to receive(:authenticate).and_raise(error)
-        authenticate(opts, output_stream)
+        CDX::Authenticator.new(opts, output_stream).perform
         expect(output_stream.string).to include('bad credentials')
       end
 
       it 'returns the error as repackaged data' do
         allow_any_instance_of(CDX::User).to receive(:authenticate).and_raise(error)
-        expect(authenticate(opts, output_stream)).to eq({description: 'bad credentials'})
+        expect(CDX::Authenticator.new(opts, output_stream).perform).to eq({description: 'bad credentials'})
       end
     end
 
@@ -327,12 +327,12 @@ RSpec.describe 'cdx_client script' do
 
       it 'returns the error as repackaged data' do
         allow_any_instance_of(CDX::User).to receive(:authenticate).and_raise(error)
-        expect(authenticate(opts, output_stream)).to eq({description: 'bad register???'})
+        expect(CDX::Authenticator.new(opts, output_stream).perform).to eq({description: 'bad register???'})
       end
     end
   end
 
-  describe '#validate_answer' do
+  describe 'CDX::Answer.new(args, output_stream).validate' do
     let(:opts) {
       {
         'token' =>  'security_token',
@@ -368,20 +368,20 @@ RSpec.describe 'cdx_client script' do
         }
       })
 
-      validate_answer(opts, output_stream)
+      CDX::Answer.new(opts, output_stream).validate
     end
 
     it 'returns the repackaged response' do
-      expect(validate_answer(opts, output_stream)).to eq('it is valid')
+      expect(CDX::Answer.new(opts, output_stream).validate).to eq('it is valid')
     end
 
     it 'logs response data' do
-      validate_answer(opts, output_stream)
+      CDX::Answer.new(opts, output_stream).validate
       expect(output_stream.string).to include('it is valid')
     end
   end
 
-  describe '#sign' do
+  describe 'CDX::Sign.new(args, output_stream).perform' do
     let(:opts) {
       {
         'id' =>  'id',
@@ -417,20 +417,20 @@ RSpec.describe 'cdx_client script' do
           }
         }
       })
-      sign(opts, output_stream)
+      CDX::Sign.new(opts, output_stream).perform
     end
 
     it 'returns the document id' do
-      expect(sign(opts, output_stream)).to eq('document_id')
+      expect(CDX::Sign.new(opts, output_stream).perform).to eq('document_id')
     end
 
     it 'logs the response' do
-      sign(opts, output_stream)
+      CDX::Sign.new(opts, output_stream).perform
       expect(output_stream.string).to include('document_id')
     end
   end
 
-  describe '#sign_manifest' do
+  describe 'CDX::Manifest.new(args, output_stream).sign' do
     let(:opts) {
       double('opts')
     }
@@ -456,17 +456,17 @@ RSpec.describe 'cdx_client script' do
 
     it 'validates the answer' do
       expect_any_instance_of(CDX::Answer).to receive(:validate)
-      sign_manifest(opts, output_stream)
+      CDX::Manifest.new(opts, output_stream).sign
     end
 
     it 'signs the manifest' do
       expect_any_instance_of(CDX::Sign).to receive(:perform).and_return('document_id')
-      sign_manifest(opts, output_stream)
+      CDX::Manifest.new(opts, output_stream).sign
     end
 
     it 'logs the error' do
       allow_any_instance_of(CDX::Answer).to receive(:validate).and_raise(error)
-      expect(sign_manifest(opts, output_stream)).to eq({description: 'bad credentials'})
+      expect(CDX::Manifest.new(opts, output_stream).sign).to eq({description: 'bad credentials'})
     end
   end
 end
