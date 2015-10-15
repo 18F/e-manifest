@@ -12,6 +12,7 @@ require_relative 'lib/cdx/activity'
 require_relative 'lib/cdx/question'
 require_relative 'lib/cdx/authenticator'
 require_relative 'lib/cdx/answer'
+require_relative 'lib/cdx/sign'
 
 def authenticate_user(args, output_stream=$stdout)
   CDX::User.new(args, output_stream).authenticate
@@ -37,6 +38,10 @@ def validate_answer(args, output_stream=$stdout)
   CDX::Answer.new(args, output_stream).validate
 end
 
+def sign(args, output_stream=$stdout)
+  CDX::Sign.new(args, output_stream).perform
+end
+
 def sign_manifest(args)
   is_valid_answer = validate_answer(args)
   document_id = sign(args)
@@ -47,30 +52,3 @@ rescue Savon::SOAPFault => error
   puts description
   {:description => description}
 end
-
-def sign(args)
-  manifest_id = args["id"]
-  name = "e-manifest " + manifest_id
-  
-  signature_document = {
-    :Name => name,
-    :Format => "BIN",
-    :Content => args[:manifest_content]
-  }
-  
-  response =
-    CDX::Client::Signin.call(:sign,
-                                       message: {
-                                         :securityToken => args["token"],
-                                         :activityId => args["activityId"],
-                                         :signatureDocument => signature_document
-                                       })
-  puts "---"
-  puts response.body
-  puts "---"
-  document_id = response.body[:sign_response][:document_id]
-rescue Savon::SOAPFault => error
-  # throws on invalid answer
-  raise error
-end
-

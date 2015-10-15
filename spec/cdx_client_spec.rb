@@ -380,4 +380,74 @@ RSpec.describe 'cdx_client script' do
       expect(output_stream.string).to include('it is valid')
     end
   end
+
+  describe '#sign' do
+    #manifest_id = args["id"]
+    #name = "e-manifest " + manifest_id
+    
+    #signature_document = {
+      #:Name => name,
+      #:Format => "BIN",
+      #:Content => args[:manifest_content]
+    #}
+    
+    #response =
+      #CDX::Client::Signin.call(:sign,
+                                         #message: {
+                                           #:securityToken => args["token"],
+                                           #:activityId => args["activityId"],
+                                           #:signatureDocument => signature_document
+                                         #})
+    #puts "---"
+    #puts response.body
+    #puts "---"
+    #document_id = response.body[:sign_response][:document_id]
+    #
+    let(:opts) {
+      {
+        'id' =>  'id',
+        :manifest_content => 'content',
+        'token' => 'token',
+        'activityId' => 'activity_id'
+      }
+    }
+
+    let(:auth_response) {
+      double('response', {
+        body: {
+          sign_response: {
+            document_id: 'document_id'
+          }
+        }
+      })
+    }
+
+    before do
+      allow(CDX::Client::Signin).to receive(:call).and_return(auth_response)
+    end
+
+    it 'makes the right request with the right data' do
+      expect(CDX::Client::Signin).to receive(:call).with(:sign, {
+        message: {
+          securityToken: 'token',
+          activityId: 'activity_id',
+          signatureDocument: {
+            Name: 'e-manifest id',
+            Format: 'BIN',
+            Content: 'content'
+          }
+        }
+      })
+      sign(opts, output_stream)
+    end
+
+    it 'returns the document id' do
+      expect(sign(opts, output_stream)).to eq('document_id')
+    end
+
+    it 'logs the response' do
+      sign(opts, output_stream)
+      expect(output_stream.string).to include('document_id')
+    end
+  end
 end
