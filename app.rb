@@ -1,6 +1,3 @@
-require 'sinatra'
-require 'json'
-require 'sinatra/activerecord'
 require_relative 'app_manifest'
 
 ### Database Configuration ###
@@ -83,10 +80,3 @@ post '/api/manifest/sign' do
   response.to_json
 end
 
-
-
-### Data Models ###
-
-class Manifest < ActiveRecord::Base
-    self.primary_key = "id"
-end
