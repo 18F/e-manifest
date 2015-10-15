@@ -7,6 +7,7 @@ require_relative 'secret'
 require_relative 'lib/cdx/client'
 require_relative 'lib/cdx/user'
 require_relative 'lib/cdx/system'
+require_relative 'lib/cdx/activity'
 
 def authenticate_user(args, output_stream=$stdout)
   CDX::User.new(args, output_stream).authenticate
@@ -14,6 +15,10 @@ end
 
 def authenticate_system(output_stream=$stdout)
   CDX::System.new(output_stream).authenticate
+end
+
+def create_activity(args, output_stream=$stdout)
+  CDX::Activity.new(args, output_stream).create
 end
 
 def authenticate(args, output_stream=$stdout)
@@ -40,22 +45,6 @@ rescue Savon::SOAPFault => error
   end
   puts description
   error_description = {:description => description}
-end
-
-def create_activity(args, output_stream=$stdout)
-  properties = [{:Property => {:Key => "activityDescription", :Value => args[:activity_description]}},
-                {:Property => {:Key => "roleCode", :Value => args[:role_code]}}]
-  response = CDX::Client::Signin.call(:create_activity_with_properties,
-                                                message: {
-                                                  :securityToken => args[:token],
-                                                  :signatureUser => args[:signature_user],
-                                                  :dataflowName => args[:dataflow_name],
-                                                  :properties => properties
-                                                })
-  output_stream.puts "---"
-  output_stream.puts response.body
-  output_stream.puts "---"
-  activity_id = response.body[:create_activity_with_properties_response][:activity_id]
 end
 
 def get_question(args)
