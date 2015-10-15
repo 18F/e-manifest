@@ -6,6 +6,7 @@ require_relative 'secret'
 
 require_relative 'lib/cdx/client'
 require_relative 'lib/cdx/logged_request'
+require_relative 'lib/cdx/handle_error'
 require_relative 'lib/cdx/user'
 require_relative 'lib/cdx/system'
 require_relative 'lib/cdx/activity'
@@ -13,6 +14,7 @@ require_relative 'lib/cdx/question'
 require_relative 'lib/cdx/authenticator'
 require_relative 'lib/cdx/answer'
 require_relative 'lib/cdx/sign'
+require_relative 'lib/cdx/manifest'
 
 def authenticate_user(args, output_stream=$stdout)
   CDX::User.new(args, output_stream).authenticate
@@ -42,13 +44,6 @@ def sign(args, output_stream=$stdout)
   CDX::Sign.new(args, output_stream).perform
 end
 
-def sign_manifest(args)
-  is_valid_answer = validate_answer(args)
-  document_id = sign(args)
-  sign_response = { :documentId => document_id }
-rescue Savon::SOAPFault => error
-  puts error.to_hash
-  description = error.to_hash[:fault][:detail][:register_fault][:description] 
-  puts description
-  {:description => description}
+def sign_manifest(args, output_stream=$stdout)
+  CDX::Manifest.new(args, output_stream).sign
 end

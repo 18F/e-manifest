@@ -54,15 +54,7 @@ module CDX
     end
 
     def log_and_repackage_error(error)
-      output_stream.puts error.to_hash
-      fault_detail = error.to_hash[:fault][:detail]
-      if (fault_detail.key?(:register_auth_fault))
-        description = fault_detail[:register_auth_fault][:description]
-      else
-        description = fault_detail[:register_fault][:description]
-      end
-      output_stream.puts description
-       {:description => description}
+      HandleError.new(error, output_stream).perform
     end
   end
 end

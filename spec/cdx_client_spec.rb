@@ -382,27 +382,6 @@ RSpec.describe 'cdx_client script' do
   end
 
   describe '#sign' do
-    #manifest_id = args["id"]
-    #name = "e-manifest " + manifest_id
-    
-    #signature_document = {
-      #:Name => name,
-      #:Format => "BIN",
-      #:Content => args[:manifest_content]
-    #}
-    
-    #response =
-      #CDX::Client::Signin.call(:sign,
-                                         #message: {
-                                           #:securityToken => args["token"],
-                                           #:activityId => args["activityId"],
-                                           #:signatureDocument => signature_document
-                                         #})
-    #puts "---"
-    #puts response.body
-    #puts "---"
-    #document_id = response.body[:sign_response][:document_id]
-    #
     let(:opts) {
       {
         'id' =>  'id',
@@ -448,6 +427,46 @@ RSpec.describe 'cdx_client script' do
     it 'logs the response' do
       sign(opts, output_stream)
       expect(output_stream.string).to include('document_id')
+    end
+  end
+
+  describe '#sign_manifest' do
+    let(:opts) {
+      double('opts')
+    }
+
+    let(:error) {
+      e = Savon::SOAPFault.new('something went wrong', double)
+      allow(e).to receive(:to_hash).and_return({
+        fault: {
+          detail: {
+            register_auth_fault: {
+              description: 'bad credentials'
+            }
+          }
+        }
+      })
+      e
+    }
+
+    before do
+      allow_any_instance_of(CDX::Answer).to receive(:validate)
+      allow_any_instance_of(CDX::Sign).to receive(:perform).and_return('document_id')
+    end
+
+    it 'validates the answer' do
+      expect_any_instance_of(CDX::Answer).to receive(:validate)
+      sign_manifest(opts, output_stream)
+    end
+
+    it 'signs the manifest' do
+      expect_any_instance_of(CDX::Sign).to receive(:perform).and_return('document_id')
+      sign_manifest(opts, output_stream)
+    end
+
+    it 'logs the error' do
+      allow_any_instance_of(CDX::Answer).to receive(:validate).and_raise(error)
+      expect(sign_manifest(opts, output_stream)).to eq({description: 'bad credentials'})
     end
   end
 end
