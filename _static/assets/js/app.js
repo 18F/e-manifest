@@ -214,9 +214,9 @@
             });
     }]);
     
-  app.controller('LoginController', function($scope, $http) {
+  app.controller('LoginController', function($scope, $http, $location) {
     $scope.state = 'login';
-
+    
     $scope.authenticate = function() {
       self.data = {
         userId: $("#userId").val(),
@@ -225,11 +225,31 @@
       
       $http.post('/api/user/authenticate', self.data).success(
         function(response) {
-          $scope.results = response;
+          $scope.authenticateResponse = response;
           $scope.state = 'answer';
-          console.log("show me the answer");
         });
     };
+
+    $scope.signManifest = function() {
+      var authenticateResponse = $scope.authenticateResponse;
+      var emanifestId = $location.search().id;
+      
+      self.data = {
+        "token": authenticateResponse.token,
+        "activityId": authenticateResponse.activityId,
+        "userId": authenticateResponse.userId,
+        "questionId": authenticateResponse.question.questionId,
+        "answer": $("#answer").val(),
+        "id": emanifestId
+      };
+      
+      $http.post('/api/manifest/sign', self.data).success(
+        function(response) {
+          $scope.authenticateResponse = response;
+          $scope.state = 'answer';
+        });
+    };
+
   }).directive("signLogin", function() {
     return {
       templateUrl: "sign-login.html",
