@@ -8,6 +8,7 @@ require_relative 'lib/cdx/client'
 require_relative 'lib/cdx/user'
 require_relative 'lib/cdx/system'
 require_relative 'lib/cdx/activity'
+require_relative 'lib/cdx/question'
 
 def authenticate_user(args, output_stream=$stdout)
   CDX::User.new(args, output_stream).authenticate
@@ -19,6 +20,11 @@ end
 
 def create_activity(args, output_stream=$stdout)
   CDX::Activity.new(args, output_stream).create
+end
+
+
+def get_question(args, output_stream=$stdout)
+  CDX::Question.new(args, output_stream).get
 end
 
 def authenticate(args, output_stream=$stdout)
@@ -50,24 +56,6 @@ rescue Savon::SOAPFault => error
   end
   puts description
   error_description = {:description => description}
-end
-
-def get_question(args, output_stream=$stdout)
-  response = CDX::Client::Signin.call(:get_question,
-                                                message: {
-                                                  :securityToken => args[:token],
-                                                  :activityId => args[:activity_id],
-                                                  :userId => args[:user][:UserId]
-                                                })
-  output_stream.puts "---"
-  output_stream.puts response.body
-  output_stream.puts "---"
-  question = response.body[:get_question_response][:question]
-  question_id = question[:question_id]
-  question_text = question[:text]
-  question_response = {:questionId => question_id, :questionText => question_text}
-rescue Savon::SOAPFault => error
-  raise error
 end
 
 def sign_manifest(args)
