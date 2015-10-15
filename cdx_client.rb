@@ -9,6 +9,7 @@ require_relative 'lib/cdx/user'
 require_relative 'lib/cdx/system'
 require_relative 'lib/cdx/activity'
 require_relative 'lib/cdx/question'
+require_relative 'lib/cdx/authenticator'
 
 def authenticate_user(args, output_stream=$stdout)
   CDX::User.new(args, output_stream).authenticate
@@ -22,46 +23,12 @@ def create_activity(args, output_stream=$stdout)
   CDX::Activity.new(args, output_stream).create
 end
 
-
 def get_question(args, output_stream=$stdout)
   CDX::Question.new(args, output_stream).get
 end
 
 def authenticate(args, output_stream=$stdout)
-  signature_user =  CDX::User.new(args, output_stream).authenticate
-  token =           CDX::System.new(output_stream).authenticate
-
-  activity_id =     CDX::Activity.new({
-    :token => token,
-    :signature_user => signature_user,
-    :dataflow_name => "eManifest",
-    :activity_description => "development test",
-    :role_name => "TSDF",
-    :role_code => 112090
-  }, output_stream).create
-
-  question = get_question({
-    :token => token,
-    :activity_id => activity_id,
-    :user => signature_user
-  })
-
-  authenticate_response = {
-    :token => token,
-    :activityId => activity_id,
-    :question => question,
-    :userId => signature_user[:UserId]
-  }
-rescue Savon::SOAPFault => error
-  output_stream.puts error.to_hash
-  fault_detail = error.to_hash[:fault][:detail]
-  if (fault_detail.key?(:register_auth_fault))
-    description = fault_detail[:register_auth_fault][:description]
-  else
-    description = fault_detail[:register_fault][:description]
-  end
-  output_stream.puts description
-  error_description = {:description => description}
+  CDX::Authenticator.new(args, output_stream).perform
 end
 
 def sign_manifest(args)
