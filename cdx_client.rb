@@ -24,9 +24,14 @@ end
 def authenticate(args, output_stream=$stdout)
   signature_user =  CDX::User.new(args, output_stream).authenticate
   token =           CDX::System.new(output_stream).authenticate
-  activity_id = create_activity({:token => token, :signature_user => signature_user,
-                                 :dataflow_name => "eManifest", :activity_description => "development test",
-                                 :role_name => "TSDF", :role_code => 112090})
+  activity_id =     CDX::Activity.new({
+    :token => token,
+    :signature_user => signature_user,
+    :dataflow_name => "eManifest",
+    :activity_description => "development test",
+    :role_name => "TSDF",
+    :role_code => 112090
+  }, output_stream).create
   question = get_question({:token => token, :activity_id => activity_id, :user => signature_user})
 
   authenticate_response = {
@@ -47,16 +52,16 @@ rescue Savon::SOAPFault => error
   error_description = {:description => description}
 end
 
-def get_question(args)
+def get_question(args, output_stream=$stdout)
   response = CDX::Client::Signin.call(:get_question,
                                                 message: {
                                                   :securityToken => args[:token],
                                                   :activityId => args[:activity_id],
                                                   :userId => args[:user][:UserId]
                                                 })
-  puts "---"
-  puts response.body
-  puts "---"
+  output_stream.puts "---"
+  output_stream.puts response.body
+  output_stream.puts "---"
   question = response.body[:get_question_response][:question]
   question_id = question[:question_id]
   question_text = question[:text]

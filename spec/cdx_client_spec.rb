@@ -185,4 +185,53 @@ RSpec.describe 'cdx_client script' do
       expect(output_stream.string).to include(auth_response.body.to_s)
     end
   end
+
+  describe '#get_question' do
+    let(:opts) {
+      {
+        token: 'token',
+        activity_id: 'activity_id',
+        user: {
+          UserId: 'UserId'
+        }
+      }
+    }
+
+    let(:auth_response) {
+      double('response', body: {
+        get_question_response: {
+          question: {
+            question_id: 'question_id',
+            text: 'text'
+          }
+        }
+      })
+    }
+
+    before do
+      allow(CDX::Client::Signin).to receive(:call).and_return(auth_response)
+    end
+
+    it 'calls makes the right requset with the right data' do
+      expect(CDX::Client::Signin).to receive(:call) { |operation, options|
+        expect(operation).to eq(:get_question)
+        expect(options[:message][:securityToken]).to eq('token')
+        expect(options[:message][:activityId]).to eq('activity_id')
+        expect(options[:message][:userId]).to eq('UserId')
+      }.and_return(auth_response)
+      get_question(opts, output_stream)
+    end
+
+    it 'outputs the response body' do
+      get_question(opts, output_stream)
+      expect(output_stream.string).to include(auth_response.body.to_s)
+    end
+
+    it 'constructs a return value from the response' do
+      expect(get_question(opts, output_stream)).to eq({
+        questionId: 'question_id',
+        questionText: 'text'
+      })
+    end
+  end
 end
