@@ -1,42 +1,29 @@
 module CDX
-  class User
-    attr_reader :output_stream, :opts
-
-    def initialize(opts, output_stream=$stdout)
-      @opts = opts
-      @output_stream = output_stream
-    end
-
-    def authenticate
-      puts opts
-      puts authentication_response.hash
-      repackage_response
-    end
+  class User < LoggedRequest
+    alias :authenticate :perform
 
     private
 
-    extend Forwardable
-
-    def_delegators :output_stream, :puts
-
-    def user_id
-      opts['userId']
+    def request
+      client.call(:authenticate, {
+        :message => {
+          :userId => opts['userId'], :password => opts['password']
+        }
+      })
     end
 
-    def password
-      opts['password']
+    def client
+      CDX::Client::Auth
     end
 
     def user_data
-      authentication_response.hash[:envelope][:body][:authenticate_response][:user]
+      response.hash[:envelope][:body][:authenticate_response][:user]
     end
 
-    def authentication_response
-      @authentication_response ||= CDX::Client::Auth.call(:authenticate, {
-        :message => {
-          :userId => user_id, :password => password
-        }
-      })
+    def log_response
+      output_stream.puts "---"
+      output_stream.puts response.hash
+      output_stream.puts "---"
     end
 
     def repackage_response

@@ -1,4 +1,6 @@
 module CDX
+  # NOTE: this class is a unique snow flake combining many requests and doing error logging
+  # not sure if it could/should be rolled into the LoggedRequest too
   class Authenticator
     attr_reader :opts, :output_stream
 

@@ -1,20 +1,23 @@
 module CDX
-  class System
+  class System < LoggedRequest
     attr_reader :output_stream
 
     def initialize(output_stream=$stdout)
       @output_stream = output_stream
     end
 
-    def authenticate
-      puts client.operations
-      puts "---"
-      puts response.body
-      puts "---"
-      token
-    end
+    alias :authenticate :perform
 
     private
+
+    def log_opts
+      # no-op
+    end
+
+    def log_response
+      output_stream.puts client.operations
+      super
+    end
 
     def response
       @response ||= client.call(:authenticate, {
@@ -25,16 +28,8 @@ module CDX
       })
     end
 
-    def client
-      CDX::Client::Signin
-    end
-
-    def token
+    def repackage_response
       response.body[:authenticate_response][:security_token]
     end
-
-    extend Forwardable
-
-    def_delegators :output_stream, :puts
   end
 end

@@ -5,6 +5,7 @@ require 'savon-multipart'
 require_relative 'secret'
 
 require_relative 'lib/cdx/client'
+require_relative 'lib/cdx/logged_request'
 require_relative 'lib/cdx/user'
 require_relative 'lib/cdx/system'
 require_relative 'lib/cdx/activity'

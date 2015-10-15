@@ -1,27 +1,11 @@
 module CDX
-  class Question
-    attr_reader :opts, :output_stream
-
-    def initialize(opts, output_stream=$stdout)
-      @opts = opts
-      @output_stream = output_stream
-    end
-
-    def get
-      log_response
-      repackage_data
-    end
+  class Question < LoggedRequest
+    alias :get :perform
 
     private
 
-    def log_response
-      output_stream.puts "---"
-      output_stream.puts response.body
-      output_stream.puts "---"
-    end
-
-    def response
-      @response ||= CDX::Client::Signin.call(:get_question, {
+    def request
+      client.call(:get_question, {
         message: {
           :securityToken => opts[:token],
           :activityId =>    opts[:activity_id],
@@ -34,7 +18,7 @@ module CDX
       response.body[:get_question_response][:question]
     end
 
-    def repackage_data
+    def repackage_response
       {
         :questionId => question_response_data[:question_id],
         :questionText => question_response_data[:text]
