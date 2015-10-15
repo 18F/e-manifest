@@ -232,11 +232,13 @@
     };
   }).directive("signLogin", function() {
     return {
-      templateUrl: "sign-login.html"
+      templateUrl: "sign-login.html",
+      restrict: "E"
     };
   }).directive("signAnswer", function() {
     return {
-      templateUrl: "sign-answer.html"
+      templateUrl: "sign-answer.html",
+      restrict: "E"
     };
   });
 
