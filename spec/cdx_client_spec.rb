@@ -5,6 +5,8 @@ require 'stringio'
 require File.dirname(__FILE__) + "/../cdx_client"
 
 RSpec.describe 'cdx_client script' do
+  let(:output_stream) { StringIO.new('') }
+
   describe 'available clients' do
     # NOTE: this is all configuration and shouldn't really be tested ...
     # but, trying to make sure I keep the code working the same, while
@@ -43,8 +45,6 @@ RSpec.describe 'cdx_client script' do
   end
 
   describe '#authenticate_user' do
-    let(:output_stream) { StringIO.new('') }
-
     let(:auth_response) {
       double('respones', hash: {
         envelope: {
@@ -100,8 +100,8 @@ RSpec.describe 'cdx_client script' do
   end
 
   describe '#authenticate_system' do
-    let(:output_stream) { StringIO.new('') }
     let(:operations_response) { {'some' => 'operations'} }
+
     let(:auth_response) {
       double('response', body: {
         authenticate_response: {
@@ -138,6 +138,51 @@ RSpec.describe 'cdx_client script' do
 
     it 'returns the authentication token' do
       expect(authenticate_system(output_stream)).to eq('security_token')
+    end
+  end
+
+  describe '#create_activity' do
+    let(:auth_response) {
+      double('response', body: {
+        create_activity_with_properties_response: {
+          activity_id: 'activity_id'
+        }
+      })
+    }
+
+    let(:args) {
+      {
+        activity_description: 'activity_description',
+        role_code: 'role_code',
+        token: 'token',
+        signature_user: 'signature_user',
+        dataflow_name: 'dataflow_name'
+      }
+    }
+
+    before do
+      allow(CDX::Client::Signin).to receive(:call).and_return(auth_response)
+    end
+
+    it 'receives the right client call with the right data' do
+      expect(CDX::Client::Signin).to receive(:call) { |operation, options|
+        expect(operation).to eq(:create_activity_with_properties)
+        expect(options[:message][:securityToken]).to eq('token')
+        expect(options[:message][:signatureUser]).to eq('signature_user')
+        expect(options[:message][:dataflowName]).to eq('dataflow_name')
+        expect(options[:message][:properties].first[:Property][:Value]).to eq('activity_description')
+        expect(options[:message][:properties].last[:Property][:Value]).to eq('role_code')
+      }.and_return(auth_response)
+      create_activity(args, output_stream)
+    end
+
+    it 'returns the activity_id from the response' do
+      expect(create_activity(args, output_stream)).to eq('activity_id')
+    end
+
+    it 'logs the response body' do
+      create_activity(args, output_stream)
+      expect(output_stream.string).to include(auth_response.body.to_s)
     end
   end
 end

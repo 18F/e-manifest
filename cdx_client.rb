@@ -8,11 +8,17 @@ require_relative 'lib/cdx/client'
 require_relative 'lib/cdx/user'
 require_relative 'lib/cdx/system'
 
+def authenticate_user(args, output_stream=$stdout)
+  CDX::User.new(args, output_stream).authenticate
+end
 
+def authenticate_system(output_stream=$stdout)
+  CDX::System.new(output_stream).authenticate
+end
 
-def authenticate(args)
-  signature_user = authenticate_user(args)
-  token = authenticate_system
+def authenticate(args, output_stream=$stdout)
+  signature_user =  CDX::User.new(args, output_stream).authenticate
+  token =           CDX::System.new(output_stream).authenticate
   activity_id = create_activity({:token => token, :signature_user => signature_user,
                                  :dataflow_name => "eManifest", :activity_description => "development test",
                                  :role_name => "TSDF", :role_code => 112090})
@@ -36,15 +42,7 @@ rescue Savon::SOAPFault => error
   error_description = {:description => description}
 end
 
-def authenticate_user(args, output_stream=$stdout)
-  CDX::User.new(args, output_stream).authenticate
-end
-
-def authenticate_system(output_stream=$stdout)
-  CDX::System.new(output_stream).authenticate
-end
-
-def create_activity(args)
+def create_activity(args, output_stream=$stdout)
   properties = [{:Property => {:Key => "activityDescription", :Value => args[:activity_description]}},
                 {:Property => {:Key => "roleCode", :Value => args[:role_code]}}]
   response = CDX::Client::Signin.call(:create_activity_with_properties,
@@ -54,12 +52,10 @@ def create_activity(args)
                                                   :dataflowName => args[:dataflow_name],
                                                   :properties => properties
                                                 })
-  puts "---"
-  puts response.body
-  puts "---"
+  output_stream.puts "---"
+  output_stream.puts response.body
+  output_stream.puts "---"
   activity_id = response.body[:create_activity_with_properties_response][:activity_id]
-rescue Savon::SOAPFault => error
-  raise error
 end
 
 def get_question(args)
