@@ -21,15 +21,23 @@ module CDX
 
     def response
       @response ||= client.call(:authenticate, {
-        message: {
-          :userId => $cdx_username, :credential => $cdx_password,
-          :domain => "default", :authenticationMethod => "password"
-        }
+        message: credentials
       })
     end
 
     def repackage_response
       response.body[:authenticate_response][:security_token]
+    end
+
+    def credentials
+      unless $cdx_username
+        require_relative File.dirname(__FILE__) + "/../../secret.rb"
+      end
+
+      {
+        :userId => $cdx_username, :credential => $cdx_password,
+        :domain => "default", :authenticationMethod => "password"
+      }
     end
   end
 end

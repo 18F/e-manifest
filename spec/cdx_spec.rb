@@ -1,10 +1,6 @@
 require 'spec_helper'
 
-require 'stringio'
-
-require File.dirname(__FILE__) + "/../cdx_client"
-
-RSpec.describe 'cdx_client script' do
+RSpec.describe CDX do
   let(:output_stream) { StringIO.new('') }
 
   describe 'available clients' do

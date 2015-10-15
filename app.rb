@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'json'
 require 'sinatra/activerecord'
-require_relative 'cdx_client'
+require_relative 'app_manifest'
 
 ### Database Configuration ###
 
