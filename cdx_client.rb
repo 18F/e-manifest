@@ -39,10 +39,10 @@ rescue Savon::SOAPFault => error
   puts error.to_hash
   description = error.to_hash[:fault][:detail][:register_fault][:description] 
   puts description
-  return {:description => description}
+  {:description => description}
 end
 
-def validate_answer(args)
+def validate_answer(args, output_stream=$stdout)
   response =
     CDX::Client::Signin.call(:validate_answer,
                                        message: {
@@ -52,13 +52,10 @@ def validate_answer(args)
                                          :questionId => args["questionId"],
                                          :answer => args["answer"]
                                        })
-  puts "---"
-  puts response.body
-  puts "---"
-  is_valid_answer = response.body[:validate_answer_response][:valid_answer]
-rescue Savon::SOAPFault => error
-  # throws on invalid answer
-  raise error
+  output_stream.puts "---"
+  output_stream.puts response.body
+  output_stream.puts "---"
+  response.body[:validate_answer_response][:valid_answer]
 end
 
 def sign(args)

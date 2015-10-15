@@ -331,4 +331,53 @@ RSpec.describe 'cdx_client script' do
       end
     end
   end
+
+  describe '#validate_answer' do
+    let(:opts) {
+      {
+        'token' =>  'security_token',
+        'activityId' => 'activity_id',
+        'userId' => 'user_id',
+        'questionId' => 'question_id',
+        'answer' => 'answer'
+      }
+    }
+
+    let(:auth_response) {
+      double('response', {
+        body: {
+          validate_answer_response: {
+            valid_answer: 'it is valid'
+          }
+        }
+      })
+    }
+
+    before do
+      allow(CDX::Client::Signin).to receive(:call).and_return(auth_response)
+    end
+
+    it 'sends the right request with the right data' do
+      expect(CDX::Client::Signin).to receive(:call).with(:validate_answer, {
+        message: {
+          :securityToken => 'security_token',
+          :activityId => 'activity_id',
+          :userId => 'user_id',
+          :questionId => 'question_id',
+          :answer => 'answer'
+        }
+      })
+
+      validate_answer(opts, output_stream)
+    end
+
+    it 'returns the repackaged response' do
+      expect(validate_answer(opts, output_stream)).to eq('it is valid')
+    end
+
+    it 'logs response data' do
+      validate_answer(opts, output_stream)
+      expect(output_stream.string).to include('it is valid')
+    end
+  end
 end
