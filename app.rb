@@ -3,8 +3,7 @@ require_relative 'app_manifest'
 ### Database Configuration ###
 
 configure :development do
- set :database, 'postgres://localhost/e-manifest' unless ENV['DATABASE_URL'].present?
- set :show_exceptions, true
+  set :show_exceptions, true
 end
 
 configure :production do
