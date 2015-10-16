@@ -300,12 +300,12 @@ layout: template/web
           <h4>U.S. EPA Federal Waste Codes</h4>
 
           <label for="manifest_item_epa_waste_code_[[$index]]">Federal Waste Codes (13)</label>
-          <input class="manifest_item_epa_waste_code_[[$index]]" id="manifest_item.epa_waste_code_[[$index]]" ng-model="manifest_item.epa_waste_code" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
+          <input class="manifest_item_epa_waste_code_[[$index]]" id="manifest_item.epa_waste_code_[[$index]]" ng-model="uiData[$index].epa_waste_codes" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
 
           <h4>State/Other Waste Codes</h4>
 
           <label for="manifest_item_state_waste_code_[[$index]]">State/Other Waste Codes (13)</label>
-          <input class="manifest_item_state_waste_code_[[$index]]" id="manifest_item.epa_state_code_[[$index]]" ng-model="manifest_item.state_waste_code" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
+          <input class="manifest_item_state_waste_code_[[$index]]" id="manifest_item.epa_state_code_[[$index]]" ng-model="uiData[$index].state_waste_codes" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
         </div>
       </fieldset>
 
@@ -601,7 +601,7 @@ layout: template/web
     <h2 class="usa-heading">Hazardous Waste Report Management Method Codes</h1>
 
     <label for="report_management_method_codes">Method Codes (19)</label>
-    <input id="report_management_method_codes" class="report_management_method_codes" ng-model="industry.data.report_management_method_code" type="text">
+    <input id="report_management_method_codes" class="report_management_method_codes" ng-model="uiData.report_management_method_code" type="text">
   </div>
 
 

@@ -10,7 +10,8 @@
 
   app.controller('IndustryController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
     var self = $scope.industry = {};
-
+    var uiData = $scope.uiData = {};
+    
     self.name = 'Hello World!!';
 
     self.data = {};
@@ -39,16 +40,20 @@
       self.data.transporters.splice(index, 1);
     };
 
-    self.data.manifest_items = [{
-      epa_waste_code: "",
-      state_waste_code: ""
-    }];
+    self.data.manifest_items = [{ }];
 
+    uiData = [{
+      epa_waste_codes: "",
+      state_waste_codes: ""
+    }];
+    
     self.addManifestItem = function() {
       var nextManifestIndex = self.data.manifest_items.length;
-      self.data.manifest_items.push({
-        epa_waste_code: "",
-        state_waste_code: ""
+      self.data.manifest_items.push({ });
+
+      uiData.push({
+        epa_waste_codes: "",
+        state_waste_codes: ""
       });
       
       delaySelectize('.manifest_item_epa_waste_code_' + nextManifestIndex, function(wasteCodes) {
@@ -61,6 +66,7 @@
 
     self.removeManifestItem = function(index) {
       self.data.manifest_items.splice(index, 1);
+      uiData.splice(index, 1);
     };
 
     self.submit = function() {
