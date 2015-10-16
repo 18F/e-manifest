@@ -2,25 +2,19 @@ require_relative 'app_manifest'
 
 class App < Sinatra::Base
   configure do
-
+    set :logging, true
+    if url = ENV['DATABASE_URL']
+      ConnectAR.new(url)
+    end
   end
 
   configure :development do
-    set :logging, true
     set :show_exceptions, true
   end
 
-  configure :production do
-    set :logging, true
-    db = URI.parse(ENV['DATABASE_URL'])
-
-    ActiveRecord::Base.establish_connection(
-     :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
-     :host     => db.host,
-     :username => db.user,
-     :password => db.password,
-     :database => db.path[1..-1],
-     :encoding => 'utf8'
+  configure :test do
+    ActiveRecord::Base.logger = Logger.new(
+      File.new(File.dirname(__FILE__) + '/log/test.log', 'w')
     )
   end
 

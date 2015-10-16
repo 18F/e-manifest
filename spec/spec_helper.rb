@@ -18,6 +18,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'stringio'
+ENV['RACK_ENV'] = 'test'
 require_relative '../app_manifest'
 
 RSpec.configure do |config|

@@ -2,6 +2,7 @@ public/
 tmp/
 _static/.sass-cache/
 Gemfile.lock
+log/*.log
 
 # Ignore Cloud Foundry files
 cf-ssh.yml
