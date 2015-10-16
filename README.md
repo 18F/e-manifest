@@ -10,12 +10,17 @@ Don't edit the `public/` folder directly! Jekyll will overwrite everything when 
 
 ## Running Locally
 
+0. Copy the secret.rb.template to secret.rb. See below CROMERR Signing
 1. Install Ruby
-2. Install Bundler (`gem install bundler`) 
+2. Install Bundler (`gem install bundler`)
 3. Install Postgres and make sure postgres/bin is on your $PATH.
-4. Create an `e-manifest` database in your postgres instance.
+4. Start postgres if it isn't automatically running: `postgres -D /usr/local/var/postgres`
 5. Run `bundle install` to grab the required gems.
-6. Run `rake serve`. This will build the Jekyll site and start the Sinatra server. If you have set a postgres username and password, try this: `DATABASE_URL=postgres://<postgres user>:<password>@localhost/emanifest rake serve` or configure the DATABASE_URL environment variable as you see fit.
+4. Use `rake db:create:all` to create the databases.
+5. User `rake db:migrate` to transform the database structure to what is
+   needed by the app. For test you will need to preface with env
+variables to indicate the environment: `RACK_ENV=test rake db:migrate`
+6. Run `rake serve`. This will build the Jekyll site and start the Sinatra server. If you have set a postgres username and password, try this: `DATABASE_URL=postgres://<postgres user>:<password>@localhost/e-manifest rake serve` or configure the DATABASE_URL environment variable as you see fit. Otherwise the app will just use the config/database.yml.
 7. Go to `localhost:9292` and enjoy!
 
 ## Rake Tasks
@@ -23,6 +28,9 @@ Don't edit the `public/` folder directly! Jekyll will overwrite everything when 
 - To build the static site, run `rake build`.
 - To build and serve the app, run `rake serve`.
 - To deploy to 18F's cloud, run `rake deploy`.
+
+## Running Tests
+Server tests are in rspec. Just run `rspec`.
 
 ## CROMERR Signing
 
