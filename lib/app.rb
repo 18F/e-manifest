@@ -14,7 +14,7 @@ class App < Sinatra::Base
 
   configure :test do
     ActiveRecord::Base.logger = Logger.new(
-      File.new(File.dirname(__FILE__) + '/log/test.log', 'w')
+      File.new(File.dirname(__FILE__) + '/../log/test.log', 'w')
     )
   end
 

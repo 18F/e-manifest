@@ -1,9 +1,9 @@
 # config.ru
 
 require 'rack/contrib/try_static'
-require './app'
+require File.dirname(__FILE__) + "/lib/app"
 
-use Rack::TryStatic, 
+use Rack::TryStatic,
   :root => 'public',
   :urls => %w[/],
   :try => ['.html', 'index.html', '/index.html']

@@ -2,7 +2,7 @@ require 'rack/test'
 require 'rspec'
 require "savon/mock/spec_helper"
 
-require File.dirname(__FILE__) + "/../app.rb"
+require File.dirname(__FILE__) + "/../lib/app.rb"
 
 ENV['RACK_ENV'] = 'test'
 

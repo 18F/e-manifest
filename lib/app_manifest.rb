@@ -7,7 +7,7 @@ require 'bundler'
 
 Bundler.require
 
-lib_dir = File.dirname(__FILE__) + "/lib"
+lib_dir = File.dirname(__FILE__)
 
 require "#{lib_dir}/connect_ar"
 require "#{lib_dir}/cdx"

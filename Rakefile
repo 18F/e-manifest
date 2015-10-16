@@ -1,4 +1,4 @@
-require './app'
+require File.dirname(__FILE__) + "/lib/app"
 require 'sinatra/activerecord/rake'
 
 task default: 'build'
