@@ -8,4 +8,4 @@ use Rack::TryStatic,
   :urls => %w[/],
   :try => ['.html', 'index.html', '/index.html']
 
-run Sinatra::Application
+run App

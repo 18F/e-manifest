@@ -9,7 +9,7 @@ ENV['RACK_ENV'] = 'test'
 module RequestMixin
   include Rack::Test::Methods
   def app
-    Sinatra::Application
+    App
   end
 
   def send_json(method, url, data)
