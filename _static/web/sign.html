@@ -47,9 +47,10 @@
     </nav>
 
   </header>
-  <div ng-controller="LoginController">
+  <div ng-controller="SignController">
     <sign-login ng-show="state === 'login'"></sign-login>
     <sign-answer ng-show="state === 'answer'"></sign-answer>
+    <sign-confirmation ng-show="state === 'confirmation'"></sign-confirmation>
   </div>
 </div>
 </body>
