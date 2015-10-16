@@ -42,7 +42,7 @@ RSpec.describe CDX do
 
   describe '#CDX::User.new(args, output_stream).authenticate' do
     let(:auth_response) {
-      double('respones', hash: {
+      double('response', hash: {
         envelope: {
           body: {
             authenticate_response: {

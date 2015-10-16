@@ -54,7 +54,8 @@ get '/reset' do
 end
 
 post '/api/user/authenticate' do
-  authentication = JSON.parse(request.body.read)
+  body = request.body.read
+  authentication = JSON.parse(body)
   response = CDX::Authenticator.new(authentication).perform
   content_type :json
   response.to_json
