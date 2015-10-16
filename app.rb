@@ -34,6 +34,8 @@ post '/api/manifest/submit/:manifest_tracking_number' do |mtn|
   request.body.rewind
   "Manifest #{mtn} submitted!\n"\
   "Request body: #{request.body.read}\n"
+  response.headers['Location'] = "/api/manifest/id/#{@manifest_row.id}"
+  status 201 
 end
 
 # Search for Manifests

@@ -64,8 +64,15 @@
     };
 
     self.submit = function() {
-      $http.post('/api/manifest/submit/' + self.data.generator_manifest_tracking_number, self.data).then(function() {
-        window.location.href = '/web/done.html';
+      $http.post('/api/manifest/submit/' + self.data.generator_manifest_tracking_number, self.data)
+           .then(function successCallback(response) {
+             var manifestUri = response.headers("Location");
+             var status = response.status;
+             var emanifestId = manifestUri.split("/").pop();
+             if (status === "201") {
+               console.log("manifest created and located here: " + manifestUri);
+             }
+        window.location.href = '/web/sign.html#!/?id=' + emanifestId + '&manifestTrackingNumber=' + self.data.generator_manifest_tracking_number;
       });
     };
 
@@ -223,9 +230,9 @@
         password: $("#password").val()
       };
       
-      $http.post('/api/user/authenticate', self.data).success(
-        function(response) {
-          $scope.authenticateResponse = response;
+      $http.post('/api/user/authenticate', self.data).then(
+        function successCallback(response) {
+          $scope.authenticateResponse = response.data;
           $scope.state = 'answer';
         });
     };
@@ -233,7 +240,8 @@
     $scope.signManifest = function() {
       var authenticateResponse = $scope.authenticateResponse;
       var emanifestId = $location.search().id;
-      $scope.manifestId = $location.search().manifestId;
+      var manifestTrackingNumber = $location.search().manifestTrackingNumber;
+      $scope.manifestTrackingNumber = manifestTrackingNumber;
 
       self.data = {
         "token": authenticateResponse.token,
@@ -244,8 +252,8 @@
         "id": emanifestId
       };
       
-      $http.post('/api/manifest/sign', self.data).success(
-        function(response) {
+      $http.post('/api/manifest/sign', self.data).then(
+        function successCallback(response) {
           $scope.state = 'confirmation';
         });
     };
