@@ -20,7 +20,7 @@ RSpec.describe CDX do
     end
 
     it 'signing client should have default keys' do
-      expect(signin_client.savon.globals[:wsdl]).to_not be_nil
+      expect(signin_client.savon.globals[:wsdl]).to eq("https://devngn.epacdxnode.net/cdx-register/services/RegisterSignService?wsdl")
       expect(signin_client.savon.globals[:pretty_print_xml]).to_not be_nil
       expect(signin_client.savon.globals[:log]).to_not be_nil
       expect(signin_client.savon.globals[:soap_version]).to_not be_nil
@@ -32,7 +32,7 @@ RSpec.describe CDX do
     end
 
     it 'auth client should have default keys' do
-      expect(auth_client.savon.globals[:wsdl]).to_not be_nil
+      expect(auth_client.savon.globals[:wsdl]).to eq("https://devngn.epacdxnode.net/cdx-register/services/RegisterAuthService?wsdl")
       expect(auth_client.savon.globals[:pretty_print_xml]).to_not be_nil
       expect(auth_client.savon.globals[:log]).to_not be_nil
       expect(auth_client.savon.globals[:soap_version]).to_not be_nil
