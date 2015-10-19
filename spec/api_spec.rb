@@ -12,6 +12,7 @@ RSpec.describe 'API request spec' do
       }.to change { Manifest.count }.by(1)
       manifest = Manifest.last
       expect(manifest.content).to eq({'hello' => 'world'})
+      expect(last_response.headers["Location"]).to eq("/api/manifest/id/#{manifest.id}")
     end
   end
 
