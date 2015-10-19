@@ -6,7 +6,7 @@ RSpec.describe 'API request spec' do
   end
 
   describe '/api/manifest/submit/:manifest_tracking_number' do
-    it 'creates a new manefist' do
+    it 'creates a new manifest' do
       expect {
         send_json(:post, '/api/manifest/submit/30221', {hello: 'world'})
       }.to change { Manifest.count }.by(1)
