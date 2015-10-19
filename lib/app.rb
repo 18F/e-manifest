@@ -28,6 +28,7 @@ class App < Sinatra::Base
     request.body.rewind
     "Manifest #{mtn} submitted!\n"\
     "Request body: #{request.body.read}\n"
+    response.headers['Location'] = "/api/manifest/id/#{@manifest_row.id}"
     status 201
   end
 
