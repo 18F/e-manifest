@@ -12,4 +12,7 @@ gem 'sinatra-activerecord'
 
 gem 'savon-multipart'
 
-gem 'rspec'
+group :development, :test do
+  gem "rack-test", require: "rack/test"
+  gem 'rspec'
+end

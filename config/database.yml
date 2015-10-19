@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: e-manifest
+  pool: 5
+test:
+  development:
+  adapter: postgresql
+  encoding: utf8
+  database: e_manifest_test
+  pool: 5
