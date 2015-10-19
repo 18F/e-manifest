@@ -11,3 +11,5 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 
 gem 'savon-multipart'
+
+gem 'rspec'
