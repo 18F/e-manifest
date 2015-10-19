@@ -8,7 +8,7 @@ module CDX
 
     def default_opts
       {
-        :wsdl => "https://devngn.epacdxnode.net/cdx-register/services/RegisterAuthService?wsdl",
+        :wsdl => "https://devngn.epacdxnode.net/cdx-register/services/RegisterSignService?wsdl",
         :pretty_print_xml => true,
         :log => true,
         :soap_version => 2,
@@ -25,7 +25,8 @@ module CDX
 
     def self.auth
       new({
-        :filters => [:password]
+        :filters => [:password],
+        :wsdl => "https://devngn.epacdxnode.net/cdx-register/services/RegisterAuthService?wsdl"
       })
     end
 
