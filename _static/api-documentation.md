@@ -41,10 +41,18 @@ Base URL: **e-manifest.18f.gov/api**
       <td>Response format</td>
       <td>{{ endpoint.response_format }}</td>
     </tr>
+    {% if endpoint.response %}
     <tr>
       <td>Response</td>
       <td><pre><code>{{ endpoint.response }}</code></pre></td>
     </tr>
+    {% endif %}
+    {% if endpoint.response_details %}
+    <tr>
+      <td>Response details</td>
+      <td>{{ endpoint.response_details }}</td>
+    </tr>
+    {% endif %}
   </tbody>
 </table>
 
