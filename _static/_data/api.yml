@@ -2,6 +2,76 @@
   description: Submit a new manifest to the eManifest system
   http_verb: POST
   resource_url: /manifest/submit/:manifest_tracking_number
+  path_variables: {
+     manifest_tracking_number: the tracking number from Line 4 of form 8700-22
+  }
+  request_body: |
+      Manifest information in JSON format, all fields presently optional
+      and unvalidated
+          {
+            "transporters": [
+                {
+                    "company_name": "Transporter1 Co.",
+                    "us_epa_id_number": "JU987987876",
+                    "signatory_name": "JSTransporter Signature",
+                    "transporter_signatory_date_month": "10",
+                    "transporter_signatory_date_day": "20",
+                    "transporter_signatory_date_year": "2015"
+                }
+            ],
+            "manifest_items": [
+                {
+                    "proper_shipping_name": "TechnologicalWaste123",
+                    "proper_hazard_class": "I",
+                    "id_number": "12345",
+                    "packing_group": "II",
+                    "number_of_containers": "1",
+                    "container_type_": {
+                        "0": "BA"
+                    },
+                    "total_quantity": "123",
+                    "unit_wt_vol": "G",
+                    "epa_waste_codes": [
+                        "Pzaj"
+                    ],
+                    "state_waste_codes": [
+                        "pzaj"
+                    ]
+                }
+            ],
+            "generator_us_epa_id_number": "JU123321123",
+            "generator_manifest_tracking_number": "888777666123",
+            "generator_emergency_response_phone": "234-567-8901",
+            "generator_name": "J Main St Waste Co",
+            "generator_address_1": "123 Main St",
+            "generator_address_city": "Elephant Butte",
+            "generator_address_state": "NM",
+            "generator_address_zip_code": "87936",
+            "generator_phone_number": "234-567-8901",
+            "generator_site_address_same_as_mailing_address": "yes",
+            "designated_facility_name": "J Waste Disposal CO.",
+            "designated_facility_address_1": "123 Industrial Blvd",
+            "designated_facility_address_city": "Fictitious",
+            "designated_facility_address_state": "NJ",
+            "designated_facility_address_zip_code": "01213",
+            "designated_facility_phone_number": "987-654-3210",
+            "designated_facility_us_epa_id_number": "JU555555555",
+            "waste_non_hazardous_material_present": "no",
+            "waste_handling_instructions": "No special handling required.",
+            "waste_pcb_description": "No PCB",
+            "waste_generator_signatory": "JUSignature Lastname",
+            "waste_generator_signatory_date_month": "10",
+            "waste_generator_signatory_date_day": "20",
+            "waste_generator_signatory_date_year": "2015",
+            "international_shipment": "no",
+            "report_management_method_codes": [
+                "m123"
+            ],
+            "certification_name": "JUFacility Signature",
+            "certification_date_month": "10",
+            "certification_date_day": "20",
+            "certification_date_year": "2015"
+          }
   response_format: No content. 
   response: HTTP 201 Created.
   response_details: The Location header denotes where the
@@ -12,7 +82,9 @@
   description: Retrieve a manifest previously submitted to the
                eManifest system
   http_verb: GET
-  parameters: emanifest_id
+  path_variables: {
+     emanifest_id: the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)
+  }
   resource_url: /manifest/id/:emanifest_id
   response_format: JSON
   response: |
@@ -87,50 +159,47 @@
         "activity_id": "_7f0ea6e2-99fa-4efa-bc2a-4febe40ec8ff",
         "document_id": "d976f1b4-a2a2-41f8-b2d7-6ae02e257634"
       }
+  response_details: The "id" value is the unique identifier for the manifest in the eManifest system while
+                    content.generator_manifest_tracking_number represents the the Manifest Tracking Number
+                    from Line 4 of form 8700-22
 
 - title: Search for Manifests
-  description: Search for manifests matching provided criteria.
+  description: Search for manifests matching provided criteria. Currently returns all manifests
   http_verb: GET
   resource_url: /manifest/search
   parameters: |
-    manifest_tracking_number
-    generator_name
-    generator_id
-    waste_codes
-    city
-    state
+    To be determined. None presently implemented
   response_format: JSON
   response: |
-    {
-      "results": [
-        "manifest_tracking_number": 12345,
-        "generator_name": "ACME, Inc",
-        "generator_id": 12345,
-        "date": "2015-08-13 17:40:56"
-      ]
-    }
-
-- title: Update Manifest
-  description: Update a manifest.
-  http_verb: PATCH
-  resource_url: /manifest/update/:manifest_tracking_number
-  parameters: |
-    fields_to_update
-  response_format: JSON
-  response: |
-    {
-      "status": "success",
-      "errors": [],
-      "warnings": ["Waste code 1234 not recognized"]
-    }
+    [
+      {
+        "id": 53,
+           ... manifest content here (see Get Manifest response)
+      },
+      {
+        "id": 21,
+           ... manifest content here
+      },
+      {
+        "id": 42,
+           ... manifest content here
+      },
+      ...
+    ]
 
 - title: Authenticate User
   description: Authenticates a user with CROMERR for signing a manifest. Values in the response are needed to sign the manifest.
   http_verb: POST
   resource_url: /user/authenticate
-  parameters: |
-    userId
-    password
+  request_body: |
+    {
+      userId: "CDX user id", 
+      password: "CDX password"
+    }
+  request_body_parameters: {
+    userId: "CDX user id",
+    password: "CDX password"
+  }
   response_format: JSON
   response: |
     {
@@ -140,7 +209,7 @@
         "questionId": "15",
         "questionText": "What was your high school's mascot?"
       },
-      "userId": "USER_X"
+      "userId": "CDX user id"
     }
 
 
@@ -148,15 +217,27 @@
   description: Signs a specified manifest with CROMERR.
   http_verb: POST
   resource_url: /manifest/sign
-  parameters: |
-    token
-    activityId
-    userId
-    questionId
-    answer
-    id (e-manifest id)
+  request_body: |
+    {
+      "activityId": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
+      "answer": "question answer text",
+      "id": ":emanifest_id",
+      "questionId": "15",
+      "token": "csm:IiKaBeSJKqLQCD [...] Y6_HuVuzpDk,.",
+      "userId": "CDX user id"
+    }
+  request_body_parameters: {
+    activityId: "from previous Authenticate User response",
+    answer: "CDX account's answer to the question from Authenticate User response",
+    id: "the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)",
+    questionId: "from previous Authenticate User response",
+    token: "from previous Authenticate User response",
+    userId: "CDX user id"
+  }
   response_format: JSON
   response: |
     {
       "documentId": "be83916a-a4d3-4ae8-aa68-9d56c16b1bce"
     }
+  response_details: The CDX-generated documentId and activityId values will now appear as fields in the
+                    signed manifest when retrieving the manifest data
