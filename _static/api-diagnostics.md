@@ -23,7 +23,7 @@ Response:
 # Get for Manifest
 
 **GET** /api/manifest/id/*
-<label for="username">Manifest ID: <input id="manifest_id"></label>
+<label for="username">eManifest ID: <input id="manifest_id"></label>
 <a href="javascript:getManifest();">Run »</a>
 
 Response:

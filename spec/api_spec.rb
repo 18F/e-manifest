@@ -22,6 +22,11 @@ RSpec.describe 'API request spec' do
       get "/api/manifest/id/#{manifest.id}"
       expect(last_response.body).to eq(manifest.to_json)
     end
+
+    it 'sends a 404 when the manifest cannot be found' do
+      get "/api/manifest/id/9940010140808v9019"
+      expect(last_response.status).to eq(404)
+    end
   end
 
   describe '/api/manifest/search' do

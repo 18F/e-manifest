@@ -40,8 +40,12 @@ class App < Sinatra::Base
 
   # Search for Manifests
   get '/api/manifest/id/:manifestid' do
-    response = Manifest.find(params["manifestid"])
-    response.to_json
+    begin
+      response = Manifest.find(params["manifestid"])
+      response.to_json
+    rescue ActiveRecord::RecordNotFound => e
+      status 404
+    end
   end
 
   # Reset Database
