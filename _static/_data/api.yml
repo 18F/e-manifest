@@ -161,7 +161,7 @@
       }
   response_details: The "id" value is the unique identifier for the manifest in the eManifest system while
                     content.generator_manifest_tracking_number represents the the Manifest Tracking Number
-                    from Line 4 of form 8700-22
+                    from Line 4 of form 8700-22. Returns HTTP 404 if not found.
 
 - title: Search for Manifests
   description: Search for manifests matching provided criteria. Currently returns all manifests
