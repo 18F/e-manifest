@@ -56,10 +56,10 @@
         state_waste_codes: ""
       });
       
-      delaySelectize('.manifest_item_epa_waste_code_' + nextManifestIndex, function(wasteCodes) {
+      deferSelectize('.manifest_item_epa_waste_code_' + nextManifestIndex, function(wasteCodes) {
         self.data.manifest_items[nextManifestIndex].epa_waste_codes = wasteCodes;
       });
-      delaySelectize('.manifest_item_state_waste_code_' + nextManifestIndex, function(wasteCodes) {
+      deferSelectize('.manifest_item_state_waste_code_' + nextManifestIndex, function(wasteCodes) {
         self.data.manifest_items[nextManifestIndex].state_waste_codes = wasteCodes;
       });
     };
@@ -100,7 +100,7 @@
     
     $scope.phonePattern = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?\(?\s*(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*\)?\s*(?:[.-]\s*)?)([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
 
-    var delaySelectize = function(selector, setter) {
+    var deferSelectize = function(selector, setter) {
       $timeout(function() {
         selectize(selector, setter);
       }, 0);
@@ -110,6 +110,7 @@
       if ($().selectize) {
         $(function() {
           $(selector).selectize({
+            plugins: ['remove_button'],
             delimiter: ',',
             create: true,
             onBlur: function() {
