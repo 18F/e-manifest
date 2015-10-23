@@ -193,23 +193,23 @@
   resource_url: /user/authenticate
   request_body: |
     {
-      userId: "CDX user id", 
+      user_id: "CDX user id", 
       password: "CDX password"
     }
   request_body_parameters: {
-    userId: "CDX user id",
+    user_id: "CDX user id",
     password: "CDX password"
   }
   response_format: JSON
   response: |
     {
       "token": "csm:IiKaBeSJKqLQCD [...] Y6_HuVuzpDk,.",
-      "activityId": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
+      "activity_id": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
       "question": {
-        "questionId": "15",
-        "questionText": "What was your high school's mascot?"
+        "question_id": "15",
+        "question_text": "What was your high school's mascot?"
       },
-      "userId": "CDX user id"
+      "user_id": "CDX user id"
     }
 
 
@@ -219,25 +219,25 @@
   resource_url: /manifest/sign
   request_body: |
     {
-      "activityId": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
+      "activity_id": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
       "answer": "question answer text",
       "id": ":emanifest_id",
-      "questionId": "15",
+      "question_id": "15",
       "token": "csm:IiKaBeSJKqLQCD [...] Y6_HuVuzpDk,.",
-      "userId": "CDX user id"
+      "user_id": "CDX user id"
     }
   request_body_parameters: {
-    activityId: "from previous Authenticate User response",
+    activity_id: "from previous Authenticate User response",
     answer: "CDX account's answer to the question from Authenticate User response",
     id: "the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)",
-    questionId: "from previous Authenticate User response",
+    question_id: "from previous Authenticate User response",
     token: "from previous Authenticate User response",
-    userId: "CDX user id"
+    user_id: "CDX user id"
   }
   response_format: JSON
   response: |
     {
-      "documentId": "be83916a-a4d3-4ae8-aa68-9d56c16b1bce"
+      "document_id": "be83916a-a4d3-4ae8-aa68-9d56c16b1bce"
     }
   response_details: The CDX-generated documentId and activityId values will now appear as fields in the
                     signed manifest when retrieving the manifest data

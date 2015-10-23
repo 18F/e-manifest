@@ -43,7 +43,7 @@ RSpec.describe 'API request spec' do
 
   describe 'post /api/user/authenticate' do
     let(:user_credentials) {
-      {'userId' => 'userId', 'password' => 'password'}
+      {'user_id' => 'userId', 'password' => 'password'}
     }
 
     let(:authenticator) {
@@ -65,10 +65,10 @@ RSpec.describe 'API request spec' do
   describe 'post /api/manifest/sign' do
     it 'creates retrieves and resaves a manifest with document id' do
       manifest = Manifest.create(content: {})
-      cdx_manifest = double('cdx manifest', sign: {documentId: 44})
+      cdx_manifest = double('cdx manifest', sign: {document_id: 44})
       expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-      send_json(:post, '/api/manifest/sign', {id: manifest.id, activityId: 22})
+      send_json(:post, '/api/manifest/sign', {id: manifest.id, activity_id: 22})
 
       manifest.reload
       expect(manifest.document_id).to eq('44')
@@ -80,7 +80,7 @@ RSpec.describe 'API request spec' do
       cdx_manifest = double('cdx manifest', sign: {foo: 'bar'})
       expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-      send_json(:post, '/api/manifest/sign', {id: manifest.id, activityId: 22})
+      send_json(:post, '/api/manifest/sign', {id: manifest.id, activity_id: 22})
 
       manifest.reload
       expect(manifest.document_id).to eq(nil)

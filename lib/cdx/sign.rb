@@ -4,7 +4,7 @@ module CDX
       client.call(:sign, {
         message: {
           :securityToken => opts["token"],
-          :activityId => opts["activityId"],
+          :activityId => opts["activity_id"],
           :signatureDocument => signature_document
         }
       })

@@ -7,7 +7,7 @@ module CDX
     def request
       client.call(:authenticate, {
         :message => {
-          :userId => opts['userId'], :password => opts['password']
+          :userId => opts['user_id'], :password => opts['password']
         }
       })
     end

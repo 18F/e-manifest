@@ -47,9 +47,9 @@ module CDX
     def repackage_response
       {
         :token => security_token,
-        :activityId => activity_id,
+        :activity_id => activity_id,
         :question => question,
-        :userId => signature_user[:UserId]
+        :user_id => signature_user[:UserId]
       }
     end
 

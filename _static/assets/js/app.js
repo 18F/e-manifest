@@ -233,7 +233,7 @@
     
     $scope.authenticate = function() {
       self.data = {
-        userId: $("#userId").val(),
+        user_id: $("#user_id").val(),
         password: $("#password").val()
       };
       
@@ -252,9 +252,9 @@
 
       self.data = {
         "token": authenticateResponse.token,
-        "activityId": authenticateResponse.activityId,
-        "userId": authenticateResponse.userId,
-        "questionId": authenticateResponse.question.questionId,
+        "activity_id": authenticateResponse.activity_id,
+        "user_id": authenticateResponse.user_id,
+        "question_id": authenticateResponse.question.question_id,
         "answer": $("#answer").val(),
         "id": emanifestId
       };

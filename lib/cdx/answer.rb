@@ -8,9 +8,9 @@ module CDX
       client.call(:validate_answer, {
         message: {
           :securityToken => opts["token"],
-          :activityId => opts["activityId"],
-          :userId => opts["userId"],
-          :questionId => opts["questionId"],
+          :activityId => opts["activity_id"],
+          :userId => opts["user_id"],
+          :questionId => opts["question_id"],
           :answer => opts["answer"]
         }
       })

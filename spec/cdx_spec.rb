@@ -59,7 +59,7 @@ RSpec.describe CDX do
     }
 
     let(:user_input_data) {
-      {'userId' => 'userId', 'password' => 'password'}
+      {'user_id' => 'userId', 'password' => 'password'}
     }
 
     let(:authenticate_user_call) {
@@ -225,15 +225,15 @@ RSpec.describe CDX do
 
     it 'constructs a return value from the response' do
       expect(CDX::Question.new(opts, output_stream).get).to eq({
-        questionId: 'question_id',
-        questionText: 'text'
+        question_id: 'question_id',
+        question_text: 'text'
       })
     end
   end
 
   describe 'CDX::Authenticator.new(args, output_stream).perform' do
     let(:opts) {
-      {'userId' => 'userId', 'password' => 'password'}
+      {'user_id' => 'userId', 'password' => 'password'}
     }
 
     let(:user_signature) {
@@ -250,11 +250,11 @@ RSpec.describe CDX do
 
     let(:question) {
       {
-        questionId: 'question_id',
-        questionText: 'text'
+        question_id: 'question_id',
+        question_text: 'text'
       }
     }
-
+    
     before do
       allow_any_instance_of(CDX::User).to receive(:authenticate).and_return(user_signature)
       allow_any_instance_of(CDX::System).to receive(:authenticate).and_return(security_token)
@@ -273,9 +273,9 @@ RSpec.describe CDX do
     it 'returns the repackaged data' do
       expect(CDX::Authenticator.new(opts, output_stream).perform).to eq({
         :token => security_token,
-        :activityId => activity_id,
+        :activity_id => activity_id,
         :question => question,
-        :userId => user_signature[:UserId]
+        :user_id => user_signature[:UserId]
       })
     end
 
@@ -332,9 +332,9 @@ RSpec.describe CDX do
     let(:opts) {
       {
         'token' =>  'security_token',
-        'activityId' => 'activity_id',
-        'userId' => 'user_id',
-        'questionId' => 'question_id',
+        'activity_id' => 'activity_id',
+        'user_id' => 'user_id',
+        'question_id' => 'question_id',
         'answer' => 'answer'
       }
     }
@@ -383,7 +383,7 @@ RSpec.describe CDX do
         'id' =>  'id',
         :manifest_content => 'content',
         'token' => 'token',
-        'activityId' => 'activity_id'
+        'activity_id' => 'activity_id'
       }
     }
 

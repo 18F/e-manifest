@@ -38,9 +38,9 @@ Warning: All data will be deleted and reset!
 # Authenticate User
 
 **POST** /api/user/authenticate
-Data: `{ "userId": username, "password": password  }`
-<label for="username">CROMERR username: <input id="username"></label>
-<label for="password">CROMERR password: <input type="password" id="password"></label>
+Data: `{ "user_id": username, "password": password  }`
+<label for="username">CDX username: <input id="username"></label>
+<label for="password">CDX password: <input type="password" id="password"></label>
 <a href="javascript:authenticateUser();">Run »</a>
 
 Response:
@@ -50,14 +50,14 @@ Response:
 
 **POST** /api/manifest/sign
 (data from authenticate user request + answer to the question)
-Data: `{ "token": token, "activityId": activity id, "userId": user id,
-"questionId": question id, "answer": answer, "id": e-manifest id }`
-<label for="manifestId">manifest id: <input id="manifestId"></label>
-<label for="answer">Answer to CROMERR question: <input type="password" id="answer"></label>
+Data: `{ "token": token, "activity_id": activity id, "user_id": user id,
+"question_id": question id, "answer": answer, "id": eManifest id }`
+<label for="manifest_id">eManifest ID: <input id="manifest_id"></label>
+<label for="answer">Answer to CDX question: <input type="password" id="answer"></label>
 <label for="token">CROMERR token: <input id="token"></label>
-<label for="activityId">CROMERR activity id: <input id="activityId"></label>
-<label for="userId">CROMERR user id: <input id="userId"></label>
-<label for="questionId">CROMERR question id: <input id="questionId"></label>
+<label for="activity_id">CROMERR activity id: <input id="activity_id"></label>
+<label for="user_id">CDX user id: <input id="user_id"></label>
+<label for="question_id">CDX question id: <input id="question_id"></label>
 <a href="javascript:signManifest();">Run »</a>
 
 Response:
@@ -108,35 +108,35 @@ Response:
       type: 'POST',
       url: '/api/user/authenticate',
       contentType: 'application/json',
-      data: JSON.stringify({ "userId": username, "password": password })
+      data: JSON.stringify({ "user_id": username, "password": password })
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
       res += "\n" + prettyJson(data);
       $('#authenticate-user-response').text(res);
-      $('#userId').val(data["userId"]);
+      $('#user_id').val(data["user_id"]);
       $('#token').val(data["token"]);
-      $('#activityId').val(data["activityId"]);
-      $('#questionId').val(data["question"]["questionId"]);
+      $('#activity_id').val(data["activity_id"]);
+      $('#question_id').val(data["question"]["question_id"]);
       $('#answer').val("");
     });
   }
 
   function signManifest() {
-    var manifestId = $("#manifestId").val();
+    var manifest_id = $("#manifest_id").val();
     var token = $("#token").val();
-    var activityId = $("#activityId").val();
-    var userId = $("#userId").val();
-    var questionId = $("#questionId").val();
+    var activity_id = $("#activity_id").val();
+    var user_id = $("#user_id").val();
+    var question_id = $("#question_id").val();
     var answer = $("#answer").val();
     
     $.ajax({
       type: 'POST',
       url: '/api/manifest/sign',
       contentType: 'application/json',
-      data: JSON.stringify({ "id": manifestId, "token": token,
-            "activityId": activityId, "userId": userId,
-            "questionId": questionId, "answer": answer })
+      data: JSON.stringify({ "id": manifest_id, "token": token,
+            "activity_id": activity_id, "user_id": user_id,
+            "question_id": question_id, "answer": answer })
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
@@ -146,11 +146,11 @@ Response:
   }
   
   function getManifest() {
-    var manifestId = $("#manifest_id").val();
+    var manifest_id = $("#manifest_id").val();
     
     $.ajax({
       type: 'GET',
-      url: '/api/manifest/id/'+manifestId,
+      url: '/api/manifest/id/'+manifest_id,
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;

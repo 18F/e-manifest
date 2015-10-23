@@ -18,7 +18,7 @@ module CDX
 
     def repackage_response
       {
-        documentId: document_id
+        document_id: document_id
       }
     end
 

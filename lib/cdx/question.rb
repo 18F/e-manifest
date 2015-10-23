@@ -20,8 +20,8 @@ module CDX
 
     def repackage_response
       {
-        :questionId => question_response_data[:question_id],
-        :questionText => question_response_data[:text]
+        :question_id => question_response_data[:question_id],
+        :question_text => question_response_data[:text]
       }
     end
   end

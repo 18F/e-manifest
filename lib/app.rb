@@ -39,9 +39,9 @@ class App < Sinatra::Base
   end
 
   # Search for Manifests
-  get '/api/manifest/id/:manifestid' do
+  get '/api/manifest/id/:manifest_id' do
     begin
-      response = Manifest.find(params["manifestid"])
+      response = Manifest.find(params["manifest_id"])
       response.to_json
     rescue ActiveRecord::RecordNotFound => e
       status 404
@@ -72,9 +72,9 @@ class App < Sinatra::Base
     puts sign_request
     response = CDX::Manifest.new(sign_request).sign
 
-    if (response.key?(:documentId))
-      manifest[:document_id] = response[:documentId]
-      manifest[:activity_id] = sign_request["activityId"]
+    if (response.key?(:document_id))
+      manifest[:document_id] = response[:document_id]
+      manifest[:activity_id] = sign_request["activity_id"]
       manifest.save
     end
 
