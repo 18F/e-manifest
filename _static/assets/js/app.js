@@ -70,7 +70,7 @@
     };
 
     self.submit = function() {
-      $http.post('/api/manifest/submit/' + self.data.generator_manifest_tracking_number, self.data)
+      $http.post('/api/0.1/manifest/submit/' + self.data.generator_manifest_tracking_number, self.data)
            .then(function successCallback(response) {
              var manifestUri = response.headers("Location");
              var status = response.status;
@@ -145,7 +145,7 @@
 
         $scope.msg = "Search";
         
-        $http.get('/api/manifest/search').success(
+        $http.get('/api/0.1/manifest/search').success(
             function(response) {
                 for(var i = 0; i < response.length; i++)
                 {
@@ -214,7 +214,7 @@
         }
         
         var id = getQueryParams(document.location.search).id;;
-        $http.get('/api/manifest/id/'+id).success(
+        $http.get('/api/0.1/manifest/id/'+id).success(
             function(response) {
                 //fix for my local env.
                 console.log(typeof response.content);
@@ -237,7 +237,7 @@
         password: $("#password").val()
       };
       
-      $http.post('/api/user/authenticate', self.data).then(
+      $http.post('/api/0.1/user/authenticate', self.data).then(
         function successCallback(response) {
           $scope.authenticateResponse = response.data;
           $scope.state = 'answer';
@@ -259,7 +259,7 @@
         "id": emanifestId
       };
       
-      $http.post('/api/manifest/sign', self.data).then(
+      $http.post('/api/0.1/manifest/sign', self.data).then(
         function successCallback(response) {
           $scope.state = 'confirmation';
         });

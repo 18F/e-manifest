@@ -20,26 +20,27 @@ class App < Sinatra::Base
 
   ### API Routes ###
 
+    
   # Submit Manifest
-  post '/api/manifest/submit/:manifest_tracking_number' do |mtn|
+  post "/api/:version/manifest/submit/:manifest_tracking_number" do |version, mtn|
     @manifest_row = Manifest.new(content: JSON.parse(request.body.read))
     @manifest_row.save
 
     request.body.rewind
     "Manifest #{mtn} submitted!\n"\
     "Request body: #{request.body.read}\n"
-    response.headers['Location'] = "/api/manifest/id/#{@manifest_row.id}"
+    response.headers['Location'] = "/api/#{version}/manifest/id/#{@manifest_row.id}"
     status 201
   end
 
   # Search for Manifests
-  get '/api/manifest/search' do
+  get '/api/:version/manifest/search' do
     content_type :json
     Manifest.all.to_json
   end
 
   # Search for Manifests
-  get '/api/manifest/id/:manifest_id' do
+  get '/api/:version/manifest/id/:manifest_id' do
     begin
       response = Manifest.find(params["manifest_id"])
       response.to_json
@@ -54,7 +55,7 @@ class App < Sinatra::Base
     "Database has been reset!"
   end
 
-  post '/api/user/authenticate' do
+  post '/api/:version/user/authenticate' do
     body = request.body.read
     authentication = JSON.parse(body)
     response = CDX::Authenticator.new(authentication).perform
@@ -62,7 +63,7 @@ class App < Sinatra::Base
     response.to_json
   end
 
-  post '/api/manifest/sign' do
+  post '/api/:version/manifest/sign' do
     sign_request = JSON.parse(request.body.read)
     manifest_id = sign_request["id"]
     manifest = Manifest.find(manifest_id)

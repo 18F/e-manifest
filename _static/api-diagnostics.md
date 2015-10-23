@@ -5,7 +5,7 @@ permalink: /api-diagnostics/
 
 # Submit Manifest
 
-**POST** /api/manifest/submit/12345
+**POST** /api/0.1/manifest/submit/12345
 Data: `{ "manifest": 12345 }`
 <a href="javascript:submitManifest();">Run »</a>
 
@@ -14,7 +14,7 @@ Response:
 
 # Search for Manifests
 
-**GET** /api/manifest/search**?city=madison&state=wi**
+**GET** /api/0.1/manifest/search**?city=madison&state=wi**
 <a href="javascript:searchManifest();">Run »</a>
 
 Response:
@@ -22,7 +22,7 @@ Response:
 
 # Get for Manifest
 
-**GET** /api/manifest/id/*
+**GET** /api/0.1/manifest/id/*
 <label for="username">eManifest ID: <input id="manifest_id"></label>
 <a href="javascript:getManifest();">Run »</a>
 
@@ -37,7 +37,7 @@ Warning: All data will be deleted and reset!
 
 # Authenticate User
 
-**POST** /api/user/authenticate
+**POST** /api/0.1/user/authenticate
 Data: `{ "user_id": username, "password": password  }`
 <label for="username">CDX username: <input id="username"></label>
 <label for="password">CDX password: <input type="password" id="password"></label>
@@ -48,7 +48,7 @@ Response:
 
 # Sign Manifest
 
-**POST** /api/manifest/sign
+**POST** /api/0.1/manifest/sign
 (data from authenticate user request + answer to the question)
 Data: `{ "token": token, "activity_id": activity id, "user_id": user id,
 "question_id": question id, "answer": answer, "id": eManifest id }`
@@ -72,7 +72,7 @@ Response:
   function submitManifest() {
     $.ajax({
       type: 'POST',
-      url: '/api/manifest/submit/12345',
+      url: '/api/0.1/manifest/submit/12345',
       data: '{ "manifest": 12345 }'
     })
     .done(function(data, textStatus, xhr) {
@@ -85,7 +85,7 @@ Response:
   function searchManifest() {
     $.ajax({
       type: 'GET',
-      url: '/api/manifest/search?city=madison&state=wi',
+      url: '/api/0.1/manifest/search?city=madison&state=wi',
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
@@ -106,7 +106,7 @@ Response:
     
     $.ajax({
       type: 'POST',
-      url: '/api/user/authenticate',
+      url: '/api/0.1/user/authenticate',
       contentType: 'application/json',
       data: JSON.stringify({ "user_id": username, "password": password })
     })
@@ -132,7 +132,7 @@ Response:
     
     $.ajax({
       type: 'POST',
-      url: '/api/manifest/sign',
+      url: '/api/0.1/manifest/sign',
       contentType: 'application/json',
       data: JSON.stringify({ "id": manifest_id, "token": token,
             "activity_id": activity_id, "user_id": user_id,
@@ -150,7 +150,7 @@ Response:
     
     $.ajax({
       type: 'GET',
-      url: '/api/manifest/id/'+manifest_id,
+      url: '/api/0.1/manifest/id/'+manifest_id,
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
