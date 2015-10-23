@@ -72,8 +72,10 @@
             "certification_date_day": "20",
             "certification_date_year": "2015"
           }
-  response_format: No content. 
-  response: HTTP 201 Created.
+  response: No content.
+  response_http_status_codes: {
+     "201 Created": "Upon successful creation of the manifest in the eManifest system"
+  }
   response_details: The Location header denotes where the
                     manifest may be retrieved
                     (e.g. /api/manifest/id/:emanifest_id)
@@ -161,7 +163,11 @@
       }
   response_details: The "id" value is the unique identifier for the manifest in the eManifest system while
                     content.generator_manifest_tracking_number represents the the Manifest Tracking Number
-                    from Line 4 of form 8700-22. Returns HTTP 404 if not found.
+                    from Line 4 of form 8700-22.
+  response_http_status_codes: {
+     "200 OK": "If found",
+     "404 Not Found": "If the given id does not match an existing manifest"
+  }
 
 - title: Search for Manifests
   description: Search for manifests matching provided criteria. Currently returns all manifests

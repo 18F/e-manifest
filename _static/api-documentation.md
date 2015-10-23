@@ -69,14 +69,29 @@ Base URL: **e-manifest.18f.gov/api**
       </td>
     </tr>
     {% endif %}
+    {% if endpoint.response_format %}
     <tr>
       <td>Response format</td>
       <td>{{ endpoint.response_format }}</td>
     </tr>
+    {% endif %}
     {% if endpoint.response %}
     <tr>
       <td>Response</td>
       <td><pre><code>{{ endpoint.response }}</code></pre></td>
+    </tr>
+    {% endif %}
+    {% if endpoint.response_http_status_codes %}
+    <tr>
+      <td>Response HTTP Status Codes</td>
+      <td>
+        <dl>
+      {% for status_code in endpoint.response_http_status_codes %}
+        <dt>{{ status_code[0] }}</dt>
+        <dd>{{ status_code[1] }}</dd>
+      {% endfor %}
+        </dl>
+      </td>
     </tr>
     {% endif %}
     {% if endpoint.response_details %}
