@@ -20,7 +20,7 @@ Response:
 Response:
 <pre><code id="search-manifest-response"></code></pre>
 
-# Get for Manifest
+# Get a Manifest
 
 **GET** /api/0.1/manifest/id/*
 <label for="username">eManifest ID: <input id="manifest_id"></label>
@@ -52,7 +52,7 @@ Response:
 (data from authenticate user request + answer to the question)
 Data: `{ "token": token, "activity_id": activity id, "user_id": user id,
 "question_id": question id, "answer": answer, "id": eManifest id }`
-<label for="manifest_id">eManifest ID: <input id="manifest_id"></label>
+<label for="sign_manifest_id">eManifest ID: <input id="sign_manifest_id"></label>
 <label for="answer">Answer to CDX question: <input type="password" id="answer"></label>
 <label for="token">CROMERR token: <input id="token"></label>
 <label for="activity_id">CROMERR activity id: <input id="activity_id"></label>
@@ -123,7 +123,7 @@ Response:
   }
 
   function signManifest() {
-    var manifest_id = $("#manifest_id").val();
+    var manifest_id = $("#sign_manifest_id").val();
     var token = $("#token").val();
     var activity_id = $("#activity_id").val();
     var user_id = $("#user_id").val();
