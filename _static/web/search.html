@@ -10,7 +10,7 @@ layout: template/web
           <legend>Filtered Manifest</legend>
             <form>
             <label for="generator_name">Generator Name</label>
-            <input id="generator_name" ng-model="data.generator_name" name="generator_name" type="text">
+            <input id="generator_name" ng-model="data.generator.name" name="generator_name" type="text">
 
             <label for="tsdf_name">Disposal Facility Name</label>
             <input id="tsdf_name" ng-model="data.tsdf_name" name="tsdf_name" type="text">
@@ -162,8 +162,8 @@ layout: template/web
             <tbody>
               <tr ng-repeat="x in filtered" ng-click="manifestDetail(x)" data-href="manifest-detail.html" class="result-item">
                 <td scope="row" ng-bind="x.id"></td>
-                <td ng-bind="x.content.generator_name">></td>
-                <td ng-bind="x.content.designated_facility_name"></td>
+                <td ng-bind="x.content.generator.name">></td>
+                <td ng-bind="x.content.designated_facility.name"></td>
                 <td ng-bind="x.updated_at"></td>
               </tr>
             </tbody>

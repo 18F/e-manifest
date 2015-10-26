@@ -7,18 +7,18 @@ layout: template/web
     <h2 class="usa-heading">Generator</h1>
 
     <label for="generator_us_epa_id_number">U.S. EPA ID Number (1)</label>
-    <input id="generator_us_epa_id_number" ng-model="industry.data.generator_us_epa_id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
+    <input id="generator_us_epa_id_number" ng-model="industry.data.generator.us_epa_id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
 
     <label for="generator_emergency_response_phone">Emergency Response Phone (3)</label>
-    <input id="generator_emergency_response_phone" ng-model="industry.data.generator_emergency_response_phone"
+    <input id="generator_emergency_response_phone" ng-model="industry.data.generator.emergency_response_phone"
            type="text" class="medium-input" ng-pattern="phonePattern" name="generatorEmergencyResponsePhone"
-           ng-change="industry.data.generator_emergency_response_phone =
-                    formatCanonicalPhone(industryForm.generatorEmergencyResponsePhone.$valid, industry.data.generator_emergency_response_phone)">
+           ng-change="industry.data.generator.emergency_response_phone =
+                    formatCanonicalPhone(industryForm.generatorEmergencyResponsePhone.$valid, industry.data.generator.emergency_response_phone)">
 
     <label for="generator_manifest_tracking_number">Manifest Tracking Number (4)</label>
-    <input id="generator_manifest_tracking_number" ng-model="industry.data.generator_manifest_tracking_number" type="text" class="medium-input" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
+    <input id="generator_manifest_tracking_number" ng-model="industry.data.generator.manifest_tracking_number" type="text" class="medium-input" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
 
-    <input id="generator_no_us_epa_id_number" type="checkbox" ng-model="industry.data.generator_no_us_epa_id_number" tabindex="0">
+    <input id="generator_no_us_epa_id_number" type="checkbox" ng-model="industry.data.generator.no_us_epa_id_number" tabindex="0">
     <label for="generator_no_us_epa_id_number">No U.S. EPA ID Number</label>
   </div>
 
@@ -26,19 +26,20 @@ layout: template/web
     <h3 class="usa-heading">Mailing Address</h3>
 
     <label for="generator_name">Name (5)</label>
-    <input id="generator_name" ng-model="industry.data.generator_name" type="text">
+    <input id="generator_name" ng-model="industry.data.generator.name" type="text">
 
     <label for="generator_address_1">Address 1 (5)</label>
-    <input id="generator_address_1" ng-model="industry.data.generator_address_1" type="text">
+    <input id="generator_address_1" ng-model="industry.data.generator.mailing_address.address_1" type="text">
 
     <label for="generator_address_2">Address 2 (5)</label>
-    <input id="generator_address_2" ng-model="industry.data.generator_address_2" type="text">
+    <input id="generator_address_2" ng-model="industry.data.generator.mailing_address.address_2" type="text">
 
     <label for="generator_address_city">City 2 (5)</label>
-    <input id="generator_address_city" ng-model="industry.data.generator_address_city" type="text">
+    <input id="generator_address_city" ng-model="industry.data.generator.mailing_address.city" type="text">
 
     <label for="generator_address_state">State 2 (5)</label>
-    <select ng-model="industry.data.generator_address_state" id="generator_address_state" class="medium-input">
+    <select ng-model="industry.data.generator.mailing_address.state" id="generator_address_state"
+            class="medium-input">
       <option value="AL">Alabama</option>
     	<option value="AK">Alaska</option>
     	<option value="AZ">Arizona</option>
@@ -93,38 +94,38 @@ layout: template/web
     </select>
 
     <label for="generator_address_zip_code">ZIP code (5)</label>
-    <input id="generator_address_zip_code" ng-model="industry.data.generator_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
+    <input id="generator_address_zip_code" ng-model="industry.data.generator.mailing_address.zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
     <label for="generator_phone_number">Phone number (5)</label>
-    <input id="generator_phone_number" ng-model="industry.data.generator_phone_number" class="medium-input"
+    <input id="generator_phone_number" ng-model="industry.data.generator.phone_number" class="medium-input"
            type="text" ng-pattern="phonePattern" name="generatorPhoneNumber"
-           ng-change="industry.data.generator_phone_number =
-                      formatCanonicalPhone(industryForm.generatorPhoneNumber.$valid, industry.data.generator_phone_number)">
+           ng-change="industry.data.generator.phone_number =
+                      formatCanonicalPhone(industryForm.generatorPhoneNumber.$valid, industry.data.generator.phone_number)">
 
     <ul class="usa-unstyled-list">
       <li>
-        <input id="generator_site_address_same_as_mailing_address" type="radio" checked="true" ng-model="industry.data.generator_site_address_same_as_mailing_address" value="yes" tabindex="0">
+        <input id="generator_site_address_same_as_mailing_address" type="radio" checked="true" ng-model="industry.data.generator.site_address_same_as_mailing_address" value="yes" tabindex="0">
         <label for="generator_site_address_same_as_mailing_address">Generator site address is same as mailing address</label>
       </li>
       <li>
-        <input id="generator_site_address_different_as_mailing_address" type="radio" ng-model="industry.data.generator_site_address_same_as_mailing_address" value="no" tabindex="0">
+        <input id="generator_site_address_different_as_mailing_address" type="radio" ng-model="industry.data.generator.site_address_same_as_mailing_address" value="no" tabindex="0">
         <label for="generator_site_address_different_as_mailing_address">Generator site address is different as mailing address</label>
       </li>
     </ul>
-    <div ng-show="industry.data.generator_site_address_same_as_mailing_address === 'no'"> <!-- Site Address Section -->
+    <div ng-show="industry.data.generator.site_address_same_as_mailing_address === 'no'"> <!-- Site Address Section -->
       <h3 class="usa-heading">Site Address</h3>
 
       <label for="generator_site_address_1">Address 1 (5)</label>
-      <input id="generator_site_address_1" ng-model="industry.data.generator_site_address_1" type="text">
+      <input id="generator_site_address_1" ng-model="industry.data.generator.site_address.address_1" type="text">
 
       <label for="generator_site_address_2">Address 2 (5)</label>
-      <input id="generator_site_address_2" ng-model="industry.data.generator_site_address_2" type="text">
+      <input id="generator_site_address_2" ng-model="industry.data.generator.site_address.address_2" type="text">
 
       <label for="generator_site_address_city">City 2 (5)</label>
-      <input id="generator_site_address_city" ng-model="industry.data.generator_site_address_city" type="text">
+      <input id="generator_site_address_city" ng-model="industry.data.generator.site_address.city" type="text">
 
       <label for="generator_site_address_state">State 2 (5)</label>
-      <select ng-model="industry.data.generator_site_address_state" id="generator_site_address_state" class="medium-input">
+      <select ng-model="industry.data.generator.site_address.state" id="generator_site_address_state" class="medium-input">
         <option value="AL">Alabama</option>
     	  <option value="AK">Alaska</option>
     	  <option value="AZ">Arizona</option>
@@ -179,7 +180,7 @@ layout: template/web
       </select>
 
       <label for="generator_site_address_zip_code">ZIP code (5)</label>
-      <input id="generator_site_address_zip_code" ng-model="industry.data.generator_site_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
+      <input id="generator_site_address_zip_code" ng-model="industry.data.generator.site_address.zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
       </div>
   </div>
 
@@ -194,7 +195,7 @@ layout: template/web
         </legend>
 
         <label for="transporter_company_name_[[$index]]">Company Name (6)</label>
-        <input id="transporter_company_name_[[$index]]" ng-model="transporter.company_name" type="text">
+        <input id="transporter_company_name_[[$index]]" ng-model="transporter.name" type="text">
 
         <label for="transporter_us_epa_id_number_[[$index]]">U.S. EPA ID Number (6)</label>
         <input id="transporter_us_epa_id_number_[[$index]]" ng-model="transporter.us_epa_id_number" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
@@ -214,19 +215,19 @@ layout: template/web
     <h3 class="usa-heading">Designated Facility</h3>
 
     <label for="designated_facility_name">Name (8)</label>
-    <input id="designated_facility_name" ng-model="industry.data.designated_facility_name" type="text">
+    <input id="designated_facility_name" ng-model="industry.data.designated_facility.name" type="text">
 
     <label for="designated_facility_address_1">Address 1 (8)</label>
-    <input id="designated_facility_address_1" ng-model="industry.data.designated_facility_address_1" type="text">
+    <input id="designated_facility_address_1" ng-model="industry.data.designated_facility.address.address_1" type="text">
 
     <label for="designated_facility_address_2">Address 2 (8)</label>
-    <input id="designated_facility_address_2" ng-model="industry.data.designated_facility_address_2" type="text">
+    <input id="designated_facility_address_2" ng-model="industry.data.designated_facility.address.address_2" type="text">
 
     <label for="designated_facility_address_city">City 2 (8)</label>
-    <input id="designated_facility_address_city" ng-model="industry.data.designated_facility_address_city" type="text">
+    <input id="designated_facility_address_city" ng-model="industry.data.designated_facility.address.city" type="text">
 
     <label for="designated_facility_address_state">State 2 (8)</label>
-    <select ng-model="industry.data.designated_facility_address_state" id="designated_facility_address_state" class="medium-input">
+    <select ng-model="industry.data.designated_facility.address.state" id="designated_facility_address_state" class="medium-input">
       <option value="AL">Alabama</option>
     	<option value="AK">Alaska</option>
     	<option value="AZ">Arizona</option>
@@ -281,16 +282,16 @@ layout: template/web
     </select>
 
     <label for="designated_facility_address_zip_code">ZIP code (8)</label>
-    <input id="designated_facility_address_zip_code" ng-model="industry.data.designated_facility_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
+    <input id="designated_facility_address_zip_code" ng-model="industry.data.designated_facility.address.zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
     <label for="designated_facility_phone_number">Phone number (8)</label>
-    <input id="designated_facility_phone_number" ng-model="industry.data.designated_facility_phone_number"
+    <input id="designated_facility_phone_number" ng-model="industry.data.designated_facility.phone_number"
            class="medium-input" type="text" ng-pattern="phonePattern" name="designatedFacilityPhoneNumber"
-           ng-change="industry.data.designated_facility_phone_number =
-                    formatCanonicalPhone(industryForm.designatedFacilityPhoneNumber.$valid, industry.data.designated_facility_phone_number)">
+           ng-change="industry.data.designated_facility.phone_number =
+                    formatCanonicalPhone(industryForm.designatedFacilityPhoneNumber.$valid, industry.data.designated_facility.phone_number)">
 
     <label for="designated_facility_us_epa_id_number">U.S. EPA ID Number (8)</label>
-    <input id="designated_facility_us_epa_id_number" ng-model="industry.data.designated_facility_us_epa_id_number" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
+    <input id="designated_facility_us_epa_id_number" ng-model="industry.data.designated_facility.us_epa_id_number" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
   </div>
 
   <div> <!-- Waste Section -->
@@ -333,7 +334,7 @@ layout: template/web
         <input id="manifest_item_proper_shipping_name_[[$index]]" ng-model="manifest_item.proper_shipping_name" type="text">
 
         <label for="manifest_item_proper_hazard_class">Hazard Class</label>
-        <input id="manifest_item_proper_hazard_class" ng-model="manifest_item.proper_hazard_class" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
+        <input id="manifest_item_proper_hazard_class" ng-model="manifest_item.hazard_class" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
 
         <label for="manifest_item_id_number_[[$index]]">ID Number</label>
         <input id="manifest_item_id_number_[[$index]]" ng-model="manifest_item.id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,6}$/">
@@ -347,7 +348,7 @@ layout: template/web
         <input id="manifest_item_number_of_containers_[[$index]]" ng-model="manifest_item.number_of_containers" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
 
         <label for="manifest_item_container_type_[[$index]]">Container Type (10)</label>
-        <select ng-model="manifest_item.container_type_[[$index]]" id="manifest_item_container_type" class="medium-input">
+        <select ng-model="manifest_item.container_type" id="manifest_item_container_type" class="medium-input">
           <option value="BA">BA (Burlap)</option>
           <option value="CR">CR (Crate)</option>
         </select>
@@ -396,7 +397,7 @@ layout: template/web
       <textarea id="waste_pcb_description" ng-model="industry.data.waste_pcb_description"></textarea>
 
       <label for="waste_generator_signatory">Name of Generator/Offeror Signatory (15)</label>
-      <input id="waste_generator_signatory" ng-model="industry.data.waste_generator_signatory" type="text">
+      <input id="waste_generator_signatory" ng-model="industry.data.generator.signatory.name" type="text">
     </div>
 
     <div> <!-- Waste Signature SubSection -->
@@ -405,15 +406,15 @@ layout: template/web
       <div class="usa-date-of-birth" style="padding-top: 10px;">
         <div class="usa-datefield usa-form-group usa-form-group-month">
           <label for="waste_generator_signatory_date_month">Month</label>
-          <input class="usa-form-control" id="waste_generator_signatory_date_month" ng-model="industry.data.waste_generator_signatory_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+          <input class="usa-form-control" id="waste_generator_signatory_date_month" ng-model="industry.data.generator.signatory.month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
         </div>
         <div class="usa-datefield usa-form-group usa-form-group-day">
           <label for="waste_generator_signatory_date_day">Day</label>
-          <input class="usa-form-control" id="waste_generator_signatory_date_day" ng-model="industry.data.waste_generator_signatory_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+          <input class="usa-form-control" id="waste_generator_signatory_date_day" ng-model="industry.data.generator.signatory.day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
         </div>
         <div class="usa-datefield usa-form-group usa-form-group-year">
           <label for="waste_generator_signatory_date_year">Year</label>
-          <input class="usa-form-control" id="waste_generator_signatory_date_year" ng-model="industry.data.waste_generator_signatory_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+          <input class="usa-form-control" id="waste_generator_signatory_date_year" ng-model="industry.data.generator.signatory.year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
         </div>
       </div>
     </div>
@@ -427,31 +428,31 @@ layout: template/web
 
     <ul class="usa-unstyled-list">
       <li>
-        <input id="international_shipment_no" ng-model="industry.data.international_shipment" type="radio" value="no" tabindex="0">
+        <input id="international_shipment_no" ng-model="industry.data.is_international_shipment" type="radio" value="no" tabindex="0">
         <label for="international_shipment_no">Domestic Shipment</label>
       </li>
       <li>
-        <input id="international_shipment_yes" ng-model="industry.data.international_shipment" type="radio" value="yes" tabindex="0">
+        <input id="international_shipment_yes" ng-model="industry.data.is_international_shipment" type="radio" value="yes" tabindex="0">
         <label for="international_shipment_yes">International Shipment</label>
       </li>
     </ul>
 
-    <div class="preview" ng-if="industry.data.international_shipment === 'yes'"> <!-- International Shipment Details SubSection -->
+    <div class="preview" ng-if="industry.data.is_international_shipment === 'yes'"> <!-- International Shipment Details SubSection -->
 
       <ul class="usa-unstyled-list">
         <li>
-          <input id="international_shipment_export" ng-model="industry.data.international_export_import" type="radio" checked="true" value="no" tabindex="0">
+          <input id="international_shipment_export" ng-model="industry.data.international_shipment.export_import" type="radio" checked="true" value="export_from_us" tabindex="0">
           <label for="international_shipment_export">Export from U.S.</label>
         </li>
         <li>
-          <input id="international_shipment_import" ng-model="industry.data.international_export_import" type="radio" value="yes" tabindex="0">
+          <input id="international_shipment_import" ng-model="industry.data.international_shipment.export_import" type="radio" value="import_to_us" tabindex="0">
           <label for="international_shipment_import">Import to U.S.</label>
         </li>
       </ul>
 
       <fieldset>
         <label for="international_shipment_port_of_entry">Port of Entry/Exit (16)</label>
-        <input id="international_shipment_port_of_entry" ng-model="industry.data.international_shipment_port_of_entry" type="text">
+        <input id="international_shipment_port_of_entry" ng-model="industry.data.international_shipment.port_of_entry_exit" type="text">
 
         <div> <!-- International Shipment Date SubSection -->
           <h4>Date Leaving U.S. (16)</h4>
@@ -459,15 +460,15 @@ layout: template/web
           <div class="usa-date-of-birth" style="padding-top: 10px;">
             <div class="usa-datefield usa-form-group usa-form-group-month">
               <label for="international_shipment_date_leaving_us_month">Month</label>
-              <input class="usa-form-control" id="international_shipment_date_leaving_us_month" ng-model="industry.data.international_shipment_date_leaving_us_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+              <input class="usa-form-control" id="international_shipment_date_leaving_us_month" ng-model="industry.data.international_shipment.date_leaving_us.month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
             </div>
             <div class="usa-datefield usa-form-group usa-form-group-day">
               <label for="international_shipment_date_leaving_us_day">Day</label>
-              <input class="usa-form-control" id="international_shipment_date_leaving_us_day" ng-model="industry.data.international_shipment_date_leaving_us_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+              <input class="usa-form-control" id="international_shipment_date_leaving_us_day" ng-model="industry.data.international_shipment.date_leaving_us.day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
             </div>
             <div class="usa-datefield usa-form-group usa-form-group-year">
               <label for="international_shipment_date_leaving_us_year">Year</label>
-              <input class="usa-form-control" id="international_shipment_date_leaving_us_year" ng-model="industry.data.international_shipment_date_leaving_us_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+              <input class="usa-form-control" id="international_shipment_date_leaving_us_year" ng-model="industry.data.international_shipment.date_leaving_us.year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
             </div>
           </div>
         </div>
@@ -488,11 +489,11 @@ layout: template/web
       <fieldset>
         <legend>
           <span>Transporter</span>
-          <span ng-bind="transporter.company_name"></span>
+          <span ng-bind="transporter.name"></span>
         </legend>
 
-        <label for="transporter_signatory_name">Name of signatory (17)</label>
-        <input id="transporter_signatory_name" ng-model="transporter.signatory_name" type="text">
+        <label for="transporter_signatory_name">Name of Signatory (17)</label>
+        <input id="transporter_signatory_name" ng-model="transporter.signatory.name" type="text">
 
         <div> <!-- International Shipment Date SubSection -->
           <h4>Date of Signature (17)</h4>
@@ -500,15 +501,15 @@ layout: template/web
           <div class="usa-date-of-birth" style="padding-top: 10px;">
             <div class="usa-datefield usa-form-group usa-form-group-month">
               <label for="transporter_signatory_date_month">Month</label>
-              <input class="usa-form-control" id="transporter_signatory_date_month" ng-model="transporter.transporter_signatory_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+              <input class="usa-form-control" id="transporter_signatory_date_month" ng-model="transporter.signatory.month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
             </div>
             <div class="usa-datefield usa-form-group usa-form-group-day">
               <label for="transporter_signatory_date_day">Day</label>
-              <input class="usa-form-control" id="transporter_signatory_date_day" ng-model="transporter.transporter_signatory_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+              <input class="usa-form-control" id="transporter_signatory_date_day" ng-model="transporter.signatory.day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
             </div>
             <div class="usa-datefield usa-form-group usa-form-group-year">
               <label for="transporter_signatory_date_year">Year</label>
-              <input class="usa-form-control" id="transporter_signatory_date_year" ng-model="transporter.transporter_signatory_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+              <input class="usa-form-control" id="transporter_signatory_date_year" ng-model="transporter.signatory.year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
             </div>
           </div>
         </div>
@@ -522,61 +523,61 @@ layout: template/web
   <div> <!-- Designated Facility Discrepancy Section -->
     <h2 class="usa-heading">Designated Facility</h1>
 
-    <input id="designated_facility_discrepancy" type="checkbox" ng-model="industry.data.designated_facility_discrepancy">
+    <input id="designated_facility_discrepancy" type="checkbox" ng-model="industry.data.designated_facility.has_discrepancy">
     <label for="designated_facility_discrepancy">Discrepancy</label>
 
-    <div class="preview" ng-show="industry.data.designated_facility_discrepancy"> <!-- Designated Facility Discrepancy Details SubSection -->
+    <div class="preview" ng-show="industry.data.designated_facility.has_discrepancy"> <!-- Designated Facility Discrepancy Details SubSection -->
       <fieldset>
         <label for="designated_facility_discrepancy_description">Discrepancy Description (18)</label>
-        <textarea id="designated_facility_discrepancy_description" ng-model="industry.data.designated_facility_discrepancy_description"></textarea>
+        <textarea id="designated_facility_discrepancy_description" ng-model="industry.data.designated_facility.discrepancy.description"></textarea>
 
         <div>
           <h4>Discrepancy Indication (18a)</h4>
 
           <ul class="usa-unstyled-list">
             <li>
-              <input id="designated_facility_discrepancy_category_quantity" type="checkbox" ng-model="industry.data.designated_facility_discrepancy_category_quantity">
+              <input id="designated_facility_discrepancy_category_quantity" type="checkbox" ng-model="industry.data.designated_facility.discrepancy.category_quantity">
               <label for="designated_facility_discrepancy_category_quantity">Quantity</label>
             </li>
             <li>
-              <input id="designated_facility_discrepancy_category_type" type="checkbox" ng-model="industry.data.designated_facility_discrepancy_category_type">
+              <input id="designated_facility_discrepancy_category_type" type="checkbox" ng-model="industry.data.designated_facility.discrepancy.category_type">
               <label for="designated_facility_discrepancy_category_type">Type</label>
             </li>
             <li>
-              <input id="designated_facility_discrepancy_category_residue" type="checkbox" ng-model="industry.data.designated_facility_discrepancy_category_residue">
+              <input id="designated_facility_discrepancy_category_residue" type="checkbox" ng-model="industry.data.designated_facility.discrepancy.category_residue">
               <label for="designated_facility_discrepancy_category_residue">Residue</label>
             </li>
           </ul>
 
           <ul class="usa-unstyled-list">
             <li>
-              <input id="designated_facility_discrepancy_no_rejection" type="radio" checked="true" ng-model="industry.data.designated_facility_discrepancy_type" value="no" tabindex="0">
+              <input id="designated_facility_discrepancy_no_rejection" type="radio" checked="true" ng-model="industry.data.designated_facility.discrepancy.type" value="no_rejection" tabindex="0">
               <label for="designated_facility_discrepancy_no_rejection">No Rejection</label>
             </li>
             <li>
-              <input id="designated_facility_discrepancy_partial_rejection" type="radio" ng-model="industry.data.designated_facility_discrepancy_type" value="partial" tabindex="0">
+              <input id="designated_facility_discrepancy_partial_rejection" type="radio" ng-model="industry.data.designated_facility.discrepancy.type" value="partial_rejection" tabindex="0">
               <label for="designated_facility_discrepancy_partial_rejection">Partial Rejection</label>
             </li>
             <li>
-              <input id="designated_facility_discrepancy_full_rejection" type="radio" ng-model="industry.data.designated_facility_discrepancy_type" value="full" tabindex="0">
+              <input id="designated_facility_discrepancy_full_rejection" type="radio" ng-model="industry.data.designated_facility.discrepancy.type" value="full_rejection" tabindex="0">
               <label for="designated_facility_discrepancy_full_rejection">Full Rejection</label>
             </li>
           </ul>
           <h4>Alternate Facility (or Generator)</h4>
           <label for="designated_facility_discrepancy_name">Name (18b)</label>
-          <input id="designated_facility_discrepancy_name" ng-model="industry.data.designated_facility_discrepancy_name" type="text">
+          <input id="designated_facility_discrepancy_name" ng-model="industry.data.designated_facility.discrepancy.name" type="text">
 
           <label for="designated_facility_discrepancy_address_1">Address 1 (18b)</label>
-          <input id="designated_facility_discrepancy_address_1" ng-model="industry.data.designated_facility_discrepancy_address_1" type="text">
+          <input id="designated_facility_discrepancy_address_1" ng-model="industry.data.designated_facility.discrepancy.address.address_1" type="text">
 
           <label for="designated_facility_discrepancy_address_2">Address 2 (18b)</label>
-          <input id="designated_facility_discrepancy_address_2" ng-model="industry.data.designated_facility_discrepancy_address_2" type="text">
+          <input id="designated_facility_discrepancy_address_2" ng-model="industry.data.designated_facility.discrepancy.address.address_2" type="text">
 
           <label for="designated_facility_discrepancy_address_city">City 2 (18b)</label>
-          <input id="designated_facility_discrepancy_address_city" ng-model="industry.data.designated_facility_discrepancy_address_city" type="text">
+          <input id="designated_facility_discrepancy_address_city" ng-model="industry.data.designated_facility.discrepancy.address.city" type="text">
 
           <label for="designated_facility_discrepancy_address_state">State 2 (18b)</label>
-          <select ng-model="industry.data.designated_facility_discrepancy_address_state" id="designated_facility_discrepancy_address_state" class="medium-input">
+          <select ng-model="industry.data.designated_facility.discrepancy.address.state" id="designated_facility_discrepancy_address_state" class="medium-input">
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>
@@ -631,23 +632,23 @@ layout: template/web
           </select>
 
           <label for="designated_facility_discrepancy_address_zip_code">ZIP code (18b)</label>
-          <input id="designated_facility_discrepancy_address_zip_code" ng-model="industry.data.designated_facility_discrepancy_address_zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
+          <input id="designated_facility_discrepancy_address_zip_code" ng-model="industry.data.designated_facility.discrepancy.address.zip_code" class="medium-input" type="text" ng-pattern="/^\d{5}(-\d{4})?$/">
 
           <label for="designated_facility_discrepancy_address_phone_number">Phone number (18b)</label>
           <input id="designated_facility_discrepancy_address_phone_number"
-                 ng-model="industry.data.designated_facility_discrepancy_address_phone_number"
+                 ng-model="industry.data.designated_facility.discrepancy.phone_number"
                  class="medium-input" type="text" ng-pattern="phonePattern"
                  name="designatedFacilityDiscrepancyAddressPhoneNumber"
-                 ng-change="industry.data.designated_facility_discrepancy_address_phone_number =
-                    formatCanonicalPhone(industryForm.designatedFacilityDiscrepancyAddressPhoneNumber.$valid, industry.data.designated_facility_discrepancy_address_phone_number)">
+                 ng-change="industry.data.designated_facility.discrepancy.phone_number =
+                    formatCanonicalPhone(industryForm.designatedFacilityDiscrepancyAddressPhoneNumber.$valid, industry.data.designated_facility.discrepancy.phone_number)">
 
           <label for="designated_facility_discrepancy_us_epa_id_number">U.S. EPA ID Number (18b)</label>
-          <input id="designated_facility_discrepancy_us_epa_id_number" ng-model="industry.data.designated_facility_discrepancy_us_epa_id_number" type="text" class="medium-input">
+          <input id="designated_facility_discrepancy_us_epa_id_number" ng-model="industry.data.designated_facility.discrepancy.us_epa_id_number" type="text" class="medium-input">
         </div>
 
         <label for="designated_facility_discrepancy_signatory_name">Name of Signatory (18c)</label>
         <input id="designated_facility_discrepancy_signatory_name"
-               ng-model="industry.data.designated_facility_discrepancy_signatory_name" type="text">
+               ng-model="industry.data.designated_facility.discrepancy.signatory.name" type="text">
 
         <div> <!-- Designated Facility Discrepancy Date SubSection -->
           <h4>Date of Signature (18c)</h4>
@@ -655,15 +656,15 @@ layout: template/web
           <div class="usa-date-of-birth" style="padding-top: 10px;">
             <div class="usa-datefield usa-form-group usa-form-group-month">
               <label for="designated_facility_discrepancy_date_month">Month</label>
-              <input class="usa-form-control" id="designated_facility_discrepancy_date_month" ng-model="industry.data.designated_facility_discrepancy_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+              <input class="usa-form-control" id="designated_facility_discrepancy_date_month" ng-model="industry.data.designated_facility.discrepancy.signatory.month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
             </div>
             <div class="usa-datefield usa-form-group usa-form-group-day">
               <label for="designated_facility_discrepancy_date_day">Day</label>
-              <input class="usa-form-control" id="designated_facility_discrepancy_date_day" ng-model="industry.data.designated_facility_discrepancy_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+              <input class="usa-form-control" id="designated_facility_discrepancy_date_day" ng-model="industry.data.designated_facility.discrepancy.signatory.day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
             </div>
             <div class="usa-datefield usa-form-group usa-form-group-year">
               <label for="designated_facility_discrepancy_date_year">Year</label>
-              <input class="usa-form-control" id="designated_facility_discrepancy_date_year" ng-model="industry.data.designated_facility_discrepancy_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+              <input class="usa-form-control" id="designated_facility_discrepancy_date_year" ng-model="industry.data.designated_facility.discrepancy.signatory.year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
             </div>
           </div>
         </div>
@@ -683,7 +684,7 @@ layout: template/web
     <h2 class="usa-heading">Certification of receipt of hazardous materials covered by the manifest except as noted in Item 18a</h1>
 
     <label for="certification_name">Name of Signatory (20)</label>
-    <input id="certification_name" ng-model="industry.data.certification_name" type="text">
+    <input id="certification_name" ng-model="industry.data.designated_facility.certification.name" type="text">
 
     <div> <!-- Certification Date SubSection -->
       <h4>Date of Signature (20)</h4>
@@ -691,15 +692,15 @@ layout: template/web
       <div class="usa-date-of-birth" style="padding-top: 10px;">
         <div class="usa-datefield usa-form-group usa-form-group-month">
           <label for="certification_date_month">Month</label>
-          <input class="usa-form-control" id="certification_date_month" ng-model="industry.data.certification_date_month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
+          <input class="usa-form-control" id="certification_date_month" ng-model="industry.data.designated_facility.certification.month" pattern="0?[1-9]|1[012]" type="text" value="" maxlength="2">
         </div>
         <div class="usa-datefield usa-form-group usa-form-group-day">
           <label for="certification_date_day">Day</label>
-          <input class="usa-form-control" id="certification_date_day" ng-model="industry.data.certification_date_day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
+          <input class="usa-form-control" id="certification_date_day" ng-model="industry.data.designated_facility.certification.day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="text" value="" maxlength="2">
         </div>
         <div class="usa-datefield usa-form-group usa-form-group-year">
           <label for="certification_date_year">Year</label>
-          <input class="usa-form-control" id="certification_date_year" ng-model="industry.data.certification_date_year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
+          <input class="usa-form-control" id="certification_date_year" ng-model="industry.data.designated_facility.certification.year" pattern="[0-9]{4}" type="text" value="" maxlength="4">
         </div>
       </div>
     </div>

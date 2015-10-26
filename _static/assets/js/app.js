@@ -16,24 +16,10 @@
 
     self.data = {};
 
-    self.data.transporters = [{
-      company_name: "",
-      us_epa_id_number: "",
-      signatory_name: "",
-      transporter_signatory_date_month: "",
-      transporter_signatory_date_day: "",
-      transporter_signatory_date_year: ""
-    }];
+    self.data.transporters = [{ }];
 
     self.addTransporter = function() {
-      self.data.transporters.push({
-        company_name: "",
-        us_epa_id_number: "",
-        signatory_name: "",
-        transporter_signatory_date_month: "",
-        transporter_signatory_date_day: "",
-        transporter_signatory_date_year: ""
-      });
+      self.data.transporters.push({ });
     };
 
     self.removeTransporter = function(index) {
@@ -70,7 +56,7 @@
     };
 
     self.submit = function() {
-      $http.post('/api/0.1/manifest/submit/' + self.data.generator_manifest_tracking_number, self.data)
+      $http.post('/api/0.1/manifest/submit/' + self.data.generator.manifest_tracking_number, self.data)
            .then(function successCallback(response) {
              var manifestUri = response.headers("Location");
              var status = response.status;
@@ -78,7 +64,7 @@
              if (status === "201") {
                console.log("manifest created and located here: " + manifestUri);
              }
-        window.location.href = '/web/sign.html#!/?id=' + emanifestId + '&manifestTrackingNumber=' + self.data.generator_manifest_tracking_number;
+        window.location.href = '/web/sign.html#!/?id=' + emanifestId + '&manifestTrackingNumber=' + self.data.generator.manifest_tracking_number;
       });
     };
 
@@ -158,9 +144,6 @@
                         item.content = item.content.replace(/[>]/g, "");
                         item.content = jQuery.parseJSON(item.content);
                     }
-                    
-                    console.log(item.id);
-                    console.log(item.content.generator_name);
                 }
 
                 $scope.results = response;
@@ -168,7 +151,7 @@
             });
 
         $scope.filter = function() {
-            var gname = $scope.data.generator_name;
+            var gname = $scope.data.generator.name;
             var tname = $scope.data.tsdf_name;
             var items = new Array();
 
@@ -177,13 +160,13 @@
                 var isAdded = false;
                 var item = $scope.results[i];
 
-                if(gname != undefined && gname == item.content.generator_name)
+                if(gname != undefined && gname == item.content.generator.name)
                 {
                     items.push(item);
                     isAdded = true;
                 }
 
-                if(isAdded == false && tname != undefined && tname == item.content.designated_facility_name)
+                if(isAdded == false && tname != undefined && tname == item.content.designated_facility.name)
                 {
                    items.push(item); 
                 }
@@ -217,7 +200,6 @@
         $http.get('/api/0.1/manifest/id/'+id).success(
             function(response) {
                 //fix for my local env.
-                console.log(typeof response.content);
                 if(typeof response.content == "string")
                 {
                     response.content = response.content.replace(/[=]/g, ":");

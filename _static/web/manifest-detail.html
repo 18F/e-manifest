@@ -22,31 +22,31 @@ layout: template/web
         <table class="usa-table-borderless">
             <tr>
                 <td>Generator ID Number</td>
-                <td ng-bind="data.content.generator_us_epa_id_number"></td>
+                <td ng-bind="data.content.generator.us_epa_id_number"></td>
             </tr>
             <tr>
                 <td>Emergency Phone Number</td>
-                <td ng-bind="data.content.generator_emergency_response_phone"></td>
+                <td ng-bind="data.content.generator.emergency_response_phone"></td>
             </tr>
             <tr>
                 <td>Manifest Tracking Number</td>
-                <td ng-bind="data.content.generator_manifest_tracking_number"></td>
+                <td ng-bind="data.content.generator.manifest_tracking_number"></td>
             </tr>
             <tr>
                 <td>Generator's Name</td>
-                <td ng-bind="data.content.generator_name"></td>
+                <td ng-bind="data.content.generator.name"></td>
             </tr>
             <tr>
                 <td>Mailing Address</td>
-                <td ng-bind="data.content.generator_address_1"></td>
+                <td ng-bind="data.content.generator.mailing_address.address_1"></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td ng-bind="data.content.generator_city_state_zip"></td>
+                <td ng-bind-template="[[ data.content.generator.mailing_address.city ]], [[ data.content.generator.mailing_address.state ]] [[ data.content.generator.mailing_address.zip ]]"></td>
             </tr>
             <tr>
                 <td>Phone</td>
-                <td ng-bind="data.content.generator_phone_number "></td>
+                <td ng-bind="data.content.generator.phone_number "></td>
             </tr>
         </table>
         
@@ -55,7 +55,7 @@ layout: template/web
             <table class="usa-table-borderless">
                 <tr>
                     <td>Company Name</td>
-                    <td ng-bind="transporter.company_name"></td>
+                    <td ng-bind="transporter.name"></td>
                 </tr>
                 <tr>
                     <td>U.S. EPA ID Number</td>
@@ -68,23 +68,23 @@ layout: template/web
         <table class="usa-table-borderless">
             <tr>
                 <td>Company Name</td>
-                <td ng-bind="data.content.designated_facility_name"></td>
+                <td ng-bind="data.content.designated_facility.name"></td>
             </tr>
             <tr>
                 <td>Mailing Address</td>
-                <td ng-bind="data.content.designated_facility_address_1 "></td>
+                <td ng-bind="data.content.designated_facility.address.address_1 "></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td ng-bind="data.content.designated_facility_city_state_zip"></td>
+                <td ng-bind-template="[[ data.content.designated_facility.address.city ]], [[ data.content.designated_facility.address.state ]] [[ data.content.designated_facility.address.zip ]]"></td>
             </tr>
             <tr>
                 <td>Phone</td>
-                <td ng-bind="data.content.designated_facility_phone_number "></td>
+                <td ng-bind="data.content.designated_facility.phone_number"></td>
             </tr>
             <tr>
                 <td>U.S. EPA ID Number</td>
-                <td ng-bind="data.content.designated_facility_us_epa_id_number "></td>
+                <td ng-bind="data.content.designated_facility.us_epa_id_number"></td>
             </tr>
         </table>
         
@@ -123,7 +123,7 @@ layout: template/web
             </tr>
             <tr>
                 <td>Date</td>
-                <td ng-bind-template="[[ data.content.waste_generator_signatory_date_month ]]/[[  data.content.waste_generator_signatory_date_month ]]/[[  data.content.waste_generator_signatory_date_year ]]"></td>
+                <td ng-bind-template="[[ data.content.generator.signatory.month ]]/[[  data.content.generator.signatory.day ]]/[[  data.content.generator.signatory.year ]]"></td>
             </tr>
         </table>
         
@@ -137,18 +137,18 @@ layout: template/web
          <table class="usa-table-borderless">
             <tr>
                 <td>Designated Facility Officer or<br>Operator Name</td>
-                <td ng-bind="data.content.certification_name"></td>
+                <td ng-bind="data.content.designated_facility.certification.name"></td>
             </tr>
              <tr>
                 <td>Date Signed</td>
-                <td ng-bind-template="[[ data.content.certification_date_month ]]/[[  data.content.certification_date_month ]]/[[  data.content.certification_date_year ]]"></td>
+                <td ng-bind-template="[[ data.content.designated_facility.certification.month ]]/[[  data.content.designated_facility.certification.day ]]/[[  data.content.designated_facility.certification.year ]]"></td>
             </tr>
         </table>
 
         <table class="usa-table-borderless">
             <tr>
                 <td>Date Submitted</td>
-                <td ng-bind-template="[[ data.content.certification_date_month ]]/[[  data.content.certification_date_month ]]/[[  data.content.certification_date_year ]]"></td>
+                <td ng-bind-template="[[ data.content.designated_facility.certification.month ]]/[[  data.content.designated_facility.certification.day ]]/[[  data.content.designated_facility.certification.year ]]"></td>
             </tr>
         </table>
     </div>
