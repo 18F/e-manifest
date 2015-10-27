@@ -127,6 +127,18 @@ layout: template/web
             </tr>
         </table>
         
+         <table class="usa-table-borderless" ng-repeat="transporter in data.content.transporters">
+            <tr>
+              <td ng-bind-template="Transporter [[ transporter.name ]]
+            Name of Signatory"></td>
+              <td ng-bind="transporter.signatory.name"></td>
+            </tr>
+             <tr>
+                <td>Date Signed</td>
+                <td ng-bind-template="[[ transporter.signatory.month ]]/[[  transporter.signatory.day ]]/[[  transporter.signatory.year ]]"></td>
+            </tr>
+         </table>
+         
         <table class="usa-table-borderless" ng-show="data.content.report_management_method_codes != null">
             <tr>
                 <td>Hazardous Waste Report<br>Management Method Codes</td>
