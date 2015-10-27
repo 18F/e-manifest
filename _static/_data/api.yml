@@ -12,7 +12,7 @@
         "generator": {
           "name": "Generator Y",
           "us_epa_id_number": "112712334321",
-          "manifest_tracking_number": "98876761"
+          "manifest_tracking_number": "98876761",
           "emergency_response_phone": "888-999-8888",
           "phone_number": "800-883-1731",
           "mailing_address": {
@@ -36,7 +36,7 @@
             "day": "6",
             "year": "2015"
           },
-          "no_us_epa_id_number": false,
+          "no_us_epa_id_number": false
         },
         "transporters": [
           {
@@ -171,7 +171,7 @@
         "generator": {
           "name": "Generator Y",
           "us_epa_id_number": "112712334321",
-          "manifest_tracking_number": "98876761"
+          "manifest_tracking_number": "98876761",
           "emergency_response_phone": "888-999-8888",
           "phone_number": "800-883-1731",
           "mailing_address": {
@@ -195,7 +195,7 @@
             "day": "6",
             "year": "2015"
           },
-          "no_us_epa_id_number": false,
+          "no_us_epa_id_number": false
         },
         "transporters": [
           {
