@@ -360,9 +360,15 @@ layout: template/web
           <div class="usa-input-grid usa-input-grid-small">
             <label for="manifest_item_unit_wt_vol_[[$index]]">Unit Wt./Vol. (12)</label>
             <select ng-model="manifest_item.unit_wt_vol" id="manifest_item_unit_wt_vol_[[$index]]"
-                    class="small-input">
-              <option value="G">G (Gallon)</option>
-              <option value="Q">Q (Quart)</option>
+                    class="medium-input">
+              <option value="G">G (Gallons)</option>
+              <option value="K">K (Kilograms)</option>
+              <option value="L">L (Liters)</option>
+              <option value="M">M (Metric Tons)</option>
+              <option value="N">N (Cubic Meters)</option>
+              <option value="P">P (Pounds)</option>
+              <option value="T">T (Tons)</option>
+              <option value="Y">Y (Cubic Yards)</option>
             </select>
           </div>
         </div>
