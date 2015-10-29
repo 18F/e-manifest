@@ -42,11 +42,18 @@
         state_waste_codes: ""
       });
       
-      deferSelectize('.manifest_item_epa_waste_code_' + nextManifestIndex, function(wasteCodes) {
-        self.data.manifest_items[nextManifestIndex].epa_waste_codes = wasteCodes;
+      deferSelectize({
+        selector: '.manifest_item_epa_waste_code_' + nextManifestIndex,
+        setter: function(wasteCodes) {
+          self.data.manifest_items[nextManifestIndex].epa_waste_codes = wasteCodes;
+        }
       });
-      deferSelectize('.manifest_item_state_waste_code_' + nextManifestIndex, function(wasteCodes) {
-        self.data.manifest_items[nextManifestIndex].state_waste_codes = wasteCodes;
+
+      deferSelectize({
+        selector: '.manifest_item_state_waste_code_' + nextManifestIndex,
+        setter: function(wasteCodes) {
+          self.data.manifest_items[nextManifestIndex].state_waste_codes = wasteCodes;
+        }
       });
     };
 
@@ -86,19 +93,32 @@
     
     $scope.phonePattern = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?\(?\s*(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*\)?\s*(?:[.-]\s*)?)([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
 
-    var deferSelectize = function(selector, setter) {
+    var deferSelectize = function(options) {
       $timeout(function() {
-        selectize(selector, setter);
+        selectize(options);
       }, 0);
     };
 
-    var selectize = function(selector, setter) {
+    var selectize = function(options) {
       if ($().selectize) {
+        var selector = options.selector;
+        var setter = options.setter;
+        var load = options.load;
+        var valueField = options.valueField;
+        var labelField = options.labelField;
+        var searchField = options.searchField;
+        var preload = load ? true : false;
+        
         $(function() {
           $(selector).selectize({
             plugins: ['remove_button'],
             delimiter: ',',
             create: true,
+            load: load,
+            valueField: valueField,
+            labelField: labelField,
+            searchField: searchField,
+            preload: preload,
             onBlur: function() {
               var value = this.$input.val();
               var modelValue = value.split(",");
@@ -109,15 +129,42 @@
       }
     };
 
-    selectize('.manifest_item_epa_waste_code_0', function(wasteCodes) {
-      self.data.manifest_items[0].epa_waste_codes = wasteCodes;
+    selectize({
+      selector: '.manifest_item_epa_waste_code_0',
+      setter: function(wasteCodes) {
+        self.data.manifest_items[0].epa_waste_codes = wasteCodes;
+      }
     });
-    selectize('.manifest_item_state_waste_code_0', function(wasteCodes) {
-      self.data.manifest_items[0].state_waste_codes = wasteCodes;
+    
+    selectize({
+      selector: '.manifest_item_state_waste_code_0',
+      setter: function(wasteCodes) {
+        self.data.manifest_items[0].state_waste_codes = wasteCodes;
+      }
     });
-    selectize('.report_management_method_codes', function(methodCodes) {
-      self.data.report_management_method_codes = methodCodes;
+
+    selectize({
+      selector: '.report_management_method_codes',
+      setter: function(methodCodes) {
+        self.data.report_management_method_codes = methodCodes;
+      },
+      load: function(value, callback) {
+        $.ajax({
+					url: '/api/0.1/method_code',
+					type: 'GET',
+					error: function() {
+						callback();
+					},
+					success: function(response) {
+						callback(response);
+					}
+				});
+      },
+      valueField: "code",
+      labelField: "code",
+      searchField: "code"
     });
+      
 
   }]);
 

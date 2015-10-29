@@ -37,6 +37,14 @@ RSpec.describe 'API request spec' do
     end
   end
 
+  describe '/api/0.1/method_code' do
+    it 'returns the static json data for all method codes' do
+      method_code_json = IO.read(File.dirname(__FILE__) + "/../_static/_data/method-codes.json")
+      get "/api/0.1/method_code"
+      expect(last_response.body).to eq(method_code_json)
+    end
+  end
+  
   # NOTE: Savon does some crap internally that prevents webmock from working
   # correctly. It is a bad practice to mock your own classes in request specs, but
   # better than nothing!

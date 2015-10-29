@@ -397,3 +397,38 @@
     }
   response_details: The CDX-generated documentId and activityId values will now appear as fields in the
                     signed manifest when retrieving the manifest data
+
+- title: Get Management Method Codes
+  description: Retrieve the valid hazardous waste report management method codes
+  http_verb: GET
+  resource_url: /method_code
+  response_format: JSON
+  response: |
+    [
+      {
+        "code": "H010",
+        "category": "Reclamation and Recovery",
+        "description": "Metals recovery including retorting, smelting, chemical, etc."
+      },
+      {
+        "code": "H020",
+        "category": "Reclamation and Recovery",
+        "description": "Solvents recovery (distillation, extraction, etc.)"
+      },
+      {
+        "code": "H039",
+        "category": "Reclamation and Recovery",
+        "description": "Other recovery or reclamation for reuse including acid regeneration, organics recovery, etc. (specify in comments)"
+      },
+      {
+        "code": "H050",
+        "category": "Reclamation and Recovery",
+        "description": "Energy recovery at this site – used as fuel (includes on-site fuel blending before energy recovery; report only this code)"
+      },
+      ...
+      {
+        "code": "H141",
+        "category": "Transfer Off-site",
+        "description": "The site receiving this waste stored/bulked and transferred the waste with no treatment or recovery (H010-H129), fuel blending (H061), or disposal (H131-H135) at that receiving site. Do not use this code on GM Form in Section 1 - Item D or in Section 2."
+      }
+    ]

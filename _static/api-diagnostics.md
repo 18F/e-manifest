@@ -63,6 +63,15 @@ Data: `{ "token": token, "activity_id": activity id, "user_id": user id,
 Response:
 <pre><code id="sign-manifest-response"></code></pre>
 
+# Get Management Method Codes
+
+**GET** /api/0.1/method_code
+<a href="javascript:getMethodCodes();">Run »</a>
+
+Response:
+<pre><code id="get-method-codes-response"></code></pre>
+
+
 <script>
   
   function prettyJson(data) {
@@ -150,12 +159,24 @@ Response:
     
     $.ajax({
       type: 'GET',
-      url: '/api/0.1/manifest/id/'+manifest_id,
+      url: '/api/0.1/manifest/id/'+manifest_id
     })
     .done(function(data, textStatus, xhr) {
       var res = xhr.status + " " + xhr.statusText;
           res += "\n" + prettyJson(data);
       $('#get-manifest-response').text(res);
+    });
+  }
+  
+  function getMethodCodes() {
+    $.ajax({
+      type: 'GET',
+      url: '/api/0.1/method_code'
+    })
+    .done(function(data, textStatus, xhr) {
+      var res = xhr.status + " " + xhr.statusText;
+          res += "\n" + prettyJson(data);
+      $('#get-method-codes-response').text(res);
     });
   }
 
