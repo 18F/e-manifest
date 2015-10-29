@@ -348,9 +348,20 @@ layout: template/web
         <input id="manifest_item_number_of_containers_[[$index]]" ng-model="manifest_item.number_of_containers" type="text" class="medium-input" ng-pattern="/^[0-9]{0,12}$/">
 
         <label for="manifest_item_container_type_[[$index]]">Container Type (10)</label>
-        <select ng-model="manifest_item.container_type" id="manifest_item_container_type" class="medium-input">
+        <select ng-model="manifest_item.container_type" id="manifest_item_container_type">
           <option value="BA">BA (Burlap)</option>
-          <option value="CR">CR (Crate)</option>
+          <option value="CF">CF (Fiber or plastic boxes, cartons, cases)</option>
+          <option value="CM">CM (Metal boxes, cartons, cases)</option>
+          <option value="CW">CW (Wooden boxes, cartons, cases)</option>
+          <option value="CY">CY (Cylinders)</option>
+          <option value="DF">DF (Fiberboard or plastic drums, barrels, kegs)</option>
+          <option value="DM">DM (Metal drums)</option>
+          <option value="DT">DT (Dump truck)</option>
+          <option value="DW">DW (Wooden trums, barrels, kegs)</option>
+          <option value="HT">HG (Hopper or gondola cars)</option>
+          <option value="TC">TC (Tank cars)</option>
+          <option value="TT">TT (Cargo tanks)</option>
+          <option value="TP">TP (Portable tanks)</option>
         </select>
 
         <label for="manifest_item_total_quantity_[[$index]]">Total Quantity (11)</label>
