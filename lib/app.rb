@@ -85,7 +85,7 @@ class App < Sinatra::Base
 
   get '/api/:version/method_code' do
     content_type :json
-    IO.read(File.dirname(__FILE__) + "/../_static/_data/method-codes.json")
+    IO.read(File.dirname(__FILE__) + "/../public/api-data/method-codes.json")
   end
 end
 
