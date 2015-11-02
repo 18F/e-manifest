@@ -1,0 +1,22 @@
+{
+  "name": "emanifest-test",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/18F/e-manifest.git"
+  },
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "mocha": "2.3.3",
+    "karma": "0.13.14",
+    "karma-mocha": "0.2.0",
+    "karma-phantomjs-launcher": "0.2.1",
+    "phantomjs": "1.9.8"
+  },
+  "scripts": {
+    "test": "karma start karma.conf.js"
+  }
+}
