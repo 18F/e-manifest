@@ -10,15 +10,15 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'https://code.jquery.com/jquery-1.11.3.min.js',
-      'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js',
-      'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js',
-      'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-mocks.js',
+      '_static/assets/js/vendor/jquery-1.11.3.min.js',
+      '_static/assets/js/vendor/angular-1.4.6.min.js',
+      '_static/assets/js/vendor/angular-route-1.4.6.min.js',
+      'test/lib/angular-mocks.js',
       '_static/assets/js/components.js',
       'test/**/*Test.js'
     ],

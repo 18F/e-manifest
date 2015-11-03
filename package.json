@@ -10,10 +10,12 @@
   },
   "license": "CC0-1.0",
   "devDependencies": {
-    "mocha": "2.3.3",
     "karma": "0.13.14",
-    "karma-mocha": "0.2.0",
     "karma-phantomjs-launcher": "0.2.1",
+    "karma-chai": "0.1.0",
+    "karma-mocha": "0.2.0",
+    "mocha": "2.3.3",
+    "chai": "3.4.0",
     "phantomjs": "1.9.8"
   },
   "scripts": {
