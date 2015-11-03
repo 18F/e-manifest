@@ -19,7 +19,7 @@ module.exports = function(config) {
       '_static/assets/js/vendor/angular-1.4.6.min.js',
       '_static/assets/js/vendor/angular-route-1.4.6.min.js',
       'test/lib/angular-mocks.js',
-      '_static/assets/js/components.js',
+      '_static/assets/js/*.js',
       'test/**/*Test.js'
     ],
 

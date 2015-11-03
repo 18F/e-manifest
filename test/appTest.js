@@ -1,13 +1,22 @@
 var assert = chai.assert;
 
-describe("hello", function() {
+describe("SignController", function() {
 
-  it("world", function() {
-    assert.equal(4, 4);
-  });
-  
-  it("failure!", function() {
-    assert.equal(2, 4);
+  beforeEach(module("app"));
+
+  var $controller;
+
+  beforeEach(inject(function(_$controller_){
+    // Voodoo to get access to Angular controller instantiation service.
+    $controller = _$controller_;
+  }));
+
+  it("has initial state of 'login'", function() {
+    var $scope = {};
+    
+    $controller("SignController", { $scope: $scope });
+
+    assert.equal("login", $scope["state"]);
   });
   
 });
