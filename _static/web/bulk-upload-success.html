@@ -1,59 +1,11 @@
-<html lang="en">
-<head>
-    <title>Welcome to e-Manifest Search</title>
-
-    <link rel="stylesheet" href="/assets/usa/css/google-fonts.css">
-    <link rel="stylesheet" href="/assets/usa/css/prism.css">
-    <link rel="stylesheet" href="/assets/usa/css/styleguide.css">
-    <link rel="stylesheet" href="/assets/usa/css/fixes.css">
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-
-    <script src="/assets/usa/js/components.js"></script>
-    <script src="/assets/js/app.js"></script>
-</head>
-    
-<body class="visual-style" ng-app="app">
-  <header class="usa-site-header" role="banner">
-
-    <div class="usa-disclaimer">
-      <span class="usa-disclaimer-official">
-        <img class="usa-flag_icon" alt="US flag signifying that this is a United States Federal Government website" src="/assets/usa/img/us_flag_small.png">
-        An official website of the United States Government
-      </span>
-      <span class="usa-disclaimer-stage">This site is currently in discovery. <a href="https://18f.gsa.gov/dashboard/stages/#discovery">Learn more.</a></span>
-    </div>
-
-    <nav class="usa-site-navbar">
-      <a href="#" id="menu-btn">&#9776; MENU</a>
-      <div class="logo" id="logo">
-        <h1 style="max-width: 40rem; font-size: 4rem;">
-          <a href="/web" accesskey="1" title="Home" aria-label="Home">
-            EPA e-Manifest
-          </a>
-        </h1>
-      </div>
-      <ul class="usa-button-list usa-unstyled-list">
-        <li>
-          <a class="usa-button" href="/web/search.html">Search</a>
-        </li>
-        <li>
-          <a class="usa-button" href="/web/industry.html">Industry</a>
-        </li>
-      </ul>
-    </nav>
-
-  </header>
-
-  <div class="main-content" id="main-content" sytle="width: none;">
-    <div class="styleguide-content usa-content ">
-        <fieldset>
-            <h3>Attach a scan of the manifest. Accepted formats: PDF, JPG, TIF.</h3>
-            <div class="button_wrapper" style="padding-top: 30px;">
-                <button class="usa-button-big" type="button" onclick="window.location.href='/web/manifest-mainpage.html'">Back to home</button>
-                <button class="usa-button-outline usa-button-big" type="button" onclick="window.location.href='/web/industry.html'">New manifest</button>
-            </div>
-        </fieldset>
-</div>
-</div>
-</body>
+---
+title: Welcome to e-Manifest Bulk Upload
+layout: template/web
+---
+<fieldset>
+  <h3>Attach a scan of the manifest. Accepted formats: PDF, JPG, TIF.</h3>
+  <div class="button_wrapper" style="padding-top: 30px;">
+    <button class="usa-button-big" type="button" onclick="window.location.href='/web/manifest-mainpage.html'">Back to home</button>
+    <button class="usa-button-outline usa-button-big" type="button" onclick="window.location.href='/web/industry.html'">New manifest</button>
+  </div>
+</fieldset>

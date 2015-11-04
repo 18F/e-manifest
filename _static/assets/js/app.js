@@ -207,13 +207,13 @@
                 var isAdded = false;
                 var item = $scope.results[i];
 
-                if(gname != undefined && gname == item.content.generator.name)
+                if(gname != undefined && item.content.generator && gname == item.content.generator.name)
                 {
                     items.push(item);
                     isAdded = true;
                 }
 
-                if(isAdded == false && tname != undefined && tname == item.content.designated_facility.name)
+                if(isAdded == false && tname != undefined && item.content.designated_facility && tname == item.content.designated_facility.name)
                 {
                    items.push(item); 
                 }
