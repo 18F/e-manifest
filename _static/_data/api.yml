@@ -117,7 +117,7 @@
             "packing_group": "Twelve",
             "container_type": "BA",
             "number_of_containers": "8",
-            "hazard_class": "8",
+            "hazard_classes": ["6", "8"],
             "hazardous_material": "yes"
           },
           {
@@ -134,7 +134,7 @@
             "packing_group": "81988931",
             "container_type": "CR",
             "number_of_containers": "12",
-            "hazard_class": "0",
+            "hazard_classes": [],
             "hazardous_material": "no"
           }
         ],
@@ -276,7 +276,7 @@
             "packing_group": "Twelve",
             "container_type": "BA",
             "number_of_containers": "8",
-            "hazard_class": "8",
+            "hazard_classes": ["6", "8"],
             "hazardous_material": "yes"
           },
           {
@@ -293,7 +293,7 @@
             "packing_group": "81988931",
             "container_type": "CR",
             "number_of_containers": "12",
-            "hazard_class": "0",
+            "hazard_classes": [],
             "hazardous_material": "no"
           }
         ],

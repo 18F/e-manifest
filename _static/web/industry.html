@@ -333,8 +333,8 @@ layout: template/web
         <label for="manifest_item_proper_shipping_name_[[$index]]">Proper Shipping Name</label>
         <input id="manifest_item_proper_shipping_name_[[$index]]" ng-model="manifest_item.proper_shipping_name" type="text">
 
-        <label for="manifest_item_proper_hazard_class">Hazard Class</label>
-        <input id="manifest_item_proper_hazard_class" ng-model="manifest_item.hazard_class" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
+        <label for="manifest_item_proper_hazard_class_[[$index]]">Hazard Class</label>
+        <input id="manifest_item_proper_hazard_class_[[$index]]" class="manifest_item_proper_hazard_class_[[$index]]" ng-model="uiData[$index].hazard_classes" type="text" ng-pattern="/^[a-zA-Z0-9]{0,300}$/">
 
         <label for="manifest_item_id_number_[[$index]]">ID Number</label>
         <input id="manifest_item_id_number_[[$index]]" ng-model="manifest_item.id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,6}$/">

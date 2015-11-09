@@ -30,7 +30,8 @@
 
     uiData = [{
       epa_waste_codes: "",
-      state_waste_codes: ""
+      state_waste_codes: "",
+      hazard_classes: ""
     }];
     
     self.addManifestItem = function() {
@@ -39,7 +40,8 @@
 
       uiData.push({
         epa_waste_codes: "",
-        state_waste_codes: ""
+        state_waste_codes: "",
+        hazard_classes: ""
       });
       
       deferSelectize({
@@ -53,6 +55,13 @@
         selector: '.manifest_item_state_waste_code_' + nextManifestIndex,
         setter: function(wasteCodes) {
           self.data.manifest_items[nextManifestIndex].state_waste_codes = wasteCodes;
+        }
+      });
+      
+      deferSelectize({
+        selector: '.manifest_item_proper_hazard_class_' + nextManifestIndex,
+        setter: function(hazardClasses) {
+          self.data.manifest_items[nextManifestIndex].hazard_classes = hazardClasses;
         }
       });
     };
@@ -143,6 +152,13 @@
       }
     });
 
+    deferSelectize({
+      selector: '.manifest_item_proper_hazard_class_0',
+      setter: function(hazardClasses) {
+        self.data.manifest_items[0].hazard_classes = hazardClasses;
+      }
+    });
+    
     selectize({
       selector: '.report_management_method_codes',
       setter: function(methodCodes) {
