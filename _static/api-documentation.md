@@ -50,6 +50,12 @@ Base URL: **e-manifest.18f.gov/api/0.1**
       <td><pre><code>{{ endpoint.parameters }}</code></pre></td>
     </tr>
     {% endif %}
+    {% if endpoint.request_content_type %}
+    <tr>
+      <td>Request Content-Type</td>
+      <td><pre><code>{{ endpoint.request_content_type }}</code></pre></td>
+    </tr>
+    {% endif %}
     {% if endpoint.request_body %}
     <tr>
       <td>Request body</td>

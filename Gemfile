@@ -9,6 +9,7 @@ gem 'pry'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
+gem 'json-patch'
 
 gem 'savon-multipart'
 

@@ -23,12 +23,22 @@ Response:
 # Get a Manifest
 
 **GET** /api/0.1/manifest/id/*
-<label for="username">eManifest ID: <input id="manifest_id"></label>
+<label for="manifest_id">eManifest ID: <input id="manifest_id"></label>
 <a href="javascript:getManifest();">Run »</a>
 
 Response:
 <pre><code id="get-manifest-response"></code></pre>
 
+# Update a Manifest
+
+**PATCH** /api/0.1/manifest/id/*
+<label for="update_manifest_id">eManifest ID: <input id="update_manifest_id"></label>
+<label for="update_manifest_generator_name">Generator Name: <input id="update_manifest_generator_name"></label>
+Data: `[{ "op": "replace", "path": "/generator/name", "value": "name entered above" }]`
+<a href="javascript:updateManifest();">Run »</a>
+
+Response:
+<pre><code id="update-manifest-response"></code></pre>
 
 # Reset Database
 
@@ -165,6 +175,21 @@ Response:
       var res = xhr.status + " " + xhr.statusText;
           res += "\n" + prettyJson(data);
       $('#get-manifest-response').text(res);
+    });
+  }
+  
+  function updateManifest() {
+    var manifest_id = $("#update_manifest_id").val();
+    var generator_name = $("#update_manifest_generator_name").val();
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/0.1/manifest/id/'+manifest_id,
+      data: JSON.stringify([{ "op": "replace", "path": "/generator/name", "value": generator_name }])
+    })
+    .done(function(data, textStatus, xhr) {
+      var res = xhr.status + " " + xhr.statusText;
+          res += "\n" + prettyJson(data);
+      $('#update-manifest-response').text(res);
     });
   }
   

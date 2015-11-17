@@ -37,6 +37,18 @@ RSpec.describe 'API request spec' do
     end
   end
 
+  describe 'PATCH /api/0.1/manifest/id/:manifestid' do
+    it 'updates removes and adds fields to a manifest' do
+      patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
+      manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' } })
+      send_json(:patch, "/api/0.1/manifest/id/#{manifest.id}", patch_command)
+      updatedManifest = Manifest.find(manifest.id)
+      expect(updatedManifest.content).to eq({'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }});
+      expect(last_response.body).to eq(updatedManifest.to_json)
+    end
+  end
+                                 
+
   # There's no nice way to test an API that simply pulls content out
   # of the jekyll-generated public directory. We cannot assume the
   # file exists when we run the test in development/CI and we cannot

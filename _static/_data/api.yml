@@ -5,6 +5,7 @@
   path_variables: {
      manifest_tracking_number: the tracking number from Line 4 of form 8700-22
   }
+  request_content_type: application/json
   request_body: |
       Manifest information in JSON format, all fields presently optional
       and unvalidated
@@ -319,6 +320,178 @@
      "404 Not Found": "If the given id does not match an existing manifest"
   }
 
+- title: Update Manifest
+  description: Update a manifest previously submitted to the eManifest
+               system; it does not change what has been signed. To
+               re-sign, authenticate and sign the manifest again.
+  http_verb: PATCH
+  resource_url: /manifest/id/:emanifest_id
+  path_variables: {
+     emanifest_id: the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)
+  }
+  request_content_type: application/json-patch+json
+  request_body: |
+      See JSON Patch (http://tools.ietf.org/html/rfc6902)
+      and JSON Pointer (http://tools.ietf.org/html/rfc6901)
+      specifications.
+
+      [
+        {"op": "replace", "path": "/generator/name", "value": "Generator ZZ"},
+        {"op": "add", "path": "/generator/mailing_address/zip_code", "value": "11211"},
+        {"op": "remove", "path": "/manifest_items/1"},
+        {"op": "replace", "path": "/non_hazardous_material_present", "value": "no"},
+        {"op": "add", "path": "/transporters", "value": {
+            "company_name": "AAAA Transporter",
+            "us_epa_id_number": "3882",
+            "signatory": {
+              "name": "John Smith",
+              "month": "10",
+              "day": "28",
+              "year": "2015"
+            }
+          }
+        }
+      ] 
+  response: |
+      {
+        "generator": {
+          "name": "Generator ZZ",
+          "us_epa_id_number": "112712334321",
+          "manifest_tracking_number": "98876761",
+          "emergency_response_phone": "888-999-8888",
+          "phone_number": "800-883-1731",
+          "mailing_address": {
+            "address_1": "88 Generator Way",
+            "address_2": "Loop 19",
+            "city": "Looptown",
+            "state": "LA",
+            "zip_code": "11211"
+          },
+          "site_address_same_as_mailing_address": "no",
+          "site_address": {
+            "address_1": "123 Site Place",
+            "address_2": "Around the Corner",
+            "city": "Cornerville",
+            "state": "CA",
+            "zip_code": "93818"
+          },
+          "signatory": {
+            "name": "Bob Smith",
+            "month": "6",
+            "day": "6",
+            "year": "2015"
+          },
+          "no_us_epa_id_number": false
+        },
+        "transporters": [
+          {
+            "company_name": "Transporter National",
+            "us_epa_id_number": "3881",
+            "signatory": {
+              "name": "Jill Jones",
+              "month": "7",
+              "day": "7",
+              "year": "2015"
+            }
+          },
+          {
+            "company_name": "AAAA Transporter",
+            "us_epa_id_number": "3882",
+            "signatory": {
+              "name": "John Smith",
+              "month": "10",
+              "day": "28",
+              "year": "2015"
+            }
+          }
+        ],
+        "is_international_shipment": "yes",
+        "international_shipment": {
+          "date_leaving_us": {
+            "month": "10",
+            "day": "22",
+            "year": "2015"
+          },
+          "export_import": "export_from_us",
+          "port_of_entry_exit": "Savannah, GA"
+        },
+        "designated_facility": {
+          "name": "Facility Zero",
+          "us_epa_id_number": "9238754",
+          "phone_number": "888-848-1318",
+          "certification": {
+            "name": "Betty Black",
+            "month": "10",
+            "day": "1",
+            "year": "2015"
+          },
+          "address": {
+            "address_1": "360 Zero Circle",
+            "address_2": "Two Pi",
+            "city": "Pie Town",
+            "state": "PA",
+            "zip_code": "23171"
+          },
+          "has_discrepancy": true,
+          "discrepancy": {
+            "name": "Alternate Facility Y",
+            "us_epa_id_number": "1734",
+            "phone_number": "877-577-2771",
+            "category_quantity": true,
+            "type": "no_rejection",
+            "description": "Only received 940 quarts of shoes.",
+            "signatory": {
+              "name": "Johnny Appleseed",
+              "month": "8",
+              "day": "8",
+              "year": "2015"
+            },
+            "address": {
+              "address_1": "88 Alternate Av",
+              "address_2": "Ste 671",
+              "city": "Alternative",
+              "state": "AK",
+              "zip_code": "91919"
+            }
+          }
+        },
+        "manifest_items": [
+          {
+            "total_quantity": "99",
+            "unit_wt_vol": "G",
+            "proper_shipping_name": "Hazardous Stuff",
+            "id_number": "771",
+            "state_waste_codes": [
+              "State1",
+              "state2"
+            ],
+            "epa_waste_codes": [
+              "Fed1",
+              "Fed2"
+            ],
+            "packing_group": "Twelve",
+            "container_type": "BA",
+            "number_of_containers": "8",
+            "hazard_classes": ["6", "8"],
+            "hazardous_material": "yes"
+          }
+        ],
+        "waste_pcb_description": "None.",
+        "waste_non_hazardous_material_present": "no",
+        "waste_handling_instructions": "Do not feed after midnight.",
+        "report_management_method_codes": [
+          "Method1",
+          "Method2",
+          "Method3"
+        ]
+      }
+  response_format: JSON
+  response_details: Returns the current state of the manifest after applying the updates
+  response_http_status_codes: {
+     "200 OK": "If updated",
+     "404 Not Found": "If the given id does not match an existing manifest"
+  }
+
 - title: Search for Manifests
   description: Search for manifests matching provided criteria. Currently returns all manifests
   http_verb: GET
@@ -347,6 +520,7 @@
   description: Authenticates a user with CDX's CROMERR services for signing a manifest. Values in the response are needed to sign the manifest.
   http_verb: POST
   resource_url: /user/authenticate
+  request_content_type: application/json
   request_body: |
     {
       user_id: "CDX user id",
@@ -373,6 +547,7 @@
   description: Signs a specified manifest with CDX's CROMERR services.
   http_verb: POST
   resource_url: /manifest/sign
+  request_content_type: application/json
   request_body: |
     {
       "activity_id": "_633a4568b-811e-471b-92b5-a7a8bca12fea",

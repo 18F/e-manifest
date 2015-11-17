@@ -39,11 +39,26 @@ class App < Sinatra::Base
     Manifest.all.to_json
   end
 
-  # Search for Manifests
+  # Get a Manifest
   get '/api/:version/manifest/id/:manifest_id' do
     begin
       response = Manifest.find(params["manifest_id"])
       response.to_json
+    rescue ActiveRecord::RecordNotFound => e
+      status 404
+    end
+  end
+
+  # Update a Manifest
+  patch '/api/:version/manifest/id/:manifest_id' do
+    begin
+      manifest = Manifest.find(params["manifest_id"])
+      patch = JSON.parse(request.body.read)
+      patch_json = patch.to_json
+      manifest_content_json = manifest[:content].to_json
+      new_json = JSON.patch(manifest_content_json, patch_json);
+      manifest.update_column(:content, new_json)
+      manifest.to_json
     rescue ActiveRecord::RecordNotFound => e
       status 404
     end
