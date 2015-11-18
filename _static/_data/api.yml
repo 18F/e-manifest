@@ -359,7 +359,7 @@
   response_format: JSON
   response: |
     {
-      "token": "csm:IiKaBeSJKqLQCD [...] Y6_HuVuzpDk,.",
+      "token": "8f5483a86d3ca682cf7ee8ef514fda1b460b416fd542756645dedea227100719",
       "activity_id": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
       "question": {
         "question_id": "15",
@@ -379,7 +379,7 @@
       "answer": "question answer text",
       "id": ":emanifest_id",
       "question_id": "15",
-      "token": "csm:IiKaBeSJKqLQCD [...] Y6_HuVuzpDk,.",
+      "token": "8f5483a86d3ca682cf7ee8ef514fda1b460b416fd542756645dedea227100719",
       "user_id": "CDX user id"
     }
   request_body_parameters: {
