@@ -6,6 +6,7 @@ class App < Sinatra::Base
     if url = ENV['DATABASE_URL']
       ConnectAR.new(url)
     end
+    use Rack::Session::Pool, :cookie_only => false, :defer => true
   end
 
   configure :development do
@@ -75,6 +76,8 @@ class App < Sinatra::Base
     authentication = JSON.parse(body)
     response = CDX::Authenticator.new(authentication).perform
     content_type :json
+    session[:system_session_token] = response[:token]
+    response[:token] = session.id
     response.to_json
   end
 
@@ -84,6 +87,12 @@ class App < Sinatra::Base
     manifest = Manifest.find(manifest_id)
     manifest_content = manifest[:content].to_json
     sign_request[:manifest_content] = manifest_content
+    emanifest_session_id = sign_request["token"]
+    session.id = emanifest_session_id
+    session[:load_by_id_hack] = 'official docs make finding a session by session id difficult'
+    session.delete(:load_by_id_hack)
+    system_session_token = session[:system_session_token]
+    sign_request["token"] = system_session_token
     puts manifest_content
     puts sign_request
     response = CDX::Manifest.new(sign_request).sign
