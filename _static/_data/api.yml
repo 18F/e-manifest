@@ -1,7 +1,7 @@
 - title: Submit Manifest
   description: Submit a new manifest to the eManifest system
   http_verb: POST
-  resource_url: /manifest/submit/:manifest_tracking_number
+  resource_url: /manifest/submit/{manifest_tracking_number}
   path_variables: {
      manifest_tracking_number: the tracking number from Line 4 of form 8700-22
   }
@@ -154,7 +154,7 @@
   }
   response_details: The Location header denotes where the
                     manifest may be retrieved
-                    (e.g. /api/0.1/manifest/id/:emanifest_id)
+                    (e.g. /api/0.1/manifest/id/{emanifest_id})
 
 - title: Get Manifest
   description: Retrieve a manifest previously submitted to the
@@ -163,7 +163,7 @@
   path_variables: {
      emanifest_id: the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)
   }
-  resource_url: /manifest/id/:emanifest_id
+  resource_url: /manifest/id/{emanifest_id}
   response_format: JSON
   response: |
     {
@@ -325,7 +325,7 @@
                system; it does not change what has been signed. To
                re-sign, authenticate and sign the manifest again.
   http_verb: PATCH
-  resource_url: /manifest/id/:emanifest_id
+  resource_url: /manifest/id/{emanifest_id}
   path_variables: {
      emanifest_id: the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)
   }

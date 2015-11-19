@@ -11,6 +11,8 @@ breadcrumbs:
 
 Base URL: **e-manifest.18f.gov/api/0.1**
 
+Notation note: path variables are expressed as {variablename}. The brackets are not part of the URI.
+
 {% for endpoint in site.data.api %}
 
 <table class="api">
