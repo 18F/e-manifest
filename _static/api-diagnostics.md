@@ -1,5 +1,6 @@
 ---
-title: API Diagnostics
+title: eManifest API Diagnostics | US EPA
+header_title: eManifest API Diagnostics
 permalink: /api-diagnostics/
 ---
 

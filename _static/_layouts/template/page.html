@@ -26,7 +26,11 @@ layout: template/main
   
   {% if page.title %}
   <div class="page-header">
+    {% if page.header_title %}
+    <h1>{{ page.header_title }}</h1>
+    {% else %}
     <h1>{{ page.title }}</h1>
+    {% endif %}
     
     {% if page.subtitle %}
     <h2>{{ page.subtitle }}</h2>
