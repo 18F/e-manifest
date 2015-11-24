@@ -29,6 +29,20 @@ RSpec.describe 'API request spec' do
     end
   end
 
+  describe '/api/0.1/manifest/:manifest_tracking_number' do
+    it 'return the manifest as json' do
+      manifest_tracking_number = "TEST_NUMBER"
+      manifest = Manifest.create(activity_id: 1, document_id: 2, content: {generator: {name: "test", "manifest_tracking_number": manifest_tracking_number}})
+      get "/api/0.1/manifest/#{manifest_tracking_number}"
+      expect(last_response.body).to eq(manifest.to_json)
+    end
+
+    it 'sends a 404 when the manifest cannot be found' do
+      get "/api/0.1/manifest/id/9940010140808v9019"
+      expect(last_response.status).to eq(404)
+    end
+  end
+
   describe '/api/0.1/manifest/search' do
     it 'returns all manifests as json' do
       (1..3).each { |n| Manifest.create(content: {number: n}) }
@@ -43,8 +57,33 @@ RSpec.describe 'API request spec' do
       manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' } })
       send_json(:patch, "/api/0.1/manifest/id/#{manifest.id}", patch_command)
       updatedManifest = Manifest.find(manifest.id)
-      expect(updatedManifest.content).to eq({'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }});
-      expect(last_response.body).to eq(updatedManifest.to_json)
+
+      expected_content_hash = {'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }}
+      parsed_response = JSON.parse(last_response.body)
+      parsed_content = JSON.parse(parsed_response["content"])
+      
+      expect(updatedManifest.content).to eq(expected_content_hash)
+      expect(parsed_content).to eq(expected_content_hash)
+      expect(parsed_response["id"]).to eq(manifest.id)
+    end
+  end
+                                 
+  describe 'PATCH /api/0.1/manifest/:manifest_tracking_number' do
+    it 'updates removes and adds fields to a manifest' do
+      manifest_tracking_number = "TEST_NUMBER"
+      patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
+
+      manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' }, generator: {name: "test", "manifest_tracking_number": manifest_tracking_number} })
+      send_json(:patch, "/api/0.1/manifest/#{manifest_tracking_number}", patch_command)
+      updatedManifest = Manifest.find(manifest.id)
+
+      expected_content_hash = {'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }, 'generator' => { "name" => "test", "manifest_tracking_number" => manifest_tracking_number}}
+      parsed_response = JSON.parse(last_response.body)
+      parsed_content = JSON.parse(parsed_response["content"])
+      
+      expect(updatedManifest.content).to eq(expected_content_hash)
+      expect(parsed_content).to eq(expected_content_hash)
+      expect(parsed_response["id"]).to eq(manifest.id)
     end
   end
                                  

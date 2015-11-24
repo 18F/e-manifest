@@ -21,7 +21,7 @@ Response:
 Response:
 <pre><code id="search-manifest-response"></code></pre>
 
-# Get a Manifest
+# Get a Manifest by eManifest ID
 
 **GET** /api/0.1/manifest/id/*
 <label for="manifest_id">eManifest ID: <input id="manifest_id"></label>
@@ -30,7 +30,16 @@ Response:
 Response:
 <pre><code id="get-manifest-response"></code></pre>
 
-# Update a Manifest
+# Get a Manifest by Manifest Tracking Number
+
+**GET** /api/0.1/manifest/*
+<label for="get_manifest_tracking_number">Manifest Tracking Number: <input id="get_manifest_tracking_number"></label>
+<a href="javascript:getManifestByTrackingNumber();">Run »</a>
+
+Response:
+<pre><code id="get-manifest-tracking-number-response"></code></pre>
+
+# Update a Manifest by eManifest ID
 
 **PATCH** /api/0.1/manifest/id/*
 <label for="update_manifest_id">eManifest ID: <input id="update_manifest_id"></label>
@@ -40,6 +49,17 @@ Data: `[{ "op": "replace", "path": "/generator/name", "value": "name entered abo
 
 Response:
 <pre><code id="update-manifest-response"></code></pre>
+
+# Update a Manifest by Manifest Tracking Number
+
+**PATCH** /api/0.1/manifest/*
+<label for="update_manifest_tracking_number">Manifest Tracking Number: <input id="update_manifest_tracking_number"></label>
+<label for="update_manifest_tracking_number_generator_name">Generator Name: <input id="update_manifest_tracking_number_generator_name"></label>
+Data: `[{ "op": "replace", "path": "/generator/name", "value": "name entered above" }]`
+<a href="javascript:updateManifestByTrackingNumber();">Run »</a>
+
+Response:
+<pre><code id="update-manifest-tracking-number-response"></code></pre>
 
 # Reset Database
 
@@ -88,6 +108,21 @@ Response:
   function prettyJson(data) {
     return JSON.stringify(data, null, 2);
   }
+
+  var showSuccessfulResponse = function(nodeSelector) {
+    return function(data, textStatus, xhr) {
+      var res = xhr.status + " " + xhr.statusText;
+      res += "\n" + prettyJson(data);
+      $(nodeSelector).text(res);
+    };
+  };
+
+  var showFailureResponse = function(nodeSelector) {
+    return function(xhr, textStatus, error) {
+      var res = xhr.status + " " + xhr.statusText;
+      $(nodeSelector).text(res);
+    };
+  };
   
   function submitManifest() {
     $.ajax({
@@ -95,30 +130,24 @@ Response:
       url: '/api/0.1/manifest/submit/12345',
       data: '{ "manifest": 12345 }'
     })
-    .done(function(data, textStatus, xhr) {
-      var res = xhr.status + " " + xhr.statusText;
-      res += "\n" + data;
-      $('#submit-manifest-response').append(res);
-    });
-  }
+    .done(showSuccessfulResponse('#submit-manifest-response'))
+    .fail(showFailureResponse('#submit-manifest-response'));
+  };
   
   function searchManifest() {
     $.ajax({
       type: 'GET',
       url: '/api/0.1/manifest/search?city=madison&state=wi',
     })
-    .done(function(data, textStatus, xhr) {
-      var res = xhr.status + " " + xhr.statusText;
-      res += "\n" + prettyJson(data);
-      $('#search-manifest-response').text(res);
-    });
-  }
+    .done(showSuccessfulResponse('#search-manifest-response'))
+    .fail(showFailureResponse('#search-manifest-response'));
+  };
   
   function resetDatabase() {
     /*$.get('/reset', function(data) {
       alert(data);
     });*/
-  }
+  };
 
   function authenticateUser() {
     var username = $("#username").val();
@@ -139,8 +168,9 @@ Response:
       $('#activity_id').val(data["activity_id"]);
       $('#question_id').val(data["question"]["question_id"]);
       $('#answer').val("");
-    });
-  }
+    })
+    .fail(showFailureResponse('#authenticate-user-response'));
+  };
 
   function signManifest() {
     var manifest_id = $("#sign_manifest_id").val();
@@ -158,12 +188,9 @@ Response:
             "activity_id": activity_id, "user_id": user_id,
             "question_id": question_id, "answer": answer })
     })
-    .done(function(data, textStatus, xhr) {
-      var res = xhr.status + " " + xhr.statusText;
-      res += "\n" + prettyJson(data);
-      $('#sign-manifest-response').text(res);
-    });
-  }
+    .done(showSuccessfulResponse('#sign-manifest-response'))
+    .fail(showFailureResponse('#sign-manifest-response'));
+  };
   
   function getManifest() {
     var manifest_id = $("#manifest_id").val();
@@ -172,12 +199,20 @@ Response:
       type: 'GET',
       url: '/api/0.1/manifest/id/'+manifest_id
     })
-    .done(function(data, textStatus, xhr) {
-      var res = xhr.status + " " + xhr.statusText;
-          res += "\n" + prettyJson(data);
-      $('#get-manifest-response').text(res);
-    });
-  }
+    .done(showSuccessfulResponse('#get-manifest-response'))
+    .fail(showFailureResponse('#get-manifest-response'));
+  };
+  
+  function getManifestByTrackingNumber() {
+    var manifest_tracking_number = $("#get_manifest_tracking_number").val();
+    
+    $.ajax({
+      type: 'GET',
+      url: '/api/0.1/manifest/'+manifest_tracking_number
+    })
+    .done(showSuccessfulResponse('#get-manifest-tracking-number-response'))
+    .fail(showFailureResponse('#get-manifest-tracking-number-response'));
+  };
   
   function updateManifest() {
     var manifest_id = $("#update_manifest_id").val();
@@ -187,23 +222,29 @@ Response:
       url: '/api/0.1/manifest/id/'+manifest_id,
       data: JSON.stringify([{ "op": "replace", "path": "/generator/name", "value": generator_name }])
     })
-    .done(function(data, textStatus, xhr) {
-      var res = xhr.status + " " + xhr.statusText;
-          res += "\n" + prettyJson(data);
-      $('#update-manifest-response').text(res);
-    });
-  }
+    .done(showSuccessfulResponse('#update-manifest-response'))
+    .fail(showFailureResponse('#update-manifest-response'));
+  };
+  
+  function updateManifestByTrackingNumber() {
+    var manifest_tracking_number = $("#update_manifest_tracking_number").val();
+    var generator_name = $("#update_manifest_tracking_number_generator_name").val();
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/0.1/manifest/'+manifest_tracking_number,
+      data: JSON.stringify([{ "op": "replace", "path": "/generator/name", "value": generator_name }])
+    })
+    .done(showSuccessfulResponse('#update-manifest-tracking-number-response'))
+    .fail(showFailureResponse('#update-manifest-tracking-number-response'));
+  };
   
   function getMethodCodes() {
     $.ajax({
       type: 'GET',
       url: '/api/0.1/method_code'
     })
-    .done(function(data, textStatus, xhr) {
-      var res = xhr.status + " " + xhr.statusText;
-          res += "\n" + prettyJson(data);
-      $('#get-method-codes-response').text(res);
-    });
-  }
+    .done(showSuccessfulResponse('#get-method-codes-response'))
+    .fail(showFailureResponse('#get-method-codes-response'));
+  };
 
 </script>

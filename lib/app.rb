@@ -40,7 +40,7 @@ class App < Sinatra::Base
     Manifest.all.to_json
   end
 
-  # Get a Manifest
+  # Get a Manifest by eManifest id
   get '/api/:version/manifest/id/:manifest_id' do
     begin
       response = Manifest.find(params["manifest_id"])
@@ -50,18 +50,53 @@ class App < Sinatra::Base
     end
   end
 
-  # Update a Manifest
+  # Get a Manifest by manifest tracking number
+  get '/api/:version/manifest/:manifest_tracking_number' do
+    begin
+      manifest_tracking_number = params["manifest_tracking_number"]
+      response = Manifest.where("content -> 'generator' ->> 'manifest_tracking_number' = ?", manifest_tracking_number)
+      if response.empty?
+        status 404
+        return
+      end
+
+      response.first.to_json
+    end
+  end
+
+  # Update a Manifest by eManifest id
   patch '/api/:version/manifest/id/:manifest_id' do
     begin
       manifest = Manifest.find(params["manifest_id"])
+      patch = JSON.parse(request.body.read)
+      patch_json = patch.to_json
+
+      manifest_content_json = manifest[:content].to_json
+      new_json = JSON.patch(manifest_content_json, patch_json);
+      manifest.update_column(:content, new_json)
+
+      manifest.to_json
+    rescue ActiveRecord::RecordNotFound => e
+      status 404
+    end
+  end
+
+  # Update a Manifest by manifest tracking number
+  patch '/api/:version/manifest/:manifest_tracking_number' do
+    begin
+      manifest_tracking_number = params["manifest_tracking_number"]
+      manifest_collection = Manifest.where("content -> 'generator' ->> 'manifest_tracking_number' = ?", manifest_tracking_number)
+      if manifest_collection.empty?
+        status 404
+        return
+      end
+      manifest = manifest_collection.first
       patch = JSON.parse(request.body.read)
       patch_json = patch.to_json
       manifest_content_json = manifest[:content].to_json
       new_json = JSON.patch(manifest_content_json, patch_json);
       manifest.update_column(:content, new_json)
       manifest.to_json
-    rescue ActiveRecord::RecordNotFound => e
-      status 404
     end
   end
 
@@ -93,8 +128,7 @@ class App < Sinatra::Base
     session.delete(:load_by_id_hack)
     system_session_token = session[:system_session_token]
     sign_request["token"] = system_session_token
-    puts manifest_content
-    puts sign_request
+
     response = CDX::Manifest.new(sign_request).sign
 
     if (response.key?(:document_id))
