@@ -7,15 +7,6 @@
         "template";
 
 /* Custom Styles */
-
-body {
-  font-family: 'Open Sans', sans-serif;
-}
-
-h1, h2, h3, h4 {
-  font-weight: 600;
-}
-
 code {
   font-family: 'Source Code Pro', monospace;
 }
@@ -43,4 +34,8 @@ table {
 .result-item:hover td
 {
     background-color: #ccc !important;
+}
+
+ul li:before {
+  content: "";
 }
