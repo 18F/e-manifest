@@ -39,3 +39,77 @@ table {
 ul li:before {
   content: "";
 }
+
+body.web {
+  background-color: #369;
+
+  #main-content.main-content {
+    position: static;
+  }
+
+  .unit { float: left; }
+  .unit-right { float: right; }
+  .inner { padding: 0 3rem; }
+
+  #logo {
+    padding-top: 1.5rem;
+
+    .logo-text {
+      padding-left: 1rem;
+      color: white;
+      font-size: 0.95rem;
+      line-height: 1rem;
+    }
+  }
+
+  .usa-disclaimer-official {
+    padding: 0;
+  }
+
+  .app-width {
+    width: 928px;
+    margin: 0 auto;
+  }
+
+  .content-header {
+    padding: 1rem 0 1rem;
+
+    .usa-button-list li {
+      padding-left: 2em;
+    }
+
+    h1 {
+      line-height: 1;
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 3rem;
+    }
+  }
+
+  .top-level-nav-links {
+    padding-top: 2rem;
+
+    li {
+      padding-right: 3rem;
+    }
+    a {
+      color: white;
+
+      &:visited {
+        color: white;
+      }
+    }
+  }
+
+  .development-disclaimer {
+    line-height: 1.6;
+  }
+
+  .content-canvas {
+    background-color: white;
+  }
+
+  .preview {
+    margin: 0;
+  }
+}

@@ -5,7 +5,7 @@ layout: template/web
 <a href="/web/search.html">&lt; Back to manifest listing</a>
 
 <div class="usa-grid-full" ng-controller="ManifestDetailController">
-    <div class="preview usa-width-one-half">
+    <div class="usa-width-one-half">
         <fieldset>
             <table class="usa-table-borderless">
                 <tr ng-repeat="x in data.content.searchCriteria">
@@ -16,7 +16,7 @@ layout: template/web
             <button class="usa-button-big" type="button">Download</button>
         </fieldset>
     </div>
-    <div class="preview usa-width-one-half"> 
+    <div class="usa-width-one-half">
         <h2 ng-bind="data.content.title"></h2>
         <h3>Generator</h3>
         <table class="usa-table-borderless">
