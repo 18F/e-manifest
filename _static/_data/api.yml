@@ -880,7 +880,7 @@
     }
 
 
-- title: Sign Manifest
+- title: Sign Manifest by eManifest ID
   description: Signs a specified manifest with CDX's CROMERR services.
   http_verb: POST
   resource_url: /manifest/sign
@@ -889,7 +889,7 @@
     {
       "activity_id": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
       "answer": "question answer text",
-      "id": ":emanifest_id",
+      "id": "eManifest ID",
       "question_id": "15",
       "token": "8f5483a86d3ca682cf7ee8ef514fda1b460b416fd542756645dedea227100719",
       "user_id": "CDX user id"
@@ -898,6 +898,36 @@
     activity_id: "from previous Authenticate User response",
     answer: "CDX account's answer to the question from Authenticate User response",
     id: "the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)",
+    question_id: "from previous Authenticate User response",
+    token: "from previous Authenticate User response",
+    user_id: "CDX user id"
+  }
+  response_format: JSON
+  response: |
+    {
+      "document_id": "be83916a-a4d3-4ae8-aa68-9d56c16b1bce"
+    }
+  response_details: The CDX-generated documentId and activityId values will now appear as fields in the
+                    signed manifest when retrieving the manifest data
+
+- title: Sign Manifest by Manifest Tracking Number
+  description: Signs a specified manifest with CDX's CROMERR services.
+  http_verb: POST
+  resource_url: /manifest/signByTrackingNumber
+  request_content_type: application/json
+  request_body: |
+    {
+      "activity_id": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
+      "answer": "question answer text",
+      "manifest_tracking_number": "Manifest Tracking Number",
+      "question_id": "15",
+      "token": "8f5483a86d3ca682cf7ee8ef514fda1b460b416fd542756645dedea227100719",
+      "user_id": "CDX user id"
+    }
+  request_body_parameters: {
+    activity_id: "from previous Authenticate User response",
+    answer: "CDX account's answer to the question from Authenticate User response",
+    manifest_tracking_number: "the Manifest Tracking Number from Line 4 of form 8700-22",
     question_id: "from previous Authenticate User response",
     token: "from previous Authenticate User response",
     user_id: "CDX user id"

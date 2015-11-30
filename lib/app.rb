@@ -141,6 +141,36 @@ class App < Sinatra::Base
     response.to_json
   end
 
+  post '/api/:version/manifest/signByTrackingNumber' do
+    sign_request = JSON.parse(request.body.read)
+    manifest_tracking_number = sign_request["manifest_tracking_number"]
+    manifest_collection = Manifest.where("content -> 'generator' ->> 'manifest_tracking_number' = ?", manifest_tracking_number)
+    if manifest_collection.empty?
+      status 404
+      return
+    end
+    manifest = manifest_collection.first
+    manifest_content = manifest[:content].to_json
+    sign_request[:manifest_content] = manifest_content
+    emanifest_session_id = sign_request["token"]
+    session.id = emanifest_session_id
+    session[:load_by_id_hack] = 'official docs make finding a session by session id difficult'
+    session.delete(:load_by_id_hack)
+    system_session_token = session[:system_session_token]
+    sign_request["token"] = system_session_token
+
+    response = CDX::Manifest.new(sign_request).sign
+
+    if (response.key?(:document_id))
+      manifest[:document_id] = response[:document_id]
+      manifest[:activity_id] = sign_request["activity_id"]
+      manifest.save
+    end
+
+    content_type :json
+    response.to_json
+  end
+
   get '/api/:version/method_code' do
     content_type :json
     IO.read(File.dirname(__FILE__) + "/../public/api-data/method-codes.json")

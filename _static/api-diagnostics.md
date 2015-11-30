@@ -77,7 +77,7 @@ Data: `{ "user_id": username, "password": password  }`
 Response:
 <pre><code id="authenticate-user-response"></code></pre>
 
-# Sign Manifest
+# Sign Manifest by eManifest ID
 
 **POST** /api/0.1/manifest/sign
 (data from authenticate user request + answer to the question)
@@ -93,6 +93,23 @@ Data: `{ "token": token, "activity_id": activity id, "user_id": user id,
 
 Response:
 <pre><code id="sign-manifest-response"></code></pre>
+
+# Sign Manifest by Manifest Tracking Number
+
+**POST** /api/0.1/manifest/signByTrackingNumber
+(data from authenticate user request + answer to the question)
+Data: `{ "token": token, "activity_id": activity id, "user_id": user id,
+"question_id": question id, "answer": answer, "manifest_tracking_number": manifest_tracking_number }`
+<label for="sign_by_manifest_tracking_number">Manifest Tracking Number: <input id="sign_by_manifest_tracking_number"></label>
+<label for="answer_by_manifest_tracking_number">Answer to CDX question: <input type="password" id="answer_by_manifest_tracking_number"></label>
+<label for="token_by_manifest_tracking_number">CROMERR token: <input id="token_by_manifest_tracking_number"></label>
+<label for="activity_id_by_manifest_tracking_number">CROMERR activity id: <input id="activity_id_by_manifest_tracking_number"></label>
+<label for="user_id_by_manifest_tracking_number">CDX user id: <input id="user_id_by_manifest_tracking_number"></label>
+<label for="question_id_by_manifest_tracking_number">CDX question id: <input id="question_id_by_manifest_tracking_number"></label>
+<a href="javascript:signManifestByTrackingNumber();">Run »</a>
+
+Response:
+<pre><code id="sign-manifest-by-tracking-number-response"></code></pre>
 
 # Get Management Method Codes
 
@@ -168,6 +185,11 @@ Response:
       $('#activity_id').val(data["activity_id"]);
       $('#question_id').val(data["question"]["question_id"]);
       $('#answer').val("");
+      $('#user_id_by_manifest_tracking_number').val(data["user_id"]);
+      $('#token_by_manifest_tracking_number').val(data["token"]);
+      $('#activity_id_by_manifest_tracking_number').val(data["activity_id"]);
+      $('#question_id_by_manifest_tracking_number').val(data["question"]["question_id"]);
+      $('#answer_by_manifest_tracking_number').val("");
     })
     .fail(showFailureResponse('#authenticate-user-response'));
   };
@@ -190,6 +212,26 @@ Response:
     })
     .done(showSuccessfulResponse('#sign-manifest-response'))
     .fail(showFailureResponse('#sign-manifest-response'));
+  };
+  
+  function signManifestByTrackingNumber() {
+    var manifest_tracking_number = $("#sign_by_manifest_tracking_number").val();
+    var token = $("#token_by_manifest_tracking_number").val();
+    var activity_id = $("#activity_id_by_manifest_tracking_number").val();
+    var user_id = $("#user_id_by_manifest_tracking_number").val();
+    var question_id = $("#question_id_by_manifest_tracking_number").val();
+    var answer = $("#answer_by_manifest_tracking_number").val();
+    
+    $.ajax({
+      type: 'POST',
+      url: '/api/0.1/manifest/signByTrackingNumber',
+      contentType: 'application/json',
+      data: JSON.stringify({ "manifest_tracking_number": manifest_tracking_number, "token": token,
+            "activity_id": activity_id, "user_id": user_id,
+            "question_id": question_id, "answer": answer })
+    })
+    .done(showSuccessfulResponse('#sign-manifest-by-tracking-number-response'))
+    .fail(showFailureResponse('#sign-manifest-by-tracking-number-response'));
   };
   
   function getManifest() {
