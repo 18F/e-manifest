@@ -154,6 +154,21 @@ RSpec.describe 'API request spec' do
       expect(manifest.activity_id).to eq(nil)
     end
   end
+
+  describe 'post /api/0.1/manifest/signByTrackingNumber' do
+    it 'creates retrieves and resaves a manifest with document id' do
+      manifest_tracking_number = "AAABB1234"
+      manifest = Manifest.create(content: {generator: {name: "test", "manifest_tracking_number": manifest_tracking_number}})
+      cdx_manifest = double('cdx manifest', sign: {document_id: 44})
+      expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
+
+      send_json(:post, '/api/0.1/manifest/signByTrackingNumber', {manifest_tracking_number: manifest_tracking_number, activity_id: 22})
+
+      manifest.reload
+      expect(manifest.document_id).to eq('44')
+      expect(manifest.activity_id).to eq('22')
+    end
+  end
 end
 
 
