@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="/assets/usa/css/styleguide.css">
   <link rel="stylesheet" href="/assets/usa/css/fixes.css">
   <link rel="stylesheet" href="/assets/css/selectize.default.css">
+  <link rel="stylesheet" href="/assets/css/web.css">
+
   <script src="/assets/js/vendor/jquery-1.11.3.min.js"></script>
   <script src="/assets/js/vendor/angular-1.4.6.min.js"></script>
   <script src="/assets/js/vendor/angular-route-1.4.6.min.js"></script>
@@ -30,43 +32,36 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   {% endif %}
 </head>
 
-<body class="visual-style" ng-app="app">
-  <header class="usa-site-header" role="banner">
+<body class="visual-style web" ng-app="app">
+  <header role="banner">
+    {% include usa_disclaimer.html %}
 
-    <div class="usa-disclaimer">
-      <span class="usa-disclaimer-official">
-        <img class="usa-flag_icon" alt="US flag signifying that this is a United States Federal Government website" src="/assets/usa/img/us_flag_small.png">
-        An official website of the United States Government
-      </span>
-      <span class="usa-disclaimer-stage">This site is currently in discovery. <a href="https://18f.gsa.gov/dashboard/stages/#discovery">Learn more.</a></span>
-    </div>
+    <nav class="usa-site-navbar app-width">
+      <div class='inner'>
+        <a href="#" id="menu-btn">&#9776; MENU</a>
+        <div class="logo" id="logo">
+          {% include epa_logo.html %}
+        </div>
 
-    <nav class="usa-site-navbar">
-      <a href="#" id="menu-btn">&#9776; MENU</a>
-      <div class="logo" id="logo">
-        <h1 style="max-width: 40rem; font-size: 4rem;">
-          <a href="/web" accesskey="1" title="Home" aria-label="Home">
-            EPA eManifest
-          </a>
-        </h1>
+        <ul class="usa-button-list usa-unstyled-list top-level-nav-links">
+          <li class='unit'><a href="/web">Home</a></li>
+          <li class='unit'><a href="/about">About</a></li>
+        </ul>
       </div>
-      <ul class="usa-button-list usa-unstyled-list">
-        <li>
-          <a class="usa-button" href="/web/search.html">Search</a>
-        </li>
-        <li>
-          <a class="usa-button" href="/web/industry.html">Industry</a>
-        </li>
-      </ul>
     </nav>
-
   </header>
 
   <div class="main-content" id="main-content" sytle="width: none;">
-    <div class="styleguide-content usa-content">
-      {{ content }}
+    <div class="app-width usa-content">
+      <div class="content-canvas">
+        {% include content_header.html %}
+        <div class='inner'>
+          {{ content }}
+        </div>
+      </div>
     </div>
   </div>
+
   {% if jekyll.environment == "production" %}
   <script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js" id="_fed_an_ua_tag"></script>
   {% endif %}
