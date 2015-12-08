@@ -18,7 +18,7 @@ layout: template/web
         </thead>
         <tbody>
           <tr class='manifest-list-row' ng-repeat="x in filtered" ng-click="manifestDetail(x)" data-href="manifest-detail.html" class="result-item">
-            <td scope="row" ng-bind="x.id"></td>
+            <td scope="row" ng-bind="x.content.generator.manifest_tracking_number"></td>
             <td ng-bind="x.content.generator.name">></td>
             <td ng-bind="x.content.designated_facility.name"></td>
             <td ng-bind="x.formatted_date"></td>
@@ -28,22 +28,22 @@ layout: template/web
     </div>
     <form class="usa-width-one-third"> <!-- Trasporter Entry SubSection -->
       <fieldset>
-        <legend>Filter Manifests</legend>
-          <label class='bold' for="generator_name">Generator Name</label>
+        <legend>Filter manifests</legend>
+          <label class='bold' for="generator_name">Generator name</label>
           <input id="generator_name" ng-model="data.generator.name" name="generator_name" type="text">
 
-          <label class='bold' for="tsdf_name">Disposal Facility Name</label>
+          <label class='bold' for="tsdf_name">Disposal facility name</label>
           <input id="tsdf_name" ng-model="data.tsdf_name" name="tsdf_name" type="text">
 
           <div class="usa-grid-full">
             <div class="usa-width-one-half">
-              <label for="origin_state">Origin State</label>
+              <label for="origin_state">Generator state</label>
               <select name="origin_state" id="origin_state" class="usa-input-grid-tiny tiny-input">
                 {% include state_options.html %}
               </select>
             </div>
             <div class="usa-width-one-half">
-              <label for="origin_state">Destination State</label>
+              <label for="origin_state">Disposal facility state</label>
               <select name="origin_state" id="origin_state" class="tiny-input">
                 {% include state_options.html %}
               </select>
@@ -53,11 +53,11 @@ layout: template/web
           <label class='bold'>Date</label>
           <div class="usa-grid-full">
             <div class="usa-width-one-half">
-              <label for="from_date">From</label>
+              <label for="from_date">Beginning</label>
               <input id="from_date" name="from_date" type="text">
             </div>
             <div class="usa-width-one-half">
-              <label for="to_date">To</label>
+              <label for="to_date">Ending</label>
               <input id="to_date" name="to_date" type="text">
             </div>
           </div>
@@ -67,6 +67,9 @@ layout: template/web
           </div>
 
           <button class="usa-button-big" type="button" ng-click="filter()">Filter</button>
+          <div>
+            <a class='small' href="#">Clear filter</a>
+          </div>
       </fieldset>
     </form>
   </div>
