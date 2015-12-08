@@ -73,4 +73,43 @@ body.web {
   .preview {
     margin: 0;
   }
+
+  .home {
+    legend {
+      font-weight: normal;
+      font-size: 2.5rem;
+    }
+
+    form {
+      padding: 1rem;
+      background-color: #efefef;
+      border: 1px solid #cdcdcd;
+    }
+
+    label {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      &.bold {
+        font-weight: bold;
+      }
+    }
+
+    select {
+      background-color: white;
+      min-width: 8rem;
+    }
+
+    a.small {
+      font-size: 1.5rem;
+    }
+
+    thead {
+      border-bottom: 2px solid black;
+    }
+
+    .manifest-list-row:hover {
+      background-color: lighten(#369, 50);
+      cursor: pointer;
+    }
+  }
 }

@@ -11,7 +11,7 @@
   app.controller('IndustryController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
     var self = $scope.industry = {};
     var uiData = $scope.uiData = {};
-    
+
     self.name = 'Hello World!!';
 
     self.data = {};
@@ -33,7 +33,7 @@
       state_waste_codes: "",
       hazard_classes: ""
     }];
-    
+
     self.addManifestItem = function() {
       var nextManifestIndex = self.data.manifest_items.length;
       self.data.manifest_items.push({ });
@@ -43,7 +43,7 @@
         state_waste_codes: "",
         hazard_classes: ""
       });
-      
+
       deferSelectize({
         selector: '.manifest_item_epa_waste_code_' + nextManifestIndex,
         setter: function(wasteCodes) {
@@ -57,7 +57,7 @@
           self.data.manifest_items[nextManifestIndex].state_waste_codes = wasteCodes;
         }
       });
-      
+
       deferSelectize({
         selector: '.manifest_item_proper_hazard_class_' + nextManifestIndex,
         setter: function(hazardClasses) {
@@ -88,7 +88,7 @@
       if (!isValid) {
         return phoneNumber;
       }
-      
+
       var phoneDigits = phoneNumber.replace(/\D/g, "");
       var containsPlusOnePrefix = (phoneDigits.length === 11);
 
@@ -99,7 +99,7 @@
       var canonicalPhone = phoneDigits.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
       return canonicalPhone;
     };
-    
+
     $scope.phonePattern = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?\(?\s*(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*\)?\s*(?:[.-]\s*)?)([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
 
     var deferSelectize = function(options) {
@@ -117,7 +117,7 @@
         var labelField = options.labelField;
         var searchField = options.searchField;
         var preload = load ? true : false;
-        
+
         $(function() {
           $(selector).selectize({
             plugins: ['remove_button'],
@@ -144,7 +144,7 @@
         self.data.manifest_items[0].epa_waste_codes = wasteCodes;
       }
     });
-    
+
     selectize({
       selector: '.manifest_item_state_waste_code_0',
       setter: function(wasteCodes) {
@@ -158,7 +158,7 @@
         self.data.manifest_items[0].hazard_classes = hazardClasses;
       }
     });
-    
+
     selectize({
       selector: '.report_management_method_codes',
       setter: function(methodCodes) {
@@ -180,71 +180,69 @@
       labelField: "code",
       searchField: "code"
     });
-      
+
 
   }]);
 
-    
-    app.controller('SearchController', function($scope, $http) {
 
-        var self = $scope.search = {};
-        $scope.data = {};
-        $scope.filtered = {};
-        $scope.results = {};
+  app.controller('SearchController', function($scope, $http) {
+    var self = $scope.search = {};
+    $scope.data = {};
+    $scope.filtered = {};
+    $scope.results = {};
 
-        $scope.msg = "Search";
-        
-        $http.get('/api/0.1/manifest/search').success(
-            function(response) {
-                for(var i = 0; i < response.length; i++)
-                {
-                    var item = response[i];
-                    
-                    //fix for my local env.
-                    if(typeof item.content == "string")
-                    {
-                        item.content = item.content.replace(/[=]/g, ":");
-                        item.content = item.content.replace(/[>]/g, "");
-                        item.content = jQuery.parseJSON(item.content);
-                    }
-                }
+    $http.get('/api/0.1/manifest/search').success(function(response) {
+      for(var i = 0; i < response.length; i++) {
+        var item = response[i];
 
-                $scope.results = response;
-                $scope.filtered = response;
-            });
-
-        $scope.filter = function() {
-            var gname = $scope.data.generator.name;
-            var tname = $scope.data.tsdf_name;
-            var items = new Array();
-
-            for(var i = 0; i < $scope.results.length; i++)
-            {
-                var isAdded = false;
-                var item = $scope.results[i];
-
-                if(gname != undefined && item.content.generator && gname == item.content.generator.name)
-                {
-                    items.push(item);
-                    isAdded = true;
-                }
-
-                if(isAdded == false && tname != undefined && item.content.designated_facility && tname == item.content.designated_facility.name)
-                {
-                   items.push(item); 
-                }
-            }
-
-            $scope.filtered = items; 
-        };
-        
-        $scope.manifestDetail = function(data) {
-            window.location.href = '/web/manifest-detail.html?id='+data.id;
+        //fix for my local env.
+        if(typeof item.content == "string") {
+          item.content = item.content.replace(/[=]/g, ":");
+          item.content = item.content.replace(/[>]/g, "");
+          item.content = jQuery.parseJSON(item.content);
         }
+
+        var updatedAtString = response[i].updated_at;
+        if (updatedAtString) {
+          response[i].formatted_date = new Date(updatedAtString).toLocaleDateString();
+        }
+      }
+
+      $scope.results = response;
+      $scope.filtered = response;
     });
-    
+
+    $scope.filter = function() {
+      var gname = $scope.data.generator.name;
+      var tname = $scope.data.tsdf_name;
+      var items = new Array();
+
+      for(var i = 0; i < $scope.results.length; i++) {
+        var isAdded = false;
+        var item = $scope.results[i];
+
+        if(gname != undefined && item.content.generator && gname == item.content.generator.name)
+        {
+            items.push(item);
+            isAdded = true;
+        }
+
+        if(isAdded == false && tname != undefined && item.content.designated_facility && tname == item.content.designated_facility.name)
+        {
+           items.push(item);
+        }
+      }
+
+      $scope.filtered = items;
+    };
+
+    $scope.manifestDetail = function(data) {
+      window.location.href = '/web/manifest-detail.html?id='+data.id;
+    }
+  });
+
     app.controller('ManifestDetailController', ['$scope','$http',function($scope, $http) {
-   
+
         function getQueryParams(qs) {
             qs = qs.split('+').join(' ');
 
@@ -258,7 +256,7 @@
 
             return params;
         }
-        
+
         var id = getQueryParams(document.location.search).id;;
         $http.get('/api/0.1/manifest/id/'+id).success(
             function(response) {
@@ -272,16 +270,16 @@
               $scope.data = response;
             });
     }]);
-    
+
   app.controller('SignController', function($scope, $http, $location) {
     $scope.state = 'login';
-    
+
     $scope.authenticate = function() {
       self.data = {
         user_id: $("#user_id").val(),
         password: $("#password").val()
       };
-      
+
       $http.post('/api/0.1/user/authenticate', self.data).then(
         function successCallback(response) {
           $scope.authenticateResponse = response.data;
@@ -303,7 +301,7 @@
         "answer": $("#answer").val(),
         "id": emanifestId
       };
-      
+
       $http.post('/api/0.1/manifest/sign', self.data).then(
         function successCallback(response) {
           $scope.state = 'confirmation';
