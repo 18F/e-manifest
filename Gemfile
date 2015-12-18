@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'dotenv'
 gem 'rack-contrib'
+gem 'redcarpet'
 gem 'sinatra'
 gem 'thin'
 gem 'jekyll'
