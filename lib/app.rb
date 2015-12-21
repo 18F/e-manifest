@@ -1,5 +1,8 @@
 require_relative 'app_manifest'
 
+require 'dotenv'
+Dotenv.load
+
 class App < Sinatra::Base
   configure do
     set :logging, true
