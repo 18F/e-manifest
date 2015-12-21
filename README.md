@@ -43,7 +43,7 @@ Client tests use karma/mocha/chai:
 
 ## CROMERR Signing
 
-In order to access the development CDX system for CROMERR signing of a manifest, one needs a system account set up with rights to sign on behalf of authenticated users.
+In order to access the development CDX system for CROMERR signing of a manifest, one needs a system account set up with rights to sign on behalf of authenticated users. The account credentials are available from the e-Manifest development team.
 
 The username and password should be placed in a `secret.rb` file located in the root with the following form:
 
