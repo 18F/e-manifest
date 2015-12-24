@@ -2,166 +2,185 @@
 title: eManifest Detail | US EPA
 layout: template/web
 ---
-<a href="/web/home.html">&lt; Back to manifest listing</a>
+<div class='new-template manifest-show'>
+  <legend>Manifest view</legend>
+  <a href="/web/home.html">&lt; Back to manifest listing</a>
 
-<div class="usa-grid-full" ng-controller="ManifestDetailController">
-    <div class="usa-width-one-half">
-        <fieldset>
-            <table class="usa-table-borderless">
-                <tr ng-repeat="x in data.content.searchCriteria">
-                    <td ng-bind="x.title"></td>
-                    <td ng-bind="x.name"></td>
-                </tr>
-            </table>
-            <button class="usa-button-big" type="button">Download</button>
-        </fieldset>
-    </div>
-    <div class="usa-width-one-half">
-        <h2 ng-bind="data.content.title"></h2>
-        <h3>Generator</h3>
-        <table class="usa-table-borderless">
-            <tr>
-                <td>Generator ID Number</td>
-                <td ng-bind="data.content.generator.us_epa_id_number"></td>
-            </tr>
-            <tr>
-                <td>Emergency Phone Number</td>
-                <td ng-bind="data.content.generator.emergency_response_phone"></td>
-            </tr>
-            <tr>
-                <td>Manifest Tracking Number</td>
-                <td ng-bind="data.content.generator.manifest_tracking_number"></td>
-            </tr>
-            <tr>
-                <td>Generator's Name</td>
-                <td ng-bind="data.content.generator.name"></td>
-            </tr>
-            <tr>
-                <td>Mailing Address</td>
-                <td ng-bind="data.content.generator.mailing_address.address_1"></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td ng-bind-template="[[ data.content.generator.mailing_address.city ]], [[ data.content.generator.mailing_address.state ]] [[ data.content.generator.mailing_address.zip ]]"></td>
-            </tr>
-            <tr>
-                <td>Phone</td>
-                <td ng-bind="data.content.generator.phone_number "></td>
-            </tr>
-        </table>
-        
-        <div ng-repeat="transporter in data.content.transporters">
-            <h3>Transporter</h3>
-            <table class="usa-table-borderless">
-                <tr>
-                    <td>Company Name</td>
-                    <td ng-bind="transporter.name"></td>
-                </tr>
-                <tr>
-                    <td>U.S. EPA ID Number</td>
-                    <td ng-bind="transporter.us_epa_id_number"></td>
-                </tr>
-            </table>
-        </div>
-        
-        <h3>Designated Facility</h3>
-        <table class="usa-table-borderless">
-            <tr>
-                <td>Company Name</td>
-                <td ng-bind="data.content.designated_facility.name"></td>
-            </tr>
-            <tr>
-                <td>Mailing Address</td>
-                <td ng-bind="data.content.designated_facility.address.address_1 "></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td ng-bind-template="[[ data.content.designated_facility.address.city ]], [[ data.content.designated_facility.address.state ]] [[ data.content.designated_facility.address.zip ]]"></td>
-            </tr>
-            <tr>
-                <td>Phone</td>
-                <td ng-bind="data.content.designated_facility.phone_number"></td>
-            </tr>
-            <tr>
-                <td>U.S. EPA ID Number</td>
-                <td ng-bind="data.content.designated_facility.us_epa_id_number"></td>
-            </tr>
-        </table>
-        
-        <h3>Waste</h3>
-        <table class="usa-table-borderless" ng-repeat="waste in data.content.manifest_items">
-            <tr>
-                <td>HM</td>
-                <td ng-bind="waste.id"></td>
-            </tr>
-            <tr>
-                <td>U.S. DOT Description</td>
-                <td ng-bind="waste.proper_shipping_name"></td>
-            </tr>
-            <tr>
-                <td>Total Quantity</td>
-                <td ng-bind="waste.total_quantity"></td>
-            </tr>
-            <tr>
-                <td>Unit Wt./Vol.</td>
-                <td ng-bind="waste.unit_wt_vol"></td>
-            </tr>
-            <tr>
-                <td>U.S. EPA Federal Waste Codes</td>
-                <td ng-bind="waste.epa_waste_codes"></td>
-            </tr>
-            <tr>
-                <td>State Waste Codes</td>
-                <td ng-bind="waste.state_waste_codes"></td>
-            </tr>
-        </table>
-        
-        <table class="usa-table-borderless">
-            <tr>
-                <td>Generator's/Officer's Name</td>
-                <td ng-bind="data.content.generator.signatory.name"></td>
-            </tr>
-            <tr>
-                <td>Date</td>
-                <td ng-bind-template="[[ data.content.generator.signatory.month ]]/[[  data.content.generator.signatory.day ]]/[[  data.content.generator.signatory.year ]]"></td>
-            </tr>
-        </table>
-        
-         <table class="usa-table-borderless" ng-repeat="transporter in data.content.transporters">
-            <tr>
-              <td ng-bind-template="Transporter [[ transporter.name ]]
-            Name of Signatory"></td>
-              <td ng-bind="transporter.signatory.name"></td>
-            </tr>
-             <tr>
-                <td>Date Signed</td>
-                <td ng-bind-template="[[ transporter.signatory.month ]]/[[  transporter.signatory.day ]]/[[  transporter.signatory.year ]]"></td>
-            </tr>
-         </table>
-         
-        <table class="usa-table-borderless" ng-show="data.content.report_management_method_codes != null">
-            <tr>
-                <td>Hazardous Waste Report<br>Management Method Codes</td>
-                <td ng-bind="data.content.report_management_method_codes"></td>
-            </tr>
-        </table>
-        
-         <table class="usa-table-borderless">
-            <tr>
-                <td>Designated Facility Officer or<br>Operator Name</td>
-                <td ng-bind="data.content.designated_facility.certification.name"></td>
-            </tr>
-             <tr>
-                <td>Date Signed</td>
-                <td ng-bind-template="[[ data.content.designated_facility.certification.month ]]/[[  data.content.designated_facility.certification.day ]]/[[  data.content.designated_facility.certification.year ]]"></td>
-            </tr>
-        </table>
+  <div class="usa-grid-full" ng-controller="ManifestDetailController">
+    <div class="usa-width-two-thirds">
+      <h1>
+        Manifest <span ng-bind="data.content.generator.manifest_tracking_number"></span>
+      </h1>
+      <h3>Generator</h3>
+      <table class="usa-table-borderless">
+        <tr>
+          <td>Generator ID Number</td>
+          <td ng-bind="data.content.generator.us_epa_id_number"></td>
+        </tr>
+        <tr>
+          <td>Emergency Phone Number</td>
+          <td ng-bind="data.content.generator.emergency_response_phone"></td>
+        </tr>
+        <tr>
+          <td>Manifest Tracking Number</td>
+          <td ng-bind="data.content.generator.manifest_tracking_number"></td>
+        </tr>
+        <tr>
+          <td>Generator's Name</td>
+          <td ng-bind="data.content.generator.name"></td>
+        </tr>
+        <tr>
+          <td>Mailing Address</td>
+          <td ng-bind="data.content.generator.mailing_address.address_1"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td ng-bind-template="[[ data.content.generator.mailing_address.city ]], [[ data.content.generator.mailing_address.state ]] [[ data.content.generator.mailing_address.zip ]]"></td>
+        </tr>
+        <tr>
+          <td>Phone</td>
+          <td ng-bind="data.content.generator.phone_number "></td>
+        </tr>
+      </table>
 
+      <div ng-repeat="transporter in data.content.transporters">
+        <h3>Transporter</h3>
         <table class="usa-table-borderless">
-            <tr>
-                <td>Date Submitted</td>
-                <td ng-bind-template="[[ data.content.designated_facility.certification.month ]]/[[  data.content.designated_facility.certification.day ]]/[[  data.content.designated_facility.certification.year ]]"></td>
-            </tr>
+          <tr>
+            <td>Company Name</td>
+            <td ng-bind="transporter.name"></td>
+          </tr>
+          <tr>
+            <td>U.S. EPA ID Number</td>
+            <td ng-bind="transporter.us_epa_id_number"></td>
+          </tr>
         </table>
+      </div>
+
+      <h3>Designated Facility</h3>
+      <table class="usa-table-borderless">
+        <tr>
+          <td>Company Name</td>
+          <td ng-bind="data.content.designated_facility.name"></td>
+        </tr>
+        <tr>
+          <td>Mailing Address</td>
+          <td ng-bind="data.content.designated_facility.address.address_1 "></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td ng-bind-template="[[ data.content.designated_facility.address.city ]], [[ data.content.designated_facility.address.state ]] [[ data.content.designated_facility.address.zip ]]"></td>
+        </tr>
+        <tr>
+          <td>Phone</td>
+          <td ng-bind="data.content.designated_facility.phone_number"></td>
+        </tr>
+        <tr>
+          <td>U.S. EPA ID Number</td>
+          <td ng-bind="data.content.designated_facility.us_epa_id_number"></td>
+        </tr>
+      </table>
+
+      <h3>Waste</h3>
+      <table class="usa-table-borderless" ng-repeat="waste in data.content.manifest_items">
+        <tr>
+          <td>HM</td>
+          <td ng-bind="waste.id"></td>
+        </tr>
+        <tr>
+          <td>U.S. DOT Description</td>
+          <td ng-bind="waste.proper_shipping_name"></td>
+        </tr>
+        <tr>
+          <td>Total Quantity</td>
+          <td ng-bind="waste.total_quantity"></td>
+        </tr>
+        <tr>
+          <td>Unit Wt./Vol.</td>
+          <td ng-bind="waste.unit_wt_vol"></td>
+        </tr>
+        <tr>
+          <td>U.S. EPA Federal Waste Codes</td>
+          <td ng-bind="waste.epa_waste_codes"></td>
+        </tr>
+        <tr>
+          <td>State Waste Codes</td>
+          <td ng-bind="waste.state_waste_codes"></td>
+        </tr>
+      </table>
+
+      <table class="usa-table-borderless">
+        <tr>
+          <td>Generator's/Officer's Name</td>
+          <td ng-bind="data.content.generator.signatory.name"></td>
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td ng-bind-template="[[ data.content.generator.signatory.month ]]/[[  data.content.generator.signatory.day ]]/[[  data.content.generator.signatory.year ]]"></td>
+        </tr>
+      </table>
+
+      <table class="usa-table-borderless" ng-repeat="transporter in data.content.transporters">
+        <tr>
+          <td ng-bind-template="Transporter [[ transporter.name ]]
+              Name of Signatory"></td>
+          <td ng-bind="transporter.signatory.name"></td>
+        </tr>
+        <tr>
+          <td>Date Signed</td>
+          <td ng-bind-template="[[ transporter.signatory.month ]]/[[  transporter.signatory.day ]]/[[  transporter.signatory.year ]]"></td>
+        </tr>
+      </table>
+
+      <table class="usa-table-borderless" ng-show="data.content.report_management_method_codes != null">
+        <tr>
+          <td>Hazardous Waste Report
+            <br>Management Method Codes</td>
+          <td ng-bind="data.content.report_management_method_codes"></td>
+        </tr>
+      </table>
+
+      <table class="usa-table-borderless">
+        <tr>
+          <td>Designated Facility Officer or
+            <br>Operator Name</td>
+          <td ng-bind="data.content.designated_facility.certification.name"></td>
+        </tr>
+        <tr>
+          <td>Date Signed</td>
+          <td ng-bind-template="[[ data.content.designated_facility.certification.month ]]/[[  data.content.designated_facility.certification.day ]]/[[  data.content.designated_facility.certification.year ]]"></td>
+        </tr>
+      </table>
+
+      <table class="usa-table-borderless">
+        <tr>
+          <td>Date Submitted</td>
+          <td ng-bind-template="[[ data.content.designated_facility.certification.month ]]/[[  data.content.designated_facility.certification.day ]]/[[  data.content.designated_facility.certification.year ]]"></td>
+        </tr>
+      </table>
     </div>
+    <div class="usa-width-one-third callout-box">
+      <div class="usa-width-one-whole">
+        <div class="usa-width-one-half">Manifest#</div>
+        <div class="usa-width-one-half bold" ng-bind="data.content.generator.manifest_tracking_number"></div>
+      </div>
+
+      <div class="usa-width-one-whole">
+        <div class="usa-width-one-half">Generator</div>
+        <div class="usa-width-one-half bold" ng-bind="data.content.generator.name"></div>
+      </div>
+
+      <div class="usa-width-one-whole">
+        <div class="usa-width-one-half">Disposal Facility</div>
+        <div class="usa-width-one-half bold" ng-bind="data.content.designated_facility.name"></div>
+      </div>
+
+      <div class="usa-width-one-whole">
+        <div class="usa-width-one-half">Date</div>
+        <div class="usa-width-one-half bold" ng-bind-template="[[ data.content.designated_facility.certification.month ]]/[[  data.content.designated_facility.certification.day ]]/[[  data.content.designated_facility.certification.year ]]"></div>
+      </div>
+
+      <button class="usa-button-big" type="button">Download</button>
+    </dl>
+  </div>
 </div>
