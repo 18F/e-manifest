@@ -14,8 +14,9 @@ body.web {
   .unit-right { float: right; }
   .inner { padding: 0 3rem; }
   .bold { font-weight: bold; }
-  .border-bottom { border: 1px solid #ccc; }
   .featured { font-weight: bold; }
+  .border-bottom { border-bottom: 1px solid #ccc; }
+  .pad-bottom { padding-bottom: 2rem; }
 
   #logo {
     padding-top: 1.5rem;
@@ -144,5 +145,19 @@ body.web {
     text-align: center;
     vertical-align: middle;
     width: 1em;
+  }
+
+  .manifest-show {
+    h2, h3 {
+      margin: 2rem 0 0;
+    }
+
+    h4, p { margin: 0; }
+    h3 em { font-weight: normal; }
+
+    td {
+      border: none;
+      padding: 0.5rem 1rem 0 0 ;
+    }
   }
 }
