@@ -1,3 +1,8 @@
+---
+---
+
+@import 'core/variables';
+
 .tiny-input {
   width: 60px !important;
 }
@@ -25,7 +30,7 @@
 
 div.divider-bar {
   border-bottom: 3px black solid;
-  padding-bottom: 30px;">
+  padding-bottom: 30px;
 }
 
 input.ng-invalid.ng-touched {
@@ -34,3 +39,7 @@ input.ng-invalid.ng-touched {
 }
 .usa-input-error label {
   margin-top: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-sans;
+}
