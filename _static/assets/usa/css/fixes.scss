@@ -42,4 +42,38 @@ input.ng-invalid.ng-touched {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-sans;
+  margin: {
+    top: 3rem;
+    bottom: 0;
+  }
+}
+
+// for now, follow  https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/Styling_HTML_forms#legend
+
+legend {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+legend + h2 {
+  font-style: italic;
+  margin-top: 0;
+}
+
+fieldset {
+  margin: {
+    top: 3rem;
+    left: -1rem;
+    right: -1rem;
+  }
+  padding: 1rem;
+  background-color: $color-gray-lightest;
+  border: 1px solid $color-gray-lighter;
+}
+
+.usa-form-group-day, .usa-form-group-month, .usa-form-group-year {
+  float: initial;
+  clear: initial;
+  display: inline-block;
 }
