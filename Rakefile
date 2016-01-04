@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + "/lib/app"
 require 'sinatra/activerecord/rake'
+Dir.glob('lib/tasks/*.rake').each { |r| load r}
 
 task default: 'build'
 
