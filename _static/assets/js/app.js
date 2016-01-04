@@ -213,9 +213,12 @@
     });
 
     $scope.filter = function() {
-      var gname = $scope.data.generator.name;
-      var tname = $scope.data.tsdf_name;
-      var items = new Array();
+      var gname, tname, items;
+      if ($scope.data.generator) {
+        gname = $scope.data.generator.name;
+      }
+      tname = $scope.data.tsdf_name;
+      items = new Array();
 
       for(var i = 0; i < $scope.results.length; i++) {
         var isAdded = false;
