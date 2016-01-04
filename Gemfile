@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'dotenv'
 gem 'foreman'
 gem 'rack-contrib'
 gem 'redcarpet'
