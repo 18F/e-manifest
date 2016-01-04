@@ -3,8 +3,9 @@ title: eManifest Industry | US EPA
 layout: template/web
 ---
 <div id="industry-controller" ng-controller="IndustryController" ng-form="industryForm">
+  <h1 class="usa-heading">Industry</h1>
   <div> <!-- Generator Section -->
-    <h2 class="usa-heading">Generator</h1>
+    <h2 class="usa-heading">Generator</h2>
 
     <label for="generator_us_epa_id_number">U.S. EPA ID Number (1)</label>
     <input id="generator_us_epa_id_number" ng-model="industry.data.generator.us_epa_id_number" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
@@ -23,7 +24,7 @@ layout: template/web
   </div>
 
   <div> <!-- Mailing Address Section -->
-    <h3 class="usa-heading">Mailing Address</h3>
+    <h2 class="usa-heading">Mailing Address</h2>
 
     <label for="generator_name">Name (5)</label>
     <input id="generator_name" ng-model="industry.data.generator.name" type="text">
@@ -34,10 +35,10 @@ layout: template/web
     <label for="generator_address_2">Address 2 (5)</label>
     <input id="generator_address_2" ng-model="industry.data.generator.mailing_address.address_2" type="text">
 
-    <label for="generator_address_city">City 2 (5)</label>
+    <label for="generator_address_city">City (5)</label>
     <input id="generator_address_city" ng-model="industry.data.generator.mailing_address.city" type="text">
 
-    <label for="generator_address_state">State 2 (5)</label>
+    <label for="generator_address_state">State (5)</label>
     <select ng-model="industry.data.generator.mailing_address.state" id="generator_address_state"
             class="medium-input">
       <option value="AL">Alabama</option>
@@ -113,7 +114,7 @@ layout: template/web
       </li>
     </ul>
     <div ng-show="industry.data.generator.site_address_same_as_mailing_address === 'no'"> <!-- Site Address Section -->
-      <h3 class="usa-heading">Site Address</h3>
+      <h2 class="usa-heading">Site Address</h2>
 
       <label for="generator_site_address_1">Address 1 (5)</label>
       <input id="generator_site_address_1" ng-model="industry.data.generator.site_address.address_1" type="text">
@@ -121,10 +122,10 @@ layout: template/web
       <label for="generator_site_address_2">Address 2 (5)</label>
       <input id="generator_site_address_2" ng-model="industry.data.generator.site_address.address_2" type="text">
 
-      <label for="generator_site_address_city">City 2 (5)</label>
+      <label for="generator_site_address_city">City (5)</label>
       <input id="generator_site_address_city" ng-model="industry.data.generator.site_address.city" type="text">
 
-      <label for="generator_site_address_state">State 2 (5)</label>
+      <label for="generator_site_address_state">State (5)</label>
       <select ng-model="industry.data.generator.site_address.state" id="generator_site_address_state" class="medium-input">
         <option value="AL">Alabama</option>
     	  <option value="AK">Alaska</option>
@@ -185,7 +186,7 @@ layout: template/web
   </div>
 
   <div> <!-- Transporter Section -->
-    <h3 class="usa-heading">Transporter</h3>
+    <h2 class="usa-heading">Transporter</h2>
 
     <div class="preview" ng-repeat="transporter in industry.data.transporters"> <!-- Trasporter Entry SubSection -->
       <fieldset>
@@ -194,25 +195,33 @@ layout: template/web
           <span ng-bind="$index + 1"></span>
         </legend>
 
+        <h2>
+          <span>Transporter</span>
+          <span ng-bind="$index + 1"></span>
+        </h2>
+
         <label for="transporter_company_name_[[$index]]">Company Name (6)</label>
         <input id="transporter_company_name_[[$index]]" ng-model="transporter.name" type="text">
 
         <label for="transporter_us_epa_id_number_[[$index]]">U.S. EPA ID Number (6)</label>
         <input id="transporter_us_epa_id_number_[[$index]]" ng-model="transporter.us_epa_id_number" class="medium-input" type="text" ng-pattern="/^[a-zA-Z0-9]{0,12}$/">
+
+        <div style="padding-top: 20px;" ng-show="$index > 0">
+          <a href="" ng-click="industry.removeTransporter($index)">- Remove transporter</a>
+        </div>
       </fieldset>
 
-      <div style="padding-top: 20px;" ng-show="$index > 0">
-        <a href="" ng-click="industry.removeTransporter($index)">- Remove transporter</a>
-      </div>
     </div>
 
-    <div class="preview">
-      <a href="" ng-click="industry.addTransporter()">+ Add an additional transporter</a>
-    </div>
+    <fieldset>
+      <div class="preview">
+        <a href="" ng-click="industry.addTransporter()">+ Add an additional transporter</a>
+      </div>
+    </fieldset>
   </div>
 
   <div> <!-- Designated Facility Section -->
-    <h3 class="usa-heading">Designated Facility</h3>
+    <h2 class="usa-heading">Designated Facility</h2>
 
     <label for="designated_facility_name">Name (8)</label>
     <input id="designated_facility_name" ng-model="industry.data.designated_facility.name" type="text">
@@ -223,10 +232,10 @@ layout: template/web
     <label for="designated_facility_address_2">Address 2 (8)</label>
     <input id="designated_facility_address_2" ng-model="industry.data.designated_facility.address.address_2" type="text">
 
-    <label for="designated_facility_address_city">City 2 (8)</label>
+    <label for="designated_facility_address_city">City (8)</label>
     <input id="designated_facility_address_city" ng-model="industry.data.designated_facility.address.city" type="text">
 
-    <label for="designated_facility_address_state">State 2 (8)</label>
+    <label for="designated_facility_address_state">State (8)</label>
     <select ng-model="industry.data.designated_facility.address.state" id="designated_facility_address_state" class="medium-input">
       <option value="AL">Alabama</option>
     	<option value="AK">Alaska</option>
@@ -295,7 +304,7 @@ layout: template/web
   </div>
 
   <div> <!-- Waste Section -->
-    <h3 class="usa-heading">Waste</h3>
+    <h2 class="usa-heading">Waste</h2>
 
     <ul class="usa-unstyled-list">
       <li>
@@ -316,6 +325,11 @@ layout: template/web
           <span ng-bind="$index + 1"></span>
         </legend>
 
+        <h2>
+          <span>Manifest Item</span>
+          <span ng-bind="$index + 1"></span>
+        </h2>
+
         <label ng-show="industry.data.waste_non_hazardous_material_present === 'yes'">HM (9a)</label>
         <ul ng-show="industry.data.waste_non_hazardous_material_present === 'yes'" class="usa-unstyled-list">
           <li>
@@ -328,7 +342,7 @@ layout: template/web
           </li>
         </ul>
 
-        <h4>U.S. DOT Description</h4>
+        <h3>U.S. DOT Description (9b)</h3>
 
         <label for="manifest_item_proper_shipping_name_[[$index]]">Proper Shipping Name</label>
         <input id="manifest_item_proper_shipping_name_[[$index]]" ng-model="manifest_item.proper_shipping_name" type="text">
@@ -385,27 +399,29 @@ layout: template/web
         </div>
 
         <div> <!-- Waste Entry Code SubSub Section -->
-          <h4>U.S. EPA Federal Waste Codes</h4>
+          <h3>U.S. EPA Federal Waste Codes</h3>
 
           <label for="manifest_item_epa_waste_code_[[$index]]">Federal Waste Codes (13)</label>
           <input class="manifest_item_epa_waste_code_[[$index]]" id="manifest_item.epa_waste_code_[[$index]]" ng-model="uiData[$index].epa_waste_codes" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
 
-          <h4>State/Other Waste Codes</h4>
+          <h3>State/Other Waste Codes</h3>
 
           <label for="manifest_item_state_waste_code_[[$index]]">State/Other Waste Codes (13)</label>
           <input class="manifest_item_state_waste_code_[[$index]]" id="manifest_item.epa_state_code_[[$index]]" ng-model="uiData[$index].state_waste_codes" type="text" ng-pattern="/^[a-zA-Z0-9]{0,8}$/">
         </div>
+
+        <div style="padding-top: 20px;" ng-show="$index > 0">
+          <a href="" ng-click="industry.removeManifestItem($index)">- Remove waste entry</a>
+        </div>
       </fieldset>
+    </div>
 
-      <div style="padding-top: 20px;" ng-show="$index > 0">
-        <a href="" ng-click="industry.removeManifestItem($index)">- Remove waste entry</a>
+    <fieldset>
+      <div class="preview">
+        <a href="" ng-click="industry.addManifestItem()">+ Add an additional waste entry</a>
       </div>
-    </div>
-
-    <div class="preview">
-      <a href="" ng-click="industry.addManifestItem()">+ Add an additional waste entry</a>
-    </div>
-
+    </fieldset>
+    
     <div> <!-- Waste Details SubSection -->
       <label for="waste_handling_instructions">Special Handling Instructions and Additional Information (14)</label>
       <textarea id="waste_handling_instructions" ng-model="industry.data.waste_handling_instructions"></textarea>
@@ -418,7 +434,7 @@ layout: template/web
     </div>
 
     <div> <!-- Waste Signature SubSection -->
-      <h4>Date of Signature (15)</h4>
+      <h3>Date of Signature (15)</h3>
 
       <div class="usa-date-of-birth" style="padding-top: 10px;">
         <div class="usa-datefield usa-form-group usa-form-group-month">
@@ -437,11 +453,11 @@ layout: template/web
     </div>
   </div>
 
-  <div class="divider-bar" style="padding-top: 100px;">
+  <div class="divider-bar">
   </div>
 
   <div> <!-- International Section -->
-    <h2 class="usa-heading">International</h1>
+    <h2 class="usa-heading">International</h2>
 
     <ul class="usa-unstyled-list">
       <li>
@@ -456,23 +472,23 @@ layout: template/web
 
     <div class="preview" ng-if="industry.data.is_international_shipment === 'yes'"> <!-- International Shipment Details SubSection -->
 
-      <ul class="usa-unstyled-list">
-        <li>
-          <input id="international_shipment_export" ng-model="industry.data.international_shipment.export_import" type="radio" checked="true" value="export_from_us" tabindex="0">
-          <label for="international_shipment_export">Export from U.S.</label>
-        </li>
-        <li>
-          <input id="international_shipment_import" ng-model="industry.data.international_shipment.export_import" type="radio" value="import_to_us" tabindex="0">
-          <label for="international_shipment_import">Import to U.S.</label>
-        </li>
-      </ul>
-
       <fieldset>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="international_shipment_export" ng-model="industry.data.international_shipment.export_import" type="radio" checked="true" value="export_from_us" tabindex="0">
+            <label for="international_shipment_export">Export from U.S.</label>
+          </li>
+          <li>
+            <input id="international_shipment_import" ng-model="industry.data.international_shipment.export_import" type="radio" value="import_to_us" tabindex="0">
+            <label for="international_shipment_import">Import to U.S.</label>
+          </li>
+        </ul>
+
         <label for="international_shipment_port_of_entry">Port of Entry/Exit (16)</label>
         <input id="international_shipment_port_of_entry" ng-model="industry.data.international_shipment.port_of_entry_exit" type="text">
 
         <div> <!-- International Shipment Date SubSection -->
-          <h4>Date Leaving U.S. (16)</h4>
+          <h3>Date Leaving U.S. (16)</h3>
 
           <div class="usa-date-of-birth" style="padding-top: 10px;">
             <div class="usa-datefield usa-form-group usa-form-group-month">
@@ -500,7 +516,7 @@ layout: template/web
     <h2 class="usa-heading">
       <span>Transporter</span>
       <span ng-bind="$index + 1"></span>
-    </h1>
+    </h2>
 
     <div class="preview">
       <fieldset>
@@ -509,11 +525,16 @@ layout: template/web
           <span ng-bind="transporter.name"></span>
         </legend>
 
+        <h2>
+          <span>Transporter</span>
+          <span ng-bind="transporter.name"></span>
+        </h2>
+
         <label for="transporter_signatory_name">Name of Signatory (17)</label>
         <input id="transporter_signatory_name" ng-model="transporter.signatory.name" type="text">
 
         <div> <!-- International Shipment Date SubSection -->
-          <h4>Date of Signature (17)</h4>
+          <h3>Date of Signature (17)</h3>
 
           <div class="usa-date-of-birth" style="padding-top: 10px;">
             <div class="usa-datefield usa-form-group usa-form-group-month">
@@ -538,10 +559,10 @@ layout: template/web
   </div>
 
   <div> <!-- Designated Facility Discrepancy Section -->
-    <h2 class="usa-heading">Designated Facility</h1>
+    <h3 class="usa-heading">Designated Facility</h3>
 
     <input id="designated_facility_discrepancy" type="checkbox" ng-model="industry.data.designated_facility.has_discrepancy">
-    <label for="designated_facility_discrepancy">Discrepancy</label>
+    <label for="designated_facility_discrepancy">This shipment has a discrepancy.</label>
 
     <div class="preview" ng-show="industry.data.designated_facility.has_discrepancy"> <!-- Designated Facility Discrepancy Details SubSection -->
       <fieldset>
@@ -549,7 +570,7 @@ layout: template/web
         <textarea id="designated_facility_discrepancy_description" ng-model="industry.data.designated_facility.discrepancy.description"></textarea>
 
         <div>
-          <h4>Discrepancy Indication (18a)</h4>
+          <h3>Discrepancy Indication (18a)</h3>
 
           <ul class="usa-unstyled-list">
             <li>
@@ -580,7 +601,7 @@ layout: template/web
               <label for="designated_facility_discrepancy_full_rejection">Full Rejection</label>
             </li>
           </ul>
-          <h4>Alternate Facility (or Generator)</h4>
+          <h3>Alternate Facility (or Generator)</h3>
           <label for="designated_facility_discrepancy_name">Name (18b)</label>
           <input id="designated_facility_discrepancy_name" ng-model="industry.data.designated_facility.discrepancy.name" type="text">
 
@@ -590,10 +611,10 @@ layout: template/web
           <label for="designated_facility_discrepancy_address_2">Address 2 (18b)</label>
           <input id="designated_facility_discrepancy_address_2" ng-model="industry.data.designated_facility.discrepancy.address.address_2" type="text">
 
-          <label for="designated_facility_discrepancy_address_city">City 2 (18b)</label>
+          <label for="designated_facility_discrepancy_address_city">City (18b)</label>
           <input id="designated_facility_discrepancy_address_city" ng-model="industry.data.designated_facility.discrepancy.address.city" type="text">
 
-          <label for="designated_facility_discrepancy_address_state">State 2 (18b)</label>
+          <label for="designated_facility_discrepancy_address_state">State (18b)</label>
           <select ng-model="industry.data.designated_facility.discrepancy.address.state" id="designated_facility_discrepancy_address_state" class="medium-input">
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
@@ -668,7 +689,7 @@ layout: template/web
                ng-model="industry.data.designated_facility.discrepancy.signatory.name" type="text">
 
         <div> <!-- Designated Facility Discrepancy Date SubSection -->
-          <h4>Date of Signature (18c)</h4>
+          <h3>Date of Signature (18c)</h3>
 
           <div class="usa-date-of-birth" style="padding-top: 10px;">
             <div class="usa-datefield usa-form-group usa-form-group-month">
@@ -690,21 +711,17 @@ layout: template/web
   </div>
 
   <div> <!-- Hazardous Waste Report Section -->
-    <h2 class="usa-heading">Hazardous Waste Report Management Method Codes</h1>
-
     <label for="report_management_method_codes">Method Codes (19)</label>
     <input id="report_management_method_codes" class="report_management_method_codes" ng-model="uiData.report_management_method_code" type="text">
   </div>
 
 
   <div> <!-- Certification Section -->
-    <h2 class="usa-heading">Certification of receipt of hazardous materials covered by the manifest except as noted in Item 18a</h1>
-
     <label for="certification_name">Name of Signatory (20)</label>
     <input id="certification_name" ng-model="industry.data.designated_facility.certification.name" type="text">
 
     <div> <!-- Certification Date SubSection -->
-      <h4>Date of Signature (20)</h4>
+      <h3>Date of Signature (20)</h3>
 
       <div class="usa-date-of-birth" style="padding-top: 10px;">
         <div class="usa-datefield usa-form-group usa-form-group-month">

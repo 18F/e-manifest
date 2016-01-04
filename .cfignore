@@ -2,3 +2,5 @@ tmp/
 _static/
 # Ignore emacs autosave
 **/*~
+config/database.yml
+

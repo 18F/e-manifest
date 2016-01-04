@@ -1,6 +1,8 @@
 ---
 ---
 
+@import 'core/variables';
+
 body.web {
   background-color: #369;
 
@@ -68,6 +70,7 @@ body.web {
 
   .content-canvas {
     background-color: white;
+    padding-bottom: 20rem;
   }
 
   .preview {
@@ -82,8 +85,8 @@ body.web {
 
     form {
       padding: 1rem;
-      background-color: #efefef;
-      border: 1px solid #cdcdcd;
+      background-color: $color-gray-lightest;
+      border: 1px solid $color-gray-lighter;
     }
 
     label {
@@ -111,5 +114,9 @@ body.web {
       background-color: lighten(#369, 50);
       cursor: pointer;
     }
+  }
+
+  #industry-controller {
+    width: 46rem;
   }
 }
