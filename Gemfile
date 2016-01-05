@@ -26,4 +26,5 @@ group :development, :test do
   gem "rack-test", require: "rack/test"
   gem 'rspec'
   gem "elasticsearch-extensions"
+  gem "database_cleaner"
 end

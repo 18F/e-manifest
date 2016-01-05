@@ -1,10 +1,6 @@
 require_relative "request_spec_helper"
 
 RSpec.describe 'API request spec' do
-  before do
-    Manifest.delete_all
-  end
-
   describe '/api/0.1/manifest/submit/:manifest_tracking_number' do
     it 'creates a new manifest' do
       expect {

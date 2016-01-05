@@ -37,7 +37,7 @@ class App < Sinatra::Base
   # Search for Manifests
   get '/api/:version/manifest/search' do
     content_type :json
-    Manifest.all.to_json
+    Manifest.authorized_search(params).response[:hits].to_json
   end
 
   # Get a Manifest by eManifest id

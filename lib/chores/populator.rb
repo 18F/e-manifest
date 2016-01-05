@@ -6,12 +6,12 @@ class Populator
     @n_records = (n_records || 100).to_i
   end
 
-  def run
+  def run(n_records=@n_records)
     method_name = "make_#{@model.to_s.downcase}_record".to_sym
     unless respond_to?(method_name, true)
       fail "#{@model} not supported -- no method #{method_name}"
     end
-    @n_records.times do |i|
+    n_records.times do |i|
       @model.create( send( method_name, i ) )
     end 
   end

@@ -1,3 +1,5 @@
+require_relative '../query_dsl'
+
 class Manifest < ActiveRecord::Base
   include Elasticsearch::Model
 
@@ -37,8 +39,16 @@ class Manifest < ActiveRecord::Base
 
   def self.rebuild_index
     __elasticsearch__.create_index! force: true
+    __elasticsearch__.import
     __elasticsearch__.refresh_index!
   end
+
+  def self.authorized_search(params, current_user=nil)
+    dsl = QueryDSL.new(params: params, current_user: current_user)
+    search(dsl)
+  end
+
+  private
 
   def test?
     Sinatra::Application.environment == "test"
