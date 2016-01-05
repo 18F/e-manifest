@@ -8,7 +8,7 @@ RSpec.describe "QueryDSL" do
           default_operator: "and"
         },
       },
-      size: 20,
+      size: QueryDSL::MAX_RESULTS,
       from: 0
     })
   end

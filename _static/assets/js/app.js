@@ -185,94 +185,59 @@
   }]);
 
 
-  app.controller('SearchController', function($scope, $http) {
+  app.controller('SearchController', function($scope, $http, $location) {
     var self = $scope.search = {};
     $scope.data = {};
-    $scope.filtered = {};
-    $scope.results = {};
+    $scope.results = [];
 
-    $http.get('/api/0.1/manifest/search').success(function(response) {
-      for(var i = 0; i < response.length; i++) {
-        var item = response[i];
+    // $location requires the # in the url
+    if (!window.location.href.match(/#\?/) && window.location.href.match(/\?/)) {
+      window.location = window.location.href.replace(/\?/, "#?");
+    }
 
-        //fix for my local env.
-        if(typeof item.content == "string") {
-          item.content = item.content.replace(/[=]/g, ":");
-          item.content = item.content.replace(/[>]/g, "");
-          item.content = jQuery.parseJSON(item.content);
+    if ($location.search()) {
+      var hits = [];
+      $http.get('/api/0.1/manifest/search?'+jQuery.param($location.search())).success(function(response) {
+        console.log(response);
+        for (var i = 0; i < response.hits.length; i++) {
+          var item = response.hits[i]._source;
+  
+          //fix for my local env.
+          if(typeof item.content == "string") {
+            item.content = item.content.replace(/[=]/g, ":");
+            item.content = item.content.replace(/[>]/g, "");
+            item.content = jQuery.parseJSON(item.content);
+          }
+  
+          var updatedAtString = item.updated_at;
+          if (updatedAtString) {
+            item.formatted_date = new Date(updatedAtString).toLocaleDateString();
+          }
+          hits.push(item);
         }
-
-        var updatedAtString = response[i].updated_at;
-        if (updatedAtString) {
-          response[i].formatted_date = new Date(updatedAtString).toLocaleDateString();
-        }
-      }
-
-      $scope.results = response;
-      $scope.filtered = response;
-    });
-
-    $scope.filter = function() {
-      var gname, tname, items;
-      if ($scope.data.generator) {
-        gname = $scope.data.generator.name;
-      }
-      tname = $scope.data.tsdf_name;
-      items = new Array();
-
-      for(var i = 0; i < $scope.results.length; i++) {
-        var isAdded = false;
-        var item = $scope.results[i];
-
-        if(gname != undefined && item.content.generator && gname == item.content.generator.name)
-        {
-            items.push(item);
-            isAdded = true;
-        }
-
-        if(isAdded == false && tname != undefined && item.content.designated_facility && tname == item.content.designated_facility.name)
-        {
-           items.push(item);
-        }
-      }
-
-      $scope.filtered = items;
-    };
+        $scope.total = response.total;
+        $scope.results = hits;
+      });
+    }
 
     $scope.manifestDetail = function(data) {
-      window.location.href = '/web/manifest-detail.html?id='+data.id;
+      window.location.href = '/web/manifest-detail.html#?id='+data.id;
     }
   });
 
-    app.controller('ManifestDetailController', ['$scope','$http',function($scope, $http) {
+  app.controller('ManifestDetailController', function($scope, $http, $location) {
 
-        function getQueryParams(qs) {
-            qs = qs.split('+').join(' ');
-
-            var params = {},
-                tokens,
-                re = /[?&]?([^=]+)=([^&]*)/g;
-
-            while (tokens = re.exec(qs)) {
-                params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-            }
-
-            return params;
-        }
-
-        var id = getQueryParams(document.location.search).id;;
-        $http.get('/api/0.1/manifest/id/'+id).success(
-            function(response) {
-                //fix for my local env.
-                if(typeof response.content == "string")
-                {
-                    response.content = response.content.replace(/[=]/g, ":");
-                    response.content = response.content.replace(/[>]/g, "");
-                    response.content = jQuery.parseJSON(response.content);
-                }
-              $scope.data = response;
-            });
-    }]);
+    var id = $location.search().id;
+    $http.get('/api/0.1/manifest/id/'+id).success( function(response) {
+      //fix for my local env.
+      if (typeof response.content == "string") {
+        response.content = response.content.replace(/[=]/g, ":");
+        response.content = response.content.replace(/[>]/g, "");
+        response.content = jQuery.parseJSON(response.content);
+      }
+      $scope.data = response;
+    });
+  });
 
   app.controller('SignController', function($scope, $http, $location) {
     $scope.state = 'login';

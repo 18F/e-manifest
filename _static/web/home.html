@@ -7,7 +7,10 @@ layout: template/web
 
   <div class="usa-grid-full">
     <div class="results usa-width-two-thirds">
-      <table class="usa-table-borderless">
+      <div ng-show="!results.length">
+        No results. Use the search box to try again.
+      </div>
+      <table ng-show="results.length" class="usa-table-borderless">
         <thead>
           <tr>
             <th scope="col">Tracking #</th>
@@ -17,7 +20,7 @@ layout: template/web
           </tr>
         </thead>
         <tbody>
-          <tr class='manifest-list-row' ng-repeat="x in filtered" ng-click="manifestDetail(x)" data-href="manifest-detail.html" class="result-item">
+          <tr class='manifest-list-row' ng-repeat="x in results" ng-click="manifestDetail(x)" data-href="manifest-detail.html" class="result-item">
             <td scope="row" ng-bind="x.content.generator.manifest_tracking_number"></td>
             <td ng-bind="x.content.generator.name">></td>
             <td ng-bind="x.content.designated_facility.name"></td>

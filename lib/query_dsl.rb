@@ -4,7 +4,7 @@ require_relative 'fielded_search'
 class QueryDSL
   include Elasticsearch::DSL
 
-  MAX_RESULTS = 20
+  MAX_RESULTS = 100
 
   attr_reader :params, :current_user, :query_str
 
