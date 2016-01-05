@@ -39,14 +39,6 @@ RSpec.describe 'API request spec' do
     end
   end
 
-  describe '/api/0.1/manifest/search' do
-    it 'returns all manifests as json' do
-      (1..3).each { |n| Manifest.create(content: {number: n}) }
-      get '/api/0.1/manifest/search'
-      expect(last_response.body).to eq(Manifest.all.to_json)
-    end
-  end
-
   describe 'PATCH /api/0.1/manifest/id/:manifestid' do
     it 'updates removes and adds fields to a manifest' do
       patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]

@@ -1,7 +1,6 @@
 require_relative 'spec_helper'
 require_relative 'request_spec_helper'
 require_relative '../lib/chores/populator'
-require 'pp'
 
 RSpec.describe "search" do
   describe "/search" do
@@ -27,6 +26,5 @@ RSpec.describe "search" do
 
   def search_for(query)
     get "/api/0.1/manifest/search?q=#{query}"
-    STDERR.puts last_response.pretty_inspect
   end
 end
