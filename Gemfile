@@ -16,9 +16,7 @@ gem 'json-patch'
 
 gem 'savon-multipart'
 
-gem "delayed_job_active_record"
 gem "kaminari"
-gem "kaminari-bootstrap", "~> 3.0.1"
 gem "elasticsearch-dsl"
 gem "elasticsearch-model"
 

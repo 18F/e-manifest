@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'delayed/plugin'
-require 'delayed/plugins/clear_locks'
-require 'delayed/command'
-require 'delayed/worker'
-require 'delayed_job_active_record'
-Delayed::Command.new(ARGV).daemonize
