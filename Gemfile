@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'ansi'
 gem 'dotenv'
 gem 'foreman'
 gem 'rack-contrib'
