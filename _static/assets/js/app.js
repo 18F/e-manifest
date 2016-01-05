@@ -253,6 +253,22 @@
       $scope.fetchResults();
     }
 
+    // "filter" is an advanced search. 
+    $scope.filter = function() {
+      var adv_query = {};
+      if ($scope.data.generator) {
+        adv_query['content.generator.name'] = $scope.data.generator.name;
+      }
+      if ($scope.data.tsdf_name) {
+        adv_query['content.designated_facility.name'] = $scope.data.tsdf_name;
+      }
+      // TODO state/province, date
+      window.location = "/web/home.html#?"+jQuery.param({aq: adv_query});
+      $http.get('/api/0.1/manifest/search?'+jQuery.param({aq: adv_query})).success(function(response) {
+        $scope.parseResults(response);
+      });
+    }
+
     $scope.manifestDetail = function(data) {
       window.location.href = '/web/manifest-detail.html#?id='+data.id;
     }
