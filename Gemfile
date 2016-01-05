@@ -19,14 +19,14 @@ gem 'json-patch'
 gem 'savon-multipart'
 
 gem 'sidekiq'
-gem "kaminari"
-gem "elasticsearch-dsl"
-gem "elasticsearch-model"
+gem 'kaminari'
+gem 'elasticsearch-dsl'
+gem 'elasticsearch-model'
 
 group :development, :test do
-  gem "rack-test", require: "rack/test"
+  gem 'rack-test', require: 'rack/test'
   gem 'rspec'
-  gem "elasticsearch-extensions"
-  gem "database_cleaner"
-  gem "queryparams"
+  gem 'elasticsearch-extensions'
+  gem 'database_cleaner'
+  gem 'queryparams'
 end
