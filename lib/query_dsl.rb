@@ -11,7 +11,7 @@ class QueryDSL
   def initialize(args)
     @current_user = args[:current_user]
     @params = args[:params]
-    @query_str = @params[:q] or fail ":q param required"
+    @query_str = @params[:q]
     build_dsl
   end
 

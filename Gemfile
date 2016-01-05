@@ -27,4 +27,5 @@ group :development, :test do
   gem 'rspec'
   gem "elasticsearch-extensions"
   gem "database_cleaner"
+  gem "queryparams"
 end

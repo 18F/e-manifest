@@ -1,6 +1,7 @@
 require_relative 'spec_helper'
 require_relative 'request_spec_helper'
 require_relative '../lib/chores/populator'
+require "queryparams"
 
 RSpec.describe "search" do
   describe "/search" do
@@ -15,6 +16,12 @@ RSpec.describe "search" do
       search_for "content.generator.name:generator"
       expect(JSON.parse(last_response.body)["total"]).to eq 10
     end
+
+    it "searched by structured query" do
+      populate_manifests
+      search_for_advanced({ "content.generator.name" => "generator" })
+      expect(JSON.parse(last_response.body)["total"]).to eq 10
+    end
   end
 
   def populate_manifests
@@ -26,5 +33,9 @@ RSpec.describe "search" do
 
   def search_for(query)
     get "/api/0.1/manifest/search?q=#{query}"
+  end
+
+  def search_for_advanced(query)
+    get "/api/0.1/manifest/search?#{QueryParams.encode({ aq: query })}"
   end
 end
