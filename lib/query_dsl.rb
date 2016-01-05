@@ -108,7 +108,7 @@ class QueryDSL
 
   def add_sort
     if params[:sort]
-      @dsl.sort = params[:sort]
+      @dsl.sort(params[:sort].map{ |pair| [pair.split(':')].to_h })
     end
   end
 

@@ -184,44 +184,83 @@
 
   }]);
 
-
   app.controller('SearchController', function($scope, $http, $location) {
     var self = $scope.search = {};
     $scope.data = {};
     $scope.results = [];
+    $scope.sorted = { field: "_score", descending: true };
+
+    $scope.searchAPIparams = function() {
+      var locParams = $location.search();
+      if (locParams["sort[]"]) {
+        var sortPair = (typeof locParams == "array" ? locParams["sort[]"][0] : locParams["sort[]"]).split(':');
+        $scope.sorted.field = sortPair[0];
+        if (sortPair[1]) {
+          $scope.sorted.descending = sortPair[1] == "desc";
+        }
+        else if ($scope.sorted.field == "_score") {
+          $scope.sorted.descending = true;
+        }
+        else {
+          $scope.sorted.descending = false;
+        }
+      }
+      return jQuery.param(locParams);
+    }
 
     // $location requires the # in the url
     if (!window.location.href.match(/#\?/) && window.location.href.match(/\?/)) {
       window.location = window.location.href.replace(/\?/, "#?");
     }
 
-    if ($location.search()) {
+    $scope.parseResults = function(response) {
       var hits = [];
-      $http.get('/api/0.1/manifest/search?'+jQuery.param($location.search())).success(function(response) {
-        console.log(response);
-        for (var i = 0; i < response.hits.length; i++) {
-          var item = response.hits[i]._source;
+      jQuery.each(response.hits, function(i, hit) {
+        var item = hit._source;
+
+        //fix for my local env.
+        if (typeof item.content == "string") {
+          item.content = item.content.replace(/[=]/g, ":");
+          item.content = item.content.replace(/[>]/g, "");
+          item.content = jQuery.parseJSON(item.content);
+        }   
   
-          //fix for my local env.
-          if(typeof item.content == "string") {
-            item.content = item.content.replace(/[=]/g, ":");
-            item.content = item.content.replace(/[>]/g, "");
-            item.content = jQuery.parseJSON(item.content);
-          }
-  
-          var updatedAtString = item.updated_at;
-          if (updatedAtString) {
-            item.formatted_date = new Date(updatedAtString).toLocaleDateString();
-          }
-          hits.push(item);
-        }
-        $scope.total = response.total;
-        $scope.results = hits;
+        var updatedAtString = item.updated_at;
+        if (updatedAtString) {
+          item.formatted_date = new Date(updatedAtString).toLocaleDateString();
+        }   
+        hits.push(item);
+      }); 
+      $scope.total = response.total;
+      $scope.results = hits;
+    }
+
+    $scope.fetchResults = function() {
+      $http.get('/api/0.1/manifest/search?'+$scope.searchAPIparams()).success(function(response) {
+        $scope.parseResults(response);
       });
+    }
+
+    $scope.sortBy = function(fieldName) {
+      if ($scope.sorted.field == fieldName) {
+        $scope.sorted.descending = !$scope.sorted.descending;
+      }
+      else {
+        $scope.sorted.field = fieldName;
+        $scope.sorted.descending = fieldName == "_score" ? true : false;
+      }
+      $location.search("sort[]", [$scope.sorted.field, ($scope.sorted.descending ? "desc" : "asc")].join(':'));
+      $scope.fetchResults();
     }
 
     $scope.manifestDetail = function(data) {
       window.location.href = '/web/manifest-detail.html#?id='+data.id;
+    }
+
+    // fire the initial results if we have params
+    if ($location.search()) {
+      $scope.initialParams = $location.search();
+      $scope.fetchResults();
     }
   });
 
