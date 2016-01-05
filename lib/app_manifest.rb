@@ -11,17 +11,14 @@ lib_dir = File.dirname(__FILE__)
 
 require "#{lib_dir}/connect_ar"
 require "#{lib_dir}/cdx"
+require "#{lib_dir}/workers/indexer_worker"
 require "#{lib_dir}/models/manifest"
 
 ####################################################################
-## Delayed Job config
-# https://github.com/collectiveidea/delayed_job#gory-details
+## Sidekiq config
 
-Delayed::Worker.delay_jobs = ENV["RACK_ENV"] != "test"
-Delayed::Worker.destroy_failed_jobs = false
-Delayed::Worker.logger = Logger.new(STDOUT)
-Delayed::Worker.max_run_time = 5.minutes
-Delayed::Worker.raise_signal_exceptions = :term
+Sidekiq.configure_server do |config|
+end
 
 ####################################################################
 ## Elasticsearch config

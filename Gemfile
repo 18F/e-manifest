@@ -16,6 +16,7 @@ gem 'json-patch'
 
 gem 'savon-multipart'
 
+gem 'sidekiq'
 gem "kaminari"
 gem "elasticsearch-dsl"
 gem "elasticsearch-model"

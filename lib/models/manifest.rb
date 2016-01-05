@@ -5,19 +5,19 @@ class Manifest < ActiveRecord::Base
 
   after_commit on: [:create] do
     unless test?
-      delay.reindex
+      reindex_async
     end
   end
 
   after_commit on: [:update] do
     unless test?
-      delay.reindex
+      reindex_async
     end
   end
 
   after_commit on: [:destroy] do
     unless test?
-      delay.remove_from_index
+      ::IndexerWorker.perform_async(:delete,  self.class.to_s, self.id)
     end
   end
 
@@ -25,6 +25,10 @@ class Manifest < ActiveRecord::Base
 
   def reindex
     __elasticsearch__.index_document
+  end
+
+  def reindex_async
+    ::IndexerWorker.perform_async(:index,  self.class.to_s, self.id)
   end
 
   def remove_from_index
