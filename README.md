@@ -14,6 +14,8 @@ Don't edit the `public/` folder directly! Jekyll will overwrite everything when 
 0. Install Ruby
 0. Install Bundler (`gem install bundler`)
 0. Install Postgres and make sure postgres/bin is on your $PATH.
+0. Install Elasticsearch and make sure it is running.
+0. Install Redis and make sure it is running.
 0. Start postgres if it isn't automatically running: `postgres -D /usr/local/var/postgres`
 0. Run `bundle install` to grab the required gems.
 0. Use `rake db:create:all` to create the databases.
