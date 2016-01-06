@@ -1,13 +1,13 @@
 # Site settings
-title: EPA eManifest
+title: EPA e-Manifest
 description: > # this means to ignore newlines until "baseurl:"
-  EPA eManifest
+  EPA e-Manifest
 baseurl: ""
 url: "https://e-manifest.18f.gov"
 
 # Header
 header:
-  logo_text: EPA eManifest
+  logo_text: EPA e-Manifest
   logo_img: epa-logo-100px.png
   nav:
     - text: API Diagnostics
