@@ -1,4 +1,40 @@
+/* fixes specific to USA style + swagger */
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+}
+
 #links {
   margin-top: 1em;
 }
-@import 'components/disclaimer';
+
+ul li:before {
+  content: none;
+}
+
+.usa-disclaimer {
+  background-color: #f1f1f1;
+  font-size: 1.3rem;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+}
+@media screen and (min-width: 481px) {
+  .usa-disclaimer {
+    font-size: 0.9rem;
+  }
+}
+
+.usa-disclaimer-stage {
+  display: none;
+  float: right;
+}
+@media screen and (min-width: 1201px) {
+  .usa-disclaimer-stage {
+    display: block;
+  }
+}
+
+.usa-flag_icon {
+  margin-right: .2rem;
+}
