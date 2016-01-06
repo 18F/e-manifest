@@ -1,5 +1,5 @@
 - title: Submit Manifest
-  description: Submit a new manifest to the eManifest system
+  description: Submit a new manifest to the e-Manifest system
   http_verb: POST
   resource_url: /manifest/submit/{manifest_tracking_number}
   path_variables: {
@@ -150,18 +150,18 @@
       }
   response: No content.
   response_http_status_codes: {
-     "201 Created": "Upon successful creation of the manifest in the eManifest system"
+     "201 Created": "Upon successful creation of the manifest in the e-Manifest system"
   }
   response_details: The Location header denotes where the
                     manifest may be retrieved
                     (e.g. /api/0.1/manifest/id/{emanifest_id})
 
-- title: Get Manifest by eManifest ID
+- title: Get Manifest by e-Manifest ID
   description: Retrieve a manifest previously submitted to the
-               eManifest system
+               e-Manifest system
   http_verb: GET
   path_variables: {
-     emanifest_id: the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)
+     emanifest_id: the numeric unique identifier for the manifest in the e-Manifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)
   }
   resource_url: /manifest/id/{emanifest_id}
   response_format: JSON
@@ -312,7 +312,7 @@
       "activity_id": "_7f0ea6e2-99fa-4efa-bc2a-4febe40ec8ff",
       "document_id": "d976f1b4-a2a2-41f8-b2d7-6ae02e257634"
     }
-  response_details: The "id" value is the unique identifier for the manifest in the eManifest system while
+  response_details: The "id" value is the unique identifier for the manifest in the e-Manifest system while
                     content.generator.manifest_tracking_number represents the the Manifest Tracking Number
                     from Line 4 of form 8700-22.
   response_http_status_codes: {
@@ -322,7 +322,7 @@
 
 - title: Get Manifest by Manifest Tracking Number
   description: Retrieve a manifest previously submitted to the
-               eManifest system
+               e-Manifest system
   http_verb: GET
   path_variables: {
      manifest_tracking_number: the Manifest Tracking Number from Line 4 of form 8700-22
@@ -476,7 +476,7 @@
       "activity_id": "_7f0ea6e2-99fa-4efa-bc2a-4febe40ec8ff",
       "document_id": "d976f1b4-a2a2-41f8-b2d7-6ae02e257634"
     }
-  response_details: The "id" value is the unique identifier for the manifest in the eManifest system while
+  response_details: The "id" value is the unique identifier for the manifest in the e-Manifest system while
                     content.generator.manifest_tracking_number represents the the Manifest Tracking Number
                     from Line 4 of form 8700-22.
   response_http_status_codes: {
@@ -484,14 +484,14 @@
      "404 Not Found": "If the given manifest tracking number does not match an existing manifest"
   }
 
-- title: Update Manifest by eManifest ID
-  description: Update a manifest previously submitted to the eManifest
+- title: Update Manifest by e-Manifest ID
+  description: Update a manifest previously submitted to the e-Manifest
                system; it does not change what has been signed. To
                re-sign, authenticate and sign the manifest again.
   http_verb: PATCH
   resource_url: /manifest/id/{emanifest_id}
   path_variables: {
-     emanifest_id: the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)
+     emanifest_id: the numeric unique identifier for the manifest in the e-Manifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)
   }
   request_content_type: application/json-patch+json
   request_body: |
@@ -658,7 +658,7 @@
 
 
 - title: Update Manifest by Manifest Tracking Number
-  description: Update a manifest previously submitted to the eManifest
+  description: Update a manifest previously submitted to the e-Manifest
                system; it does not change what has been signed. To
                re-sign, authenticate and sign the manifest again.
   http_verb: PATCH
@@ -880,7 +880,7 @@
     }
 
 
-- title: Sign Manifest by eManifest ID
+- title: Sign Manifest by e-Manifest ID
   description: Signs a specified manifest with CDX's CROMERR services.
   http_verb: POST
   resource_url: /manifest/sign
@@ -889,7 +889,7 @@
     {
       "activity_id": "_633a4568b-811e-471b-92b5-a7a8bca12fea",
       "answer": "question answer text",
-      "id": "eManifest ID",
+      "id": "e-Manifest ID",
       "question_id": "15",
       "token": "8f5483a86d3ca682cf7ee8ef514fda1b460b416fd542756645dedea227100719",
       "user_id": "CDX user id"
@@ -897,7 +897,7 @@
   request_body_parameters: {
     activity_id: "from previous Authenticate User response",
     answer: "CDX account's answer to the question from Authenticate User response",
-    id: "the numeric unique identifier for the manifest in the eManifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)",
+    id: "the numeric unique identifier for the manifest in the e-Manifest system (not the Manifest Tracking Number from Line 4 of form 8700-22)",
     question_id: "from previous Authenticate User response",
     token: "from previous Authenticate User response",
     user_id: "CDX user id"

@@ -1,6 +1,6 @@
 ---
-title: eManifest | US EPA
-header_title: eManifest
+title: e-Manifest | US EPA
+header_title: e-Manifest
 ---
 
 [View the API documentation »](/api-documentation/)
