@@ -1,0 +1,115 @@
+swagger: '2.0'
+info:
+  title: e-Manifest API Documentation | US EPA
+  description: Endpoints for the e-Manifest application programming interfaces (API).
+  version: '0.1'
+host: e-manifest.18f.gov
+schemes:
+  - https
+basePath: /api/0.1
+produces:
+  - application/json
+paths:
+  '/manifest/submit/:manifest_tracking_number':
+    post:
+      summary: Submit Manifest
+      description: Submit a new manifest to the eManifest system.
+      parameters:
+        - name: manifest_tracking_number
+          in: path
+          description: the tracking number from Line 4 of form 8700-22
+          required: true
+          type: string
+      tags:
+        - manifests
+      responses:
+        '201':
+          description: Successful creation of e-Manifest. The Location header denotes the manifest URL (e.g. /api/0.1/manifest/id/:e_manifest_id).
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/manifest/id/:e_manifest_id':
+    get:
+      summary: Get Manifest by e-Manifest ID
+      description: Retrieve a manifest previously submitted to the e-Manifest system.
+      parameters:
+        - name: e_manifest_id
+          in: path
+          description: The unique identifier for the manifest in the e-Manifest system (not the Manifest Tracking Number from Line 4 of form 8700-22).
+          required: true
+          type: string
+      tags:
+        - manifests
+      responses:
+        '200':
+          description: Successful retrieval of the e-Manifest.
+        '404':
+          description: Not found. The :e_manifest_id did not match any record.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/manifest/:manifest_tracking_number':
+    get:
+      summary: Get Manifest by Manifest Tracking Number
+      description: Retrieve a manifest previously submitted to the e-Manifest system.
+      parameters:
+        - name: manifest_tracking_number
+          in: path
+          description: the tracking number from Line 4 of form 8700-22
+          required: true
+          type: string
+      tags:
+        - manifests
+      responses:
+        '200':
+          description: Successful retrieval of the e-Manifest.
+        '404':
+          description: Not found. The :e_manifest_id did not match any record.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/manifest/id/:e_manifest_id':
+    patch:
+      consumes: application/json-patch+json
+      summary: Update Manifest by e-Manifest ID
+      description: |
+        Update a manifest previously submitted to the e-Manifest system; it does not change what has been signed. To re-sign, authenticate and sign the manifest again.<br>See JSON Patch (http://tools.ietf.org/html/rfc6902) and JSON Pointer (http://tools.ietf.org/html/rfc6901) specifications.```
+        {"op": "replace", "path": "/generator/name", "value": "Generator ZZ"},
+        {"op": "add", "path": "/generator/mailing_address/zip_code", "value": "11211"},
+        {"op": "remove", "path": "/manifest_items/1"},
+        {"op": "replace", "path": "/non_hazardous_material_present", "value": "no"},
+        {"op": "add", "path": "/transporters", "value": {
+            "company_name": "AAAA Transporter",
+            "us_epa_id_number": "3882",
+            "signatory": {
+              "name": "John Smith",
+              "month": "10",
+              "day": "28",
+              "year": "2015"
+            }
+          }
+        } ```
+      parameters:
+        - name: e_manifest_id
+          in: path
+          description: The unique identifier for the manifest in the e-Manifest system (not the Manifest Tracking Number from Line 4 of form 8700-22).
+          required: true
+          type: string
+      tags:
+        - manifests
+      responses:
+        
+definitions:
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
