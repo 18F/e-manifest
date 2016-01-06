@@ -150,7 +150,7 @@
                         "name": "q",
                         "in": "query",
                         "description": "search terms",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
