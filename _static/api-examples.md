@@ -119,3 +119,80 @@ The search response format looks like:
 {% include manifest-search.json %}
 ```
 
+## <a name="authenticate-user"></a>Authenticate User
+
+You must authenticate with the CDX CROMERR service for signing a manifest. Values in the response are needed to sign the manifest.
+
+```bash
+curl -i -X POST -H 'Content-Type: application/json' \
+  --data @auth-creds.json \
+  https://e-manifest.18f.gov/api/0.1/user/authenticate
+```
+
+An example `auth-creds.json` file looks like:
+
+```json
+{% include auth-creds.json %}
+```
+
+The authentication response looks like:
+
+```json
+{% include auth-response.json %}
+```
+
+You will use the authentication response to [Sign your manifest](#sign-manifest).
+
+## <a name="sign-manifest"></a>Sign manifest
+
+To sign a manifest you must first [Authenticate](#authenticate-user).
+
+You can sign a manifest with either the e-Manifest ID:
+
+```bash
+curl -i -X POST -H 'Content-Type: application/json' \
+  --data @sign-manifest-emanifestid.json \
+  https://e-manifest.18f.gov/api/0.1/manifest/sign
+```
+
+where `sign-manifest-emanifestid.json` looks like:
+
+```json
+{% include sign-manifest-emanifestid.json %}
+```
+
+You may also sign with the Manifest Tracking Number:
+
+```bash
+curl -i -X POST -H 'Content-Type: application/json' \
+  --data @sign-manifest-manifesttrackingnumber.json \
+  https://e-manifest.18f.gov/api/0.1/manifest/signByTrackingNumber
+```
+
+where `sign-manifest-manifesttrackingnumber.json` looks like:
+
+```json
+{% include sign-manifest-manifesttrackingnumber.json %}
+```
+
+## <a name="management-codes"></a>Management method codes
+
+Fetch the list of valid hazardous waste report management method codes like this:
+
+```bash
+curl -i -X GET https://e-manifest.18f.gov/api/0.1/method_code
+```
+
+The response will look like:
+
+```json
+[
+  {
+    "code": "H010",
+    "category": "Reclamation and Recovery",
+    "description": "Metals recovery including retorting, smelting, chemical, etc."
+  },
+  // more methods here
+]
+```
+
