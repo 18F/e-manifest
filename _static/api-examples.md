@@ -1,7 +1,7 @@
 ---
-title: e-Manifest API Documentation | US EPA
-header_title: e-Manifest API Documentation
-subtitle: Endpoints for the e-Manifest application programming interfaces (API).
+title: e-Manifest API Examples | US EPA
+header_title: e-Manifest API Examples
+subtitle: Code examples of using the e-Manifest API.
 permalink: /api-examples/
 
 breadcrumbs:
@@ -9,107 +9,113 @@ breadcrumbs:
     link: /
 ---
 
-Base URL: **e-manifest.18f.gov/api/0.1**
+Using the e-Manifest API consists of two major steps: uploading and signing manifests.
 
-Notation note: path variables are expressed as {variablename}. The brackets are not part of the URI.
+The production base URL is **https://e-manifest.18f.gov/api/0.1**
 
-{% for endpoint in site.data.api %}
+Notation note: path variables are expressed as `:variable_name`. The colon is not part of the URI.
 
-<table class="api">
-  <thead>
-    <tr>
-      <th colspan="2"><h2>{{ endpoint.title  }}</h2></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Description</td>
-      <td>{{ endpoint.description }}</td>
-    </tr>
-    <tr>
-      <td>HTTP Verb</td>
-      <td><b>{{ endpoint.http_verb }}</b></td>
-    </tr>
-    <tr>
-      <td>Resource URL</td>
-      <td><b>{{ endpoint.resource_url }}</b></td>
-    </tr>
-    {% if endpoint.path_variables %}
-    <tr>
-      <td>Path variables</td>
-      <td>
-        <dl>
-      {% for path_variable in endpoint.path_variables %}
-        <dt>{{ path_variable[0] }}</dt>
-        <dd>{{ path_variable[1] }}</dd>
-      {% endfor %}
-        </dl>
-      </td>
-    </tr>
-    {% endif %}
-    {% if endpoint.parameters %}
-    <tr>
-      <td>Parameters</td>
-      <td><pre><code>{{ endpoint.parameters }}</code></pre></td>
-    </tr>
-    {% endif %}
-    {% if endpoint.request_content_type %}
-    <tr>
-      <td>Request Content-Type</td>
-      <td><pre><code>{{ endpoint.request_content_type }}</code></pre></td>
-    </tr>
-    {% endif %}
-    {% if endpoint.request_body %}
-    <tr>
-      <td>Request body</td>
-      <td><pre><code>{{ endpoint.request_body }}</code></pre></td>
-    </tr>
-    {% endif %}
-    {% if endpoint.request_body_parameters %}
-    <tr>
-      <td>Request body parameters</td>
-      <td>
-        <dl>
-      {% for request_body_parameter in endpoint.request_body_parameters %}
-        <dt>{{ request_body_parameter[0] }}</dt>
-        <dd>{{ request_body_parameter[1] }}</dd>
-      {% endfor %}
-        </dl>
-      </td>
-    </tr>
-    {% endif %}
-    {% if endpoint.response_format %}
-    <tr>
-      <td>Response format</td>
-      <td>{{ endpoint.response_format }}</td>
-    </tr>
-    {% endif %}
-    {% if endpoint.response %}
-    <tr>
-      <td>Response</td>
-      <td><pre><code>{{ endpoint.response }}</code></pre></td>
-    </tr>
-    {% endif %}
-    {% if endpoint.response_http_status_codes %}
-    <tr>
-      <td>Response HTTP Status Codes</td>
-      <td>
-        <dl>
-      {% for status_code in endpoint.response_http_status_codes %}
-        <dt>{{ status_code[0] }}</dt>
-        <dd>{{ status_code[1] }}</dd>
-      {% endfor %}
-        </dl>
-      </td>
-    </tr>
-    {% endif %}
-    {% if endpoint.response_details %}
-    <tr>
-      <td>Response details</td>
-      <td>{{ endpoint.response_details }}</td>
-    </tr>
-    {% endif %}
-  </tbody>
-</table>
+## <a name="submit-manifest"></a>Submit a manifest
 
-{% endfor %}
+```bash
+curl -i -X POST -H 'Content-Type: application/json' \
+  --data @manifest.json \
+  https://e-manifest.18f.gov/api/0.1/manifest/submit/:manifest_tracking_number
+```
+
+where the `:manifest_tracking_number` is from Line 4 of form 8700-22. 
+
+An example `manifest.json` file looks like:
+
+```json
+{% include manifest.json %}
+```
+
+The response from that POST will include no body content, but the `Location` header will contain
+the URL of the submitted manifest, which will include the unique e-Manifest identifier. A successful
+submission should return a 201 status.
+
+## <a name="fetch-manifest"></a>Fetch a manifest
+
+To retrieve a previously submitted e-Manifest, you need the e-Manifest ID from
+the [Submit a manifest example](#submit-manifest).
+
+```bash
+curl -i -X GET https://e-manifest.18f.gov/api/0.1/manifest/id/:e_manifest_id
+```
+
+If you do not know the e-Manifest ID, but you do have the Manifest Tracking Number from Line 4 of form 8700-22,
+you can fetch the e-Manifest object with the Manifest Tracking Number.
+
+```bash
+curl -i -X GET https://e-manifest.18f.gov/api/0.1/manifest/:manifest_tracking_number
+```
+
+The response for both endpoints looks the same:
+
+```json
+{% include manifest-response.json %}
+```
+
+## <a name="update-manifest"></a>Update manifest
+
+You may update a previously submitted e-Manifest. 
+
+If the manifest has previously been signed, updating it does not change what has been previously signed
+(see [Sign a manifest example](#sign-manifest)). You must re-sign the updated e-Manifest.
+
+The update request uses the HTTP `PATCH` method. See [JSON Patch](http://tools.ietf.org/html/rfc6902) and
+[JSON Pointer](http://tools.ietf.org/html/rfc6901) for specification details.
+
+Just as in the [Fetch a manifest example](#fetch-manifest), you may use either the e-Manifest ID or the 
+Manifest Tracking Number.
+
+```bash
+curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
+  --data @manifest-patch.json \
+  https://e-manifest.18f.gov/api/0.1/manifest/id/:e_manifest_id
+```
+
+or
+
+```bash
+curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
+  --data @manifest-patch.json \
+  https://e-manifest.18f.gov/api/0.1/manifest/:manifest_tracking_number
+```
+
+An example `manifest-patch.json` file looks like:
+
+```json
+{% include manifest-patch.json %}
+```
+
+The response format is the same as in the [Fetch a manifest example](#fetch-manifest).
+
+## <a name="search-manifest"></a>Search for manifests
+
+The e-Manifest API supports full-text search of all e-Manifests. You can search with simple terms, or
+by specifying specific fields within which your terms should match. Wildcards, booleans and phrase search
+are all supported. See the [full query string syntax documentation]
+(https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax) for more details.
+
+Example of looking for a manifest by Manifest Tracking Number `abc123`:
+
+```bash
+curl -i -X GET \
+  'https://e-manifest.18f.gov/api/0.1/manifest/search?q=content.generator.manifest_tracking_number:abc123'
+```
+
+You can page through results with the `size` and `from` URL query parameters, and sort results by any field.
+
+```bash
+curl -i -X GET \
+  'https://e-manifest.18f.gov/api/0.1/manifest/search?q=abc123&from=0&size=10&sort[]=id:desc'
+```
+
+The search response format looks like:
+
+```json
+{% include manifest-search.json %}
+```
+
