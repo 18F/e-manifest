@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "id":"https://e-manifest.18f.gov/schemas/manifestSchema20160105.json",
+    "id":"https://e-manifest.18f.gov/schemas/manifestschema.json",
     "title": "e-Manifest JSON Schema",
-    "description": "First draft of JSON Schema.  I fully expect this to be editted and revised.  Resource used to make this was http://spacetelescope.github.io/understanding-json-schema/index.html",
+    "description": "Second draft of JSON Schema.  This version, changed file name, enforced snake_case, and removed minlengths. I fully expect this to be edited and revised.  Resource used to make this was http://spacetelescope.github.io/understanding-json-schema/index.html",
 
     "definitions":{
         "address": {
@@ -11,20 +11,17 @@
                 "address_1":   {
                     "description": "Address line 1",
                     "type": "string",
-                    "maxLength":30 ,
-                    "minLength":0 
+                    "maxLength":30
                 },
                 "address_2":   {
                     "description": "Address line 2",
                     "type": "string",
-                    "maxLength":30 ,
-                    "minLength":0 
+                    "maxLength":30
                 },
                 "city":   {
                     "description": "City name",
                     "type": "string",
-                    "maxLength":25 ,
-                    "minLength":0 
+                    "maxLength":25
                 },
                 "state":   {
                     "description": "Two character abbreviation for State or Province",
@@ -36,18 +33,16 @@
                 "zip_code":   {
                     "description": "Postal Code",
                     "type": "string",
-                    "maxLength":14,
-                    "minLength":0, 
+                    "maxLength":14, 
                     "COMMENT":" add Regular Expression"
                 }
             }
         },
 
-        "TelephoneNumberDataType":  {
+        "telephonenumberdatatype":  {
             "description": "15 alphanumberic string accounting for international numbers e.g. +001 1234321234, to be honest this is just a safety feature, most will be standard 10 digit",
             "type": "string",
-            "maxLength":15,
-            "minLength":0, 
+            "maxLength":15, 
             "COMMENT": "add Regular Expressions"
         },
         "signature_info":{
@@ -56,8 +51,7 @@
                 "name": {
                     "description": "Name of the signatory",
                     "type": "string",
-                    "maxLength": 30,
-                    "minLength": 0
+                    "maxLength": 30
                 },
                 "month": {
                     "description": "Two digit month of signature",
@@ -89,8 +83,7 @@
                 "name": {
                     "description": "(5) Generator company name as presented in RCRAInfo",
                     "type": "string",
-                    "maxLength": 80,
-                    "minLength": 0
+                    "maxLength": 80
                 },
                 "us_epa_id_number": {
                     "description": "(1) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
@@ -108,11 +101,11 @@
                 },
                 "emergency_response_phone":  {
                         "description": "(3) Emergency Phone number",
-                        "$ref": "#/definitions/TelephoneNumberDataType" 
+                        "$ref": "#/definitions/telephonenumberdatatype" 
                     },
                 "phone_number":  {
                         "description": "(5) Generator contact phone number",
-                        "$ref": "#/definitions/TelephoneNumberDataType" 
+                        "$ref": "#/definitions/telephonenumberdatatype" 
                     },
                 "mailing_address": {
                     "description": "(5) Generator mailing address as presented in RCRAInfo",
@@ -143,8 +136,7 @@
                     "company_name": {
                         "description": "(6,7) Transporter company name as presented in RCRAInfo",
                         "type": "string",
-                        "maxLength": 80,
-                        "minLength": 0
+                        "maxLength": 80
                     },
                     "us_epa_id_number": {
                         "description": "(6,7) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
@@ -194,8 +186,7 @@
             "port_of_entry_exit": {
                 "description": "(16) City and State of point of entry or export.",
                 "type": "string",
-                "maxLength": 30,
-                "minLength": 0
+                "maxLength": 30
                 }
             },
  
@@ -203,8 +194,7 @@
                     "name": {
                     "description":"(8) Designated facility company name as presented in RCRAInfo",
                     "type": "string",
-                    "maxLength": 80,
-                    "minLength": 0
+                    "maxLength": 80
                     },
                 "us_epa_id_number": {
                     "description": "(8) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
@@ -215,7 +205,7 @@
                     },
                  "phone_number":  {
                     "description": "(8) Designated facility contact phone number",
-                    "$ref": "#/definitions/TelephoneNumberDataType" 
+                    "$ref": "#/definitions/telephonenumberdatatype" 
                     },
                 "certification":   {
                     "description": "(20) Designated facility owner or operator: Certification of receipt of hazardous materials covered by the manifest except as noted in Item 18a signature information",
@@ -233,8 +223,7 @@
                     "name": {
                         "description":"(18b) Alternative designated facility company name as presented in RCRAInfo",
                         "type": "string",
-                        "maxLength": 80,
-                        "minLength": 0
+                        "maxLength": 80
                     },
                     "us_epa_id_number":  {
                         "description": "(18b) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
@@ -245,7 +234,7 @@
                     },
                     "phone_number":  {
                         "description": "(18b) Alternative facility contact phone number",
-                        "$ref": "#/definitions/TelephoneNumberDataType" 
+                        "$ref": "#/definitions/telephonenumberdatatype" 
                     },
                     "category_quantity": {
                         "description": "(18a) Indication if the discrepency is due to quantity",
