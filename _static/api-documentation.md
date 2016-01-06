@@ -1,6 +1,6 @@
 ---
-title: eManifest API Documentation | US EPA
-header_title: eManifest API Documentation
+title: e-Manifest API Documentation | US EPA
+header_title: e-Manifest API Documentation
 subtitle: Endpoints for the e-Manifest application programming interfaces (API).
 permalink: /api-documentation/
 
