@@ -13,3 +13,6 @@ cf-ssh.yml
 
 # Ignore configuration secrets file
 secret.rb
+
+# Ignore local envvars
+.env
