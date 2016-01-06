@@ -120,7 +120,7 @@ RSpec.describe CDX do
     it 'makes the right authentication request via the right client' do
       expect(CDX::Client::Signin).to receive(:call).with(:authenticate, {
         message: {
-          :userId => $cdx_username, :credential => $cdx_password,
+          :userId => ENV["CDX_USERNAME"], :credential => ENV["CDX_PASSWORD"],
           :domain => "default", :authenticationMethod => "password"
         }
       }).and_return(auth_response)

@@ -11,8 +11,5 @@ cf-ssh.yml
 # Ignore emacs autosave
 **/*~
 
-# Ignore configuration secrets file
-secret.rb
-
 # Ignore local envvars
-.env
+.env.development

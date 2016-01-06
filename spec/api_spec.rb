@@ -1,10 +1,6 @@
 require_relative "request_spec_helper"
 
 RSpec.describe 'API request spec' do
-  before do
-    Manifest.delete_all
-  end
-
   describe '/api/0.1/manifest/search' do
     it 'returns all manifests as json' do
       (1..3).each { |n| Manifest.create(content: {number: n}) }
