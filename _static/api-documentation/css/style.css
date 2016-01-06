@@ -12,6 +12,9 @@
   float: right;
   margin-right: 20%;
 }
+#links {
+  margin-top: 1em;
+}
 .navbar-fixed-top .navbar-nav {
   height: auto;
 }

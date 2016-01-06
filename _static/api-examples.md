@@ -2,7 +2,7 @@
 title: eManifest API Documentation | US EPA
 header_title: eManifest API Documentation
 subtitle: Endpoints for the e-Manifest application programming interfaces (API).
-permalink: /api-documentation/
+permalink: /api-examples/
 
 breadcrumbs:
   - text: Home
