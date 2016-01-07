@@ -7,7 +7,7 @@ describe "GET Manifest" do
 
       response = get "/api/0.1/manifest/id/#{manifest.id}"
 
-      expect(response).to match_response_schema("manifest")
+      expect(response).to match_response_schema("get_manifest")
     end
 
     it 'sends a 404 when the manifest cannot be found' do
@@ -19,12 +19,21 @@ describe "GET Manifest" do
 
   describe 'GET manifest/:manifest_tracking_number' do
     it 'return the manifest as json' do
-      manifest_tracking_number = "TEST_NUMBER"
-      Manifest.create(activity_id: 1, document_id: 2, content: {generator: {name: "test", "manifest_tracking_number": manifest_tracking_number}})
+      manifest_tracking_number = "123456789123"
+      Manifest.create(
+        activity_id: 1,
+        document_id: 2,
+        content: {
+          generator: {
+            name: "test",
+            manifest_tracking_number: manifest_tracking_number
+          }
+        }
+      )
 
-      response = get "/api/0.1/manifest/#{manifest_tracking_number}"
+      get "/api/0.1/manifest/#{manifest_tracking_number}"
 
-      expect(response).to match_response_schema('manifest')
+      expect(last_response).to match_response_schema('get_manifest')
     end
 
     it 'sends a 404 when the manifest cannot be found' do

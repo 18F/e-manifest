@@ -47,8 +47,8 @@ class App < Sinatra::Base
   # Get a Manifest by e-Manifest id
   get '/api/:version/manifest/id/:manifest_id' do
     begin
-      response = Manifest.find(params["manifest_id"])
-      response.to_json
+      manifest = Manifest.find(params["manifest_id"])
+      ManifestSerializer.new(manifest).to_json
     rescue ActiveRecord::RecordNotFound => e
       status 404
     end
@@ -58,13 +58,13 @@ class App < Sinatra::Base
   get '/api/:version/manifest/:manifest_tracking_number' do
     begin
       manifest_tracking_number = params["manifest_tracking_number"]
-      response = Manifest.where("content -> 'generator' ->> 'manifest_tracking_number' = ?", manifest_tracking_number)
-      if response.empty?
+      manifests = Manifest.where("content -> 'generator' ->> 'manifest_tracking_number' = ?", manifest_tracking_number)
+      if manifests.empty?
         status 404
         return
       end
 
-      response.first.to_json
+      ManifestSerializer.new(manifests.first).to_json
     end
   end
 

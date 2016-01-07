@@ -7,10 +7,9 @@ require 'webmock/rspec'
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
-require 'json_matchers/rspec'
-JsonMatchers.schema_root = 'lib/schemas'
-
 require 'database_cleaner'
+
+require File.dirname(__FILE__) + "/support/api_schema_matcher.rb"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

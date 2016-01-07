@@ -12,33 +12,6 @@ RSpec.describe 'API request spec' do
     end
   end
 
-  describe '/api/0.1/manifest/id/:manifestid' do
-    it 'return the manifest as json' do
-      manifest = Manifest.create(activity_id: 1, document_id: 2, content: {hello: 'world'})
-      get "/api/0.1/manifest/id/#{manifest.id}"
-      expect(last_response.body).to eq(manifest.to_json)
-    end
-
-    it 'sends a 404 when the manifest cannot be found' do
-      get "/api/0.1/manifest/id/9940010140808v9019"
-      expect(last_response.status).to eq(404)
-    end
-  end
-
-  describe '/api/0.1/manifest/:manifest_tracking_number' do
-    it 'return the manifest as json' do
-      manifest_tracking_number = "TEST_NUMBER"
-      manifest = Manifest.create(activity_id: 1, document_id: 2, content: {generator: {name: "test", "manifest_tracking_number": manifest_tracking_number}})
-      get "/api/0.1/manifest/#{manifest_tracking_number}"
-      expect(last_response.body).to eq(manifest.to_json)
-    end
-
-    it 'sends a 404 when the manifest cannot be found' do
-      get "/api/0.1/manifest/id/9940010140808v9019"
-      expect(last_response.status).to eq(404)
-    end
-  end
-
   describe 'PATCH /api/0.1/manifest/id/:manifestid' do
     it 'updates removes and adds fields to a manifest' do
       patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
