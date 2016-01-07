@@ -56,9 +56,15 @@ legend {
   overflow: hidden;
 }
 
-legend + h2 {
-  font-style: italic;
+fieldset > h2 {
   margin-top: 0;
+  font-weight: 400;
+}
+
+form > fieldset:first-child {
+  margin: {
+    top: 0;
+    }
 }
 
 fieldset {
@@ -76,4 +82,8 @@ fieldset {
   float: initial;
   clear: initial;
   display: inline-block;
+}
+
+table td {
+  border-color: #ECECEC;
 }

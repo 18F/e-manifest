@@ -2,8 +2,8 @@
 title: e-Manifest Home | US EPA
 layout: template/web
 ---
-<div ng-controller="SearchController" class='home'>
-  <legend>Recently filed manifests</legend>
+<div ng-controller="SearchController" class='new-template'>
+  <h2 class="usa-heading subheading">Recently filed manifests</h2>
 
   <div class="usa-grid-full">
     <div class="results usa-width-two-thirds">
@@ -26,13 +26,13 @@ layout: template/web
         </tbody>
       </table>
     </div>
-    <form class="usa-width-one-third"> <!-- Trasporter Entry SubSection -->
+    <form class="usa-width-one-third callout-box"> <!-- Trasporter Entry SubSection -->
       <fieldset>
-        <legend>Filter manifests</legend>
-          <label class='bold' for="generator_name">Generator name</label>
+          <h2>Filter manifests</h2>
+          <label class='featured' for="generator_name">Generator name</label>
           <input id="generator_name" ng-model="data.generator.name" name="generator_name" type="text">
 
-          <label class='bold' for="tsdf_name">Disposal facility name</label>
+          <label class='featured' for="tsdf_name">Disposal facility name</label>
           <input id="tsdf_name" ng-model="data.tsdf_name" name="tsdf_name" type="text">
 
           <div class="usa-grid-full">
@@ -50,7 +50,7 @@ layout: template/web
             </div>
           </div>
 
-          <label class='bold'>Date</label>
+          <label class="featured">Date</label>
           <div class="usa-grid-full">
             <div class="usa-width-one-half">
               <label for="from_date">Beginning</label>
@@ -63,7 +63,7 @@ layout: template/web
           </div>
           <br>
           <div>
-            <a class='small' href="#">Additional filters</a>
+            <a class="small" href="#"><span class="expand-control">+</span>Additional filters</a>
           </div>
 
           <button class="usa-button-big" type="button" ng-click="filter()">Filter</button>
