@@ -43,17 +43,17 @@ header.site-header {
   font-weight: bold;
   color: #fff;
   background: $blue;
-  
+
   a {
     color: #fff;
     text-decoration: none;
   }
-  
+
   nav {
     a:hover {
       border-bottom: 2px solid rgba(255, 255, 255, .7);
     }
-    
+
     .site-logo-img {
       position: relative;
       top: -13px;
@@ -62,24 +62,24 @@ header.site-header {
       width: 50px;
       height: 50px;
     }
-    
+
     ul {
       margin: 0;
       padding: 0;
       float: right;
       list-style: none;
-      
+
       li {
         display: inline;
         margin-left: 25px;
         margin-bottom: 0.25em;
-        
+
         &:first-child {
           margin: 0;
         }
       }
     }
-    
+
     .site-nav-mobile {
       display: none;
       position: absolute;
@@ -88,11 +88,11 @@ header.site-header {
       width: 64px;
       height: 64px;
       text-align: center;
-      
+
       a:hover {
         border: none;
       }
-      
+
       .site-mobile-menu-icon {
         position: relative;
         top: 22px;
@@ -100,20 +100,20 @@ header.site-header {
       }
     }
   }
-  
+
   .site-mobile-menu {
     margin: 20px -15px 0px -15px;
     text-align: right;
-    
+
     ul {
       margin: 0;
       padding: 0;
       list-style: none;
-      
+
       li {
         margin: 0;
         padding: 8px 15px 8px 0;
-        
+
         &:hover {
           background: rgba(255, 255, 255, 0.1);
         }
@@ -128,45 +128,45 @@ header.site-header {
 
 .main {
   padding: 15px 0;
-  
+
   h1, h2, h3, h4 {
     margin-top: 1.25em;
   }
-  
+
   h1 {
     font-size: 32px;
   }
-  
+
   h2 {
     font-size: 26px;
   }
-  
+
   h3 {
     font-size: 20px;
   }
-  
+
   p {
     font-size: 17px;
     line-height: 1.7em;
   }
-  
+
   li {
     font-size: 17px;
   }
-  
+
   pre {
     font-size: 17px;
   }
-  
+
   img {
     margin: 15px 0;
     max-width: 100%;
   }
-  
+
   blockquote {
     font-style: italic;
   }
-  
+
   table {
     display: block;
     width: 100%;
@@ -174,23 +174,23 @@ header.site-header {
     overflow: auto;
     word-break: normal;
     word-break: keep-all;
-    
+
     th {
       font-weight: bold;
     }
-    
+
     th, td {
       padding: 6px 13px;
-      border: 1px solid #ddd
+      border: 1px solid #ddd;
     }
-    
+
     tr {
       background-color: #fff;
-      border-top: 1px solid #ccc
+      border-top: 1px solid #ccc;
     }
-    
+
     tr:nth-child(2n) {
-      background-color: #f8f8f8
+      background-color: #f8f8f8;
     }
   }
 }
@@ -201,13 +201,13 @@ header.site-header {
 
 .breadcrumbs {
   margin-bottom: 14px;
-  
+
   ul {
     margin: 0;
     padding: 0;
-    
+
     li {
-      
+
       img.back-arrow {
         position: relative;
         top: 4px;
@@ -218,18 +218,18 @@ header.site-header {
         transform: scale(-1, 1);
         filter: FlipH;
       }
-      
+
       display: inline-block;
       padding: 0 25px 0 0px;
       list-style: none;
       background-position: 100% 50%;
       background-image: url(../template/separator.svg);
       background-repeat: no-repeat;
-      
+
       &:first-child {
         padding-left: 0;
       }
-      
+
       &:last-child {
         padding-right: 0;
         background-image: none;
@@ -244,7 +244,7 @@ header.site-header {
 
 .page-header {
   margin-bottom: 30px;
-  
+
   h1 {
     margin: 0;
     font-size: 38px;
@@ -262,16 +262,16 @@ header.site-header {
   margin: 0 25px 20px 0;
   float: left;
   width: 175px;
-  
+
   h1 {
     margin: 0 0 .25em 0;
     font-size: 18px;
   }
-  
+
   ul {
     margin: 10px 0 0 0;
     padding: 0;
-    
+
     li {
       padding: 10px 0;
       list-style: none;
@@ -286,7 +286,7 @@ header.site-header {
 
 .page-content {
   margin-bottom: 30px;
-  
+
   li {
     margin-bottom: .5em;
   }
@@ -306,7 +306,7 @@ header.site-header {
 
 article.post-excerpt {
   margin-bottom: 40px;
-  
+
   h1 {
     margin: 0 0 15px 0;
   }
@@ -322,7 +322,7 @@ article.post-excerpt {
   &::after {
     content: ","
   }
-  
+
   &:last-child::after {
     content: "";
   }
@@ -369,23 +369,23 @@ pre {
     line-height: 1.4;
     word-wrap: normal;
   }
-  
+
   &.terminal {
     padding: 5px;
     color: #fff;
     background: #333;
     border: 1px solid #000;
     border-radius: 3px;
-    
+
     code { background-color: #333; }
   }
-  
+
   /* long code snippets */
 
   &::-webkit-scrollbar {
     height: 6px;
   }
-  
+
   &::-webkit-scrollbar-track-piece {
     background: #dee0e2;
   }
@@ -413,7 +413,7 @@ pre, code {
 
 .edit-page {
   margin-bottom: 10px;
-  
+
   p {
     margin: 0;
   }
@@ -426,7 +426,7 @@ pre, code {
   background: #fef6e7;
   border: 1px solid #f5daa3;
   border-radius: 3px;
-  
+
   a {
     color: #bf9540;
   }
@@ -440,11 +440,11 @@ pre, code {
   .content {
     max-width: 1170px;
   }
-  
+
   .contents {
     width: 200px;
   }
-  
+
   .page-content.margin {
     margin-left: 250px;
   }
@@ -454,11 +454,11 @@ pre, code {
   .content {
     max-width: 970px;
   }
-  
+
   .contents {
     width: 200px;
   }
-  
+
   .page-content.margin {
     margin-left: 250px;
   }
@@ -469,60 +469,60 @@ pre, code {
     h1 {
       font-size: 28px;
     }
-    
+
     h2 {
       font-size: 24px;
     }
-    
+
     h3 {
       font-size: 20px;
     }
-    
+
     p {
       line-height: 1.5em;
     }
   }
-  
+
   header.site-header {
     padding: 20px 0;
-    
+
     .site-logo-img {
       top: -10px;
       width: 45px;
       height: 45px;
     }
-    
+
     nav {
       ul.site-nav {
         display: none;
       }
-      
+
       .site-nav-mobile {
         display: block;
       }
     }
   }
-  
+
   .contents {
     margin: 0 0 30px 0;
     float: none;
     width: 100%;
-    
+
     h1 {
       font-size: 18px;
     }
   }
-  
+
   .page-header {
     h1 {
       font-size: 32px;
     }
-    
+
     h2 {
       font-size: 22px;
     }
   }
-  
+
   .page-content.margin {
     margin: 0;
   }
