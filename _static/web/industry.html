@@ -3,7 +3,7 @@ title: eManifest Industry | US EPA
 layout: template/web
 ---
 <div id="industry-controller" ng-controller="IndustryController" ng-form="industryForm">
-  <h1 class="usa-heading">Industry</h1>
+  <h2 class="usa-heading subheading">Industry</h2>
   <div> <!-- Generator Section -->
     <h2 class="usa-heading">Generator</h2>
 
@@ -190,12 +190,7 @@ layout: template/web
 
     <div class="preview" ng-repeat="transporter in industry.data.transporters"> <!-- Trasporter Entry SubSection -->
       <fieldset>
-        <legend>
-          <span>Transporter</span>
-          <span ng-bind="$index + 1"></span>
-        </legend>
-
-        <h2>
+        <h2 class="fieldset-header">
           <span>Transporter</span>
           <span ng-bind="$index + 1"></span>
         </h2>
@@ -320,15 +315,11 @@ layout: template/web
     <div class="preview"
          ng-repeat="manifest_item in industry.data.manifest_items"> <!-- Waste Entry SubSection -->
       <fieldset>
-        <legend>
-          <span>Manifest Item</span>
-          <span ng-bind="$index + 1"></span>
-        </legend>
-
-        <h2>
+        <h2 class="fieldset-header">
           <span>Manifest Item</span>
           <span ng-bind="$index + 1"></span>
         </h2>
+
 
         <label ng-show="industry.data.waste_non_hazardous_material_present === 'yes'">HM (9a)</label>
         <ul ng-show="industry.data.waste_non_hazardous_material_present === 'yes'" class="usa-unstyled-list">

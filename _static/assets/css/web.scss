@@ -15,7 +15,8 @@ body.web {
   .inner { padding: 0 3rem; }
   .bold { font-weight: bold; }
   .border-bottom { border: 1px solid #ccc; }
-
+  .featured { font-weight: bold; }
+  
   #logo {
     padding-top: 1.5rem;
 
@@ -47,7 +48,6 @@ body.web {
     h1 {
       line-height: 1;
       margin: 0;
-      font-family: 'Open Sans', sans-serif;
       font-size: 3rem;
     }
   }
@@ -86,16 +86,17 @@ body.web {
     border: 1px solid #cdcdcd;
   }
 
+  .fieldset-header {
+    font-style: italic;
+  }
+
+  .subheading {
+    font-weight: 400;
+  }
+
   .new-template {
     fieldset {
       border: none;
-    }
-
-    h1 {
-      line-height: 1;
-      margin: 1rem 0;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 4rem;
     }
 
     legend {
