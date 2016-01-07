@@ -16,7 +16,7 @@ body.web {
   .bold { font-weight: bold; }
   .border-bottom { border: 1px solid #ccc; }
   .featured { font-weight: bold; }
-  
+
   #logo {
     padding-top: 1.5rem;
 
@@ -136,5 +136,19 @@ body.web {
 
   #industry-controller {
     width: 46rem;
+  }
+
+  a .expand-control {
+    background-color: #0071bc;
+    border-radius: .5em;
+    color: white;
+    display: inline-block;
+    font-size: 14pt;
+    line-height: 1;
+    margin-right: .3em;
+    min-height: 1em;
+    text-align: center;
+    vertical-align: middle;
+    width: 1em;
   }
 }
