@@ -6,6 +6,8 @@ Don't edit the `public/` folder directly! Jekyll will overwrite everything when 
 
 [View the live application »](https://e-manifest.18f.gov)
 
+[![Build Status](https://travis-ci.org/18F/e-manifest.svg?branch=master)](https://travis-ci.org/18F/e-manifest)
+
 ## Developer onboarding
 
 Here are some tips and resources for getting started on this project. Note that
