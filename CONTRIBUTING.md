@@ -27,6 +27,8 @@
 * Create a branch off of master for each feature and open a pull request when
   development on that feature is ready to be reviewed.
 * Once it's ready for review, move the card to "Ready for Review" in Trello
+* Assign pull requests you are reviewing to yourself so others know that you are
+  reviewing.
 * A pull request must receive a thumbs up from at least one person other than
   the author before it can be merged.
 * The pull request reviewer merges the pull request when it is ready.
