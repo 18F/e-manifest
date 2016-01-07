@@ -1,48 +1,6 @@
 require_relative "request_spec_helper"
 
 RSpec.describe 'API request spec' do
-  before do
-    Manifest.delete_all
-  end
-
-  describe '/api/0.1/manifest/submit/:manifest_tracking_number' do
-    it 'creates a new manifest' do
-      expect {
-        send_json(:post, '/api/0.1/manifest/submit/30221', {hello: 'world'})
-      }.to change { Manifest.count }.by(1)
-      manifest = Manifest.last
-      expect(manifest.content).to eq({'hello' => 'world'})
-      expect(last_response.headers["Location"]).to eq("/api/0.1/manifest/id/#{manifest.id}")
-    end
-  end
-
-  describe '/api/0.1/manifest/id/:manifestid' do
-    it 'return the manifest as json' do
-      manifest = Manifest.create(activity_id: 1, document_id: 2, content: {hello: 'world'})
-      get "/api/0.1/manifest/id/#{manifest.id}"
-      expect(last_response.body).to eq(manifest.to_json)
-    end
-
-    it 'sends a 404 when the manifest cannot be found' do
-      get "/api/0.1/manifest/id/9940010140808v9019"
-      expect(last_response.status).to eq(404)
-    end
-  end
-
-  describe '/api/0.1/manifest/:manifest_tracking_number' do
-    it 'return the manifest as json' do
-      manifest_tracking_number = "TEST_NUMBER"
-      manifest = Manifest.create(activity_id: 1, document_id: 2, content: {generator: {name: "test", "manifest_tracking_number": manifest_tracking_number}})
-      get "/api/0.1/manifest/#{manifest_tracking_number}"
-      expect(last_response.body).to eq(manifest.to_json)
-    end
-
-    it 'sends a 404 when the manifest cannot be found' do
-      get "/api/0.1/manifest/id/9940010140808v9019"
-      expect(last_response.status).to eq(404)
-    end
-  end
-
   describe '/api/0.1/manifest/search' do
     it 'returns all manifests as json' do
       (1..3).each { |n| Manifest.create(content: {number: n}) }

@@ -1,0 +1,142 @@
+{
+   "generator" : {
+      "us_epa_id_number" : "112712334321",
+      "emergency_response_phone" : "888-999-8888",
+      "signatory" : {
+         "day" : "6",
+         "year" : "2015",
+         "name" : "Bob Smith",
+         "month" : "6"
+      },
+      "site_address_same_as_mailing_address" : "no",
+      "name" : "Generator Y",
+      "site_address" : {
+         "zip_code" : "93818",
+         "state" : "CA",
+         "city" : "Cornerville",
+         "address_2" : "Around the Corner",
+         "address_1" : "123 Site Place"
+      },
+      "no_us_epa_id_number" : false,
+      "mailing_address" : {
+         "address_1" : "88 Generator Way",
+         "address_2" : "Loop 19",
+         "state" : "LA",
+         "zip_code" : "71291",
+         "city" : "Looptown"
+      },
+      "manifest_tracking_number" : "98876761",
+      "phone_number" : "800-883-1731"
+   },
+   "manifest_items" : [
+      {
+         "container_type" : "BA",
+         "packing_group" : "Twelve",
+         "epa_waste_codes" : [
+            "Fed1",
+            "Fed2"
+         ],
+         "id_number" : "771",
+         "number_of_containers" : "8",
+         "state_waste_codes" : [
+            "State1",
+            "state2"
+         ],
+         "total_quantity" : "99",
+         "proper_shipping_name" : "Hazardous Stuff",
+         "unit_wt_vol" : "G",
+         "hazardous_material" : "yes",
+         "hazard_classes" : [
+            "6",
+            "8"
+         ]
+      },
+      {
+         "proper_shipping_name" : "Old Shoes",
+         "state_waste_codes" : [
+            "Else"
+         ],
+         "total_quantity" : "953",
+         "hazardous_material" : "no",
+         "unit_wt_vol" : "Q",
+         "hazard_classes" : [],
+         "number_of_containers" : "12",
+         "packing_group" : "81988931",
+         "epa_waste_codes" : [
+            "Something"
+         ],
+         "id_number" : "671",
+         "container_type" : "CR"
+      }
+   ],
+   "waste_handling_instructions" : "Do not feed after midnight.",
+   "transporters" : [
+      {
+         "us_epa_id_number" : "3881",
+         "company_name" : "Transporter National",
+         "signatory" : {
+            "year" : "2015",
+            "name" : "Jill Jones",
+            "day" : "7",
+            "month" : "7"
+         }
+      }
+   ],
+   "waste_pcb_description" : "None.",
+   "is_international_shipment" : "yes",
+   "report_management_method_codes" : [
+      "Method1",
+      "Method2",
+      "Method3"
+   ],
+   "designated_facility" : {
+      "certification" : {
+         "month" : "10",
+         "year" : "2015",
+         "name" : "Betty Black",
+         "day" : "1"
+      },
+      "name" : "Facility Zero",
+      "us_epa_id_number" : "9238754",
+      "discrepancy" : {
+         "us_epa_id_number" : "1734",
+         "category_quantity" : true,
+         "type" : "no_rejection",
+         "signatory" : {
+            "month" : "8",
+            "year" : "2015",
+            "name" : "Johnny Appleseed",
+            "day" : "8"
+         },
+         "description" : "Only received 940 quarts of shoes.",
+         "address" : {
+            "zip_code" : "91919",
+            "city" : "Alternative",
+            "state" : "AK",
+            "address_2" : "Ste 671",
+            "address_1" : "88 Alternate Av"
+         },
+         "name" : "Alternate Facility Y",
+         "phone_number" : "877-577-2771"
+      },
+      "has_discrepancy" : true,
+      "phone_number" : "888-848-1318",
+      "address" : {
+         "address_1" : "360 Zero Circle",
+         "address_2" : "Two Pi",
+         "state" : "PA",
+         "zip_code" : "23171",
+         "city" : "Pie Town"
+      }
+   },
+   "international_shipment" : {
+      "export_import" : "export_from_us",
+      "port_of_entry_exit" : "Savannah, GA",
+      "date_leaving_us" : {
+         "year" : "2015",
+         "day" : "22",
+         "month" : "10"
+      }
+   },
+   "waste_non_hazardous_material_present" : "yes"
+}
