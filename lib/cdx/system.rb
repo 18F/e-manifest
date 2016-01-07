@@ -30,12 +30,8 @@ module CDX
     end
 
     def credentials
-      unless $cdx_username
-        require_relative File.dirname(__FILE__) + "/../../secret.rb"
-      end
-
       {
-        :userId => $cdx_username, :credential => $cdx_password,
+        :userId => ENV['CDX_USERNAME'], :credential => ENV['CDX_PASSWORD'],
         :domain => "default", :authenticationMethod => "password"
       }
     end
