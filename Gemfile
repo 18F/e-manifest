@@ -30,3 +30,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'queryparams'
 end
+
+group :test do
+  gem 'json_matchers'
+end

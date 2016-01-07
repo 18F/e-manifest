@@ -29,7 +29,7 @@ module CDX
       @activity_id ||= CDX::Activity.new({
         :token => security_token,
         :signature_user => signature_user,
-        :dataflow_name => "eManifest",
+        :dataflow_name => "e-Manifest",
         :activity_description => "development test",
         :role_name => "TSDF",
         :role_code => 112090

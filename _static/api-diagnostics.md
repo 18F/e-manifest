@@ -1,6 +1,6 @@
 ---
-title: eManifest API Diagnostics | US EPA
-header_title: eManifest API Diagnostics
+title: e-Manifest API Diagnostics | US EPA
+header_title: e-Manifest API Diagnostics
 permalink: /api-diagnostics/
 ---
 
@@ -21,10 +21,10 @@ Response:
 Response:
 <pre><code id="search-manifest-response"></code></pre>
 
-# Get a Manifest by eManifest ID
+# Get a Manifest by e-Manifest ID
 
 **GET** /api/0.1/manifest/id/*
-<label for="manifest_id">eManifest ID: <input id="manifest_id"></label>
+<label for="manifest_id">e-Manifest ID: <input id="manifest_id"></label>
 <a href="javascript:getManifest();">Run »</a>
 
 Response:
@@ -39,10 +39,10 @@ Response:
 Response:
 <pre><code id="get-manifest-tracking-number-response"></code></pre>
 
-# Update a Manifest by eManifest ID
+# Update a Manifest by e-Manifest ID
 
 **PATCH** /api/0.1/manifest/id/*
-<label for="update_manifest_id">eManifest ID: <input id="update_manifest_id"></label>
+<label for="update_manifest_id">e-Manifest ID: <input id="update_manifest_id"></label>
 <label for="update_manifest_generator_name">Generator Name: <input id="update_manifest_generator_name"></label>
 Data: `[{ "op": "replace", "path": "/generator/name", "value": "name entered above" }]`
 <a href="javascript:updateManifest();">Run »</a>
@@ -77,13 +77,13 @@ Data: `{ "user_id": username, "password": password  }`
 Response:
 <pre><code id="authenticate-user-response"></code></pre>
 
-# Sign Manifest by eManifest ID
+# Sign Manifest by e-Manifest ID
 
 **POST** /api/0.1/manifest/sign
 (data from authenticate user request + answer to the question)
 Data: `{ "token": token, "activity_id": activity id, "user_id": user id,
-"question_id": question id, "answer": answer, "id": eManifest id }`
-<label for="sign_manifest_id">eManifest ID: <input id="sign_manifest_id"></label>
+"question_id": question id, "answer": answer, "id": e-Manifest id }`
+<label for="sign_manifest_id">e-Manifest ID: <input id="sign_manifest_id"></label>
 <label for="answer">Answer to CDX question: <input type="password" id="answer"></label>
 <label for="token">CROMERR token: <input id="token"></label>
 <label for="activity_id">CROMERR activity id: <input id="activity_id"></label>

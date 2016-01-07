@@ -44,7 +44,7 @@ class App < Sinatra::Base
     end
   end
 
-  # Get a Manifest by eManifest id
+  # Get a Manifest by e-Manifest id
   get '/api/:version/manifest/id/:manifest_id' do
     begin
       response = Manifest.find(params["manifest_id"])
@@ -68,7 +68,7 @@ class App < Sinatra::Base
     end
   end
 
-  # Update a Manifest by eManifest id
+  # Update a Manifest by e-Manifest id
   patch '/api/:version/manifest/id/:manifest_id' do
     begin
       manifest = Manifest.find(params["manifest_id"])
