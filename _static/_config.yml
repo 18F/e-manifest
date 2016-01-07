@@ -10,8 +10,8 @@ header:
   logo_text: EPA e-Manifest
   logo_img: epa-logo-100px.png
   nav:
-    - text: API Diagnostics
-      link: /api-diagnostics
+    - text: API
+      link: /api
 
 # Edit pages
 edit_page:
