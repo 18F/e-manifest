@@ -24,6 +24,7 @@ gem 'thin'
 gem 'kaminari'
 gem 'elasticsearch-dsl'
 gem 'elasticsearch-model'
+gem 'elasticsearch-rails-ha', git: 'https://github.com/18F/elasticsearch-rails-ha-gem.git'
 
 group :development, :test do
   gem 'rack-test', require: 'rack/test'
