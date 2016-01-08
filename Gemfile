@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.3'
+
 gem 'ansi'
 gem 'dotenv'
 gem 'foreman'
@@ -10,6 +12,7 @@ gem 'sinatra'
 gem 'thin'
 gem 'jekyll'
 gem 'pry'
+gem 'rake'
 
 gem 'pg'
 gem 'activerecord'
@@ -32,5 +35,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'json_matchers'
+  gem 'webmock'
 end

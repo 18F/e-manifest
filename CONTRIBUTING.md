@@ -67,12 +67,13 @@ one needs a system account set up with rights to sign on behalf of authenticated
 users. The account credentials are available from the e-Manifest development
 team.
 
-The username and password should be placed in a `secret.rb` file located in the root with the following form:
+The username and password env variables should be in the `.env.development` file
+located in the root with the following form:
 
-    $cdx_username = "put username here"
-    $cdx_password = "put password here"
+    CDX_USERNAME = "put username here"
+    CDX_PASSWORD = "put password here"
 
-In other words, `cp secret.rb.template secret.rb` and edit the file with the
+In other words, `cp .env.example .env.development` and edit the file with the
 supplied API keys.
 
 In addition to these API keys, you will need the username, password, and
