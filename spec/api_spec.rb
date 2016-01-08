@@ -1,28 +1,27 @@
 require_relative "support/request_spec_helper"
 
-RSpec.describe 'API request spec' do
-  describe 'PATCH /api/v1/manifest/id/:manifestid' do
-    it 'updates removes and adds fields to a manifest' do
-      patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
-      manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' } })
-      send_json(:patch, "/api/v1/manifest/id/#{manifest.id}", patch_command)
-      updatedManifest = Manifest.find(manifest.id)
+describe 'API request spec' do
+  describe 'PATCH /api/v1/manifests' do
+    context 'finds manifest via id param' do
+      it 'updates removes and adds fields to a manifest' do
+        patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
+        manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' } })
 
-      send_json(:patch, "/api/v1/manifests?id=#{manifest.id}", patch_command)
+        send_json(:patch, "/api/v1/manifests?id=#{manifest.id}", patch_command)
 
-      updatedManifest = Manifest.find(manifest.id)
+        updatedManifest = Manifest.find(manifest.id)
 
-      expected_content_hash = {'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }}
-      parsed_response = JSON.parse(last_response.body)
-      parsed_content = JSON.parse(parsed_response["content"])
+        expected_content_hash = {'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }}
+        parsed_response = JSON.parse(last_response.body)
+        parsed_content = JSON.parse(parsed_response["content"])
 
-      expect(updatedManifest.content).to eq(expected_content_hash)
-      expect(parsed_content).to eq(expected_content_hash)
-      expect(parsed_response["id"]).to eq(manifest.id)
+        expect(updatedManifest.content).to eq(expected_content_hash)
+        expect(parsed_content).to eq(expected_content_hash)
+        expect(parsed_response["id"]).to eq(manifest.id)
+      end
     end
-  end
 
-  context 'finds manifest via tracking number param' do
+    context 'finds manifest via tracking number param' do
       it 'updates removes and adds fields to a manifest' do
         manifest_tracking_number = "TEST_NUMBER"
         patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
