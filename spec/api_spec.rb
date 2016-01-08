@@ -44,7 +44,7 @@ RSpec.describe 'API request spec' do
     end
   end
 
-  describe 'post /api/v1/users/authentications' do
+  describe 'post /api/v1/tokens' do
     let(:user_credentials) {
       { 'user_id' => 'userId', 'password' => 'password' }
     }
@@ -53,12 +53,12 @@ RSpec.describe 'API request spec' do
       double('authenticator', perform: { it: 'worked', token: 'server' })
     }
 
-    it 'posting an authentication and not exposing the authentication token' do
+    it 'posting a token and not exposing the authentication token' do
       expect(CDX::Authenticator).to receive(:new)
         .with(user_credentials)
         .and_return(authenticator)
 
-      send_json(:post, '/api/v1/users/authentications', user_credentials)
+      send_json(:post, '/api/v1/tokens', user_credentials)
 
       session_id = last_request.session.id
       expect(last_response.ok?).to eq(true)

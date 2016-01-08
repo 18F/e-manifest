@@ -126,7 +126,7 @@ You must authenticate with the CDX CROMERR service for signing a manifest. Value
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
   --data @auth-creds.json \
-  https://e-manifest.18f.gov/api/v1/users/authentications
+  https://e-manifest.18f.gov/api/v1/tokens
 ```
 
 An example `auth-creds.json` file looks like:

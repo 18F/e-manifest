@@ -75,7 +75,7 @@ class App < Sinatra::Base
     end
   end
 
-  post '/api/:version/users/authentications' do
+  post '/api/:version/tokens' do
     body = request.body.read
     authentication = JSON.parse(body)
     response = CDX::Authenticator.new(authentication).perform
