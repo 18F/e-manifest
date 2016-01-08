@@ -44,6 +44,8 @@
 - To build the static site, run `rake build`.
 - To build and serve the app, run `rake serve`.
 - To deploy to 18F's cloud, run `rake deploy`.
+- To add dummy data for developing against, run `rake populate:manifests`.
+- To (re)build the Elasticsearch index, run `rake search:index`.
 
 To add analytics support needed for production, prepend `JEKYLL_ENV=production` to any of the above commands.
 
