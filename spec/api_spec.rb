@@ -66,14 +66,14 @@ RSpec.describe 'API request spec' do
     end
   end
 
-  describe 'post /api/v1/manifests/:manifest_id/sign' do
+  describe 'post /api/v1/manifests/:manifest_id/signature' do
     context 'sign by manifest id' do
       it 'creates retrieves and resaves a manifest with document id' do
         manifest = Manifest.create(content: {})
         cdx_manifest = double('cdx manifest', sign: { document_id: 44 })
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-        send_json(:post, "/api/v1/manifests/#{manifest.id}/sign", { activity_id: 22 })
+        send_json(:post, "/api/v1/manifests/#{manifest.id}/signature", { activity_id: 22 })
 
         manifest.reload
         expect(manifest.document_id).to eq('44')
@@ -85,7 +85,7 @@ RSpec.describe 'API request spec' do
         cdx_manifest = double('cdx manifest', sign: { foo: 'bar' })
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-        send_json(:post, "/api/v1/manifests/#{manifest.id}/sign", { activity_id: 22 })
+        send_json(:post, "/api/v1/manifests/#{manifest.id}/signature", { activity_id: 22 })
 
         manifest.reload
         expect(manifest.document_id).to eq(nil)
@@ -107,7 +107,7 @@ RSpec.describe 'API request spec' do
         cdx_manifest = double('cdx manifest', sign: { document_id: 44 })
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-        send_json(:post, "/api/v1/manifests/#{manifest_tracking_number}/sign", { activity_id: 22 })
+        send_json(:post, "/api/v1/manifests/#{manifest_tracking_number}/signature", { activity_id: 22 })
 
         manifest.reload
         expect(manifest.document_id).to eq('44')

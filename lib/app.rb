@@ -85,7 +85,7 @@ class App < Sinatra::Base
     response.to_json
   end
 
-  post '/api/:version/manifests/:manifest_id/sign' do
+  post '/api/:version/manifests/:manifest_id/signature' do
     manifest = find_manifest_by_id_or_tracking_number(params[:manifest_id])
 
     if manifest.nil?

@@ -152,7 +152,7 @@ You can sign a manifest with either the e-Manifest ID:
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
   --data @sign-manifest-emanifestid.json \
-  https://e-manifest.18f.gov/api/v1/manifests/:manifest_id/sign
+  https://e-manifest.18f.gov/api/v1/manifests/:manifest_id/signature
 ```
 
 where `sign-manifest-emanifestid.json` looks like:
@@ -166,7 +166,7 @@ You may also sign with the Manifest Tracking Number:
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
   --data @sign-manifest-manifesttrackingnumber.json \
-  https://e-manifest.18f.gov/api/v1/:manifest_tracking_number/sign
+  https://e-manifest.18f.gov/api/v1/:manifest_tracking_number/signature
 ```
 
 where `sign-manifest-manifesttrackingnumber.json` looks like:
