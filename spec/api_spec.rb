@@ -1,4 +1,4 @@
-require_relative "request_spec_helper"
+require_relative "support/request_spec_helper"
 
 RSpec.describe 'API request spec' do
   describe '/api/0.1/manifest/submit/:manifest_tracking_number' do

@@ -1,10 +1,14 @@
-require_relative 'spec_helper'
-require_relative 'request_spec_helper'
+require_relative 'support/es_spec_helper'
+require_relative 'support/request_spec_helper'
 require_relative '../lib/chores/populator'
 require "queryparams"
 
 RSpec.describe "search" do
   describe "/search" do
+    before(:context) do
+      start_es_server
+    end
+
     it "searches all fields by default" do
       populate_manifests(2)
       search_for "around+the+corner"
@@ -21,6 +25,10 @@ RSpec.describe "search" do
       populate_manifests(2)
       search_for_advanced({ "content.generator.name" => "generator" })
       expect(JSON.parse(last_response.body)["total"]).to eq 2
+    end
+
+    after(:context) do
+      stop_es_server
     end
   end
 

@@ -1,4 +1,4 @@
-require_relative "../../../request_spec_helper"
+require_relative "../../../support/request_spec_helper"
 
 describe "GET Manifest" do
   describe 'GET manifest/id/:manifestid' do
