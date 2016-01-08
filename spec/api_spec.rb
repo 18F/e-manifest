@@ -8,6 +8,10 @@ RSpec.describe 'API request spec' do
       send_json(:patch, "/api/v1/manifest/id/#{manifest.id}", patch_command)
       updatedManifest = Manifest.find(manifest.id)
 
+      send_json(:patch, "/api/v1/manifests?id=#{manifest.id}", patch_command)
+
+      updatedManifest = Manifest.find(manifest.id)
+
       expected_content_hash = {'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }}
       parsed_response = JSON.parse(last_response.body)
       parsed_content = JSON.parse(parsed_response["content"])
@@ -18,52 +22,35 @@ RSpec.describe 'API request spec' do
     end
   end
 
-  describe 'PATCH /api/v1/manifest/:manifest_tracking_number' do
-    it 'updates removes and adds fields to a manifest' do
-      manifest_tracking_number = "TEST_NUMBER"
-      patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
+  context 'finds manifest via tracking number param' do
+      it 'updates removes and adds fields to a manifest' do
+        manifest_tracking_number = "TEST_NUMBER"
+        patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
 
-      manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' }, generator: {name: "test", "manifest_tracking_number": manifest_tracking_number} })
-      send_json(:patch, "/api/v1/manifest/#{manifest_tracking_number}", patch_command)
-      updatedManifest = Manifest.find(manifest.id)
+        manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' }, generator: {name: "test", "manifest_tracking_number": manifest_tracking_number} })
 
-      expected_content_hash = {'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }, 'generator' => { "name" => "test", "manifest_tracking_number" => manifest_tracking_number}}
-      parsed_response = JSON.parse(last_response.body)
-      parsed_content = JSON.parse(parsed_response["content"])
+        send_json(:patch, "/api/v1/manifests?tracking_number=#{manifest_tracking_number}", patch_command)
 
-      expect(updatedManifest.content).to eq(expected_content_hash)
-      expect(parsed_content).to eq(expected_content_hash)
-      expect(parsed_response["id"]).to eq(manifest.id)
+        updatedManifest = Manifest.find(manifest.id)
+
+        expected_content_hash = {'hello' => 'people', 'newitem' => 'beta', 'foo' => ['bar', 'quux'], 'nested' => { 'something' => 'ok' }, 'generator' => { "name" => "test", "manifest_tracking_number" => manifest_tracking_number}}
+        parsed_response = JSON.parse(last_response.body)
+        parsed_content = JSON.parse(parsed_response["content"])
+
+        expect(updatedManifest.content).to eq(expected_content_hash)
+        expect(parsed_content).to eq(expected_content_hash)
+        expect(parsed_response["id"]).to eq(manifest.id)
+      end
     end
   end
 
-
-  # There's no nice way to test an API that simply pulls content out
-  # of the jekyll-generated public directory. We cannot assume the
-  # file exists when we run the test in development/CI and we cannot
-  # pull the file from a non-generated public directory in production.
-  #
-  # Will begrudgingly move on to other things for now.
-  #
-  # describe '/api/v1/method_code' do
-  #  it 'returns the static json data for all method codes' do
-  #    method_code_json = IO.read(File.dirname(__FILE__) + "/../_static/api-data/method-codes.json")
-  #    get "/api/v1/method_code"
-  #    expect(last_response.body).to eq(method_code_json)
-  #  end
-  #end
-  
-  # NOTE: Savon does some crap internally that prevents webmock from working
-  # correctly. It is a bad practice to mock your own classes in request specs, but
-  # better than nothing!
-
-  describe 'post /api/v1/user/authenticate' do
+  describe 'post /api/v1/users/authentications' do
     let(:user_credentials) {
-      {'user_id' => 'userId', 'password' => 'password'}
+      { 'user_id' => 'userId', 'password' => 'password' }
     }
 
     let(:authenticator) {
-      double('authenticator', perform: {it: 'worked', token: 'server'})
+      double('authenticator', perform: { it: 'worked', token: 'server' })
     }
 
     it 'posting an authentication and not exposing the authentication token' do
@@ -71,7 +58,7 @@ RSpec.describe 'API request spec' do
         .with(user_credentials)
         .and_return(authenticator)
 
-      send_json(:post, '/api/v1/user/authenticate', user_credentials)
+      send_json(:post, '/api/v1/users/authentications', user_credentials)
 
       session_id = last_request.session.id
       expect(last_response.ok?).to eq(true)
@@ -79,44 +66,53 @@ RSpec.describe 'API request spec' do
     end
   end
 
-  describe 'post /api/v1/manifest/sign' do
-    it 'creates retrieves and resaves a manifest with document id' do
-      manifest = Manifest.create(content: {})
-      cdx_manifest = double('cdx manifest', sign: {document_id: 44})
-      expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
+  describe 'post /api/v1/manifests/:manifest_id/sign' do
+    context 'sign by manifest id' do
+      it 'creates retrieves and resaves a manifest with document id' do
+        manifest = Manifest.create(content: {})
+        cdx_manifest = double('cdx manifest', sign: { document_id: 44 })
+        expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-      send_json(:post, '/api/v1/manifest/sign', {id: manifest.id, activity_id: 22})
+        send_json(:post, "/api/v1/manifests/#{manifest.id}/sign", { activity_id: 22 })
 
-      manifest.reload
-      expect(manifest.document_id).to eq('44')
-      expect(manifest.activity_id).to eq('22')
+        manifest.reload
+        expect(manifest.document_id).to eq('44')
+        expect(manifest.activity_id).to eq('22')
+      end
+
+      it 'will not update the document/activity id if the CDX request does not include the right key' do
+        manifest = Manifest.create(content: {})
+        cdx_manifest = double('cdx manifest', sign: { foo: 'bar' })
+        expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
+
+        send_json(:post, "/api/v1/manifests/#{manifest.id}/sign", { activity_id: 22 })
+
+        manifest.reload
+        expect(manifest.document_id).to eq(nil)
+        expect(manifest.activity_id).to eq(nil)
+      end
     end
 
-    it 'will not update the document/activity id if the CDX request does not include the right key' do
-      manifest = Manifest.create(content: {})
-      cdx_manifest = double('cdx manifest', sign: {foo: 'bar'})
-      expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
+    context 'sign by manifest tracking number' do
+      it 'creates retrieves and resaves a manifest with document id' do
+        manifest_tracking_number = "AAABB1234"
+        manifest = Manifest.create(
+          content: {
+            generator: {
+              name: 'test',
+              manifest_tracking_number: manifest_tracking_number
+            }
+          }
+        )
+        cdx_manifest = double('cdx manifest', sign: { document_id: 44 })
+        expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-      send_json(:post, '/api/v1/manifest/sign', {id: manifest.id, activity_id: 22})
+        send_json(:post, "/api/v1/manifests/#{manifest_tracking_number}/sign", { activity_id: 22 })
 
-      manifest.reload
-      expect(manifest.document_id).to eq(nil)
-      expect(manifest.activity_id).to eq(nil)
-    end
-  end
-
-  describe 'post /api/v1/manifest/signByTrackingNumber' do
-    it 'creates retrieves and resaves a manifest with document id' do
-      manifest_tracking_number = "AAABB1234"
-      manifest = Manifest.create(content: {generator: {name: "test", "manifest_tracking_number": manifest_tracking_number}})
-      cdx_manifest = double('cdx manifest', sign: {document_id: 44})
-      expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
-
-      send_json(:post, '/api/v1/manifest/signByTrackingNumber', {manifest_tracking_number: manifest_tracking_number, activity_id: 22})
-
-      manifest.reload
-      expect(manifest.document_id).to eq('44')
-      expect(manifest.activity_id).to eq('22')
+        manifest.reload
+        expect(manifest.document_id).to eq('44')
+        expect(manifest.activity_id).to eq('22')
+      end
     end
   end
 end
