@@ -81,7 +81,10 @@ RSpec.configure do |config|
     end
   end
 
-  config.profile_examples = 10
+  if ENV["RSPEC_PROFILE"]
+    config.profile_examples = 10
+  end
+
   config.order = :random
   Kernel.srand config.seed
 end
