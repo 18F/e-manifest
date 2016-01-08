@@ -80,8 +80,8 @@
              if (status === "201") {
                console.log("manifest created and located here: " + manifestUri);
              }
-        window.location.href = '/web/sign.html#!/?id=' + emanifestId + '&manifestTrackingNumber=' + self.data.generator.manifest_tracking_number;
-      });
+             window.location.href = '/web/sign-or-upload.html#!/?id=' + emanifestId + '&manifestTrackingNumber=' + self.data.generator.manifest_tracking_number;
+           });
     };
 
     $scope.formatCanonicalPhone = function(isValid, phoneNumber) {
@@ -184,6 +184,32 @@
 
   }]);
 
+  app.controller('SignOrUploadController', function($scope, $location) {
+    var search = $location.search();
+    $scope.data = {};
+
+    Object.keys(search).map(function(k) {
+      $scope.data[k] = search[k];
+    });
+
+    function searchQueryString (data) {
+      var keys = Object.keys(data);
+      var s = keys.map(function(k) {
+        return [k, data[k]].join('=');
+      }).join('&');
+
+      return s;
+    }
+
+    $scope.sign = function () {
+      window.location.href = '/web/sign.html?' + searchQueryString($scope.data);
+    };
+
+    $scope.upload = function () {
+      window.location.href = '/web/bulk-upload.html?' + searchQueryString($scope.data);
+    };
+
+  });
 
   app.controller('SearchController', function($scope, $http) {
     var self = $scope.search = {};
@@ -244,35 +270,35 @@
     }
   });
 
-    app.controller('ManifestDetailController', ['$scope','$http',function($scope, $http) {
+  app.controller('ManifestDetailController', ['$scope','$http',function($scope, $http) {
 
-        function getQueryParams(qs) {
-            qs = qs.split('+').join(' ');
+      function getQueryParams(qs) {
+          qs = qs.split('+').join(' ');
 
-            var params = {},
-                tokens,
-                re = /[?&]?([^=]+)=([^&]*)/g;
+          var params = {},
+              tokens,
+              re = /[?&]?([^=]+)=([^&]*)/g;
 
-            while (tokens = re.exec(qs)) {
-                params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-            }
+          while (tokens = re.exec(qs)) {
+              params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+          }
 
-            return params;
-        }
+          return params;
+      }
 
-        var id = getQueryParams(document.location.search).id;;
-        $http.get('/api/0.1/manifest/id/'+id).success(
-            function(response) {
-                //fix for my local env.
-                if(typeof response.content == "string")
-                {
-                    response.content = response.content.replace(/[=]/g, ":");
-                    response.content = response.content.replace(/[>]/g, "");
-                    response.content = jQuery.parseJSON(response.content);
-                }
-              $scope.data = response;
-            });
-    }]);
+      var id = getQueryParams(document.location.search).id;;
+      $http.get('/api/0.1/manifest/id/'+id).success(
+          function(response) {
+              //fix for my local env.
+              if(typeof response.content == "string")
+              {
+                  response.content = response.content.replace(/[=]/g, ":");
+                  response.content = response.content.replace(/[>]/g, "");
+                  response.content = jQuery.parseJSON(response.content);
+              }
+            $scope.data = response;
+          });
+  }]);
 
   app.controller('SignController', function($scope, $http, $location) {
     $scope.state = 'login';
