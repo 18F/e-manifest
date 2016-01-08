@@ -12,4 +12,5 @@ Dir.glob('config/*.rb').each { |r| load r}
 
 require "#{lib_dir}/connect_ar"
 require "#{lib_dir}/cdx"
+require "#{lib_dir}/workers/indexer_worker"
 require "#{lib_dir}/models/manifest"
