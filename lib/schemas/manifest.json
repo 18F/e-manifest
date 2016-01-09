@@ -14,7 +14,7 @@
           "type": "string",
           "maxLength":30
         },
-        "city":   {
+        "city": {
           "description": "City name",
           "type": "string",
           "maxLength":25
@@ -34,13 +34,7 @@
         }
       }
     },
-    "telephone_number_data_type":  {
-      "description": "15 alphanumberic string accounting for international numbers e.g. +001 1234321234, to be honest this is just a safety feature, most will be standard 10 digit",
-      "type": "string",
-      "maxLength":15,
-      "COMMENT": "add Regular Expressions"
-    },
-    "signature_info":{
+    "signature_info": {
       "type": "object",
       "properties":{
         "name": {
@@ -67,6 +61,18 @@
           "minimum": 4
         }
       }
+    },
+    "telephone_number_data_type": {
+      "description": "15 alphanumberic string accounting for international numbers e.g. +001 1234321234, to be honest this is just a safety feature, most will be standard 10 digit",
+      "type": "string",
+      "maxLength":15,
+      "COMMENT": "add Regular Expressions"
+    },
+    "us_epa_id_number": {
+      "type": "string",
+      "maxLength": 12,
+      "minLength": 12,
+      "COMMENT": "add Regular Expressions"
     }
   },
   "type": "object",
@@ -81,10 +87,7 @@
         },
         "us_epa_id_number": {
           "description": "(1) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
-          "type": "string",
-          "maxLength": 12,
-          "minLength": 12,
-          "COMMENT": "add Regular Expressions"
+          "$ref": "#/definitions/us_epa_id_number"
         },
         "manifest_tracking_number": {
           "description": "(4) Unique tracking number assigned to each manifest...Starts with 9 numbers and ends with 3 Letters",
@@ -93,11 +96,11 @@
           "minLength": 12,
           "COMMENT": "add Regular Expressions"
         },
-        "emergency_response_phone":  {
+        "emergency_response_phone": {
           "description": "(3) Emergency Phone number",
           "$ref": "#/definitions/telephone_number_data_type"
         },
-        "phone_number":  {
+        "phone_number": {
           "description": "(5) Generator contact phone number",
           "$ref": "#/definitions/telephone_number_data_type"
         },
@@ -115,7 +118,7 @@
           "description": "(5) Generator site address as presented in RCRAInfo",
           "$ref": "#/definitions/address"
         },
-        "signatory":  {
+        "signatory": {
           "description": "(15) Generator/ Offeror certification signature information",
           "$ref": "#/definitions/signature_info"
         },
@@ -127,21 +130,18 @@
       "transporters": {
         "type": "array",
         "items": [{
-          "company_name": {
+          "name": {
             "description": "(6,7) Transporter company name as presented in RCRAInfo",
             "type": "string",
             "maxLength": 80
           },
           "us_epa_id_number": {
-            "description": "(6,7) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
-            "type": "string",
-            "maxLength": 12,
-            "minLength": 12,
-            "COMMENT": "add Regular Expressions"
+            "description": "(6,7) Unique tracking number assigned to each RCRA Handler/Site.  Starts with 3 Letters and ends with 9 numbers",
+            "$ref": "#/definitions/us_epa_id_number"
           },
-          "signatory":   {
+          "signatory": {
             "description": "(17) Transporter acknowledgement of reciept of materials signature information",
-            "$ref": "#/definitions/signature_info" 
+            "$ref": "#/definitions/signature_info"
           }
         }],
         "is_international_shipment": {
@@ -191,16 +191,13 @@
           },
           "us_epa_id_number": {
             "description": "(8) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
-            "type": "string",
-            "maxLength": 12,
-            "minLength": 12,
-            "COMMENT": "add Regular Expressions"
+            "$ref": "#/definitions/us_epa_id_number"
           },
-          "phone_number":  {
+          "phone_number": {
             "description": "(8) Designated facility contact phone number",
             "$ref": "#/definitions/telephone_number_data_type"
           },
-          "certification":   {
+          "certification": {
             "description": "(20) Designated facility owner or operator: Certification of receipt of hazardous materials covered by the manifest except as noted in Item 18a signature information",
             "$ref": "#/definitions/signature_info"
           },
@@ -213,19 +210,23 @@
             "type": "boolean"
           },
           "discrepancy": {
-            "name": {
-              "description":"(18b) Alternative designated facility company name as presented in RCRAInfo",
-              "type": "string",
-              "maxLength": 80
-            },
-            "us_epa_id_number":  {
-              "description": "(18b) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
+            "manifest_tracking_number": {
+              "description": "(18a) If a new manifest is created due to the rejection of manifested waste. This is where the new manifest ID goes.",
               "type": "string",
               "maxLength": 12,
               "minLength": 12,
               "COMMENT": "add Regular Expressions"
             },
-            "phone_number":  {
+            "name": {
+              "description":"(18b) Alternative designated facility company name as presented in RCRAInfo",
+              "type": "string",
+              "maxLength": 80
+            },
+            "us_epa_id_number": {
+              "description": "(18b) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
+              "$ref": "#/definitions/us_epa_id_number"
+            },
+            "phone_number": {
               "description": "(18b) Alternative facility contact phone number",
               "$ref": "#/definitions/telephone_number_data_type"
             },
@@ -288,7 +289,7 @@
               "maxLength": 8,
               "minLength": 4
             },
-            "epa_waste_codes":  {
+            "epa_waste_codes": {
               "description":"(13) Federal EPA waste codes as listed in the regulations",
               "type": "string",
               "maxLength": 4,
@@ -327,7 +328,7 @@
           "description": "(9) Boolean to state if the manifest has US Department of Transportation nonhazardous materials indicated on the form",
           "type": "boolean"
         },
-        "waste_handling_instructions":  {
+        "waste_handling_instructions": {
           "description":"(14) Special Handling instructions on the manifest form.",
           "type": "string"
         },
