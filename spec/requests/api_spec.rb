@@ -8,7 +8,8 @@ describe 'API request spec' do
         manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' } })
 
         patch "/api/v0/manifests?id=#{manifest.id}",
-          patch_command.to_json
+          patch_command.to_json,
+          set_headers
 
         updatedManifest = Manifest.find(manifest.id)
 
@@ -30,7 +31,8 @@ describe 'API request spec' do
         manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' }, generator: {name: "test", "manifest_tracking_number": manifest_tracking_number} })
 
         patch "/api/v0/manifests?tracking_number=#{manifest_tracking_number}",
-          patch_command.to_json
+          patch_command.to_json,
+          set_headers
 
         updatedManifest = Manifest.find(manifest.id)
 
@@ -60,7 +62,8 @@ describe 'API request spec' do
         .and_return(authenticator)
 
       post '/api/v0/tokens',
-        user_credentials.to_json
+        user_credentials.to_json,
+        set_headers
 
       session_id = request.session.id
       expect(response.ok?).to eq(true)
@@ -76,7 +79,8 @@ describe 'API request spec' do
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
         post "/api/v0/manifests/#{manifest.id}/signature",
-          { activity_id: 22 }.to_json
+          { activity_id: 22 }.to_json,
+          set_headers
 
         manifest.reload
         expect(manifest.document_id).to eq('44')
@@ -89,7 +93,8 @@ describe 'API request spec' do
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
         post "/api/v0/manifests/#{manifest.id}/signature",
-          { activity_id: 22 }.to_json
+          { activity_id: 22 }.to_json,
+          set_headers
 
         manifest.reload
         expect(manifest.document_id).to eq(nil)
@@ -112,7 +117,8 @@ describe 'API request spec' do
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
         post "/api/v0/manifests/#{manifest_tracking_number}/signature",
-          { activity_id: 22 }.to_json
+          { activity_id: 22 }.to_json,
+          set_headers
 
         manifest.reload
         expect(manifest.document_id).to eq('44')

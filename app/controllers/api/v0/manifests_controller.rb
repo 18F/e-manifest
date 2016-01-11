@@ -8,16 +8,19 @@ class Api::V0::ManifestsController < ApplicationController
   end
 
   def create
-    manifest = Manifest.new(content: JSON.parse(request.body.read))
-    manifest.save
+    @manifest = Manifest.new(content: manifest_params)
 
-    request.body.rewind
-    response.headers['Location'] = "/api/v0/manifests/#{manifest.id}"
-
-    render json: {
-      message: "Manifest #{params[:tracking_number]} submitted!",
-      request_body: request.body.read
-    }.to_json, status: 201
+    if @manifest.save!
+      tracking_number = manifest_params[:manifest_tracking_number]
+      render json: {
+        message: "Manifest #{tracking_number} submitted successfully.",
+      }.to_json, status: 201
+    else
+      render json: {
+        message: "Validation failed",
+        errors: @manifest.errors.full_messages
+      }.to_json, status: 422
+    end
   end
 
   def show
@@ -54,5 +57,13 @@ class Api::V0::ManifestsController < ApplicationController
     rescue ActiveRecord::RecordNotFound => _error
       status 404
     end
+  end
+
+  private
+
+  def manifest_params
+    params.require(:manifest).permit(
+      :manifest_tracking_number,
+    )
   end
 end
