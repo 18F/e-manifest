@@ -17,7 +17,7 @@ end
 desc 'Build jekyll and serve the sinatra app'
 task :serve do
   Rake::Task['build'].invoke
-  system 'foreman start -p 9292'
+  system 'PORT=9292 script/start'
 end
 
 desc 'Deceptive name: just runs Sinatra without building Jekyll'

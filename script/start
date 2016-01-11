@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+set -x
+
+# make sure our pids dir exists
+mkdir -p tmp/pids
+
+# default the port, for development
+# http://stackoverflow.com/a/6859838/358804
+PORT=${PORT-3000}
+
+foreman start -p $PORT
