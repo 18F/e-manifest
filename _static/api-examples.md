@@ -166,7 +166,7 @@ You may also sign with the Manifest Tracking Number:
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
   --data @sign-manifest-manifesttrackingnumber.json \
-  https://e-manifest.18f.gov/api/v0/:manifest_tracking_number/signature
+  https://e-manifest.18f.gov/api/v0/manifests/:manifest_tracking_number/signature
 ```
 
 where `sign-manifest-manifesttrackingnumber.json` looks like:
