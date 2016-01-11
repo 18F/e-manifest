@@ -1,13 +1,13 @@
 require_relative "support/request_spec_helper"
 
 describe 'API request spec' do
-  describe 'PATCH /api/v1/manifests' do
+  describe 'PATCH /api/v0/manifests' do
     context 'finds manifest via id param' do
       it 'updates removes and adds fields to a manifest' do
         patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
         manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' } })
 
-        send_json(:patch, "/api/v1/manifests?id=#{manifest.id}", patch_command)
+        send_json(:patch, "/api/v0/manifests?id=#{manifest.id}", patch_command)
 
         updatedManifest = Manifest.find(manifest.id)
 
@@ -28,7 +28,7 @@ describe 'API request spec' do
 
         manifest = Manifest.create(activity_id: 2, document_id: 3, content: {hello: 'world', foo: ['bar', 'baz', 'quux'], nested: { something: 'good' }, generator: {name: "test", "manifest_tracking_number": manifest_tracking_number} })
 
-        send_json(:patch, "/api/v1/manifests?tracking_number=#{manifest_tracking_number}", patch_command)
+        send_json(:patch, "/api/v0/manifests?tracking_number=#{manifest_tracking_number}", patch_command)
 
         updatedManifest = Manifest.find(manifest.id)
 
@@ -43,7 +43,7 @@ describe 'API request spec' do
     end
   end
 
-  describe 'post /api/v1/tokens' do
+  describe 'post /api/v0/tokens' do
     let(:user_credentials) {
       { 'user_id' => 'userId', 'password' => 'password' }
     }
@@ -57,7 +57,7 @@ describe 'API request spec' do
         .with(user_credentials)
         .and_return(authenticator)
 
-      send_json(:post, '/api/v1/tokens', user_credentials)
+      send_json(:post, '/api/v0/tokens', user_credentials)
 
       session_id = last_request.session.id
       expect(last_response.ok?).to eq(true)
@@ -65,14 +65,14 @@ describe 'API request spec' do
     end
   end
 
-  describe 'post /api/v1/manifests/:manifest_id/signature' do
+  describe 'post /api/v0/manifests/:manifest_id/signature' do
     context 'sign by manifest id' do
       it 'creates retrieves and resaves a manifest with document id' do
         manifest = Manifest.create(content: {})
         cdx_manifest = double('cdx manifest', sign: { document_id: 44 })
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-        send_json(:post, "/api/v1/manifests/#{manifest.id}/signature", { activity_id: 22 })
+        send_json(:post, "/api/v0/manifests/#{manifest.id}/signature", { activity_id: 22 })
 
         manifest.reload
         expect(manifest.document_id).to eq('44')
@@ -84,7 +84,7 @@ describe 'API request spec' do
         cdx_manifest = double('cdx manifest', sign: { foo: 'bar' })
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-        send_json(:post, "/api/v1/manifests/#{manifest.id}/signature", { activity_id: 22 })
+        send_json(:post, "/api/v0/manifests/#{manifest.id}/signature", { activity_id: 22 })
 
         manifest.reload
         expect(manifest.document_id).to eq(nil)
@@ -106,7 +106,7 @@ describe 'API request spec' do
         cdx_manifest = double('cdx manifest', sign: { document_id: 44 })
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-        send_json(:post, "/api/v1/manifests/#{manifest_tracking_number}/signature", { activity_id: 22 })
+        send_json(:post, "/api/v0/manifests/#{manifest_tracking_number}/signature", { activity_id: 22 })
 
         manifest.reload
         expect(manifest.document_id).to eq('44')

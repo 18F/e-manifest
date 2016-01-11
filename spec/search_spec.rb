@@ -40,10 +40,10 @@ describe "search" do
   end
 
   def search_for(query)
-    get "/api/v1/manifests/search?q=#{query}"
+    get "/api/v0/manifests/search?q=#{query}"
   end
 
   def search_for_advanced(query)
-    get "/api/v1/manifests/search?#{QueryParams.encode({ aq: query })}"
+    get "/api/v0/manifests/search?#{QueryParams.encode({ aq: query })}"
   end
 end
