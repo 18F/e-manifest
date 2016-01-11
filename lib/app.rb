@@ -2,6 +2,7 @@ require_relative 'app_manifest'
 
 class App < Sinatra::Base
   configure do
+    set :port, (ENV['PORT'] || '9292')
     set :logging, true
     if url = ENV['DATABASE_URL']
       ConnectAR.new(url)
