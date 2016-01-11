@@ -1,4 +1,4 @@
-require_relative "../../../request_spec_helper"
+require_relative "../../../support/request_spec_helper"
 
 describe 'POST manifest/submit/:manifest_tracking_number' do
   it 'creates a new manifest' do
