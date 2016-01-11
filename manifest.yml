@@ -5,3 +5,7 @@ applications:
   domain: 18f.gov
   services:
   - e-manifest-dev-db
+  - emanifest-es-prod
+  - emanifest-redis-prod
+  env:
+    RACK_ENV: production
