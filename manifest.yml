@@ -1,4 +1,8 @@
 ---
+
+# general configuration
+command: script/start
+
 applications:
 - name: e-manifest
   memory: 128M
