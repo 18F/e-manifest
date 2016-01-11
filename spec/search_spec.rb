@@ -3,7 +3,7 @@ require_relative 'support/request_spec_helper'
 require_relative '../lib/chores/populator'
 require "queryparams"
 
-RSpec.describe "search" do
+describe "search" do
   describe "/search" do
     before(:context) do
       start_es_server
@@ -40,10 +40,10 @@ RSpec.describe "search" do
   end
 
   def search_for(query)
-    get "/api/0.1/manifest/search?q=#{query}"
+    get "/api/v0/manifests/search?q=#{query}"
   end
 
   def search_for_advanced(query)
-    get "/api/0.1/manifest/search?#{QueryParams.encode({ aq: query })}"
+    get "/api/v0/manifests/search?#{QueryParams.encode({ aq: query })}"
   end
 end
