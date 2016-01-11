@@ -80,8 +80,8 @@
              if (status === "201") {
                console.log("manifest created and located here: " + manifestUri);
              }
-        window.location.href = '/web/sign.html#!/?id=' + emanifestId + '&manifestTrackingNumber=' + self.data.generator.manifest_tracking_number;
-      });
+             window.location.href = '/web/sign-or-upload.html#!/?id=' + emanifestId + '&manifestTrackingNumber=' + self.data.generator.manifest_tracking_number;
+           });
     };
 
     $scope.formatCanonicalPhone = function(isValid, phoneNumber) {
@@ -184,6 +184,33 @@
 
   }]);
 
+  app.controller('SignOrUploadController', function($scope, $location) {
+    var search = $location.search();
+    $scope.data = {};
+
+    Object.keys(search).map(function(k) {
+      $scope.data[k] = search[k];
+    });
+
+    function searchQueryString (data) {
+      var keys = Object.keys(data);
+      var s = keys.map(function(k) {
+        return [k, data[k]].join('=');
+      }).join('&');
+
+      return s;
+    }
+
+    $scope.sign = function () {
+      window.location.href = '/web/sign.html?' + searchQueryString($scope.data);
+    };
+
+    $scope.upload = function () {
+      window.location.href = '/web/bulk-upload.html?' + searchQueryString($scope.data);
+    };
+
+  });
+
   app.controller('SearchController', function($scope, $http, $location) {
     var self = $scope.search = {};
     $scope.data = {};
@@ -192,8 +219,9 @@
 
     $scope.searchAPIparams = function() {
       var locParams = $location.search();
+      var sortPair;
       if (locParams["sort[]"]) {
-        var sortPair = (typeof locParams == "array" ? locParams["sort[]"][0] : locParams["sort[]"]).split(':');
+        sortPair = (typeof locParams == "array" ? locParams["sort[]"][0] : locParams["sort[]"]).split(':');
         $scope.sorted.field = sortPair[0];
         if (sortPair[1]) {
           $scope.sorted.descending = sortPair[1] == "desc";
@@ -206,7 +234,7 @@
         }
       }
       return jQuery.param(locParams);
-    }
+    };
 
     // $location requires the # in the url
     if (!window.location.href.match(/#\?/) && window.location.href.match(/\?/)) {
@@ -223,23 +251,23 @@
           item.content = item.content.replace(/[=]/g, ":");
           item.content = item.content.replace(/[>]/g, "");
           item.content = jQuery.parseJSON(item.content);
-        }   
-  
+        }
+
         var updatedAtString = item.updated_at;
         if (updatedAtString) {
           item.formatted_date = new Date(updatedAtString).toLocaleDateString();
-        }   
+        }
         hits.push(item);
-      }); 
+      });
       $scope.total = response.total;
       $scope.results = hits;
-    }
+    };
 
     $scope.fetchResults = function() {
       $http.get('/api/0.1/manifest/search?'+$scope.searchAPIparams()).success(function(response) {
         $scope.parseResults(response);
       });
-    }
+    };
 
     $scope.sortBy = function(fieldName) {
       if ($scope.sorted.field == fieldName) {
@@ -251,9 +279,9 @@
       }
       $location.search("sort[]", [$scope.sorted.field, ($scope.sorted.descending ? "desc" : "asc")].join(':'));
       $scope.fetchResults();
-    }
+    };
 
-    // "filter" is an advanced search. 
+    // "filter" is an advanced search.
     $scope.filter = function() {
       var adv_query = {};
       if ($scope.data.generator) {
@@ -271,12 +299,6 @@
 
     $scope.manifestDetail = function(data) {
       window.location.href = '/web/manifest-detail.html#?id='+data.id;
-    }
-
-    // fire the initial results if we have params
-    if ($location.search()) {
-      $scope.initialParams = $location.search();
-      $scope.fetchResults();
     }
   });
 

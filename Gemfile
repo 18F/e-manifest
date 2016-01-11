@@ -29,6 +29,7 @@ gem 'elasticsearch-rails-ha', git: 'https://github.com/18F/elasticsearch-rails-h
 group :development, :test do
   gem 'rack-test', require: 'rack/test'
   gem 'rspec'
+  gem 'rspec-mocks', '3.4.0'
 end
 
 group :test do
