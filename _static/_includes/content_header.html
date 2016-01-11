@@ -5,7 +5,14 @@
     </h1>
     <div class='usa-width-one-third'>
       <ul class="usa-button-list usa-unstyled-list unit-right">
-        <li class='unit'><a href="/web/home.html">Search</a></li>
+        <li class='unit'>
+          <form class="usa-search" method="get" action="/web/home.html">
+            <div role="search">
+              <input type="search" name="q">
+              <button type="submit"><span class="usa-search-submit-text">Search</span></button>
+            </div>
+          </form>
+        </li>
         <li class='unit'><a href="/web/industry.html">Industry</a></li>
       </ul>
     </div>

@@ -7,6 +7,8 @@
 0. Install Bundler (`gem install bundler`)
 0. Install Postgres and make sure postgres/bin is on your $PATH.
 0. Start postgres if it isn't automatically running: `postgres -D /usr/local/var/postgres`
+0. Install Elasticsearch and make sure it is running.
+0. Install Redis and make sure it is running.
 0. Run `bundle install` to grab the required gems.
 0. Use `rake db:create:all` to create the databases.
 0. User `rake db:migrate` to transform the database structure to what is
@@ -42,6 +44,8 @@
 - To build the static site, run `rake build`.
 - To build and serve the app, run `rake serve`.
 - To deploy to 18F's cloud, run `rake deploy`.
+- To add dummy data for developing against, run `rake populate:manifests`.
+- To (re)build the Elasticsearch index, run `rake search:index`.
 
 To add analytics support needed for production, prepend `JEKYLL_ENV=production` to any of the above commands.
 

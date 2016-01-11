@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + "/lib/app"
 require 'sinatra/activerecord/rake'
+Dir.glob('lib/tasks/*.rake').each { |r| load r}
 
 task default: 'build'
 
@@ -16,7 +17,7 @@ end
 desc 'Build jekyll and serve the sinatra app'
 task :serve do
   Rake::Task['build'].invoke
-  system 'rackup'
+  system 'foreman start -p 9292'
 end
 
 desc 'Deceptive name: just runs Sinatra without building Jekyll'

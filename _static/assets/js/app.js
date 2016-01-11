@@ -211,94 +211,110 @@
 
   });
 
-  app.controller('SearchController', function($scope, $http) {
+  app.controller('SearchController', function($scope, $http, $location) {
     var self = $scope.search = {};
     $scope.data = {};
-    $scope.filtered = {};
-    $scope.results = {};
+    $scope.results = [];
+    $scope.sorted = { field: "_score", descending: true };
 
-    $http.get('/api/0.1/manifest/search').success(function(response) {
-      for(var i = 0; i < response.length; i++) {
-        var item = response[i];
+    $scope.searchAPIparams = function() {
+      var locParams = $location.search();
+      var sortPair;
+      if (locParams["sort[]"]) {
+        sortPair = (typeof locParams == "array" ? locParams["sort[]"][0] : locParams["sort[]"]).split(':');
+        $scope.sorted.field = sortPair[0];
+        if (sortPair[1]) {
+          $scope.sorted.descending = sortPair[1] == "desc";
+        }
+        else if ($scope.sorted.field == "_score") {
+          $scope.sorted.descending = true;
+        }
+        else {
+          $scope.sorted.descending = false;
+        }
+      }
+      return jQuery.param(locParams);
+    };
+
+    // $location requires the # in the url
+    if (!window.location.href.match(/#\?/) && window.location.href.match(/\?/)) {
+      window.location = window.location.href.replace(/\?/, "#?");
+    }
+
+    $scope.parseResults = function(response) {
+      var hits = [];
+      jQuery.each(response.hits, function(i, hit) {
+        var item = hit._source;
 
         //fix for my local env.
-        if(typeof item.content == "string") {
+        if (typeof item.content == "string") {
           item.content = item.content.replace(/[=]/g, ":");
           item.content = item.content.replace(/[>]/g, "");
           item.content = jQuery.parseJSON(item.content);
         }
 
-        var updatedAtString = response[i].updated_at;
+        var updatedAtString = item.updated_at;
         if (updatedAtString) {
-          response[i].formatted_date = new Date(updatedAtString).toLocaleDateString();
+          item.formatted_date = new Date(updatedAtString).toLocaleDateString();
         }
-      }
-
-      $scope.results = response;
-      $scope.filtered = response;
-    });
-
-    $scope.filter = function() {
-      var gname, tname, items;
-      if ($scope.data.generator) {
-        gname = $scope.data.generator.name;
-      }
-      tname = $scope.data.tsdf_name;
-      items = new Array();
-
-      for(var i = 0; i < $scope.results.length; i++) {
-        var isAdded = false;
-        var item = $scope.results[i];
-
-        if(gname != undefined && item.content.generator && gname == item.content.generator.name)
-        {
-            items.push(item);
-            isAdded = true;
-        }
-
-        if(isAdded == false && tname != undefined && item.content.designated_facility && tname == item.content.designated_facility.name)
-        {
-           items.push(item);
-        }
-      }
-
-      $scope.filtered = items;
+        hits.push(item);
+      });
+      $scope.total = response.total;
+      $scope.results = hits;
     };
 
+    $scope.fetchResults = function() {
+      $http.get('/api/0.1/manifest/search?'+$scope.searchAPIparams()).success(function(response) {
+        $scope.parseResults(response);
+      });
+    };
+
+    $scope.sortBy = function(fieldName) {
+      if ($scope.sorted.field == fieldName) {
+        $scope.sorted.descending = !$scope.sorted.descending;
+      }
+      else {
+        $scope.sorted.field = fieldName;
+        $scope.sorted.descending = fieldName == "_score" ? true : false;
+      }
+      $location.search("sort[]", [$scope.sorted.field, ($scope.sorted.descending ? "desc" : "asc")].join(':'));
+      $scope.fetchResults();
+    };
+
+    // "filter" is an advanced search.
+    $scope.filter = function() {
+      var adv_query = {};
+      if ($scope.data.generator) {
+        adv_query['content.generator.name'] = $scope.data.generator.name;
+      }
+      if ($scope.data.tsdf_name) {
+        adv_query['content.designated_facility.name'] = $scope.data.tsdf_name;
+      }
+      // TODO state/province, date
+      window.location = "/web/home.html#?"+jQuery.param({aq: adv_query});
+      $http.get('/api/0.1/manifest/search?'+jQuery.param({aq: adv_query})).success(function(response) {
+        $scope.parseResults(response);
+      });
+    }
+
     $scope.manifestDetail = function(data) {
-      window.location.href = '/web/manifest-detail.html?id='+data.id;
+      window.location.href = '/web/manifest-detail.html#?id='+data.id;
     }
   });
 
-  app.controller('ManifestDetailController', ['$scope','$http',function($scope, $http) {
+  app.controller('ManifestDetailController', function($scope, $http, $location) {
 
-      function getQueryParams(qs) {
-          qs = qs.split('+').join(' ');
-
-          var params = {},
-              tokens,
-              re = /[?&]?([^=]+)=([^&]*)/g;
-
-          while (tokens = re.exec(qs)) {
-              params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-          }
-
-          return params;
+    var id = $location.search().id;
+    $http.get('/api/0.1/manifest/id/'+id).success( function(response) {
+      //fix for my local env.
+      if (typeof response.content == "string") {
+        response.content = response.content.replace(/[=]/g, ":");
+        response.content = response.content.replace(/[>]/g, "");
+        response.content = jQuery.parseJSON(response.content);
       }
-
-      var id = getQueryParams(document.location.search).id;;
-      $http.get('/api/0.1/manifest/id/'+id).success(
-          function(response) {
-              //fix for my local env.
-              if(typeof response.content == "string")
-              {
-                  response.content = response.content.replace(/[=]/g, ":");
-                  response.content = response.content.replace(/[>]/g, "");
-                  response.content = jQuery.parseJSON(response.content);
-              }
-            $scope.data = response;
-          });
-  }]);
+      $scope.data = response;
+    });
+  });
 
   app.controller('SignController', function($scope, $http, $location) {
     $scope.state = 'login';

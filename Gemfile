@@ -2,29 +2,39 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'rack-contrib'
-gem 'redcarpet'
-gem 'sinatra'
-gem 'thin'
-gem 'jekyll'
-gem 'pry'
-gem 'rake'
-
-gem 'pg'
 gem 'activerecord'
-gem 'sinatra-activerecord'
+gem 'ansi'
+gem 'dotenv'
+gem 'foreman'
 gem 'json-patch'
-
+gem 'jekyll'
+gem 'pg'
+gem 'pry'
+gem 'rack-contrib'
+gem 'rake'
+gem 'redcarpet'
 gem 'savon-multipart'
+gem 'sidekiq'
+gem 'sinatra'
+gem 'sinatra-activerecord'
+gem 'thin'
+
+# IMPORTANT these ES gems are clustered together because
+# load order is important
+gem 'kaminari'
+gem 'elasticsearch-dsl'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails-ha', git: 'https://github.com/18F/elasticsearch-rails-ha-gem.git'
 
 group :development, :test do
-  gem 'dotenv'
   gem 'rack-test', require: 'rack/test'
   gem 'rspec'
 end
 
 group :test do
   gem 'database_cleaner'
+  gem 'elasticsearch-extensions'
   gem 'json_matchers'
+  gem 'queryparams'
   gem 'webmock'
 end
