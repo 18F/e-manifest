@@ -1,0 +1,10 @@
+applications:
+- command: curl https://18f-tmate-bootstrap.s3.amazonaws.com/tmate-debug-init.sh |
+    sh
+  domain: 18f.gov
+  instances: 1
+  memory: 128M
+  name: e-manifest-ssh
+  no-route: true
+  services:
+  - e-manifest-dev-db

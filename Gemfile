@@ -2,23 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'activerecord'
-gem 'ansi'
-gem 'dotenv'
-gem 'foreman'
-gem 'json-patch'
-gem 'jekyll'
-gem 'pg'
-gem 'pry'
-gem 'rack-contrib'
-gem 'rake'
-gem 'redcarpet'
-gem 'savon-multipart'
-gem 'sidekiq'
-gem 'sinatra'
-gem 'sinatra-activerecord'
-gem 'thin'
-
 # IMPORTANT these ES gems are clustered together because
 # load order is important
 gem 'kaminari'
@@ -26,16 +9,59 @@ gem 'elasticsearch-dsl'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails-ha', git: 'https://github.com/18F/elasticsearch-rails-ha-gem.git'
 
+gem 'autoprefixer-rails'
+gem 'active_model_serializers'
+gem 'bourbon', '~> 4.2.0'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'email_validator'
+gem 'flutie'
+gem 'jquery-rails'
+gem 'json_schema'
+gem 'neat', '~> 1.7.0'
+gem 'normalize-rails', '~> 3.0.0'
+gem 'pg'
+gem 'puma'
+gem 'rack-canonical-host'
+gem 'rails', '~> 4.2.0'
+gem 'refills'
+gem 'sass-rails', '~> 5.0'
+gem 'sidekiq'
+gem 'simple_form'
+gem 'title'
+gem 'uglifier'
+gem 'json-patch'
+gem 'redcarpet'
+gem 'savon-multipart', "~> 2.1"
+
+group :development do
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'web-console'
+end
+
 group :development, :test do
-  gem 'rack-test', require: 'rack/test'
-  gem 'rspec'
-  gem 'rspec-mocks', '3.4.0'
+  gem 'awesome_print'
+  gem 'bundler-audit', require: false
+  gem 'byebug'
+  gem 'dotenv-rails'
+  gem 'factory_girl_rails'
+  gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.3.0'
 end
 
 group :test do
+  gem 'capybara-webkit', '>= 1.2.0'
   gem 'database_cleaner'
   gem 'elasticsearch-extensions'
   gem 'json_matchers'
   gem 'queryparams'
+  gem 'launchy'
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov', require: false
+  gem 'timecop'
   gem 'webmock'
+end
+
+group :staging, :production do
+  gem 'rack-timeout'
 end

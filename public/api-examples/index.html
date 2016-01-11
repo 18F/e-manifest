@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>e-Manifest API Examples | US EPA</title>
+    <meta name="description" content="EPA e-Manifest
+">
+    
+    <link rel="canonical" href="https://e-manifest.18f.gov/api-examples/">
+    
+    <!-- Compiled CSS  -->
+    <link rel="stylesheet" href="/assets/usa/css/main.css">
+    <link rel="stylesheet" href="/assets/usa/css/fixes.css">
+    <link rel="stylesheet" href="/assets/css/web.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+
+    <!-- Custom <head> content; for web fonts, favicon, etc. -->
+    
+<link href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+<!--
+Favicons:
+
+<link rel="shortcut icon" type="image/ico" href="/assets/img/favicon.ico">
+
+<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+-->
+
+    
+
+  </head>
+  
+  <body class="">
+    <div class="usa-disclaimer">
+  <div class='app-width'>
+    <span class="usa-disclaimer-official">
+      <img class="usa-flag_icon" alt="US flag signifying that this is a United States Federal Government website" src="/assets/usa/img/us_flag_small.png">
+      An official website of the United States Government
+    </span>
+    <span class="usa-disclaimer-stage">This site is currently in discovery. <a href="https://18f.gsa.gov/dashboard/stages/#discovery">Learn more.</a></span>
+  </div>
+</div>
+
+
+    <div class="wrapper">
+      
+      
+        
+
+
+
+<header class="site-header">
+  <div class="content">
+    
+    <nav>
+      
+      <a class="site-logo" href="/">
+        
+          <img class="site-logo-img" src="/assets/img/epa-logo-100px.png" alt="logo">
+        
+        EPA e-Manifest
+      </a>
+      
+      
+      
+      <ul class="site-nav">
+        
+          <li><a href="/api">API</a></li>
+        
+      </ul>
+      
+      <a href="javascript:toggleMobileMenu();">
+        <div id="site-nav-mobile" class="site-nav-mobile">
+          
+          <svg id="site-mobile-menu-icon-open" class="site-mobile-menu-icon" width="25px" height="20px" viewBox="0 0 25 20" stroke-width="2" stroke-linecap="square">
+            <path d="M1,1 L24,1"></path>
+            <path d="M1,10 L24,10"></path>
+            <path d="M1,19 L24,19"></path>
+          </svg>
+          
+          <svg id="site-mobile-menu-icon-close" class="site-mobile-menu-icon" width="25px" height="20px" viewBox="0 0 25 20" stroke-width="2" stroke-linecap="square" style="display:none">
+            <path d="M4,2 L21,18"></path>
+            <path d="M4,18 L21,2"></path>
+          </svg>
+          
+        </div>
+      </a>
+      
+      
+      
+    </nav>
+    
+    <div id="site-mobile-menu" class="site-mobile-menu" style="display:none">
+      <ul>
+        
+          <a href="/api"><li>API</li></a>
+        
+      </ul>
+    </div>
+    
+  </div>
+</header>
+
+
+
+
+      
+      <div class="main">
+        <div class="content">
+  
+  
+  <div class="breadcrumbs">
+    <ul>
+      
+        <li>
+          
+            <img class="back-arrow" src="/assets/template/separator.svg" alt="back arrow">
+          
+          
+          
+            <a href="/">Home</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+  
+  <div class="page-header">
+    
+    <h1>e-Manifest API Examples</h1>
+    
+    
+    
+    <h2>Code examples of using the e-Manifest API.</h2>
+    
+  </div>
+  
+  
+  
+
+
+  
+  <div class="page-content">
+    <p>Using the e-Manifest API consists of two major steps: uploading and signing manifests.</p>
+
+<p>The production base URL is <strong>https://e-manifest.18f.gov/api/0.1</strong></p>
+
+<p>Notation note: path variables are expressed as <code>:variable_name</code>. The colon is not part of the URI.</p>
+
+<h2><a name="submit-manifest"></a>Submit a manifest</h2>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X POST -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  --data @manifest.json <span class="se">\</span>
+  https://e-manifest.18f.gov/api/0.1/manifest/submit/:manifest_tracking_number
+</code></pre></div>
+<p>where the <code>:manifest_tracking_number</code> is from Line 4 of form 8700-22. </p>
+
+<p>An example <code>manifest.json</code> file looks like:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+   </span><span class="nt">"generator"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"112712334321"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"emergency_response_phone"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"888-999-8888"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signatory"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob Smith"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"site_address_same_as_mailing_address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"no"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Generator Y"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"zip_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"93818"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"city"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Cornerville"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"address_2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Around the Corner"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"address_1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"123 Site Place"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"no_us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"mailing_address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"address_1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"88 Generator Way"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"address_2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Loop 19"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"LA"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"zip_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"71291"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"city"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Looptown"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"manifest_tracking_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"98876761"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"800-883-1731"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"manifest_items"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"container_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BA"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"packing_group"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Twelve"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"epa_waste_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"Fed1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Fed2"</span><span class="w">
+         </span><span class="p">],</span><span class="w">
+         </span><span class="nt">"id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"771"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"number_of_containers"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"state_waste_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"State1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"state2"</span><span class="w">
+         </span><span class="p">],</span><span class="w">
+         </span><span class="nt">"total_quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"99"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"proper_shipping_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hazardous Stuff"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"unit_wt_vol"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"G"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"hazardous_material"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"hazard_classes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"8"</span><span class="w">
+         </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"proper_shipping_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Old Shoes"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"state_waste_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"Else"</span><span class="w">
+         </span><span class="p">],</span><span class="w">
+         </span><span class="nt">"total_quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"953"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"hazardous_material"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"no"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"unit_wt_vol"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Q"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"hazard_classes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+         </span><span class="nt">"number_of_containers"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"packing_group"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"81988931"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"epa_waste_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"Something"</span><span class="w">
+         </span><span class="p">],</span><span class="w">
+         </span><span class="nt">"id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"671"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"container_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"CR"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nt">"waste_handling_instructions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Do not feed after midnight."</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"transporters"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"3881"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"company_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Transporter National"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"signatory"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Jill Jones"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nt">"waste_pcb_description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"None."</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"is_international_shipment"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"report_management_method_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Method1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Method2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Method3"</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nt">"designated_facility"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"certification"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Betty Black"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Facility Zero"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"9238754"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"discrepancy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1734"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"category_quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"no_rejection"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"signatory"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Only received 940 quarts of shoes."</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"zip_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"91919"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"city"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Alternative"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"AK"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"address_2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Ste 671"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"address_1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"88 Alternate Av"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Alternate Facility Y"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"877-577-2771"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"has_discrepancy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"888-848-1318"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"address_1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"360 Zero Circle"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"address_2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Two Pi"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"PA"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"zip_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"23171"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"city"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Pie Town"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"international_shipment"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"export_import"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"export_from_us"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"port_of_entry_exit"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Savannah, GA"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"date_leaving_us"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"22"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"waste_non_hazardous_material_present"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>The response from that POST will include no body content, but the <code>Location</code> header will contain<br>
+the URL of the submitted manifest, which will include the unique e-Manifest identifier. A successful<br>
+submission should return a 201 status.</p>
+
+<h2><a name="fetch-manifest"></a>Fetch a manifest</h2>
+
+<p>To retrieve a previously submitted e-Manifest, you need the e-Manifest ID from<br>
+the <a href="#submit-manifest">Submit a manifest example</a>.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X GET https://e-manifest.18f.gov/api/0.1/manifest/id/:e_manifest_id
+</code></pre></div>
+<p>If you do not know the e-Manifest ID, but you do have the Manifest Tracking Number from Line 4 of form 8700-22,<br>
+you can fetch the e-Manifest object with the Manifest Tracking Number.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X GET https://e-manifest.18f.gov/api/0.1/manifest/:manifest_tracking_number
+</code></pre></div>
+<p>The response for both endpoints looks the same:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+   </span><span class="nt">"document_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"d976f1b4-a2a2-41f8-b2d7-6ae02e257634"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"content"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"international_shipment"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"export_import"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"export_from_us"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"date_leaving_us"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"22"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"port_of_entry_exit"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Savannah, GA"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"is_international_shipment"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"manifest_items"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"proper_shipping_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hazardous Stuff"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"state_waste_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+               </span><span class="s2">"State1"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"state2"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"epa_waste_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+               </span><span class="s2">"Fed1"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"Fed2"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"total_quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"99"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"container_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BA"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"hazard_classes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+               </span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"8"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"packing_group"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Twelve"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"771"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"hazardous_material"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"unit_wt_vol"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"G"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"number_of_containers"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"container_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"CR"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"hazard_classes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nt">"total_quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"953"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"state_waste_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+               </span><span class="s2">"Else"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"proper_shipping_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Old Shoes"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"epa_waste_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+               </span><span class="s2">"Something"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"packing_group"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"81988931"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"671"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"number_of_containers"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"unit_wt_vol"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Q"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"hazardous_material"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"no"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"report_management_method_codes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="s2">"Method1"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Method2"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Method3"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"designated_facility"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Facility Zero"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"888-848-1318"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"certification"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Betty Black"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"discrepancy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Only received 940 quarts of shoes."</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"no_rejection"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1734"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"877-577-2771"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"signatory"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+               </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+               </span><span class="nt">"address_1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"88 Alternate Av"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"AK"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"zip_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"91919"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"address_2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Ste 671"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"city"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Alternative"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"category_quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Alternate Facility Y"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"has_discrepancy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"9238754"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"zip_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"23171"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"address_2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Two Pi"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"PA"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"city"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Pie Town"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"address_1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"360 Zero Circle"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"transporters"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"3881"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"company_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Transporter National"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"signatory"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+               </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Jill Jones"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"waste_pcb_description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"None."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"waste_non_hazardous_material_present"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"waste_handling_instructions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Do not feed after midnight."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"generator"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Generator Y"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"manifest_tracking_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"98876761"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"no_us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"signatory"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob Smith"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"site_address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"address_1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"123 Site Place"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"zip_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"93818"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"city"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Cornerville"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"address_2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Around the Corner"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"mailing_address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"LA"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"zip_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"71291"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"city"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Looptown"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"address_2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Loop 19"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"address_1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"88 Generator Way"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"800-883-1731"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"112712334321"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"site_address_same_as_mailing_address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"no"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"emergency_response_phone"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"888-999-8888"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"activity_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"_7f0ea6e2-99fa-4efa-bc2a-4febe40ec8ff"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"created_at"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-10-20T15:35:44.175Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"updated_at"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-10-20T15:36:27.689Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<h2><a name="update-manifest"></a>Update manifest</h2>
+
+<p>You may update a previously submitted e-Manifest. </p>
+
+<p>If the manifest has previously been signed, updating it does not change what has been previously signed<br>
+(see <a href="#sign-manifest">Sign a manifest example</a>). You must re-sign the updated e-Manifest.</p>
+
+<p>The update request uses the HTTP <code>PATCH</code> method. See <a href="http://tools.ietf.org/html/rfc6902">JSON Patch</a> and<br>
+<a href="http://tools.ietf.org/html/rfc6901">JSON Pointer</a> for specification details.</p>
+
+<p>Just as in the <a href="#fetch-manifest">Fetch a manifest example</a>, you may use either the e-Manifest ID or the <br>
+Manifest Tracking Number.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X PATCH -H <span class="s1">'Content-Type: application/json-patch+json'</span> <span class="se">\</span>
+  --data @manifest-patch.json <span class="se">\</span>
+  https://e-manifest.18f.gov/api/0.1/manifest/id/:e_manifest_id
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X PATCH -H <span class="s1">'Content-Type: application/json-patch+json'</span> <span class="se">\</span>
+  --data @manifest-patch.json <span class="se">\</span>
+  https://e-manifest.18f.gov/api/0.1/manifest/:manifest_tracking_number
+</code></pre></div>
+<p>An example <code>manifest-patch.json</code> file looks like:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">[</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"op"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"replace"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/generator/name"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Generator ZZ"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/generator/mailing_address/zip_code"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"11211"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"op"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"add"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"op"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"remove"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/manifest_items/1"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"no"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/non_hazardous_material_present"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"op"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"replace"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"op"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"add"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/transporters"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"company_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"AAAA Transporter"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"us_epa_id_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"3882"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"signatory"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"month"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John Smith"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"day"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"28"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"year"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+
+</span></code></pre></div>
+<p>The response format is the same as in the <a href="#fetch-manifest">Fetch a manifest example</a>.</p>
+
+<h2><a name="search-manifest"></a>Search for manifests</h2>
+
+<p>The e-Manifest API supports full-text search of all e-Manifests. You can search with simple terms, or<br>
+by specifying specific fields within which your terms should match. Wildcards, booleans and phrase search<br>
+are all supported. See the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax">full query string syntax documentation</a> for more details.</p>
+
+<p>Example of looking for a manifest by Manifest Tracking Number <code>abc123</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X GET <span class="se">\</span>
+  <span class="s1">'https://e-manifest.18f.gov/api/0.1/manifest/search?q=content.generator.manifest_tracking_number:abc123'</span>
+</code></pre></div>
+<p>You can page through results with the <code>size</code> and <code>from</code> URL query parameters, and sort results by any field.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X GET <span class="se">\</span>
+  <span class="s1">'https://e-manifest.18f.gov/api/0.1/manifest/search?q=abc123&amp;from=0&amp;size=10&amp;sort[]=id:desc'</span>
+</code></pre></div>
+<p>The search response format looks like:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"max_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.123</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"hits"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">list</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">e-Manifest</span><span class="w"> </span><span class="err">documents</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<h2><a name="authenticate-user"></a>Authenticate User</h2>
+
+<p>You must authenticate with the CDX CROMERR service for signing a manifest. Values in the response are needed to sign the manifest.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X POST -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  --data @auth-creds.json <span class="se">\</span>
+  https://e-manifest.18f.gov/api/0.1/user/authenticate
+</code></pre></div>
+<p>An example <code>auth-creds.json</code> file looks like:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"user_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"CDX user id"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"password"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"CDX password"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>The authentication response looks like:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8f5483a86d3ca682cf7ee8ef514fda1b460b416fd542756645dedea227100719"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"_633a4568b-811e-471b-92b5-a7a8bca12fea"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"question_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"question_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What was your high school's mascot?"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDX user id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>You will use the authentication response to <a href="#sign-manifest">Sign your manifest</a>.</p>
+
+<h2><a name="sign-manifest"></a>Sign manifest</h2>
+
+<p>To sign a manifest you must first <a href="#authenticate-user">Authenticate</a>.</p>
+
+<p>You can sign a manifest with either the e-Manifest ID:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X POST -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  --data @sign-manifest-emanifestid.json <span class="se">\</span>
+  https://e-manifest.18f.gov/api/0.1/manifest/sign
+</code></pre></div>
+<p>where <code>sign-manifest-emanifestid.json</code> looks like:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8f5483a86d3ca682cf7ee8ef514fda1b460b416fd542756645dedea227100719"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"_633a4568b-811e-471b-92b5-a7a8bca12fea"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your e-Manifest ID"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"question_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"question_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What was your high school's mascot?"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDX user id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>You may also sign with the Manifest Tracking Number:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X POST -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  --data @sign-manifest-manifesttrackingnumber.json <span class="se">\</span>
+  https://e-manifest.18f.gov/api/0.1/manifest/signByTrackingNumber
+</code></pre></div>
+<p>where <code>sign-manifest-manifesttrackingnumber.json</code> looks like:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8f5483a86d3ca682cf7ee8ef514fda1b460b416fd542756645dedea227100719"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"_633a4568b-811e-471b-92b5-a7a8bca12fea"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"manifest_tracking_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"your Manifest Tracking Number"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"question_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"question_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What was your high school's mascot?"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDX user id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<h2><a name="management-codes"></a>Management method codes</h2>
+
+<p>Fetch the list of valid hazardous waste report management method codes like this:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -i -X GET https://e-manifest.18f.gov/api/0.1/method_code
+</code></pre></div>
+<p>The response will look like:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"H010"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reclamation and Recovery"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Metals recovery including retorting, smelting, chemical, etc."</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">methods</span><span class="w"> </span><span class="err">here</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+  </div>
+  
+</div>
+
+      </div>
+      
+      <div class="push"></div>
+    </div>
+    
+    
+    <footer>
+      
+      
+        
+      
+      
+      <div class="section footer-content">
+        <div class="content">
+          
+        </div>
+      </div>
+    </footer>
+    
+    
+    <script src="/assets/template/fastclick.js"></script>
+    <script src="/assets/template/template.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    
+  </body>
+  
+</html>

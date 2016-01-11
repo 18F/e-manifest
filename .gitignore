@@ -1,15 +1,15 @@
-public/
-tmp/
-_static/.sass-cache/
-Gemfile.lock
-log/*.log
-node_modules/
-
-# Ignore Cloud Foundry files
-cf-ssh.yml
-
-# Ignore emacs autosave
-**/*~
-
-# Ignore local envvars
+!.keep
+*.DS_Store
+*.swo
+*.swp
+/.bundle
+.env
 .env.development
+/.foreman
+/coverage/*
+/db/*.sqlite3
+/log/*
+/public/system
+/public/assets
+/tags
+/tmp/*

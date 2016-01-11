@@ -1,5 +1,5 @@
 require 'rake'
-require_relative File.dirname(__FILE__) + '/../../../chores/populator.rb'
+require_relative File.dirname(__FILE__) + '../../../db/chores/populator.rb'
 
 namespace :populate do
   desc "populate database with dummy manifests"
