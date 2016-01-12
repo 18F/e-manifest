@@ -27,6 +27,10 @@ class QueryDSL
     current_user != nil
   end
 
+  def apply_public_filter?
+    params[:public]
+  end
+
   def composite_query_string
     stringify_clauses [query_str, client_query].select(&:present?)
   end
@@ -83,6 +87,7 @@ class QueryDSL
 
   def add_query
     searchdsl = self
+    return unless composite_query_string.present?
     @dsl.query = Query.new
     @dsl.query do
       query_string do
@@ -94,15 +99,26 @@ class QueryDSL
 
   def add_filter
     searchdsl = self
-    if apply_authz?
-      @dsl.filter = Filter.new
-      @dsl.filter do
+    filter = Filter.new do
+      if searchdsl.apply_authz?
         bool do
           must do
-            term "subscribers.id" => searchdsl.current_user.id.to_s
+            term "authz_group" => searchdsl.current_user.id.to_s
           end
         end
       end
+      if searchdsl.apply_public_filter?
+        high_end_range = Time.current
+        low_end_range = high_end_range.utc - 90.days
+        bool do
+          must do
+            range "created_at" => { from: low_end_range, to: high_end_range.utc }
+          end
+        end
+      end
+    end
+    if filter.to_hash.keys.any?
+      @dsl.filter = filter
     end
   end
 

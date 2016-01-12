@@ -3,7 +3,6 @@ class ManifestsController < ApplicationController
   end
 
   def index
-    result = HTTParty.get(api_v0_manifests_search_url, headers: { "Content-Type" =>'application/json'})
-    @manifests = JSON.parse(result.body)
+    @manifests = Manifest.authorized_search({public: true}).response.records.to_a
   end
 end
