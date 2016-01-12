@@ -16,4 +16,3 @@ end
 
 ActiveRecord::Migration.maintain_test_schema!
 Capybara.javascript_driver = :webkit
-Capybara.app_host = "localhost:3000"
