@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature 'Home page' do
+  before(:context) do
+    start_es_server
+  end
+
   scenario 'sees list of recently filed manifests' do
     manifest = create(:manifest)
 
@@ -17,5 +21,9 @@ feature 'Home page' do
     click_link 'Industry'
 
     expect(page).to have_content 'Submit a manifest'
+  end
+
+  after(:context) do
+    stop_es_server
   end
 end
