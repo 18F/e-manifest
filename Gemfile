@@ -27,6 +27,7 @@ gem 'refills'
 gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'simple_form'
+gem 'sinatra', require: nil
 gem 'title'
 gem 'uglifier'
 gem 'json-patch'
