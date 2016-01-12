@@ -3,6 +3,6 @@ class ManifestsController < ApplicationController
   end
 
   def index
-    @manifests = Manifest.authorized_search({public: true}).response.records.to_a
+    @manifests = Manifest.authorized_search({public: true}).records.to_a
   end
 end
