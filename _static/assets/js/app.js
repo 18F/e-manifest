@@ -300,6 +300,13 @@
     $scope.manifestDetail = function(data) {
       window.location.href = '/web/manifest-detail.html#?id='+data.id;
     }
+
+    // fire the initial results if we have params
+    if ($location.search()) {
+      $scope.initialParams = $location.search();
+      $scope.fetchResults();
+    }
+
   });
 
   app.controller('ManifestDetailController', function($scope, $http, $location) {
