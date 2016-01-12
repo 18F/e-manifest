@@ -13,7 +13,7 @@
         "/manifest/submit/:manifest_tracking_number": {
             "post": {
                 "summary": "Submit Manifest",
-                "description": "Submit a new manifest to the eManifest system.",
+                "description": "Submit a new manifest to the e-Manifest system.",
                 "parameters": [
                     {
                         "name": "manifest_tracking_number",
