@@ -49,4 +49,10 @@ end
 
 RSpec.configure do |config|
   config.include EsSpecHelper
+  config.before :each, elasticsearch: true do
+    start_es_server unless Elasticsearch::Extensions::Test::Cluster.running?
+  end
+  config.after :suite do
+    Elasticsearch::Extensions::Test::Cluster.stop if Elasticsearch::Extensions::Test::Cluster.running?
+  end
 end
