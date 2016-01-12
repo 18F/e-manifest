@@ -14,6 +14,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= body_class %>">
+  <header>
+    <div class='container'>
+      <div>
+        <h1>e-Manifest</h1>
+        <%= link_to 'Home', root_path %>
+        <%= link_to 'Industry', new_submission_path %>
+      </div>
+    </div>
+  </header>
+
   <%= render "flashes" -%>
   <%= yield %>
   <%= render "javascript" %>
