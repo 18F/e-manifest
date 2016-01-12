@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -e
+set -x
+
+bundle exec puma -p ${PORT:-3000} -e ${RACK_ENV:-development} -C ./config/puma.rb
