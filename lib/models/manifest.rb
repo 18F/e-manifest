@@ -7,19 +7,19 @@ class Manifest < ActiveRecord::Base
 
   after_commit on: [:create] do
     unless test?
-      reindex_async
+      #reindex_async
     end
   end
 
   after_commit on: [:update] do
     unless test?
-      reindex_async
+      #reindex_async
     end
   end
 
   after_commit on: [:destroy] do
     unless test?
-      ::IndexerWorker.perform_async(:delete,  self.class.to_s, self.id)
+      #::IndexerWorker.perform_async(:delete,  self.class.to_s, self.id)
     end
   end
 
