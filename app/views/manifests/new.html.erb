@@ -1,0 +1,4 @@
+<%= simple_form_for :manifest, url: api_v0_manifests_url, method: :post do |form| %>
+  <%= form.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)' %>
+  <%= form.submit 'Continue' %>
+<% end %>

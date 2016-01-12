@@ -4,7 +4,7 @@ class Manifest < ActiveRecord::Base
   ActiveRecord::Base.raise_in_transactional_callbacks = true
 
   after_commit on: [:create] do
-    unless test?
+    unless Rails.env.test?
       reindex_async
     end
   end
@@ -17,7 +17,7 @@ class Manifest < ActiveRecord::Base
 
   after_commit on: [:destroy] do
     unless test?
-      ::IndexerWorker.perform_async(:delete,  self.class.to_s, self.id)
+      IndexerWorker.perform_async(:delete,  self.class.to_s, self.id)
     end
   end
 
@@ -26,7 +26,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def reindex_async
-    ::IndexerWorker.perform_async(:index,  self.class.to_s, self.id)
+    IndexerWorker.perform_async(:index,  self.class.to_s, self.id)
   end
 
   def remove_from_index
