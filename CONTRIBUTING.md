@@ -9,17 +9,21 @@
 0. Start postgres if it isn't automatically running: `postgres -D /usr/local/var/postgres`
 0. Install Elasticsearch and make sure it is running.
 0. Install Redis and make sure it is running.
+0. Install the [Qt implementation of Webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) as we now depend on [capybara-webkit gem](https://github.com/thoughtbot/capybara-webkit).
 0. Run `bundle install` to grab the required gems.
 0. Use `rake db:create:all` to create the databases.
 0. User `rake db:migrate` to transform the database structure to what is
    needed by the app. For test you will need to preface with env variables 
    to indicate the environment: `RACK_ENV=test rake db:migrate`
-0. Place environment-specific variables in a `.env.`*environmentname* file. The default is `.env`.
+0. Run `./bin/setup` to initialize the rails application.
+0. Edit the environment-specific variables in a `.env.`*environmentname* file. The default created by running `./bin/setup` is `.env`.
    Test-specific variables can go in `.env.test`. If you have set a postgres username and password,
    use the `DATABASE_URL` environment variable to configure it. See `.env.example` for an example.
    Default database configuration is stored in `config/database.yml`.
-0. Run `rake serve`. This will build the Jekyll site and start the Sinatra server.
-0. Go to `localhost:9292` and enjoy!
+0. Add the CROMERR account credentials (CDX_USERNAME and CDX_PASSWORD) to `.env`.
+0. Run `rake secret` and set the output as the value for `SECRET_KEY_BASE` in `.env`.
+0. Run `rails s` to start the Rails application.
+0. Go to `http://localhost:3000` and enjoy!
 
 ### Development practices
 
@@ -41,9 +45,9 @@
 
 ### Rake Tasks
 
-- To build the static site, run `rake build`.
-- To build and serve the app, run `rake serve`.
-- To deploy to 18F's cloud, run `rake deploy`.
+- ~~To build the static site, run `rake build`.~~
+- ~~To build and serve the app, run `rake serve`.~~
+- To deploy to 18F's cloud, run `cf push`.
 - To add dummy data for developing against, run `rake populate:manifests`.
 - To (re)build the Elasticsearch index, run `rake search:index FORCE=y`.
 
@@ -71,14 +75,12 @@ one needs a system account set up with rights to sign on behalf of authenticated
 users. The account credentials are available from the e-Manifest development
 team.
 
-The username and password env variables should be in the `.env.development` file
+The username and password env variables should be in the `.env` file
 located in the root with the following form:
 
     CDX_USERNAME = "put username here"
     CDX_PASSWORD = "put password here"
 
-In other words, `cp .env.example .env.development` and edit the file with the
-supplied API keys.
 
 In addition to these API keys, you will need the username, password, and
 security question answers in order to sign in via the web UI. These can also be
