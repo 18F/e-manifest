@@ -6,6 +6,11 @@
   "type": [
     "object"
   ],
+  "required": [
+    "document_id",
+    "activity_id",
+    "content"
+  ],
   "definitions" : {
     "content" : {
       "$ref" : "http://e-manifest.18f.gov/schemas/post-manifest.json#"
