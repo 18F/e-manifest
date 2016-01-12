@@ -14,6 +14,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= body_class %>">
+  <header role="banner">
+  <%= render "usa_disclaimer" %>
+
+    <nav class="usa-site-navbar app-width">
+      <div class='inner'>
+        <div class="logo" id="logo">
+          <%= render 'epa_logo' %>
+        </div>
+
+        <ul class="usa-button-list usa-unstyled-list top-level-nav-links">
+          <li class='unit'><a href="/web">Home</a></li>
+          <li class='unit'><a href="/about">About</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
   <%= render "flashes" -%>
   <%= yield %>
   <%= render "javascript" %>
