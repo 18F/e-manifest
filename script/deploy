@@ -14,5 +14,5 @@ if ! hash cf-blue-green 2>/dev/null; then
   npm install -g cf-blue-green
 fi
 
-cf-blue-green $1
-cf-blue-green ${1}-worker
+cf-blue-green $1 -f web-manifest.yml
+cf-blue-green ${1}-worker -f worker-manifest.yml
