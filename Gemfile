@@ -31,7 +31,7 @@ gem 'title'
 gem 'uglifier'
 gem 'json-patch'
 gem 'redcarpet'
-gem 'savon-multipart', "~> 2.1"
+gem 'savon-multipart', git: 'https://github.com/jessieay/savon-multipart.git'
 
 group :development do
   gem 'spring'

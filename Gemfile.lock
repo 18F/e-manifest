@@ -7,6 +7,14 @@ GIT
       elasticsearch-model
       elasticsearch-rails
 
+GIT
+  remote: https://github.com/jessieay/savon-multipart.git
+  revision: 6771eaee41aacb5220af9a096164d63acca05b1b
+  specs:
+    savon-multipart (2.1.1)
+      mail (~> 2.6)
+      savon (~> 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -150,11 +158,10 @@ GEM
       addressable (~> 2.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mail (2.5.4)
-      mime-types (~> 1.16)
-      treetop (~> 1.4.8)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mime-types (1.25.1)
+    mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
@@ -167,7 +174,6 @@ GEM
     nori (2.6.0)
     normalize-rails (3.0.3)
     pg (0.18.4)
-    polyglot (0.3.5)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -245,9 +251,6 @@ GEM
       nokogiri (>= 1.4.0)
       nori (~> 2.4)
       wasabi (~> 3.4)
-    savon-multipart (2.1.1)
-      mail (~> 2.5.4)
-      savon (~> 2)
     shoulda-matchers (3.1.0)
       activesupport (>= 4.0.0)
     sidekiq (4.0.2)
@@ -280,9 +283,6 @@ GEM
     title (0.0.5)
       i18n
       rails (>= 3.1)
-    treetop (1.4.15)
-      polyglot
-      polyglot (>= 0.3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -342,7 +342,7 @@ DEPENDENCIES
   refills
   rspec-rails (~> 3.3.0)
   sass-rails (~> 5.0)
-  savon-multipart (~> 2.1)
+  savon-multipart!
   shoulda-matchers
   sidekiq
   simple_form
