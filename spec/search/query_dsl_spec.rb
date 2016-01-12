@@ -1,6 +1,6 @@
-RSpec.describe "QueryDSL" do
+describe Search::QueryDSL do
   it "converts params to ES DSL" do
-    dsl = QueryDSL.new(params: {q: 'foo', aq: { color: "green" } }, current_user: nil)
+    dsl = Search::QueryDSL.new(params: {q: 'foo', aq: { color: "green" } }, current_user: nil)
     expect(dsl.to_hash).to eq({
       query: {
         query_string: {
@@ -8,7 +8,7 @@ RSpec.describe "QueryDSL" do
           default_operator: "and"
         },
       },
-      size: QueryDSL::MAX_RESULTS,
+      size: Search::QueryDSL::MAX_RESULTS,
       from: 0
     })
   end

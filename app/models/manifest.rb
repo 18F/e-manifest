@@ -1,3 +1,5 @@
+require_relative '../search/query_dsl'
+
 class Manifest < ActiveRecord::Base
   def tracking_number
     if content["generator"]
@@ -56,7 +58,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def self.authorized_search(params, current_user=nil)
-    dsl = QueryDSL.new(params: params, current_user: current_user)
+    dsl = Search::QueryDSL.new(params: params, current_user: current_user)
     search(dsl)
   end
 end
