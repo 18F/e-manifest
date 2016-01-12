@@ -1,7 +1,7 @@
 class ManifestSerializer < ActiveModel::Serializer
   attributes(
     :activity_id,
-    :created_date,
+    :created_on,
     :document_id,
     :generator,
     :transporters,
@@ -13,7 +13,7 @@ class ManifestSerializer < ActiveModel::Serializer
     :report_management_method_codes,
   )
 
-  def created_date
+  def created_on
     object.created_on
   end
 

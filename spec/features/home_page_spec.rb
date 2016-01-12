@@ -8,6 +8,6 @@ feature 'Home page' do
 
     expect(page).to have_content manifest.tracking_number
     expect(page).to have_content manifest.generator_name
-    expect(page).to have_content manifest.created_date
+    expect(page).to have_content manifest.created_on
   end
 end
