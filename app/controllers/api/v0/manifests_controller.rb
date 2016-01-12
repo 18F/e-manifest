@@ -25,26 +25,18 @@ class Api::V0::ManifestsController < ApplicationController
 
   def show
     begin
-      if params[:id]
-        manifest = Manifest.find(params[:id])
-      elsif params[:tracking_number]
-        manifest = Manifest.find_by!("content -> 'generator' ->> 'manifest_tracking_number' = ?", params[:tracking_number])
-      end
+      manifest = find_manifest
     rescue ActiveRecord::RecordNotFound => _error
       render json: {}, status: 404
       return
     end
 
-    render json: manifest.to_json
+    render json: manifest.to_public_json
   end
 
   def update
     begin
-      if params[:id]
-        manifest = Manifest.find(params[:id])
-      elsif params[:tracking_number]
-        manifest = Manifest.find_by!("content -> 'generator' ->> 'manifest_tracking_number' = ?", params[:tracking_number])
-      end
+      manifest = find_manifest
 
       patch = JSON.parse(request.body.read)
       patch_json = patch.to_json
@@ -53,7 +45,7 @@ class Api::V0::ManifestsController < ApplicationController
       new_json = JSON.patch(manifest_content_json, patch_json);
       manifest.update_column(:content, new_json)
 
-      render json: manifest.to_json
+      render json: manifest.to_public_json
     rescue ActiveRecord::RecordNotFound => _error
       status 404
     end
@@ -65,5 +57,21 @@ class Api::V0::ManifestsController < ApplicationController
     params.require(:manifest).permit(
       :manifest_tracking_number,
     )
+  end
+
+  def find_manifest
+    if params[:id] || params[:uuid]
+      find_manifest_by_id
+    elsif params[:tracking_number]
+      find_manifest_by_tracking_number
+    end
+  end
+
+  def find_manifest_by_id
+    Manifest.find_by!(uuid: (params[:id] || params[:uuid]))
+  end
+
+  def find_manifest_by_tracking_number
+    Manifest.find_by!("content -> 'generator' ->> 'manifest_tracking_number' = ?", params[:tracking_number])
   end
 end

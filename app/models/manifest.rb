@@ -43,4 +43,15 @@ class Manifest < ActiveRecord::Base
     dsl = QueryDSL.new(params: params, current_user: current_user)
     search(dsl)
   end
+
+  def as_public_json(options={})
+    options[:except] = [:id]
+    hashed = as_json(options)
+    hashed['id'] = hashed.delete('uuid')
+    hashed
+  end
+
+  def to_public_json(options={})
+    as_public_json.to_json
+  end
 end
