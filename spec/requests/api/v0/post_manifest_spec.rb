@@ -11,6 +11,5 @@ describe 'POST manifests' do
     manifest = Manifest.last
 
     expect(manifest.content).to eq({ 'manifest_tracking_number' => 'test_number' })
-    expect(response).to match_response_schema("get-manifest")
   end
 end
