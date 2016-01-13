@@ -12,6 +12,7 @@ gem 'elasticsearch-rails-ha', git: 'https://github.com/18F/elasticsearch-rails-h
 gem 'autoprefixer-rails'
 gem 'active_model_serializers'
 gem 'bourbon', '~> 4.2.0'
+gem 'coderay'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'email_validator'
 gem 'flutie'

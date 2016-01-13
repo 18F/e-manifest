@@ -331,6 +331,7 @@ DEPENDENCIES
   bundler-audit
   byebug
   capybara-webkit (>= 1.2.0)
+  coderay
   coffee-rails (~> 4.1.0)
   database_cleaner
   dotenv-rails
