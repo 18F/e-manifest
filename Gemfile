@@ -33,6 +33,7 @@ gem 'uglifier'
 gem 'json-patch'
 gem 'redcarpet'
 gem 'savon-multipart', git: 'https://github.com/jessieay/savon-multipart.git'
+gem 'swagger-ui_rails', git: 'https://github.com/pkarman/swagger-ui_rails.git', submodules: true
 
 group :development do
   gem 'spring'

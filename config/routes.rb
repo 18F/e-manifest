@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :manifest_uploads, only: [:new]
   resources :submissions, only: [:new]
 
+  get 'api-examples', to: 'api_documentation#examples'
+  get 'api-diagnostics', to: 'api_documentation#diagnostics'
+  get 'api-documentation', to: 'api_documentation#swagger'
+
   namespace :api do
     namespace :v0 do
       resources :tokens, only: [:create]
