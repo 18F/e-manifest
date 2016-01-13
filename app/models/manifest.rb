@@ -32,7 +32,7 @@ class Manifest < ActiveRecord::Base
   end
 
   after_commit on: [:destroy] do
-    unless test?
+    unless Rails.env.test?
       IndexerWorker.perform_async(:delete,  self.class.to_s, self.id)
     end
   end
@@ -58,16 +58,5 @@ class Manifest < ActiveRecord::Base
   def self.authorized_search(params, current_user=nil)
     dsl = QueryDSL.new(params: params, current_user: current_user)
     search(dsl)
-  end
-
-  def as_public_json(options={})
-    options[:except] = [:id]
-    hashed = as_json(options)
-    hashed['id'] = hashed.delete('uuid')
-    hashed
-  end
-
-  def to_public_json(options={})
-    as_public_json.to_json
   end
 end

@@ -1,10 +1,9 @@
 class Api::V0::ManifestsController < ApplicationController
   def search
     if !params[:q] && !params[:aq]
-      manifests = Manifest.all
-      render json: ActiveModel::ArraySerializer.new(manifests, each_serializer: ManifestSerializer)
+      render json: {message: 'Missing q or aq param'}, status: 400
     else
-      render json: Manifest.authorized_search(params).response[:hits].to_json
+      render json: ManifestSearchSerializer.new(Manifest.authorized_search(params)).to_json(root: false)
     end
   end
 
@@ -32,7 +31,7 @@ class Api::V0::ManifestsController < ApplicationController
       return
     end
 
-    render json: manifest.to_public_json
+    render json: ManifestSerializer.new(manifest).to_json(root: false)
   end
 
   def update
@@ -46,7 +45,7 @@ class Api::V0::ManifestsController < ApplicationController
       new_json = JSON.patch(manifest_content_json, patch_json);
       manifest.update_column(:content, new_json)
 
-      render json: manifest.to_public_json
+      render json: ManifestSerializer.new(manifest).to_json(root: false)
     rescue ActiveRecord::RecordNotFound => _error
       status 404
     end
