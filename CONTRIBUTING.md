@@ -2,7 +2,6 @@
 
 ### Running the app locally
 
-0. Copy the secret.rb.template to secret.rb. See below CROMERR Signing
 0. Install Ruby
 0. Install Bundler (`gem install bundler`)
 0. Install Postgres and make sure postgres/bin is on your $PATH.
@@ -22,8 +21,8 @@
    Default database configuration is stored in `config/database.yml`.
 0. Add the CROMERR account credentials (CDX_USERNAME and CDX_PASSWORD) to `.env`.
 0. Run `rake secret` and set the output as the value for `SECRET_KEY_BASE` in `.env`.
-0. Run `rails s` to start the Rails application.
-0. Go to `http://localhost:3000` and enjoy!
+0. Run `foreman start`to start the Rails application. By default the app will respond to HTTP requests on port 5000. Specify a different port by appending `-p $portnumber` to the command.
+0. Go to `http://localhost:5000` and enjoy!
 
 ### Development practices
 
@@ -43,24 +42,18 @@
   server) where the client/product owner can verify, move the card to
   "pending acceptance"
 
-### Rake Tasks
+### One-off Tasks
 
-- ~~To build the static site, run `rake build`.~~
-- ~~To build and serve the app, run `rake serve`.~~
 - To deploy to 18F's cloud, run `cf push`.
 - To add dummy data for developing against, run `rake populate:manifests`.
 - To (re)build the Elasticsearch index, run `rake search:index FORCE=y`.
+- Run `bundle update` to grab any updated gems.
+- To update the database schema, run `rake db:migrate`. For test you will need to preface with env variables to indicate the environment: RACK_ENV=test rake db:migrate
 
 To add analytics support needed for production, prepend `JEKYLL_ENV=production` to any of the above commands.
 
 ### Running Tests
 Server tests are in rspec. Just run `rspec`.
-
-Client tests use karma/mocha/chai:
-
-- [Install node](https://nodejs.org/en/download/stable/)
-- `npm install`
-- `npm test`
 
 ## CROMERR Signing
 
