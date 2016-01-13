@@ -102,24 +102,33 @@ module Search
       searchdsl = self
       filter = Filter.new do
         if searchdsl.apply_authz?
-          bool do
-            must do
-              term "authz_group" => searchdsl.current_user.id.to_s
-            end
-          end
+          searchdsl.send :authz_filter
         end
         if searchdsl.apply_public_filter?
-          high_end_range = Time.current
-          low_end_range = high_end_range.utc - 90.days
-          bool do
-            must do
-              range "created_at" => { from: low_end_range, to: high_end_range.utc }
-            end
-          end
+          searchdsl.send :public_filter
         end
       end
       if filter.to_hash.keys.any?
         @dsl.filter = filter
+      end
+    end
+
+    def authz_filter
+      searchdsl = self
+      Filters::Bool.new do
+        must do
+          term "authz_group" => searchdsl.current_user.id.to_s
+        end
+      end
+    end
+
+    def public_filter
+      high_end_range = Time.current
+      low_end_range = high_end_range.utc - 90.days
+      Filters::Bool.new do
+        must do
+          range "created_at" => { from: low_end_range, to: high_end_range.utc }
+        end
       end
     end
 
