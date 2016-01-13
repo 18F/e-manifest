@@ -10,7 +10,7 @@ module EsSpecHelper
       path_logs: "tmp/es-logs"
     }
 
-    unless Elasticsearch::Extensions::Test::Cluster.running?
+    unless es_server_running?
       Elasticsearch::Extensions::Test::Cluster.start(es_test_cluster_opts)
     end
 
@@ -19,9 +19,13 @@ module EsSpecHelper
   end
 
   def stop_es_server
-    if Elasticsearch::Extensions::Test::Cluster.running?
+    if es_server_running?
       Elasticsearch::Extensions::Test::Cluster.stop
     end
+  end
+
+  def es_server_running?
+    Elasticsearch::Extensions::Test::Cluster.running?
   end
 
   def create_es_index(klass)
@@ -48,11 +52,11 @@ module EsSpecHelper
 end
 
 RSpec.configure do |config|
-  config.include EsSpecHelper
+  include EsSpecHelper
   config.before :each, elasticsearch: true do
-    start_es_server unless Elasticsearch::Extensions::Test::Cluster.running?
+    start_es_server unless es_server_running?
   end
   config.after :suite do
-    Elasticsearch::Extensions::Test::Cluster.stop if Elasticsearch::Extensions::Test::Cluster.running?
+    stop_es_server
   end
 end
