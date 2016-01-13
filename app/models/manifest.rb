@@ -1,3 +1,5 @@
+require_relative '../search/query_dsl'
+
 class Manifest < ActiveRecord::Base
   def tracking_number
     if content["generator"]
