@@ -1,4 +1,20 @@
 class Manifest < ActiveRecord::Base
+  def tracking_number
+    if content["generator"]
+      content["generator"]["manifest_tracking_number"] || ""
+    end
+  end
+
+  def generator_name
+    if content["generator"]
+      content["generator"]["name"] || ""
+    end
+  end
+
+  def created_on
+    created_at.strftime("%m/%d/%Y")
+  end
+
   include Elasticsearch::Model
 
   ActiveRecord::Base.raise_in_transactional_callbacks = true

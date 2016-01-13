@@ -1,0 +1,7 @@
+<h3>Recently filed manifests</h3>
+
+<% @manifests.each do |manifest| %>
+  <li><%= manifest.tracking_number %></li>
+  <li><%= manifest.generator_name %></li>
+  <li><%= manifest.created_on %></li>
+<% end %>

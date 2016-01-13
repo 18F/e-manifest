@@ -9,7 +9,7 @@ describe 'GET Manifest' do
         get "/api/v0/manifest?id=#{manifest.id}",
           set_headers
 
-        expect(response).to match_response_schema("manifest")
+        expect(response).to match_response_schema("get-manifest")
       end
 
       it 'sends a 404 when the manifest cannot be found' do
@@ -28,7 +28,7 @@ describe 'GET Manifest' do
         get "/api/v0/manifest?tracking_number=#{manifest_tracking_number}",
           set_headers
 
-        expect(response).to match_response_schema('manifest')
+        expect(response).to match_response_schema('get-manifest')
       end
 
       it 'sends a 404 when the manifest cannot be found' do

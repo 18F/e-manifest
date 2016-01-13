@@ -1,7 +1,8 @@
 class Api::V0::ManifestsController < ApplicationController
   def search
     if !params[:q] && !params[:aq]
-      render json: {}, status: 400
+      manifests = Manifest.all
+      render json: ActiveModel::ArraySerializer.new(manifests, each_serializer: ManifestSerializer)
     else
       render json: Manifest.authorized_search(params).response[:hits].to_json
     end
