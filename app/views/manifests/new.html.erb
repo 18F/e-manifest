@@ -1,6 +1,24 @@
 <h3>Submit new manifest</h3>
 
-<%= simple_form_for :manifest, url: api_v0_manifests_url, method: :post do |form| %>
-  <%= form.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)' %>
+<%= simple_form_for :manifest, url: manifests_path, method: :post do |form| %>
+  <h3>Generator</h3>
+  <%= simple_fields_for :generator do |generator| %>
+    <%= generator.input :us_epa_id_number, label: 'U.S. EPA ID Number (1)' %>
+    <%= generator.input :emergency_response_phone, label: 'Emergency Response Phone (3)' %>
+    <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)' %>
+    <%= generator.input :name, label: 'Name (5)' %>
+
+    <h3>Mailing address</h3>
+    <%= generator.simple_fields_for :mailing_address do |mailing_address| %>
+      <%= mailing_address.input :address_1, label: 'Address 1 (5)' %>
+      <%= mailing_address.input :address_2, label: 'Address 2 (5)' %>
+      <%= mailing_address.input :city, label: 'City (5)' %>
+      <%= mailing_address.input :state, collection: us_states, label: 'State (5)' %>
+      <%= mailing_address.input :zip_code, label: 'ZIP code (5)' %>
+    <% end %>
+
+    <%= generator.input :phone_number, label: 'Phone number (5)' %>
+  <% end %>
+
   <%= form.submit 'Continue' %>
 <% end %>
