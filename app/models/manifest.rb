@@ -57,8 +57,8 @@ class Manifest < ActiveRecord::Base
     __elasticsearch__.refresh_index!
   end
 
-  def self.authorized_search(params, current_user=nil)
-    dsl = Search::QueryDSL.new(params: params, current_user: current_user)
+  def self.authorized_search(params, user=nil)
+    dsl = Search::QueryDSL.new(params: params, user: user)
     search(dsl)
   end
 end

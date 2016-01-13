@@ -7,10 +7,10 @@ module Search
 
     MAX_RESULTS = 100
 
-    attr_reader :params, :current_user, :query_str
+    attr_reader :params, :user, :query_str
 
     def initialize(args)
-      @current_user = args[:current_user]
+      @user = args[:user]
       @params = args[:params]
       @query_str = @params[:q]
       build_dsl
@@ -25,7 +25,7 @@ module Search
     end
 
     def apply_authz?
-      current_user != nil
+      user != nil
     end
 
     def apply_public_filter?
@@ -59,7 +59,7 @@ module Search
     end
 
     def client_query_humanized
-      client_query.humanized(current_user.client_model)
+      client_query.humanized(user.client_model)
     end
 
     def munge_fielded_params(fielded)
@@ -117,7 +117,7 @@ module Search
       searchdsl = self
       Filters::Bool.new do
         must do
-          term "authz_group" => searchdsl.current_user.id.to_s
+          term "authz_group" => searchdsl.user.id.to_s
         end
       end
     end
