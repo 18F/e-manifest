@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Create manifest' do
-  scenario 'fills fills in tracking number' do
+  scenario 'fills in tracking number' do
     manifest_tracking_number = '12345'
     visit new_manifest_path
 
