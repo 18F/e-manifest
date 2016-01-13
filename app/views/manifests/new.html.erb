@@ -9,15 +9,33 @@
     <%= generator.input :name, label: 'Name (5)' %>
 
     <h3>Mailing address</h3>
-    <%= generator.simple_fields_for :mailing_address do |mailing_address| %>
-      <%= mailing_address.input :address_1, label: 'Address 1 (5)' %>
-      <%= mailing_address.input :address_2, label: 'Address 2 (5)' %>
-      <%= mailing_address.input :city, label: 'City (5)' %>
-      <%= mailing_address.input :state, collection: us_states, label: 'State (5)' %>
-      <%= mailing_address.input :zip_code, label: 'ZIP code (5)' %>
-    <% end %>
+    <%= render partial: 'address', locals: { object: generator, number: 5 } %>
 
     <%= generator.input :phone_number, label: 'Phone number (5)' %>
+  <% end %>
+
+  <h3>Transporter 1</h3>
+  <div class="transporter-1">
+    <%= simple_fields_for :transporter_1 do |transporter| %>
+      <%= transporter.input :name, label: 'Company Name (6)' %>
+      <%= transporter.input :us_epa_id_number, label: 'U.S. EPA ID Number (6)' %>
+    <% end %>
+  </div>
+
+  <h3>Transporter 2</h3>
+  <div class="transporter-2">
+    <%= simple_fields_for :transporter_2 do |transporter| %>
+      <%= transporter.input :name, label: 'Company Name (6)' %>
+      <%= transporter.input :us_epa_id_number, label: 'U.S. EPA ID Number (6)' %>
+    <% end %>
+  <div>
+
+  <h3>Designated Facility</h3>
+  <%= simple_fields_for :designated_facility do |facility| %>
+    <%= facility.input :name, label: 'Name (8)' %>
+    <%= render partial: 'address', locals: { object: facility, number: 8 } %>
+    <%= facility.input :phone_number, label: 'Phone number (8)' %>
+    <%= facility.input :us_epa_id_number, label: 'U.S. EPA ID Number (8)' %>
   <% end %>
 
   <%= form.submit 'Continue' %>

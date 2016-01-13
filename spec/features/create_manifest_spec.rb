@@ -25,16 +25,24 @@ feature 'Create manifest' do
     fill_in 'ZIP code (5)', with: '12345'
     fill_in 'Phone number (5)', with: '555-555-5555'
 
-    # fill_in 'Company Name (6)', with: 'Transporter company name'
-    # fill_in 'U.S. EPA ID Number (6)', with: 'Transporter EPA number'
+    within('.transporter-1') do
+      fill_in 'Company Name (6)', with: 'Transporter company 1 name'
+      fill_in 'U.S. EPA ID Number (6)', with: 'Transporter 1 EPA number'
+    end
+
+    within('.transporter-2') do
+      fill_in 'Company Name (6)', with: 'Transporter company 2 name'
+      fill_in 'U.S. EPA ID Number (6)', with: 'Transporter 2 EPA number'
+    end
+
+    fill_in 'Name (8)', with: 'Designated facility name'
+    fill_in 'Address 1 (8)', with: '123 Designated Facility St.'
+    fill_in 'City (8)', with: 'Waterville'
+    select 'Maine', from: 'State (8)'
+    fill_in 'ZIP code (8)', with: '12345'
+    fill_in 'Phone number (8)', with: '555-555-5555'
+    fill_in 'U.S. EPA ID Number (8)', with: 'Designated facility API number'
     #
-    # fill_in 'Name (8)', with: 'Designated facility name'
-    # fill_in 'Address 1 (8)', with: '123 Designated Facility St.'
-    # select 'ME', from: 'City (8)'
-    # fill_in 'ZIP code (8)', with: '12345'
-    # fill_in 'Phone number (8)', with: '555-555-5555'
-    #
-    # fill_in 'U.S. EPA ID Number (8)', with: 'Designated facility API number'
     # fill_in 'Proper Shipping Name', with: 'Proper shipping name'
     # fill_in 'Hazard Class', with: 'Hazard class value'
     # fill_in 'ID Number', with: '12345'
