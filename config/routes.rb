@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  root to: 'manifests#index'
   resources :manifests, only: [:new]
+  resources :manifest_uploads, only: [:new]
+  resources :submissions, only: [:new]
 
   namespace :api do
     namespace :v0 do

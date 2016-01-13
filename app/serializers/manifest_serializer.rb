@@ -1,6 +1,7 @@
 class ManifestSerializer < ActiveModel::Serializer
   attributes(
     :activity_id,
+    :created_on,
     :document_id,
     :generator,
     :transporters,
@@ -11,6 +12,10 @@ class ManifestSerializer < ActiveModel::Serializer
     :waste_handling_instructions,
     :report_management_method_codes,
   )
+
+  def created_on
+    object.created_on
+  end
 
   def generator
     object.content["generator"] || {}
