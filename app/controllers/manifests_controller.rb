@@ -6,9 +6,9 @@ class ManifestsController < ApplicationController
     @manifest = Manifest.new(content: manifest_params)
 
     if @manifest.save!
-      tracking_number = manifest_params[:manifest_tracking_number]
+      tracking_number = manifest_params[:generator][:manifest_tracking_number]
       flash[:notice] = "Manifest #{tracking_number} submitted successfully."
-      redirect_to new_manifest_path
+      redirect_to new_manifest_sign_or_upload_path(@manifest)
     end
   end
 
@@ -19,19 +19,21 @@ class ManifestsController < ApplicationController
   private
 
   def manifest_params
-    params.require(:generator).permit(
-      :emergency_response_phone,
-      :us_epa_id_number,
-      :name,
-      :manifest_tracking_number,
-      :phone_number,
-      mailing_address: [
-        :address_1,
-        :address_2,
-        :city,
-        :state,
-        :zip_code,
-      ],
+    params.require(:manifest).permit(
+      generator: [
+        :emergency_response_phone,
+        :us_epa_id_number,
+        :name,
+        :manifest_tracking_number,
+        :phone_number,
+        mailing_address: [
+          :address_1,
+          :address_2,
+          :city,
+          :state,
+          :zip_code,
+        ]
+      ]
     )
   end
 end
