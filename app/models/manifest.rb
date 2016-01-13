@@ -1,12 +1,12 @@
 class Manifest < ActiveRecord::Base
   def tracking_number
-    if content["generator"]
+    if content && content["generator"]
       content["generator"]["manifest_tracking_number"] || ""
     end
   end
 
   def generator_name
-    if content["generator"]
+    if content && content["generator"]
       content["generator"]["name"] || ""
     end
   end
