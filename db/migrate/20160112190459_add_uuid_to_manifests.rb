@@ -1,4 +1,7 @@
 class AddUuidToManifests < ActiveRecord::Migration
+  class Manifest < ActiveRecord::Base
+  end
+
   def up
     enable_extension 'uuid-ossp'
     add_column :manifests, :uuid, :uuid
