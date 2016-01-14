@@ -4,3 +4,22 @@
  * = require us_web_design_standards
  * = require us_web_design_standards_fonts
  */
+
+ @import "variables";
+
+ @import "callout";
+ @import "disclaimer";
+ @import "header";
+ @import "lists";
+ @import "headings";
+ @import "tables";
+ @import "text";
+
+ body {
+   background-color: $secondary-background-color;
+   // font-family: $base-font-family;
+ }
+
+ main {
+   background-color: $base-background-color;
+ }
