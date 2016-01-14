@@ -99,35 +99,41 @@ module Search
     end
 
     def add_filter
-      searchdsl = self
-      filter = Filter.new do
-        if searchdsl.apply_authz?
-          searchdsl.send :authz_filter
-        end
-        if searchdsl.apply_public_filter?
-          searchdsl.send :public_filter
+      bools = build_filters
+
+      if bools.any?
+        @dsl.filter = Filter.new
+        @dsl.filter.bool do
+          bools.each do |must_filter|
+            filter_block = must_filter.instance_variable_get(:@block)
+            must &filter_block
+          end
         end
       end
-      if filter.to_hash.keys.any?
-        @dsl.filter = filter
+    end
+
+    def build_filters
+      bools = []
+      if apply_authz?
+        bools.push authz_filter
       end
+      if apply_public_filter?
+        bools.push public_filter
+      end
+      bools
     end
 
     def authz_filter
       searchdsl = self
-      Filters::Bool.new do
-        must do
-          term "authz_group" => searchdsl.user.id.to_s
-        end
+      Filter.new do
+        fail "authz_filter not yet implemented"
       end
     end
 
     def public_filter
-      high_end_range = Time.current
-      low_end_range = high_end_range.utc - 90.days
-      Filters::Bool.new do
-        must do
-          range "created_at" => { from: low_end_range, to: high_end_range.utc }
+      Filter.new do
+        range :created_at do
+          lt 'now-90d'
         end
       end
     end

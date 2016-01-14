@@ -1,16 +1,21 @@
 require 'rails_helper'
 
 feature 'Home page' do
-  scenario 'sees list of recently filed manifests', elasticsearch: true do
-    manifest = create(:manifest)
-    manifest.reindex
+  scenario 'sees list of public manifests', elasticsearch: true do
+    new_manifest = create(:manifest)
+    new_manifest.reload
+    new_manifest.reindex
+    old_manifest = create(:manifest)
+    old_manifest.reload
+    old_manifest.update_column(:created_at, 91.days.ago)
+    old_manifest.reindex
     Manifest.__elasticsearch__.refresh_index!
 
     visit root_path
 
-    expect(page).to have_content manifest.tracking_number
-    expect(page).to have_content manifest.generator_name
-    expect(page).to have_content manifest.created_on
+    puts page.body
+    expect(page).to have_content old_manifest.tracking_number
+    expect(page).to_not have_content new_manifest.tracking_number
   end
 
   scenario 'navigates to submit manifest page' do
