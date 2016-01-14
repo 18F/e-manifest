@@ -1,17 +1,15 @@
 class ManifestSerializer < ActiveModel::Serializer
   attributes(
+    :id,
     :activity_id,
     :created_on,
     :document_id,
-    :generator,
-    :transporters,
-    :designated_facility,
-    :manifest_items,
-    :waste_pcb_description,
-    :waste_non_hazardous_material_present,
-    :waste_handling_instructions,
-    :report_management_method_codes,
+    :content
   )
+
+  def id
+    object.uuid
+  end
 
   def created_on
     object.created_on

@@ -1,5 +1,16 @@
 require 'rails_helper'
+
 describe Manifest do
+  describe '#uuid' do
+    context 'db generates default v4 UUID' do
+      it 'has valid uuid after insert' do
+        manifest = Manifest.create(content: {})
+        manifest.reload
+        expect(manifest.uuid).to match(/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/)
+      end
+    end
+  end
+
   describe '#tracking_number' do
     context 'generator manifest tracking number is present' do
       it 'returns the generator manifest tracking number' do

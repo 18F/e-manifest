@@ -1,0 +1,7 @@
+<%= object.simple_fields_for :mailing_address do |mailing_address| %>
+  <%= mailing_address.input :address_1, label: "Address 1 (#{number})" %>
+  <%= mailing_address.input :address_2, label: "Address 2 (#{number})" %>
+  <%= mailing_address.input :city, label: "City (#{number})" %>
+  <%= mailing_address.input :state, collection: us_states, label: "State (#{number})" %>
+  <%= mailing_address.input :zip_code, label: "ZIP code (#{number})" %>
+<% end %>
