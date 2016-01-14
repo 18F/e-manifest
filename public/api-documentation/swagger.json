@@ -10,7 +10,7 @@
         "application/json"
     ],
     "paths": {
-        "/manifests": {
+        "/manifest": {
             "get": {
                 "summary": "Get manifest",
                 "description": "Retrieve a manifest previously submitted to the e-Manifest system. Either :tracking_number or :id is required.",
@@ -35,7 +35,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful retrieval of the e-Manifest."
+                        "description": "Successful retrieval of the e-Manifest.",
+                        "schema": {
+                          "$ref": "http://e-manifest.18f.gov/schemas/get-manifest.json#"
+                        }
                     },
                     "404": {
                         "description": "Not found. The parameters did not match any record."
@@ -47,7 +50,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/manifests": {
             "patch": {
                 "consumes": [
                     "application/json-patch+json"
