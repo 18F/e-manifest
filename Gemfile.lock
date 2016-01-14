@@ -299,6 +299,9 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    us_web_design_standards (0.0.2)
+      railties
+      sass (~> 3.4)
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
@@ -365,6 +368,7 @@ DEPENDENCIES
   timecop
   title
   uglifier
+  us_web_design_standards
   web-console
   webmock
 
