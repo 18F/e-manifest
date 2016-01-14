@@ -13,7 +13,6 @@ feature 'Home page' do
 
     visit root_path
 
-    puts page.body
     expect(page).to have_content old_manifest.tracking_number
     expect(page).to_not have_content new_manifest.tracking_number
   end
