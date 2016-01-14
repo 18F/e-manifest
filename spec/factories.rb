@@ -6,5 +6,9 @@ FactoryGirl.define do
         name: "Company name",
       }
     }}
+
+    after(:create) do |manifest, evaluator|
+      manifest.reload # get uuid
+    end
   end
 end
