@@ -4,7 +4,7 @@ describe 'GET Manifest' do
   describe 'GET manifest' do
     context 'id param' do
       it 'return the manifest as json' do
-        manifest = Manifest.create(activity_id: 1, document_id: 2, content: { hello: 'world' })
+        manifest = create(:manifest, activity_id: 1, document_id: 2)
         manifest.reload
 
         get "/api/v0/manifest?id=#{manifest.uuid}",
@@ -25,7 +25,14 @@ describe 'GET Manifest' do
     context 'tracking number param' do
       it 'return the manifest as json' do
         manifest_tracking_number = 'TEST_NUMBER'
-        Manifest.create(activity_id: 1, document_id: 2, content: {generator: {name: "test", "manifest_tracking_number": manifest_tracking_number}})
+        create(
+          :manifest,
+          activity_id: 1,
+          document_id: 2,
+          content: {
+            generator: { name: "test", "manifest_tracking_number": manifest_tracking_number }
+          }
+        )
 
         get "/api/v0/manifest?tracking_number=#{manifest_tracking_number}",
           set_headers

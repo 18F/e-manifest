@@ -8,6 +8,9 @@ class ManifestUploadsController < ApplicationController
     if manifest.save
       flash[:notice] = "Upload for manifest #{manifest.tracking_number} submitted successfully."
       redirect_to root_path
+    else
+      flash[:notice] = manifest.errors.full_messages.to_sentence
+      render :new
     end
   end
 
@@ -19,8 +22,15 @@ class ManifestUploadsController < ApplicationController
       manifest.content[:uploaded_file] = image_details
       manifest
     else
-      Manifest.new(content: { uploaded_file: image_details })
+      Manifest.new(content: manifest_upload_params)
     end
+  end
+
+  def manifest_upload_params
+    params.require(:manifest).permit(
+      generator: [:manifest_tracking_number],
+      uploaded_file: image_details
+    )
   end
 
   def image_details

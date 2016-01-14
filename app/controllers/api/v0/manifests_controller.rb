@@ -1,9 +1,11 @@
 class Api::V0::ManifestsController < ApplicationController
+  include ManifestParams
+
   def search
     if !params[:q] && !params[:aq]
       render json: {message: 'Missing q or aq param'}, status: 400
     else
-      render json: ManifestSearchSerializer.new(Manifest.authorized_search(params)).to_json(root: false)
+      render json: ManifestSearchSerializer.new(Manifest.authorized_search(params)).to_json
     end
   end
 
@@ -31,7 +33,7 @@ class Api::V0::ManifestsController < ApplicationController
       return
     end
 
-    render json: ManifestSerializer.new(manifest).to_json(root: false)
+    render json: ManifestSerializer.new(manifest).to_json
   end
 
   def update
@@ -45,19 +47,13 @@ class Api::V0::ManifestsController < ApplicationController
       new_json = JSON.patch(manifest_content_json, patch_json);
       manifest.update_column(:content, new_json)
 
-      render json: ManifestSerializer.new(manifest).to_json(root: false)
+      render json: ManifestSerializer.new(manifest).to_json
     rescue ActiveRecord::RecordNotFound => _error
       status 404
     end
   end
 
   private
-
-  def manifest_params
-    params.require(:manifest).permit(
-      :manifest_tracking_number,
-    )
-  end
 
   def find_manifest
     if params[:id] || params[:uuid]

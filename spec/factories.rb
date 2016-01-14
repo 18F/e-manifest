@@ -6,5 +6,14 @@ FactoryGirl.define do
         name: "Company name",
       }
     }}
+
+    trait :with_uploaded_file do
+      content {{ uploaded_file: {
+          file_name: 'test',
+          content: '12345',
+          content_type: 'application/pdf'
+        }
+      }}
+    end
   end
 end
