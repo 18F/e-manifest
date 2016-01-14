@@ -16,9 +16,10 @@ Rails.application.routes.draw do
       end
       resources :manifests, only: [:create]
       resources :method_codes, only: [:index]
-      patch 'manifests', to: 'manifests#update'
-      get 'manifest', to: 'manifests#show'
+      patch 'manifests/:id', to: 'manifests#update'
+      put 'manifests/:id', to: 'manifests#update'
       get 'manifests/search', to: 'manifests#search'
+      get 'manifests/:id', to: 'manifests#show'
     end
   end
 

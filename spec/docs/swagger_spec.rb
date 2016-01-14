@@ -6,7 +6,7 @@ describe 'Swagger docs', type: :apivore, order: :defined do
   context 'has valid paths' do
     specify do
       expect(subject).to validate(
-        :get, '/manifest', 200, {'_query_string' => query_string }
+        :get, '/manifests/{id}', 200, params
       )
     end
   end
@@ -22,10 +22,6 @@ describe 'Swagger docs', type: :apivore, order: :defined do
   end
 
   def params
-    @_params ||= { id: manifest.uuid }
-  end
-
-  def query_string
-    params.to_query
+    @_params ||= { 'id' => manifest.uuid }
   end
 end
