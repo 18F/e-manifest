@@ -36,4 +36,8 @@ class ManifestsController < ApplicationController
       ]
     )
   end
+
+  def show
+    @manifest = Manifest.find params[:id]
+  end
 end
