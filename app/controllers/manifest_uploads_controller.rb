@@ -16,10 +16,10 @@ class ManifestUploadsController < ApplicationController
   def find_or_initialize_manifest
     if params[:manifest_id]
       manifest = Manifest.find(params[:manifest_id])
-      manifest.content[:image] = image_details
+      manifest.content[:uploaded_file] = image_details
       manifest
     else
-      Manifest.new(content: { image: image_details })
+      Manifest.new(content: { uploaded_file: image_details })
     end
   end
 
@@ -33,7 +33,7 @@ class ManifestUploadsController < ApplicationController
   end
 
   def upload
-    @_upload ||= params[:manifest][:upload]
+    @_upload ||= params[:manifest][:uploaded_file]
   end
 
   def encoded_file
