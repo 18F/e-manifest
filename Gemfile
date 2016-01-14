@@ -50,13 +50,13 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.3.0'
+  gem 'apivore', git: 'https://github.com/westfieldlabs/apivore.git'
 end
 
 group :test do
   gem 'capybara-webkit', '>= 1.2.0'
   gem 'database_cleaner'
   gem 'elasticsearch-extensions'
-  gem 'json_matchers'
   gem 'queryparams'
   gem 'launchy'
   gem 'shoulda-matchers', require: false
