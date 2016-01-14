@@ -33,6 +33,7 @@ gem 'uglifier'
 gem 'json-patch'
 gem 'redcarpet'
 gem 'savon-multipart', git: 'https://github.com/jessieay/savon-multipart.git'
+gem 'us_web_design_standards'
 
 group :development do
   gem 'spring'
