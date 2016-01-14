@@ -2,7 +2,7 @@
 
 <%= simple_form_for :manifest, url: manifests_path, method: :post do |form| %>
   <h3>Generator</h3>
-  <%= simple_fields_for :generator do |generator| %>
+  <%= form.simple_fields_for :generator do |generator| %>
     <%= generator.input :us_epa_id_number, label: 'U.S. EPA ID Number (1)' %>
     <%= generator.input :emergency_response_phone, label: 'Emergency Response Phone (3)' %>
     <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)' %>
