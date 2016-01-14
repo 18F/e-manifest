@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://e-manifest.18f.gov/schemas/post-manifest.json",
+  "id": "https://e-manifest.18f.gov/schemas/post-manifest.json",
   "method": "POST",
   "definitions":{
     "address": {

@@ -1,7 +1,6 @@
 RSpec::Matchers.define :match_response_schema do |schema|
   match do |response|
     begin
-      schema_directory = "#{Rails.root}/app/schemas"
       schema_data = JSON.parse(File.read("#{schema_directory}/#{schema}.json"))
       parsed_schema = JsonSchema.parse!(schema_data)
       document_store = build_json_schema_document_store
@@ -39,6 +38,6 @@ RSpec::Matchers.define :match_response_schema do |schema|
   end
 
   def schema_directory
-    "#{Rails.root}/app/schemas"
+    "#{Rails.public_path}/schemas"
   end
 end

@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :manifest do
+    activity_id SecureRandom.uuid
+    document_id SecureRandom.uuid
     content {{
       generator: {
         manifest_tracking_number: "12345",

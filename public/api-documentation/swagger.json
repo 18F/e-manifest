@@ -37,7 +37,7 @@
                     "200": {
                         "description": "Successful retrieval of the e-Manifest.",
                         "schema": {
-                          "$ref": "http://e-manifest.18f.gov/schemas/get-manifest.json#"
+                          "$ref": "https://e-manifest.18f.gov/schemas/get-manifest.json#"
                         }
                     },
                     "404": {
