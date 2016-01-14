@@ -50,9 +50,8 @@
 - Run `bundle update` to grab any updated gems.
 - To update the database schema, run `rake db:migrate`. For test you will need to preface with env variables to indicate the environment: RACK_ENV=test rake db:migrate
 
-To add analytics support needed for production, prepend `JEKYLL_ENV=production` to any of the above commands.
-
 ### Running Tests
+
 Server tests are in rspec. Just run `rspec`.
 
 ## CROMERR Signing
@@ -73,7 +72,6 @@ located in the root with the following form:
 
     CDX_USERNAME = "put username here"
     CDX_PASSWORD = "put password here"
-
 
 In addition to these API keys, you will need the username, password, and
 security question answers in order to sign in via the web UI. These can also be
