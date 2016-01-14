@@ -34,7 +34,7 @@ class Manifest < ActiveRecord::Base
   end
 
   after_commit on: [:destroy] do
-    unless test?
+    unless Rails.env.test?
       IndexerWorker.perform_async(:delete,  self.class.to_s, self.id)
     end
   end

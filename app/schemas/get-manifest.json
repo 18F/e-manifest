@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id" : "http://e-manifest.18f.gov/schemas/get-manifest.json",
+  "method": "GET",
+  "title": "e-Manifest API - GET Manifest",
+  "type": [
+    "object"
+  ],
+  "required": [
+    "document_id",
+    "activity_id",
+    "content"
+  ],
+  "definitions" : {
+    "content" : {
+      "$ref" : "http://e-manifest.18f.gov/schemas/post-manifest.json#"
+    },
+    "activity_id": {
+      "description": "Activity ID",
+      "type": "string",
+      "maxLength": 30
+    },
+    "document_id": {
+      "description": "Document ID",
+      "type": "string",
+      "maxLength": 30
+    }
+  }
+}
