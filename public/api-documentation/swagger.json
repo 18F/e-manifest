@@ -3,23 +3,107 @@
     "info": {
         "title": "e-Manifest API Documentation | US EPA",
         "description": "Endpoints for the e-Manifest application programming interfaces (API).",
-        "version": "0.1"
+        "version": "v0"
     },
-    "basePath": "/api/0.1",
+    "basePath": "/api/v0",
     "produces": [
         "application/json"
     ],
     "paths": {
-        "/manifest/submit/:manifest_tracking_number": {
-            "post": {
-                "summary": "Submit Manifest",
-                "description": "Submit a new manifest to the eManifest system.",
+        "/manifests": {
+            "get": {
+                "summary": "Get manifest",
+                "description": "Retrieve a manifest previously submitted to the e-Manifest system. Either :tracking_number or :id is required.",
                 "parameters": [
                     {
-                        "name": "manifest_tracking_number",
-                        "in": "path",
+                        "name": "tracking_number",
+                        "in": "query",
                         "description": "the tracking number from Line 4 of form 8700-22",
-                        "required": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "the e-Manifest ID",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "manifests"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of the e-Manifest."
+                    },
+                    "404": {
+                        "description": "Not found. The parameters did not match any record."
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "consumes": [
+                    "application/json-patch+json"
+                ],
+                "summary": "Update manifest",
+                "description": "Update a manifest previously submitted to the e-Manifest system. Either :tracking_number or :id is required. Updating does not change what has been signed. After updating, you must repeat the authentication and signature process.\n<br>\nSee JSON Patch (http://tools.ietf.org/html/rfc6902) \nand JSON Pointer (http://tools.ietf.org/html/rfc6901) specifications.\n```\n{\"op\": \"replace\", \"path\": \"/generator/name\", \"value\": \"Generator ZZ\"},\n{\"op\": \"add\", \"path\": \"/generator/mailing_address/zip_code\", \"value\": \"11211\"},\n{\"op\": \"remove\", \"path\": \"/manifest_items/1\"},\n{\"op\": \"replace\", \"path\": \"/non_hazardous_material_present\", \"value\": \"no\"},\n{\"op\": \"add\", \"path\": \"/transporters\", \"value\": {\n    \"company_name\": \"AAAA Transporter\",\n    \"us_epa_id_number\": \"3882\",\n    \"signatory\": {\n      \"name\": \"John Smith\",\n      \"month\": \"10\",\n      \"day\": \"28\",\n      \"year\": \"2015\"\n    }\n  }\n}\n```\n",
+                "parameters": [
+                    {
+                        "name": "tracking_number",
+                        "in": "query",
+                        "description": "the tracking number from Line 4 of form 8700-22",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "the e-Manifest ID",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "manifests"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    },
+                    "404": {
+                        "description": "The given parameter did not match an existing manifest."
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Submit new manifest",
+                "description": "Submit a new manifest to the eManifest system. Either :tracking_number or :id is required.",
+                "parameters": [
+                    {
+                        "name": "tracking_number",
+                        "in": "query",
+                        "description": "the tracking number from Line 4 of form 8700-22",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "the e-Manifest id number (36-character string)",
+                        "required": false,
                         "type": "string"
                     }
                 ],
@@ -39,105 +123,7 @@
                 }
             }
         },
-        "/manifest/id/:e_manifest_id": {
-            "patch": {
-                "consumes": "application/json-patch+json",
-                "summary": "Update manifest by e-Manifest ID",
-                "description": "Update a manifest previously submitted to the e-Manifest system; it does not change\nwhat has been signed. To re-sign, authenticate and sign the manifest again.\n<br>\nSee JSON Patch (http://tools.ietf.org/html/rfc6902) \nand JSON Pointer (http://tools.ietf.org/html/rfc6901) specifications.\n```\n{\"op\": \"replace\", \"path\": \"/generator/name\", \"value\": \"Generator ZZ\"},\n{\"op\": \"add\", \"path\": \"/generator/mailing_address/zip_code\", \"value\": \"11211\"},\n{\"op\": \"remove\", \"path\": \"/manifest_items/1\"},\n{\"op\": \"replace\", \"path\": \"/non_hazardous_material_present\", \"value\": \"no\"},\n{\"op\": \"add\", \"path\": \"/transporters\", \"value\": {\n    \"company_name\": \"AAAA Transporter\",\n    \"us_epa_id_number\": \"3882\",\n    \"signatory\": {\n      \"name\": \"John Smith\",\n      \"month\": \"10\",\n      \"day\": \"28\",\n      \"year\": \"2015\"\n    }\n  }\n}\n```\n",
-                "parameters": [
-                    {
-                        "name": "e_manifest_id",
-                        "in": "path",
-                        "description": "The unique identifier for the manifest in the e-Manifest system (not the Manifest Tracking Number from Line 4 of form 8700-22).",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "tags": [
-                    "manifests"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully updated."
-                    },
-                    "404": {
-                        "description": "The given e_manifest_id did not match an existing manifest."
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/manifest/:manifest_tracking_number": {
-            "get": {
-                "summary": "Get manifest by Manifest Tracking Number",
-                "description": "Retrieve a manifest previously submitted to the e-Manifest system.",
-                "parameters": [
-                    {
-                        "name": "manifest_tracking_number",
-                        "in": "path",
-                        "description": "the tracking number from Line 4 of form 8700-22",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "tags": [
-                    "manifests"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful retrieval of the e-Manifest."
-                    },
-                    "404": {
-                        "description": "Not found. The :e-manifest_id did not match any record."
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/manifest/id/:manifest_tracking_number": {
-            "patch": {
-                "consumes": "application/json-patch+json",
-                "summary": "Update manifest by Manifest Tracking Number",
-                "description": "Update a manifest previously submitted to the e-Manifest system; it does not change\nwhat has been signed. To re-sign, authenticate and sign the manifest again.\n<br>\nSee JSON Patch (http://tools.ietf.org/html/rfc6902) \nand JSON Pointer (http://tools.ietf.org/html/rfc6901) specifications.\n```\n{\"op\": \"replace\", \"path\": \"/generator/name\", \"value\": \"Generator ZZ\"},\n{\"op\": \"add\", \"path\": \"/generator/mailing_address/zip_code\", \"value\": \"11211\"},\n{\"op\": \"remove\", \"path\": \"/manifest_items/1\"},\n{\"op\": \"replace\", \"path\": \"/non_hazardous_material_present\", \"value\": \"no\"},\n{\"op\": \"add\", \"path\": \"/transporters\", \"value\": {\n    \"company_name\": \"AAAA Transporter\",\n    \"us_epa_id_number\": \"3882\",\n    \"signatory\": {\n      \"name\": \"John Smith\",\n      \"month\": \"10\",\n      \"day\": \"28\",\n      \"year\": \"2015\"\n    }\n  }\n}\n```\n",
-                "parameters": [
-                    {
-                        "name": "manifest_tracking_number",
-                        "in": "path",
-                        "description": "the tracking number from Line 4 of form 8700-22",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "tags": [
-                    "manifests"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully updated."
-                    },
-                    "404": {
-                        "description": "The given manifest_tracking_number did not match an existing manifest."
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/manifest/search": {
+        "/manifests/search": {
             "get": {
                 "summary": "Search for manifests",
                 "description": "Search for manifests matching provided criteria.",
@@ -176,10 +162,44 @@
                 }
             }
         },
-        "/user/authenticate": {
+        "/manifests/signature": {
+            "post": {
+                "summary": "Sign manifest",
+                "description": "Signs a specified manifest with CDX's CROMERR services. Either :tracking_number or :id is required.",
+                "parameters": [
+                    {
+                        "name": "signature",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Signature"
+                        }
+                    }
+                ],
+                "tags": [
+                    "manifests",
+                    "signatures"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signature",
+                        "schema": {
+                            "$ref": "#/definitions/Document"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/tokens": {
             "post": {
                 "summary": "Authenticate a user",
-                "description": "Authenticates a user with CDX's CROMERR services for signing a manifest.    Values in the response are needed to sign the manifest.",
+                "description": "Authenticates a user with CDX's CROMERR services for signing a manifest. Values in the response are needed to sign the manifest.",
                 "parameters": [
                     {
                         "name": "credentials",
@@ -191,7 +211,7 @@
                     }
                 ],
                 "tags": [
-                    "users"
+                    "signatures"
                 ],
                 "produces": [
                     "application/json"
@@ -215,73 +235,7 @@
                 }
             }
         },
-        "/manifest/sign": {
-            "post": {
-                "summary": "Sign manifest using e-Manifest ID",
-                "description": "Signs a specified manifest with CDX's CROMERR services.",
-                "parameters": [
-                    {
-                        "name": "signature",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/eManifestSignature"
-                        }
-                    }
-                ],
-                "tags": [
-                    "manifests"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful signature",
-                        "schema": {
-                            "$ref": "#/definitions/Document"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/manifest/signByTrackingNumber": {
-            "post": {
-                "summary": "Sign manifest by Manifest Tracking Number",
-                "description": "Signs a specified manifest with CDX's CROMERR services.",
-                "parameters": [
-                    {
-                        "name": "signature",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/TrackingSignature"
-                        }
-                    }
-                ],
-                "tags": [
-                    "manifests"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful signature",
-                        "schema": {
-                            "$ref": "#/definitions/Document"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/method_code": {
+        "/method_codes": {
             "get": {
                 "summary": "Management method codes",
                 "description": "Retrieve the valid hazardous waste report management method codes.",
@@ -292,7 +246,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/MethodCode"
+                            "$ref": "#/definitions/MethodCodes"
                         }
                     }
                 }
@@ -300,6 +254,12 @@
         }
     },
     "definitions": {
+        "MethodCodes": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/MethodCode"
+            }
+        },
         "MethodCode": {
             "type": "object",
             "properties": {
@@ -358,7 +318,7 @@
                 }
             }
         },
-        "eManifestSignature": {
+        "Signature": {
             "type": "object",
             "properties": {
                 "activity_id": {
@@ -371,28 +331,7 @@
                     "description": "e-Manifest ID",
                     "type": "string"
                 },
-                "question_id": {
-                    "type": "string"
-                },
-                "token": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "description": "CDX user id",
-                    "type": "string"
-                }
-            }
-        },
-        "TrackingSignature": {
-            "type": "object",
-            "properties": {
-                "activity_id": {
-                    "type": "string"
-                },
-                "answer": {
-                    "type": "string"
-                },
-                "manifest_tracking_number": {
+                "tracking_number": {
                     "description": "Manifest Tracking Number",
                     "type": "string"
                 },
