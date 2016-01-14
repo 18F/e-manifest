@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'manifests#index'
-  resources :manifests, only: [:new]
+  resources :manifests, only: [:new, :create]
   resources :manifest_uploads, only: [:new]
   resources :submissions, only: [:new]
 
