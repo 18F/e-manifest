@@ -1,3 +1,5 @@
+require_relative '../search/query_dsl'
+
 class Manifest < ActiveRecord::Base
   def tracking_number
     if content && content["generator"]
@@ -55,8 +57,8 @@ class Manifest < ActiveRecord::Base
     __elasticsearch__.refresh_index!
   end
 
-  def self.authorized_search(params, current_user=nil)
-    dsl = QueryDSL.new(params: params, current_user: current_user)
+  def self.authorized_search(params, user=nil)
+    dsl = Search::QueryDSL.new(params: params, user: user)
     search(dsl)
   end
 end
