@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/18F/elasticsearch-rails-ha-gem.git
-  revision: d5977e76838fd95aab70f0de1428e28f56b8e303
+  revision: a5af4828e3c688b67911e85ea7cdddcce31885b3
   specs:
     elasticsearch-rails-ha (1.0.0)
       ansi

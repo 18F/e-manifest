@@ -13,7 +13,7 @@ class ManifestsController < ApplicationController
   end
 
   def index
-    @manifests = Manifest.all
+    @manifests = Manifest.authorized_search({public: true}).records.to_a
   end
 
   private

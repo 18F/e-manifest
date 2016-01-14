@@ -2,12 +2,8 @@ require 'rails_helper'
 require_relative '../../db/chores/populator'
 require "queryparams"
 
-describe "search" do
+describe "search", elasticsearch: true do
   describe "/search" do
-    before(:context) do
-      start_es_server
-    end
-
     it "searches all fields by default" do
       populate_manifests(2)
       search_for "around+the+corner"
@@ -24,10 +20,6 @@ describe "search" do
       populate_manifests(2)
       search_for_advanced({ "content.generator.name" => "generator" })
       expect(JSON.parse(response.body)["total"]).to eq 2
-    end
-
-    after(:context) do
-      stop_es_server
     end
   end
 
