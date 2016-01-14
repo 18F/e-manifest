@@ -5,4 +5,8 @@ class ManifestsController < ApplicationController
   def index
     @manifests = Manifest.all
   end
+
+  def show
+    @manifest = Manifest.find params[:id]
+  end
 end
