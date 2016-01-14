@@ -65,9 +65,6 @@ GEM
       execjs
       json
     awesome_print (1.6.1)
-    bourbon (4.2.6)
-      sass (~> 3.4)
-      thor (~> 0.19)
     builder (3.2.2)
     bundler-audit (0.4.0)
       bundler (~> 1.2)
@@ -166,9 +163,6 @@ GEM
     minitest (5.8.3)
     multi_json (1.11.2)
     multipart-post (2.0.0)
-    neat (1.7.2)
-      bourbon (>= 4.0)
-      sass (>= 3.3)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     nori (2.6.0)
@@ -223,7 +217,6 @@ GEM
     rake (10.4.2)
     redcarpet (3.3.4)
     redis (3.2.2)
-    refills (0.1.0)
     rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.1)
@@ -323,7 +316,6 @@ DEPENDENCIES
   active_model_serializers
   autoprefixer-rails
   awesome_print
-  bourbon (~> 4.2.0)
   bundler-audit
   byebug
   capybara-webkit (>= 1.2.0)
@@ -343,7 +335,6 @@ DEPENDENCIES
   json_schema
   kaminari
   launchy
-  neat (~> 1.7.0)
   normalize-rails (~> 3.0.0)
   pg
   pry-rails
@@ -354,7 +345,6 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rails_12factor
   redcarpet
-  refills
   rspec-rails (~> 3.3.0)
   sass-rails (~> 5.0)
   savon-multipart!
