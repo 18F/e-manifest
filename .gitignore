@@ -5,7 +5,7 @@
 /.bundle
 .env
 .env.development
-/.foreman
+.foreman
 /coverage/*
 /db/*.sqlite3
 /log/*

@@ -1,7 +1,5 @@
 require 'date'
 
-require_relative '../search/query_dsl'
-
 class Manifest < ActiveRecord::Base
   validates :tracking_number, presence: true
 
