@@ -23,7 +23,7 @@ describe Manifest do
     context 'access json tree via dotted string' do
       it 'can find manifest tracking number' do
         manifest = create(:manifest)
-        expect(manifest.content_field('generator.manifest_tracking_number')).to eq manifest.tracking_number
+        expect(manifest.content_field('generator.manifest_tracking_number').to_s).to eq manifest.tracking_number
       end
 
       it "returns nil if field xpath does not exist" do
@@ -38,7 +38,7 @@ describe Manifest do
       it 'returns the generator manifest tracking number' do
         tracking_number = '12345'
 
-        manifest = build(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
+        manifest = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
 
         expect(manifest.tracking_number).to eq tracking_number
       end

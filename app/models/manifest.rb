@@ -5,15 +5,17 @@ require_relative '../search/query_dsl'
 class Manifest < ActiveRecord::Base
   validates :tracking_number, presence: true
 
+  before_validation :set_tracking_number, on: :create
+
+  def set_tracking_number
+    self.tracking_number = content_field('generator.manifest_tracking_number')
+  end
+
   def content_field(json_xpath)
     fields = json_xpath.split('.')
     if content && fields.inject(content) { |h,k| h[k] if h }
       fields.inject(content) { |h,k| h[k] if h }
     end
-  end
-
-  def tracking_number
-    content_field('generator.manifest_tracking_number')
   end
 
   def generator_name
