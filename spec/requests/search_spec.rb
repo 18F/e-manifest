@@ -3,7 +3,7 @@ require_relative '../../db/chores/populator'
 require "queryparams"
 
 describe "search", elasticsearch: true do
-  describe "/search" do
+  describe "api" do
     it "searches all fields by default" do
       populate_manifests(2)
       search_for "around+the+corner"
@@ -20,6 +20,15 @@ describe "search", elasticsearch: true do
       populate_manifests(2)
       search_for_advanced({ "content.generator.name" => "generator" })
       expect(JSON.parse(response.body)["total"]).to eq 2
+    end
+  end
+
+  describe "ui" do
+    it "uses structured query" do
+      populate_manifests(2)
+      manifest = Manifest.last
+      get "/?aq[content.generator.name]=generator"
+      expect(response.body).to include(manifest.tracking_number.to_s)
     end
   end
 
