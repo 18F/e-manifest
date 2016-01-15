@@ -1,10 +1,15 @@
 require 'rails_helper'
+include JsonSchemaSpecHelper
 
 describe 'Swagger docs', type: :apivore, order: :defined do
+  before(:all) do
+    register_schemas_by_uri
+  end
+
   subject { Apivore::SwaggerChecker.instance_for('/api-documentation/swagger.json') }
 
   context 'has valid paths' do
-    xit do
+    it do
       expect(subject).to validate(
         :get, '/manifests/{id}', 200, params
       )
