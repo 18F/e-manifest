@@ -54,17 +54,9 @@
       <dt>Unit Wt./Vol.</dt>
       <dd><%= m["unit_wt_vol"] %></dd>
       <dt>U.S. EPA Federal Waste Codes</dt>
-      <dd>
-        <% m["epa_waste_codes"].each do |wc| %>
-          wc<% if wc != m["epa_waste_codes"].last %>, <% end %>
-        <% end %>
-      </dd>
+      <dd><%= with_comma m["epa_waste_codes"] %></dd>
       <dt>State Waste Codes</dt>
-      <dd>
-        <% m["state_waste_codes"].each do |wc| %>
-          wc<% if wc != m["state_waste_codes"].last %>, <% end %>
-        <% end %>
-      </dd>
+      <dd><%= with_comma m["state_waste_codes"] %></dd>
     </dl>
   <% end %>
 
@@ -77,9 +69,7 @@
     <dd></dd>
     <dt>Hazardous Waste Report Management Method Codes</dt>
     <dd>
-      <% @manifest.waste_report_codes.each do |c| %>
-        <%= c %><% if c != @manifest.waste_report_codes.last %>, <% end %>
-      <% end %>
+      <%= with_comma @manifest.waste_report_codes %>
     </dd>
     <dt>Transporter Name of Signatory</dt>
     <dd></dd>
