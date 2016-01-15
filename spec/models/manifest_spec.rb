@@ -42,6 +42,15 @@ describe Manifest do
 
         expect(manifest.tracking_number).to eq tracking_number
       end
+
+      it 'does not allow manifests with duplicate tracking number' do
+        tracking_number = '12345'
+
+        manifest = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
+        expect {
+          manifest_dup = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
+        }.to raise_exception(ActiveRecord::RecordNotUnique)
+      end
     end
   end
 
