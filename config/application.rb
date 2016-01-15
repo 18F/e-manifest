@@ -11,6 +11,7 @@ require "elasticsearch/rails/instrumentation"
 Bundler.require(*Rails.groups)
 module EManifest
   class Application < Rails::Application
+    config.autoload_paths += %W(#{config.root}/app)
     config.i18n.enforce_available_locales = true
     config.generators do |generate|
       generate.helper false
