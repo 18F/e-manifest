@@ -1,6 +1,6 @@
 module ManifestParams
   def manifest_params
-    params.require(:manifest).permit(
+    params.fetch(:manifest, {}).permit(
       generator: [
         :emergency_response_phone,
         :us_epa_id_number,

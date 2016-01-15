@@ -12,7 +12,7 @@ class Api::V0::ManifestsController < ApplicationController
   def create
     @manifest = Manifest.new(content: manifest_params)
 
-    if @manifest.save!
+    if @manifest.save
       tracking_number = manifest_params[:manifest_tracking_number]
       render json: {
         message: "Manifest #{tracking_number} submitted successfully.",
@@ -20,7 +20,7 @@ class Api::V0::ManifestsController < ApplicationController
     else
       render json: {
         message: "Validation failed",
-        errors: @manifest.errors.full_messages
+        errors: @manifest.errors.full_messages.to_sentence
       }.to_json, status: 422
     end
   end
