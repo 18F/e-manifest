@@ -6,14 +6,14 @@ class Manifest < ActiveRecord::Base
   validates :tracking_number, presence: true
 
   def tracking_number
-    if content['generator']
-      content['generator']['manifest_tracking_number'] || ''
+    if content && content["generator"]
+      content["generator"]["manifest_tracking_number"] || ''
     end
   end
 
   def generator_name
-    if content['generator']
-      content['generator']['name'] || ''
+    if content && content["generator"]
+      content["generator"]["name"] || ''
     end
   end
 

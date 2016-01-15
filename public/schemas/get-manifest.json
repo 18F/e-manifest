@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id" : "http://e-manifest.18f.gov/schemas/get-manifest.json",
+  "id" : "https://e-manifest.18f.gov/schemas/get-manifest.json",
   "method": "GET",
   "title": "e-Manifest API - GET Manifest",
   "type": [
@@ -13,7 +13,7 @@
   ],
   "definitions" : {
     "content" : {
-      "$ref" : "http://e-manifest.18f.gov/schemas/post-manifest.json#"
+      "$ref" : "https://e-manifest.18f.gov/schemas/post-manifest.json#"
     },
     "activity_id": {
       "description": "Activity ID",

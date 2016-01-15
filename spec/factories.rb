@@ -7,6 +7,10 @@ FactoryGirl.define do
       }
     }}
 
+    after(:create) do |manifest, evaluator|
+      manifest.reload # get uuid
+    end
+
     trait :with_uploaded_file do
       content {{ uploaded_file: {
           file_name: 'test',

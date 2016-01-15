@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://e-manifest.18f.gov/schemas/post-manifest.json",
+  "id": "https://e-manifest.18f.gov/schemas/post-manifest.json",
   "method": "POST",
   "definitions":{
     "address": {
@@ -46,19 +46,19 @@
         },
         "month": {
           "description": "Two digit month of signature",
-          "type": "integer",
+          "type": "string",
           "maximum": 2,
           "minimum": 2
         },
         "day": {
           "description": "Two digit day of signature",
-          "type": "integer",
+          "type": "string",
           "maximum": 2,
           "minimum": 2
         },
         "year": {
           "description": "Four digit year of signature",
-          "type": "integer",
+          "type": "string",
           "maximum": 4,
           "minimum": 4
         }

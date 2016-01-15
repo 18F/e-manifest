@@ -10,17 +10,18 @@ Rails.application.routes.draw do
   resources :manifest_uploads, only: [:new, :create]
   resources :submissions, only: [:new]
 
+  get 'api-examples', to: 'api_documentation#examples'
+  get 'api-diagnostics', to: 'api_documentation#diagnostics'
+  get 'api-documentation', to: 'api_documentation#swagger'
+
   namespace :api do
     namespace :v0 do
       resources :tokens, only: [:create]
-      resources :manifests, only: [] do
+      get 'manifests/search', to: 'manifests#search'
+      resources :manifests, only: [:create, :show, :update] do
         resource :signature, only: [:create]
       end
-      resources :manifests, only: [:create]
       resources :method_codes, only: [:index]
-      patch 'manifests', to: 'manifests#update'
-      get 'manifest', to: 'manifests#show'
-      get 'manifests/search', to: 'manifests#search'
     end
   end
 

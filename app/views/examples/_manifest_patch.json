@@ -1,0 +1,35 @@
+[
+   {
+      "op" : "replace",
+      "path" : "/generator/name",
+      "value" : "Generator ZZ"
+   },
+   {
+      "path" : "/generator/mailing_address/zip_code",
+      "value" : "11211",
+      "op" : "add"
+   },
+   {
+      "op" : "remove",
+      "path" : "/manifest_items/1"
+   },
+   {
+      "value" : "no",
+      "path" : "/non_hazardous_material_present",
+      "op" : "replace"
+   },
+   {
+      "op" : "add",
+      "path" : "/transporters",
+      "value" : {
+         "company_name" : "AAAA Transporter",
+         "us_epa_id_number" : "3882",
+         "signatory" : {
+            "month" : "10",
+            "name" : "John Smith",
+            "day" : "28",
+            "year" : "2015"
+         }
+      }
+   }
+]
