@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Upload scan' do
+feature 'Upload scan', elasticsearch: true do
   scenario 'upload instead of filling out form' do
     visit new_manifest_upload_path
 
