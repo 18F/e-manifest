@@ -5,7 +5,6 @@ describe 'Swagger docs', type: :apivore, order: :defined do
 
   context 'has valid paths' do
     specify do
-      pending("swagger schema incomplete")
       expect(subject).to validate(
         :get, '/manifests/{id}', 200, params
       )
