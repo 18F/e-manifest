@@ -39,7 +39,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def transporters
-    content_field('generator.transporters')
+    content_field('transporters')
   end
 
   def designated_facility_name
