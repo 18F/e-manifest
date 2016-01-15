@@ -11,15 +11,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v0 do
       resources :tokens, only: [:create]
-      resources :manifests, only: [] do
+      get 'manifests/search', to: 'manifests#search'
+      resources :manifests, only: [:create, :show, :update] do
         resource :signature, only: [:create]
       end
-      resources :manifests, only: [:create]
       resources :method_codes, only: [:index]
-      patch 'manifests/:id', to: 'manifests#update'
-      put 'manifests/:id', to: 'manifests#update'
-      get 'manifests/search', to: 'manifests#search'
-      get 'manifests/:id', to: 'manifests#show'
     end
   end
 
