@@ -11,9 +11,8 @@
 0. Install the [Qt implementation of Webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) as we now depend on [capybara-webkit gem](https://github.com/thoughtbot/capybara-webkit).
 0. Run `./bin/setup` to initialize the rails application and install the
    necessary dependencies.
-0. Edit the environment-specific variables in a `.env.`*environmentname* file. The default created by running `./bin/setup` is `.env`.
-   Test-specific variables can go in `.env.test`. If you have set a postgres username and password,
-   use the `DATABASE_URL` environment variable to configure it. See `.env.example` for an example.
+0. Edit the environment-specific variables in a `.env`.
+   Test-specific variables can go in `.env.test`.
    Default database configuration is stored in `config/database.yml`.
 0. Add the CROMERR account credentials (CDX_USERNAME and CDX_PASSWORD) to `.env`.
 0. Run `rake secret` and set the output as the value for `SECRET_KEY_BASE` in `.env`.
