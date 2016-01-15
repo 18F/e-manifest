@@ -1,44 +1,16 @@
 RSpec::Matchers.define :match_response_schema do |schema|
+  include JsonSchemaSpecHelper
+
   match do |response|
+    register_schemas_by_uri
     begin
-      schema_directory = "#{Rails.root}/app/schemas"
-      schema_data = JSON.parse(File.read("#{schema_directory}/#{schema}.json"))
-      parsed_schema = JsonSchema.parse!(schema_data)
-      document_store = build_json_schema_document_store
-      parsed_schema.expand_references!(store: document_store)
+      schema_hash = read_schema_file(schema)
       response_body = JSON.parse(response.body)
-      parsed_schema.validate!(response_body)
-    rescue JsonSchema::SchemaError, JSON::ParserError => _error
+      JSON::Validator.validate!(schema_hash, response_body, validate_schema: true)
+    rescue JSON::Schema::ValidationError, JSON::ParserError => _error
       raise Class.new(StandardError)
     end
 
     true
-  end
-
-  def build_json_schema_document_store
-    # load all the schema/*json files that do *not* contain an external $ref
-    document_store = JsonSchema::DocumentStore.new
-    schema_files = Dir.glob("#{schema_directory}/*.json")
-    schema_files.each do |schema_file|
-      schema_data = JSON.parse(File.read(schema_file))
-      parsed_schema = JsonSchema.parse!(schema_data)
-      begin
-        parsed_schema.expand_references!
-      rescue RuntimeError => err
-        if err.to_s.match(/Reference resolution/)
-          # skip this one
-          next
-        else
-          # re-throw
-          raise err
-        end
-      end
-      document_store.add_schema(parsed_schema)
-    end
-    document_store
-  end
-
-  def schema_directory
-    "#{Rails.root}/app/schemas"
   end
 end

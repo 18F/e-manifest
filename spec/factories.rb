@@ -6,5 +6,18 @@ FactoryGirl.define do
         name: "Company name",
       }
     }}
+
+    after(:create) do |manifest, evaluator|
+      manifest.reload # get uuid
+    end
+
+    trait :with_uploaded_file do
+      content {{ uploaded_file: {
+          file_name: 'test',
+          content: '12345',
+          content_type: 'application/pdf'
+        }
+      }}
+    end
   end
 end
