@@ -13,10 +13,12 @@ Notation note: path variables are expressed as `:variable_name`. The colon is no
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
   --data @manifest.json \
-  https://e-manifest.18f.gov/api/v0/manifests?tracking_number=:manifest_tracking_number
+  https://e-manifest.18f.gov/api/v0/manifests
 ```
 
-where the `:manifest_tracking_number` is from Line 4 of form 8700-22.
+*Note* that `manifest.json` must include a Manifest Tracking Number, from Line 4 of form 8700-22.
+If a manifest with an identical Manifest Tracking Number already exists, the `POST` will be rejected
+with an error message.
 
 An example `manifest.json` file looks like:
 
@@ -28,20 +30,25 @@ The response from that POST will include no body content, but the `Location` hea
 the URL of the submitted manifest, which will include the unique e-Manifest identifier. A successful
 submission should return a 201 status.
 
+```http
+Status: 201
+Location: https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014
+```
+
 ## <a name="fetch-manifest"></a>Fetch a manifest
 
 To retrieve a previously submitted e-Manifest, you need the e-Manifest ID from
 the [Submit a manifest example](#submit-manifest).
 
 ```bash
-curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest?id=:manifest_id
+curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest/de305d54-75b4-431b-adb2-eb6b9e546014
 ```
 
 If you do not know the e-Manifest ID, but you do have the Manifest Tracking Number from Line 4 of form 8700-22,
 you can fetch the e-Manifest object with the Manifest Tracking Number.
 
 ```bash
-curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest?tracking_number=manifest_tracking_number
+curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest/12345
 ```
 
 The response for both endpoints looks the same:
@@ -63,10 +70,12 @@ The update request uses the HTTP `PATCH` method. See [JSON Patch](http://tools.i
 Just as in the [Fetch a manifest example](#fetch-manifest), you may use either the e-Manifest ID or the
 Manifest Tracking Number.
 
+**TODO do we support changing the manifest tracking number internal to the document as part of a PATCH?**
+
 ```bash
 curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
   --data @manifest-patch.json \
-  https://e-manifest.18f.gov/api/v0/manifests?id=:manifest_id
+  https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014
 ```
 
 or
@@ -74,7 +83,7 @@ or
 ```bash
 curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
   --data @manifest-patch.json \
-  https://e-manifest.18f.gov/api/v0/manifests?tracking_number=:manifest_tracking_number
+  https://e-manifest.18f.gov/api/v0/manifests/12345
 ```
 
 An example `manifest-patch.json` file looks like:
@@ -92,11 +101,11 @@ by specifying specific fields within which your terms should match. Wildcards, b
 are all supported. See the [full query string syntax documentation]
 (https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax) for more details.
 
-Example of looking for a manifest by Manifest Tracking Number `abc123`:
+Example of looking for a manifest by Manifest Tracking Number `12345`:
 
 ```bash
 curl -i -X GET \
-  'https://e-manifest.18f.gov/api/v0/manifests/search?q=content.generator.manifest_tracking_number:abc123'
+  'https://e-manifest.18f.gov/api/v0/manifests/search?q=content.generator.manifest_tracking_number:12345'
 ```
 
 You can page through results with the `size` and `from` URL query parameters, and sort results by any field.
@@ -140,32 +149,18 @@ You will use the authentication response to [Sign your manifest](#sign-manifest)
 
 To sign a manifest you must first [Authenticate](#authenticate-user).
 
-You can sign a manifest with either the e-Manifest ID:
+You can sign a manifest with either the e-Manifest ID or the Manifest Tracking Number:
 
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
-  --data @sign-manifest-emanifestid.json \
-  https://e-manifest.18f.gov/api/v0/manifests/:manifest_id/signature
+  --data @sign-manifest.json \
+  https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014/signature
 ```
 
-where `sign-manifest-emanifestid.json` looks like:
+where `sign-manifest.json` looks like:
 
 ```json
-<%= render 'examples/sign_manifest_emanifestid.json' %>
-```
-
-You may also sign with the Manifest Tracking Number:
-
-```bash
-curl -i -X POST -H 'Content-Type: application/json' \
-  --data @sign-manifest-manifesttrackingnumber.json \
-  https://e-manifest.18f.gov/api/v0/manifests/:manifest_tracking_number/signature
-```
-
-where `sign-manifest-manifesttrackingnumber.json` looks like:
-
-```json
-<%= render 'examples/sign_manifest_manifesttrackingnumber.json' %>
+<%= render 'examples/sign_manifest.json' %>
 ```
 
 ## <a name="management-codes"></a>Management method codes
