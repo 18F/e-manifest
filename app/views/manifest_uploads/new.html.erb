@@ -1,1 +1,6 @@
 <h3>Attach a scan of the manifest</h3>
+
+<%= simple_form_for :manifest, url: upload_path, method: :post do |form| %>
+  <%= form.input :uploaded_file, as: :file %>
+  <%= form.submit 'Submit' %>
+<% end %>

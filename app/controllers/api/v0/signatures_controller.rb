@@ -1,4 +1,4 @@
-class Api::V0::SignaturesController < ApplicationController
+class Api::V0::SignaturesController < ApiController
   def create
     manifest = find_manifest_by_id_or_tracking_number(params[:manifest_id])
 

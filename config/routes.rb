@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   root to: 'manifests#index'
-  resources :manifests, only: [:new, :create]
-  resources :manifest_uploads, only: [:new]
+
+  resources :manifests, only: [:new, :create, :show] do
+    resources :sign_or_upload, only: [:new]
+    resources :manifest_uploads, only: [:new, :create]
+  end
+
+  resources :manifest_uploads, only: [:new, :create]
   resources :submissions, only: [:new]
 
   get 'api-examples', to: 'api_documentation#examples'

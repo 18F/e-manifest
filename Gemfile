@@ -25,7 +25,6 @@ gem 'pg'
 gem 'puma'
 gem 'rack-canonical-host'
 gem 'rails', '~> 4.2.0'
-gem 'refills'
 gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'simple_form'
@@ -35,11 +34,13 @@ gem 'uglifier'
 gem 'redcarpet'
 gem 'savon-multipart', git: 'https://github.com/jessieay/savon-multipart.git'
 gem 'swagger-ui_rails', git: 'https://github.com/pkarman/swagger-ui_rails.git', submodules: true
+gem 'us_web_design_standards'
 
 group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'web-console'
+  gem 'foreman'
 end
 
 group :development, :test do

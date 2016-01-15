@@ -1,0 +1,28 @@
+header {
+  color: $header-font-color;
+  padding: 1em;
+}
+
+header img,
+header p {
+  height: 30px;
+}
+
+header p {
+  display: inline-block;
+  font-size: .7em;
+  line-height: 1em;
+  margin: 0;
+  width: 130px;
+}
+
+header a,
+header a:active,
+header a:hover,
+header a:visited {
+  color: $header-font-color;
+}
+
+header a + a {
+  margin-left: 2em;
+}
