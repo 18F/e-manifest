@@ -12,7 +12,7 @@ bundle check || bundle install
 
 # Set up configurable environment variables
 if [ ! -f .env ]; then
-  cp .sample.env .env
+  cp .env.example .env
 fi
 
 # Set up database and add any development seed data
@@ -30,6 +30,9 @@ if ! command -v foreman > /dev/null; then
   printf 'Foreman is not installed.\n'
   printf 'See https://github.com/ddollar/foreman for install instructions.\n'
 fi
+
+# create directory needed to store the sidekiq.pid
+mkdir -p tmp/pids
 
 # Only if this isn't CI
 # if [ -z "$CI" ]; then

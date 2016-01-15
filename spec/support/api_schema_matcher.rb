@@ -1,14 +1,13 @@
 RSpec::Matchers.define :match_response_schema do |schema|
-  match do |response|
-    begin
-      schema_directory = "#{Rails.root}/app/schemas"
-      schema_data = JSON.parse(File.read("#{schema_directory}/#{schema}.json"))
-      parsed_schema = JsonSchema.parse!(schema_data)
+  include JsonSchemaSpecHelper
 
-      parsed_schema.expand_references!
+  match do |response|
+    register_schemas_by_uri
+    begin
+      schema_hash = read_schema_file(schema)
       response_body = JSON.parse(response.body)
-      parsed_schema.validate!(response_body)
-    rescue JsonSchema::SchemaError, JSON::ParserError => _error
+      JSON::Validator.validate!(schema_hash, response_body, validate_schema: true)
+    rescue JSON::Schema::ValidationError, JSON::ParserError => _error
       raise Class.new(StandardError)
     end
 

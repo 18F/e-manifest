@@ -1,4 +1,42 @@
-<%= simple_form_for :manifest, url: api_v0_manifests_url, method: :post do |form| %>
-  <%= form.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)' %>
+<h3>Submit new manifest</h3>
+
+<%= simple_form_for :manifest, url: manifests_path, method: :post do |form| %>
+  <h3>Generator</h3>
+  <%= form.simple_fields_for :generator do |generator| %>
+    <%= generator.input :us_epa_id_number, label: 'U.S. EPA ID Number (1)' %>
+    <%= generator.input :emergency_response_phone, label: 'Emergency Response Phone (3)' %>
+    <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)' %>
+    <%= generator.input :name, label: 'Name (5)' %>
+
+    <h3>Mailing address</h3>
+    <%= render partial: 'address', locals: { object: generator, number: 5 } %>
+
+    <%= generator.input :phone_number, label: 'Phone number (5)' %>
+  <% end %>
+
+  <h3>Transporter 1</h3>
+  <div class="transporter-1">
+    <%= simple_fields_for :transporter_1 do |transporter| %>
+      <%= transporter.input :name, label: 'Company Name (6)' %>
+      <%= transporter.input :us_epa_id_number, label: 'U.S. EPA ID Number (6)' %>
+    <% end %>
+  </div>
+
+  <h3>Transporter 2</h3>
+  <div class="transporter-2">
+    <%= simple_fields_for :transporter_2 do |transporter| %>
+      <%= transporter.input :name, label: 'Company Name (6)' %>
+      <%= transporter.input :us_epa_id_number, label: 'U.S. EPA ID Number (6)' %>
+    <% end %>
+  <div>
+
+  <h3>Designated Facility</h3>
+  <%= simple_fields_for :designated_facility do |facility| %>
+    <%= facility.input :name, label: 'Name (8)' %>
+    <%= render partial: 'address', locals: { object: facility, number: 8 } %>
+    <%= facility.input :phone_number, label: 'Phone number (8)' %>
+    <%= facility.input :us_epa_id_number, label: 'U.S. EPA ID Number (8)' %>
+  <% end %>
+
   <%= form.submit 'Continue' %>
 <% end %>

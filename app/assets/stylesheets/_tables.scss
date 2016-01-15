@@ -1,0 +1,24 @@
+table {
+  margin-top: .5em;
+}
+
+table th,
+table td {
+  border: none;
+}
+
+table th {
+  border-bottom: 2px solid $dark-gray;
+}
+
+table thead tr  {
+  background-color: white;
+}
+
+tbody tr {
+  border-top: 1px solid $base-border-color;
+}
+
+tbody tr:hover {
+  background-color: $light-gray;
+}

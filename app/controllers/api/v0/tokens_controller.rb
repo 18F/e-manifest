@@ -1,4 +1,4 @@
-class Api::V0::TokensController < ApplicationController
+class Api::V0::TokensController < ApiController
   def create
     body = request.body.read
       authentication = JSON.parse(body)

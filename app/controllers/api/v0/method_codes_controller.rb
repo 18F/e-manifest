@@ -1,6 +1,5 @@
-class Api::V0::MethodCodesController < ApplicationController
+class Api::V0::MethodCodesController < ApiController
   def index
-    content_type :json
-    IO.read(File.dirname(__FILE__) + "/../public/api-data/method-codes.json")
+    render json: IO.read("#{Rails.public_path}/method-codes.json")
   end
 end

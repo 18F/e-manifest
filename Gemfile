@@ -12,32 +12,35 @@ gem 'elasticsearch-rails-ha', git: 'https://github.com/18F/elasticsearch-rails-h
 gem 'autoprefixer-rails'
 gem 'active_model_serializers'
 gem 'bourbon', '~> 4.2.0'
+gem 'coderay'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'email_validator'
 gem 'flutie'
 gem 'jquery-rails'
-gem 'json_schema'
+gem 'json-patch'
+gem 'json-schema'
 gem 'neat', '~> 1.7.0'
 gem 'normalize-rails', '~> 3.0.0'
 gem 'pg'
 gem 'puma'
 gem 'rack-canonical-host'
 gem 'rails', '~> 4.2.0'
-gem 'refills'
 gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', require: nil
 gem 'title'
 gem 'uglifier'
-gem 'json-patch'
 gem 'redcarpet'
 gem 'savon-multipart', git: 'https://github.com/jessieay/savon-multipart.git'
+gem 'swagger-ui_rails', git: 'https://github.com/pkarman/swagger-ui_rails.git', submodules: true
+gem 'us_web_design_standards'
 
 group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'web-console'
+  gem 'foreman'
 end
 
 group :development, :test do
@@ -48,13 +51,13 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.3.0'
+  gem 'apivore', git: 'https://github.com/westfieldlabs/apivore.git'
 end
 
 group :test do
   gem 'capybara-webkit', '>= 1.2.0'
   gem 'database_cleaner'
   gem 'elasticsearch-extensions'
-  gem 'json_matchers'
   gem 'queryparams'
   gem 'launchy'
   gem 'shoulda-matchers', require: false
