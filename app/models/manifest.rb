@@ -1,6 +1,6 @@
 require 'date'
 
-require_relative '../search/query_dsl'
+require_relative './search/query_dsl'
 
 class Manifest < ActiveRecord::Base
   validates :tracking_number, presence: true
@@ -41,7 +41,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def transporters
-    content_field('generator.transporters')
+    content_field('transporters')
   end
 
   def designated_facility_name

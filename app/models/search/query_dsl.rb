@@ -1,5 +1,5 @@
 require 'elasticsearch/dsl'
-require_relative 'fielded_query'
+# require_relative 'fielded_query'
 
 module Search
   class QueryDSL

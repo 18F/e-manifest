@@ -21,13 +21,7 @@
   color: $secondary-background-color;
 }
 
-.expand-control {
-  background-color: $secondary-background-color;
-  border-radius: 10px;
-  color: $header-font-color;
+.callout [type=submit],
+.callout [type=reset] {
   display: inline-block;
-  height: 20px;
-  margin-right: 6px;
-  text-align: center;
-  width: 20px;
 }
