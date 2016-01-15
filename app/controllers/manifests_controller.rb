@@ -16,6 +16,10 @@ class ManifestsController < ApplicationController
     @manifests = Manifest.authorized_search({public: true}).records.to_a
   end
 
+  def show
+    @manifest = Manifest.find params[:id]
+  end
+
   private
 
   def manifest_params
@@ -35,9 +39,5 @@ class ManifestsController < ApplicationController
         ]
       ]
     )
-  end
-
-  def show
-    @manifest = Manifest.find params[:id]
   end
 end
