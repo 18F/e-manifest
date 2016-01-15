@@ -15,6 +15,12 @@ class Manifest < ActiveRecord::Base
     end
   end
 
+  def disposal_facility
+    if content["generator"] && content["generator"]["designated_facility"]
+      content["generator"]["designated_facility"]["name"] || ""
+    end
+  end
+
   def created_on
     created_at.strftime("%m/%d/%Y")
   end

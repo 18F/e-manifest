@@ -20,8 +20,11 @@ class ManifestsController < ApplicationController
     @manifest = Manifest.find params[:id]
   end
 
-  private
+  def show
+    @manifest = Manifest.find params[:id]
+  end
 
+  private
   def manifest_params
     params.require(:manifest).permit(
       generator: [
