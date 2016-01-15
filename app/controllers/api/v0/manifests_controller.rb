@@ -1,16 +1,18 @@
 class Api::V0::ManifestsController < ApiController
+  include ManifestParams
+
   def search
     if !params[:q] && !params[:aq]
       render json: {message: 'Missing q or aq param'}, status: 400
     else
-      render json: ManifestSearchSerializer.new(Manifest.authorized_search(params)).to_json(root: false)
+      render json: ManifestSearchSerializer.new(Manifest.authorized_search(params)).to_json
     end
   end
 
   def create
     @manifest = Manifest.new(content: manifest_params)
 
-    if @manifest.save!
+    if @manifest.save
       tracking_number = manifest_params[:manifest_tracking_number]
       render json: {
         message: "Manifest #{tracking_number} submitted successfully.",
@@ -18,7 +20,7 @@ class Api::V0::ManifestsController < ApiController
     else
       render json: {
         message: "Validation failed",
-        errors: @manifest.errors.full_messages
+        errors: @manifest.errors.full_messages.to_sentence
       }.to_json, status: 422
     end
   end
@@ -31,7 +33,7 @@ class Api::V0::ManifestsController < ApiController
       return
     end
 
-    render json: ManifestSerializer.new(manifest).to_json(root: false)
+    render json: ManifestSerializer.new(manifest).to_json
   end
 
   def update
@@ -45,19 +47,13 @@ class Api::V0::ManifestsController < ApiController
       new_json = JSON.patch(manifest_content_json, patch_json);
       manifest.update_column(:content, new_json)
 
-      render json: ManifestSerializer.new(manifest).to_json(root: false)
+      render json: ManifestSerializer.new(manifest).to_json
     rescue ActiveRecord::RecordNotFound => _error
       status 404
     end
   end
 
   private
-
-  def manifest_params
-    params.require(:manifest).permit(
-      :manifest_tracking_number,
-    )
-  end
 
   def find_manifest
     if params[:id] || params[:uuid]
