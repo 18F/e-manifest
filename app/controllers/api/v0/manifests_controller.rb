@@ -1,4 +1,4 @@
-class Api::V0::ManifestsController < ApplicationController
+class Api::V0::ManifestsController < ApiController
   include ManifestParams
 
   def search

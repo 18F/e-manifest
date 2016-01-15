@@ -2,26 +2,22 @@
 
 ### Running the app locally
 
-0. Install Ruby
-0. Install Bundler (`gem install bundler`)
+0. Install Ruby (RVM / Rbenv or another Ruby version manager is ideal for easy version updates)
+0. Install Bundler (`gem install bundler`) and foreman (`gem install foreman`)
 0. Install Postgres and make sure postgres/bin is on your $PATH.
 0. Start postgres if it isn't automatically running: `postgres -D /usr/local/var/postgres`
 0. Install Elasticsearch and make sure it is running.
 0. Install Redis and make sure it is running.
 0. Install the [Qt implementation of Webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) as we now depend on [capybara-webkit gem](https://github.com/thoughtbot/capybara-webkit).
-0. Run `bundle install` to grab the required gems.
-0. Use `rake db:create:all` to create the databases.
-0. User `rake db:migrate` to transform the database structure to what is
-   needed by the app. For test you will need to preface with env variables 
-   to indicate the environment: `RACK_ENV=test rake db:migrate`
-0. Run `./bin/setup` to initialize the rails application.
+0. Run `./bin/setup` to initialize the rails application and install the
+   necessary dependencies.
 0. Edit the environment-specific variables in a `.env.`*environmentname* file. The default created by running `./bin/setup` is `.env`.
    Test-specific variables can go in `.env.test`. If you have set a postgres username and password,
    use the `DATABASE_URL` environment variable to configure it. See `.env.example` for an example.
    Default database configuration is stored in `config/database.yml`.
 0. Add the CROMERR account credentials (CDX_USERNAME and CDX_PASSWORD) to `.env`.
 0. Run `rake secret` and set the output as the value for `SECRET_KEY_BASE` in `.env`.
-0. Run `foreman start`to start the Rails application. By default the app will respond to HTTP requests on port 5000. Specify a different port by appending `-p $portnumber` to the command.
+0. Run `foreman start` to start the Rails application.
 0. Go to `http://localhost:5000` and enjoy!
 
 ### Development practices
