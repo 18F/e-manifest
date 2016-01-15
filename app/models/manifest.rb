@@ -12,10 +12,6 @@ class Manifest < ActiveRecord::Base
     end
   end
 
-  def tracking_number
-    content_field('generator.manifest_tracking_number')
-  end
-
   def generator_name
     content_field('generator.name') || ''
   end
