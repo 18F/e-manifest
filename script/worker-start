@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+set -x
+
+# make sure our pids dir exists
+mkdir -p tmp/pids
+
+bundle exec sidekiq -C config/sidekiq.yml

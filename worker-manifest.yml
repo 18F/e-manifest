@@ -1,0 +1,12 @@
+---
+applications:
+- name: e-manifest-worker
+  instances: 1
+  memory: 256M
+  domain: 18f.gov
+  no-route: true
+  command: script/worker-start
+  services:
+    - e-manifest-dev-db
+    - emanifest-es-prod
+    - emanifest-redis-prod
