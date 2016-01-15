@@ -19,6 +19,20 @@ describe Manifest do
     end
   end
 
+  describe '#content_field' do
+    context 'access json tree via dotted string' do
+      it 'can find manifest tracking number' do
+        manifest = create(:manifest)
+        expect(manifest.content_field('generator.manifest_tracking_number')).to eq manifest.tracking_number
+      end
+
+      it "returns nil if field xpath does not exist" do
+        manifest = create(:manifest)
+        expect(manifest.content_field('foo.bar')).to eq nil
+      end
+    end
+  end
+
   describe '#tracking_number' do
     context 'generator manifest tracking number is present' do
       it 'returns the generator manifest tracking number' do
