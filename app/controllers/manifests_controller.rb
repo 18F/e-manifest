@@ -16,8 +16,15 @@ class ManifestsController < ApplicationController
     @manifests = Manifest.authorized_search({public: true}).records.to_a
   end
 
-  private
+  def show
+    @manifest = Manifest.find params[:id]
+  end
 
+  def show
+    @manifest = Manifest.find params[:id]
+  end
+
+  private
   def manifest_params
     params.require(:manifest).permit(
       generator: [

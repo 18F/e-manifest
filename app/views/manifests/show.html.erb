@@ -1,0 +1,116 @@
+<div class="usa-width-two-thirds">
+  <h2>Manifest <%= @manifest.tracking_number %></h2>
+
+  <h3>Generator</h3>
+  <dl>
+    <dt>Generator ID Number</dt>
+    <dd><%= @manifest.tracking_number %></dd>
+    <dt>Emergency Phone Number</dt>
+    <dd><%= @manifest.generator_emergency_response_phone %></dd>
+    <dt>Manifest Tracking Number</dt>
+    <dd><%= @manifest.tracking_number %></dd>
+    <dt>Generator's Name</dt>
+    <dd><%= @manifest.generator_name %></dd>
+    <dt>Mailing Address</dt>
+    <dd>
+      <%= @manifest.generator_mailing_address["address_1"] %><br>
+      <%= @manifest.generator_mailing_address["address_2"] %><br>
+      <%= @manifest.generator_mailing_address["city"] %>, <%= @manifest.generator_mailing_address["state"] %> <%= @manifest.generator_mailing_address["zip_code"] %>
+    </dd>
+    <dt>Phone</dt>
+    <dd><%= @manifest.generator_phone_number %></dd>
+  </dl>
+
+  <h3>Transporter</h3>
+  <% @manifest.transporters.each do |t| %>
+    <dl>
+      <dt>Company Name</dt>
+      <dd><%= t['company_name'] %></dd>
+      <dt>U.S. EPA ID Number</dt>
+      <dd><%= t['us_epa_id_number'] %></dd>
+    </dl>
+  <% end %>
+
+  <h3>Designated Facility</h3>
+  <dl>
+    <dt>Company Name</dt>
+    <dd><%= @manifest.tracking_number %></dd>
+    <dt>Mailing Address</dt>
+    <dd><%= @manifest.tracking_number %></dd>
+    <dt>Phone</dt>
+    <dd></dd>
+    <dt>U.S. EPA ID Number</dt>
+    <dd></dd>
+  </dl>
+
+  <h3>Waste</h3>
+  <% @manifest.manifest_items.each do |m| %>
+    <dl>
+      <dt>MM</dt>
+      <dd></dd>
+      <dt>U.S. DOT Description</dt>
+      <dd><%= m["proper_shipping_name"] %></dd>
+      <dt>Total Quantity</dt>
+      <dd><%= m["total_quantity"] %></dd>
+      <dt>Unit Wt./Vol.</dt>
+      <dd><%= m["unit_wt_vol"] %></dd>
+      <dt>U.S. EPA Federal Waste Codes</dt>
+      <dd>
+        <% m["epa_waste_codes"].each do |wc| %>
+          wc
+        <% end %>
+      </dd>
+      <dt>State Waste Codes</dt>
+      <dd>
+        <% m["state_waste_codes"].each do |wc| %>
+          wc
+        <% end %>
+      </dd>
+    </dl>
+  <% end %>
+
+  <dl>
+    <dt>Special Handling Instructions</dt>
+    <dd><%= @manifest.waste_handling_instructions %></dd>
+    <dt>Generator's/Officer's Name</dt>
+    <dd></dd>
+    <dt>Date</dt>
+    <dd></dd>
+    <dt>Hazardous Waste Report Management Method Codes</dt>
+    <dd>
+      <% @manifest.waste_report_codes.each do |c| %>
+        <%= c %>
+      <% end %>
+    </dd>
+    <dt>Transporter Name of Signatory</dt>
+    <dd></dd>
+    <dt>Date Signed</dt>
+    <dd></dd>
+  </dl>
+
+  <dl>
+    <dt>Designated Facility Officer or Operator Name</dt>
+    <dd><%= @manifest.designated_facility_name %></dd>
+    <dt>Date Signed</dt>
+    <dd><%= @manifest.designated_facility_signed_date %></dd>
+    <dt>Date Submitted</dt>
+    <dd></dd>
+  </dl>
+</div>
+
+<div class="usa-width-one-third">
+  <div class="callout">
+    <dl>
+      <dt>Manifest #</dt>
+      <dd><%= @manifest.tracking_number %></dd>
+      <dt>Generator</dt>
+      <dd><%= @manifest.generator_name %></dd>
+      <dt>Disposal Facility</dt>
+      <dd><%= @manifest.disposal_facility %></dd>
+      <dt>Date</dt>
+      <dd><%= @manifest.created_on %></dd>
+    </dl>
+
+    <button class="usa-button-big" type="button">Download</button>
+  </div>
+</div>
