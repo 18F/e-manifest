@@ -1,4 +1,4 @@
-class Api::V0::ManifestsController < ApplicationController
+class Api::V0::ManifestsController < ApiController
   def search
     if !params[:q] && !params[:aq]
       render json: {message: 'Missing q or aq param'}, status: 400
