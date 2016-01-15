@@ -17,7 +17,7 @@ feature 'Home page' do
     expect(page).to_not have_content new_manifest.tracking_number
   end
 
-  scenario 'navigates to submit manifest page' do
+  scenario 'navigates to submit manifest page', elasticsearch: true do
     visit root_path
 
     click_link 'Industry'

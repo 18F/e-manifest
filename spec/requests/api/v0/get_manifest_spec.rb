@@ -4,7 +4,7 @@ describe 'GET Manifest' do
   describe 'GET manifest' do
     context 'id param' do
       it 'return the manifest as json' do
-        manifest = Manifest.create(activity_id: 1, document_id: 2, content: { hello: 'world' })
+        manifest = create(:manifest, activity_id: 1, document_id: 2)
         manifest.reload
 
         get "/api/v0/manifests/#{manifest.uuid}",

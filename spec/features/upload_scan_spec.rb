@@ -2,12 +2,14 @@ require 'rails_helper'
 
 feature 'Upload scan', elasticsearch: true do
   scenario 'upload instead of filling out form' do
+    manifest_tracking_number = '12345'
     visit new_manifest_upload_path
 
+    fill_in 'Manifest Tracking Number', with: manifest_tracking_number
     attach_file('manifest[uploaded_file]', Rails.root + "spec/support/fixtures/epa_form.pdf")
     click_on 'Submit'
 
-    expect(page).to have_content("Upload for manifest submitted successfully.")
+    expect(page).to have_content("Upload for manifest #{manifest_tracking_number} submitted successfully.")
   end
 
   scenario 'upload after filling in form' do

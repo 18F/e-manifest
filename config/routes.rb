@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root to: 'manifests#index'
+  resources :manifests, only: [:new, :create, :show]
 
-  resources :manifests, only: [:new, :create, :show] do
+  resources :manifests, only: [:show] do
     resources :sign_or_upload, only: [:new]
     resources :manifest_uploads, only: [:new, :create]
   end

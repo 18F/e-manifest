@@ -3,15 +3,17 @@ require 'date'
 require_relative '../search/query_dsl'
 
 class Manifest < ActiveRecord::Base
+  validates :tracking_number, presence: true
+
   def tracking_number
     if content && content["generator"]
-      content["generator"]["manifest_tracking_number"] || ""
+      content["generator"]["manifest_tracking_number"] || ''
     end
   end
 
   def generator_name
     if content && content["generator"]
-      content["generator"]["name"] || ""
+      content["generator"]["name"] || ''
     end
   end
 
@@ -22,7 +24,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def created_on
-    created_at.strftime("%m/%d/%Y")
+    created_at.strftime('%m/%d/%Y')
   end
 
   def disposal_facility
