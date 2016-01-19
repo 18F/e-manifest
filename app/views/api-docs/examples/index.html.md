@@ -35,6 +35,21 @@ Status: 201
 Location: https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014
 ```
 
+## <a name="validate-manifest"></a>Valudate a manifest
+
+Before you submit a manifest, you may validate its content and structure.
+
+```bash
+curl -i -X POST -H 'Content-Type: application/json' \
+  --data @manifest.json \
+  https://e-manifest.18f.gov/api/v0/manifests/validate
+```
+
+If there is a validation error, the response status code will be 422 and the response body
+will be a JSON string containing any validation errors.
+
+If the manifest is valid, the response status code will be 200.
+
 ## <a name="fetch-manifest"></a>Fetch a manifest
 
 To retrieve a previously submitted e-Manifest, you need the e-Manifest ID from
