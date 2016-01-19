@@ -19,9 +19,9 @@ describe ManifestValidator do
     json = { foo: 'bar' }.to_json
     validator = ManifestValidator.new(json)
     validator.run
-    expect(validator.errors.size).to eq 2
-    expect(validator.errors.map { |e| e[:message] }).to include(
-      "The property '#/' contained undefined properties: 'foo' in schema https://e-manifest.18f.gov/schemas/post-manifest.json"
-    )
+    expect(validator.error_messages).to match_array([
+      %Q(The property '#/' contains additional properties ["foo"] outside of the schema when none are allowed in schema https://e-manifest.18f.gov/schemas/post-manifest.json),
+      %Q(The property '#/' did not contain a required property of 'generator' in schema https://e-manifest.18f.gov/schemas/post-manifest.json)
+    ])
   end
 end
