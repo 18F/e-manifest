@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'POST manifests' do
   context 'valid manifest params' do
     it 'creates a new manifest' do
-      manifest_tracking_number = SecureRandom.random_number(1_000_000_000).to_s + "abc"
+      manifest_tracking_number = "987654321abc"
       expect {
         post '/api/v0/manifests',
           {
