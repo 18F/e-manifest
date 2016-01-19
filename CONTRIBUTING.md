@@ -39,7 +39,6 @@
 
 ### One-off Tasks
 
-- To deploy to 18F's cloud, run `cf push`.
 - To add dummy data for developing against, run `rake populate:manifests RANDOMIZE_CREATED_AT=true`.
 - To (re)build the Elasticsearch index, run `rake search:index FORCE=y`.
 - Run `bundle update` to grab any updated gems.
@@ -48,6 +47,11 @@
 ### Running Tests
 
 Server tests are in rspec. Just run `rspec`.
+
+### Deploying to cloud.gov
+
+* To deploy to *e-manifest.18f.gov*: `cf target -o epa-emanifest -s prod && script/deploy e-manifest`
+* To deploy to *e-manifest-dev.18f.gov*: `cf target -o epa-emanifest -s dev && script/deploy e-manifest-dev`
 
 ## CROMERR Signing
 
