@@ -40,7 +40,7 @@
 ### One-off Tasks
 
 - To deploy to 18F's cloud, run `cf push`.
-- To add dummy data for developing against, run `rake populate:manifests`.
+- To add dummy data for developing against, run `rake populate:manifests RANDOMIZE_CREATED_AT=true`.
 - To (re)build the Elasticsearch index, run `rake search:index FORCE=y`.
 - Run `bundle update` to grab any updated gems.
 - To update the database schema, run `rake db:migrate`. For test you will need to preface with env variables to indicate the environment: RACK_ENV=test rake db:migrate
