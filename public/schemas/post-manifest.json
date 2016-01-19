@@ -341,10 +341,13 @@
       "type": "string"
     },
     "report_management_method_codes": {
-      "description":"(19) Federal Management method codes as listed in EPA guidance.  Current codes are listed in e-Manifest at...",
-      "type": "string",
-      "maxLength": 4,
-      "minLength": 4
+      "type": "array",
+      "items": [{
+        "description":"(19) Federal Management method codes as listed in EPA guidance.  Current codes are listed in e-Manifest at https://e-manifest.18f.gov/method-codes.json",
+        "type": "string",
+        "maxLength": 4,
+        "minLength": 4
+      }]
     }
   }
 }

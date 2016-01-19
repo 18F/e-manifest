@@ -83,11 +83,10 @@
       }
    ],
    "waste_pcb_description" : "None.",
-   "is_international_shipment" : "yes",
+   "is_international_shipment" : true,
    "report_management_method_codes" : [
-      "Method1",
-      "Method2",
-      "Method3"
+      "H100",
+      "H110"
    ],
    "designated_facility" : {
       "certification" : {
@@ -138,5 +137,5 @@
          "month" : "10"
       }
    },
-   "waste_non_hazardous_material_present" : "yes"
+   "waste_non_hazardous_material_present" : true
 }
