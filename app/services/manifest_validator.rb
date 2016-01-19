@@ -14,7 +14,15 @@ class ManifestValidator
 
   def run
     schema_file_path = schema_file('post-manifest')
-    @errors = JSON::Validator.fully_validate(schema_file_path, content, errors_as_objects: true, strict: true)
+    @errors = JSON::Validator.fully_validate(schema_file_path, content, errors_as_objects: true)
     !@errors.any?
+  end
+
+  def error_messages
+    if errors
+      errors.map{ |e| e[:message] }
+    else
+      []
+    end
   end
 end
