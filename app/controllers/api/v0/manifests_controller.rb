@@ -12,14 +12,8 @@ class Api::V0::ManifestsController < ApiController
   def validate
     begin
       manifest_content = JSON.parse(request.body.read)
-      validator = ManifestValidator.new(manifest_content)
-      if validator.run
+      if validate_manifest(manifest_content)
         render json: {message: "Manifest structure is valid"}, status: 200
-      else
-        render json: {
-          message: "Validation failed",
-          errors: validator.error_messages
-        }.to_json, status: 422
       end
     rescue JSON::ParserError => error
       render json: {message: "Invalid JSON in request: #{error}"}, status: 400
@@ -27,13 +21,7 @@ class Api::V0::ManifestsController < ApiController
   end
 
   def create
-    validator = ManifestValidator.new(manifest_params)
-    if !validator.run
-      render json: {
-        message: "Validation failed",
-        errors: validator.error_messages
-      }.to_json, status: 422
-    else
+    if validate_manifest(manifest_params)
       @manifest = Manifest.new(content: manifest_params)
 
       if @manifest.save
@@ -94,5 +82,16 @@ class Api::V0::ManifestsController < ApiController
 
   def find_manifest_by_tracking_number
     Manifest.find_by!("content -> 'generator' ->> 'manifest_tracking_number' = ?", params[:tracking_number])
+  end
+
+  def validate_manifest(content)
+    validator = ManifestValidator.new(content)
+    unless validator.run
+      render json: {
+        message: "Validation failed",
+        errors: validator.error_messages
+      }.to_json, status: 422
+    end
+    !validator.errors.any?
   end
 end
