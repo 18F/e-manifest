@@ -2,10 +2,6 @@ require 'rails_helper'
 require "queryparams"
 
 describe 'manifests search', elasticsearch: true do
-  before(:each) do
-    Manifest.rebuild_index
-  end
-
   context 'ui' do
     it 'supports structured query syntax' do
       manifest = create(:manifest, :indexed)

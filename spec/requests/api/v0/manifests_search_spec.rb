@@ -2,10 +2,6 @@ require 'rails_helper'
 require "queryparams"
 
 describe "search", elasticsearch: true do
-  before(:each) do
-    Manifest.rebuild_index
-  end
-
   describe "/search" do
     it "searches all fields by default" do
       2.times.map { create(:manifest, :indexed) }
