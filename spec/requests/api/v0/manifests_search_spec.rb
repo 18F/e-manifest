@@ -1,33 +1,25 @@
 require 'rails_helper'
-require_relative '../../db/chores/populator'
 require "queryparams"
 
 describe "search", elasticsearch: true do
   describe "/search" do
     it "searches all fields by default" do
-      populate_manifests(2)
-      search_for "around+the+corner"
+      2.times.map { create(:manifest, :indexed) }
+      search_for "company"
       expect(JSON.parse(response.body)["total"]).to eq 2
     end
 
     it "searches by specific field" do
-      populate_manifests(2)
-      search_for "content.generator.name:generator"
+      2.times.map { create(:manifest, :indexed) }
+      search_for "content.generator.name:company"
       expect(JSON.parse(response.body)["total"]).to eq 2
     end
 
     it "searched by structured query" do
-      populate_manifests(2)
-      search_for_advanced({ "content.generator.name" => "generator" })
+      2.times.map { create(:manifest, :indexed) }
+      search_for_advanced({ "content.generator.name" => "company" })
       expect(JSON.parse(response.body)["total"]).to eq 2
     end
-  end
-
-  def populate_manifests(nrecords=10)
-    populator = Populator.new(Manifest)
-    populator.run(nrecords)
-    # must index manually because triggers are disabled in test env
-    Manifest.rebuild_index
   end
 
   def search_for(query)
