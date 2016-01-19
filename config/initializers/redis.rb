@@ -10,7 +10,7 @@ if ENV["RACK_ENV"] == "production"
       redis_url = "redis://#{redis_config['password']}@#{redis_config['hostname']}:#{redis_config['port']}"
       #STDERR.puts "REDIS_URL=#{redis_url}"
       ENV['REDIS_PROVIDER'] ||= redis_url
-      ENV['REDIS_URL']      ||= redis_url
-    end 
+      ENV['REDIS_URL'] ||= redis_url
+    end
   end
 end

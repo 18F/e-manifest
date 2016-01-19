@@ -1,5 +1,4 @@
 require 'rails_helper'
-require_relative '../../app/search/query_dsl'
 
 describe Search::QueryDSL do
   it "converts params to ES DSL" do

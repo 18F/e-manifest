@@ -1,13 +1,13 @@
 require "elasticsearch/model"
 
 # defaults
-es_client_args = { 
+es_client_args = {
   transport_options: {
     request: {
       timeout: 1800,
       open_timeout: 1800,
-    }   
-  },  
+    }
+  },
   retry_on_failure: 5,
 }
 

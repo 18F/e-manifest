@@ -16,14 +16,17 @@ if [ ! -f .env ]; then
 fi
 
 # Set up database and add any development seed data
-bundle exec rake db:setup dev:prime
+bundle exec rake db:setup populate:manifests
+
+# Create es search index
+bundle exec rake search:index FORCE=y
 
 # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
 mkdir -p .git/safe
 
 # Pick a port for Foreman
 if ! grep --quiet --no-messages --fixed-strings 'port' .foreman; then
-  printf 'port: 9000\n' >> .foreman
+  printf 'port: 5000\n' >> .foreman
 fi
 
 if ! command -v foreman > /dev/null; then

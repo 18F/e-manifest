@@ -42,6 +42,39 @@ describe Manifest do
 
         expect(manifest.tracking_number).to eq tracking_number
       end
+
+      it 'does not allow manifests with duplicate tracking number' do
+        tracking_number = '12345'
+
+        manifest = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
+        expect {
+          manifest_dup = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
+        }.to raise_exception(ActiveRecord::RecordNotUnique)
+      end
+    end
+  end
+
+  describe '#find_by_uuid_or_tracking_number' do
+    context 'find by either uuid or tracking_number' do
+      it 'finds by uuid' do
+        manifest = create(:manifest)
+        expect(Manifest.find_by_uuid_or_tracking_number(manifest.uuid)).to eq manifest
+      end
+
+      it 'finds by tracking number' do
+        manifest = create(:manifest)
+        expect(Manifest.find_by_uuid_or_tracking_number(manifest.tracking_number)).to eq manifest
+      end
+
+      it 'returns nil when cannot find by either' do
+        expect(Manifest.find_by_uuid_or_tracking_number('foo')).to eq nil
+      end
+
+      it 'raises exception when called as find_by_uuid_or_tracking_number! and not found' do
+        expect {
+          Manifest.find_by_uuid_or_tracking_number!('foo')
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
 

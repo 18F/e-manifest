@@ -1,6 +1,6 @@
 class Api::V0::SignaturesController < ApiController
   def create
-    manifest = find_manifest_by_id_or_tracking_number(params[:manifest_id])
+    manifest = find_manifest(params[:manifest_id])
 
     if manifest.nil?
       status 404
@@ -26,8 +26,7 @@ class Api::V0::SignaturesController < ApiController
 
   private
 
-  def find_manifest_by_id_or_tracking_number(id)
-    Manifest.where(id: id).first ||
-      Manifest.where("content -> 'generator' ->> 'manifest_tracking_number' = ?", id).first
+  def find_manifest(id)
+    Manifest.find_by_uuid_or_tracking_number!(id)
   end
 end
