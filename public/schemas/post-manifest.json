@@ -100,7 +100,7 @@
           "type": "string",
           "maxLength": 12,
           "minLength": 12,
-          "COMMENT": "add Regular Expressions"
+          "pattern": "^[0-9]{9}[A-Za-z]{3}$"
         },
         "emergency_response_phone": {
           "description": "(3) Emergency Phone number",
