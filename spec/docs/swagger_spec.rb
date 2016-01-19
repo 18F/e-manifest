@@ -14,6 +14,11 @@ describe 'Swagger docs', type: :apivore, order: :defined do
         :get, '/manifests/{id}', 200, params
       )
     end
+    it do
+      expect(subject).to validate(
+        :post, '/manifests', 201, manifest_as_json, set_headers
+      )
+    end
   end
 
   context 'and' do
@@ -29,5 +34,9 @@ describe 'Swagger docs', type: :apivore, order: :defined do
 
   def params
     @_params ||= { 'id' => manifest.uuid }
+  end
+
+  def manifest_as_json
+    File.read("#{Rails.root.join('app', 'views', 'examples')}/_manifest.json")
   end
 end
