@@ -12,43 +12,41 @@ class Api::V0::ManifestsController < ApiController
   def validate
     begin
       manifest_content = JSON.parse(request.body.read)
-    rescue JSON::ParserError => err
-      render json: {message: "Invalid JSON in request: #{err}"}, status: 400
-      return
-    end
-
-    validator = ManifestValidator.new(manifest_content)
-    if validator.run
-      render json: {message: "Manifest structure is valid"}, status: 200
-    else
-      render json: {
-        message: "Validation failed",
-        errors: validator.error_messages
-      }.to_json, status: 422
+      validator = ManifestValidator.new(manifest_content)
+      if validator.run
+        render json: {message: "Manifest structure is valid"}, status: 200
+      else
+        render json: {
+          message: "Validation failed",
+          errors: validator.error_messages
+        }.to_json, status: 422
+      end
+    rescue JSON::ParserError => error
+      render json: {message: "Invalid JSON in request: #{error}"}, status: 400
     end
   end
 
   def create
     validator = ManifestValidator.new(manifest_params)
-    unless validator.run
+    if !validator.run
       render json: {
         message: "Validation failed",
         errors: validator.error_messages
       }.to_json, status: 422
-      return
-    end
-    @manifest = Manifest.new(content: manifest_params)
-
-    if @manifest.save
-      tracking_number = manifest_params[:manifest_tracking_number]
-      render json: {
-        message: "Manifest #{tracking_number} submitted successfully.",
-      }.to_json, status: 201
     else
-      render json: {
-        message: "Validation failed",
-        errors: @manifest.errors.full_messages.to_sentence
-      }.to_json, status: 422
+      @manifest = Manifest.new(content: manifest_params)
+
+      if @manifest.save
+        tracking_number = manifest_params[:manifest_tracking_number]
+        render json: {
+          message: "Manifest #{tracking_number} submitted successfully.",
+        }.to_json, status: 201
+      else
+        render json: {
+          message: "Validation failed",
+          errors: @manifest.errors.full_messages.to_sentence
+        }.to_json, status: 422
+      end
     end
   end
 
