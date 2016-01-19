@@ -25,4 +25,10 @@ describe ManifestValidator do
       %Q(The property '#/' did not contain a required property of 'generator' in schema https://e-manifest.18f.gov/schemas/post-manifest.json)
     ])
   end
+
+  it "recognizes valid JSON" do
+    json = File.read("#{Rails.root.join('app', 'views', 'examples')}/_manifest.json")
+    validator = ManifestValidator.new(json)
+    expect(validator.run).to eq true
+  end
 end
