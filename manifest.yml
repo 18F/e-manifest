@@ -8,7 +8,7 @@ applications:
   memory: 128M
   domain: 18f.gov
   services:
-  - e-manifest-dev-db
+  - e-manifest-db
   - emanifest-es-prod
   - emanifest-redis-prod
   env:
