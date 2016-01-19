@@ -3,4 +3,5 @@
 set -e
 set -x
 
+bundle exec rake cf:on_first_instance db:migrate
 bundle exec puma -p ${PORT:-5000} -e ${RACK_ENV:-development} -C ./config/puma.rb
