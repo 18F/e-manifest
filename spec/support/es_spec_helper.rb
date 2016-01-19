@@ -44,6 +44,7 @@ module EsSpecHelper
       end
     end
     puts "Completed #{completed} records of class #{klass}"
+    klass.__elasticsearch__.refresh_index!
   end
 
 end
