@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+# Set up Rails app. Run this script immediately after cloning the codebase.
+# https://github.com/thoughtbot/guides/tree/master/protocol
+
+# Exit if any subcommand fails
+set -e
+
+# Set up Ruby dependencies via Bundler
+gem install bundler --conservative
+bundle check || bundle install
+
+# Set up configurable environment variables
+if [ ! -f .env ]; then
+  cp .env.example .env
+fi
+
+# Set up database and add any development seed data
+bundle exec rake db:setup populate:manifests
+
+# Create es search index
+bundle exec rake search:index FORCE=y
+
+# Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
+mkdir -p .git/safe
+
+# Pick a port for Foreman
+if ! grep --quiet --no-messages --fixed-strings 'port' .foreman; then
+  printf 'port: 5000\n' >> .foreman
+fi
+
+if ! command -v foreman > /dev/null; then
+  printf 'Foreman is not installed.\n'
+  printf 'See https://github.com/ddollar/foreman for install instructions.\n'
+fi
+
+# create directory needed to store the sidekiq.pid
+mkdir -p tmp/pids
+
+# Only if this isn't CI
+# if [ -z "$CI" ]; then
+# fi
