@@ -32,7 +32,7 @@ describe 'API request spec' do
         cdx_manifest = double('cdx manifest', sign: { document_id: 44 })
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-        post "/api/v0/manifests/#{manifest.id}/signature",
+        post "/api/v0/manifests/#{manifest.uuid}/signature",
           { activity_id: 22 }.to_json,
           set_headers
 
@@ -46,7 +46,7 @@ describe 'API request spec' do
         cdx_manifest = double('cdx manifest', sign: { foo: 'bar' })
         expect(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
-        post "/api/v0/manifests/#{manifest.id}/signature",
+        post "/api/v0/manifests/#{manifest.uuid}/signature",
           { activity_id: 22 }.to_json,
           set_headers
 
