@@ -44,10 +44,9 @@
   </dl>
 
   <h3>Waste</h3>
-  <% @manifest.manifest_items.each do |m| %>
+  <% @manifest.manifest_items.each_with_index do |m, i| %>
+    <h4>MM <%= i + 1 %></h4>
     <dl>
-      <dt>MM</dt>
-      <dd></dd>
       <dt>U.S. DOT Description</dt>
       <dd><%= m["proper_shipping_name"] %></dd>
       <dt>Total Quantity</dt>
@@ -55,17 +54,9 @@
       <dt>Unit Wt./Vol.</dt>
       <dd><%= m["unit_wt_vol"] %></dd>
       <dt>U.S. EPA Federal Waste Codes</dt>
-      <dd>
-        <% m["epa_waste_codes"].each do |wc| %>
-          wc
-        <% end %>
-      </dd>
+      <dd><%= with_comma m["epa_waste_codes"] %></dd>
       <dt>State Waste Codes</dt>
-      <dd>
-        <% m["state_waste_codes"].each do |wc| %>
-          wc
-        <% end %>
-      </dd>
+      <dd><%= with_comma m["state_waste_codes"] %></dd>
     </dl>
   <% end %>
 
@@ -78,9 +69,7 @@
     <dd></dd>
     <dt>Hazardous Waste Report Management Method Codes</dt>
     <dd>
-      <% @manifest.waste_report_codes.each do |c| %>
-        <%= c %>
-      <% end %>
+      <%= with_comma @manifest.waste_report_codes %>
     </dd>
     <dt>Transporter Name of Signatory</dt>
     <dd></dd>

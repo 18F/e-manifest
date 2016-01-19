@@ -16,25 +16,30 @@
 </head>
 <body>
   <%= render "disclaimer" %>
-  <header>
+  <nav>
     <div class="usa-grid">
       <div class="usa-width-one-half">
         <img alt="EPA Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB2aWV3Qm94PSIwIDAgMTAwLjk5OTE5IDMxLjAwMDM4MyIgd2lkdGg9IjEwMXB4IiBoZWlnaHQ9IjMxcHgiPg0KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQuMjc2NTc3M2UtNCwtMTAyMS4zNjI3KSI+DQo8ZyBmaWxsLXJ1bGU9Im5vbnplcm8iIGZpbGw9IiNGRkYiIHRyYW5zZm9ybT0ibWF0cml4KDAuMTc3OTc5MDUsMCwwLDAuMTc3OTczOSwtMTMuMDYzOTQ3LDEwMDguMjIwMikiPg0KPHBhdGggZD0ibTIxNC40MSwxNDAuNjZjLTUuOTksMjMuMjctMjguNTcsNDEuNzAzLTUzLjY4Myw0MS43MDMtMjUuMTE1LDAtNDcuNDYzLTE4LjQzMy01My42ODYtNDEuNzAzaDAuMjMwM3MxMi4yMTIsMTIuOTAyLTAuMjMwMywwYzMuOTE3MywzLjkxNyw3LjcyNDUsNS41Mjk0LDEzLjM2NCw1LjUyOTQsNS42Mzk2LDAsOS42NzY4LTEuNjEyNCwxMy4zNjMtNS41Mjk0LDMuOTE3LDMuOTE3LDcuODcxMSw1LjU2NSwxMy41OTQsNS41Mjk0LDUuNjQwNi0wLjAzMzcsOS40NDY4LTEuNjEyNCwxMy4zNjQtNS41Mjk0LDMuOTE1NSwzLjkxNyw3LjcyMjEsNS41Mjk0LDEzLjM2Myw1LjUyOTQsNS42Mzk2LDAsOS42NzY4LTEuNjEyNCwxMy4zNjMtNS41Mjk0LDMuOTE2OSwzLjkxNyw3Ljg3MSw1LjU2NSwxMy41OTMsNS41Mjk0LDUuNjQtMC4wMzM3LDkuNDQ3NS0xLjYxMjQsMTMuMzY0LTUuNTI5NCIvPg0KPHBhdGggZD0ibTIxNC44NywxMjguMjJjMC0yOS45NTItMjQuMTkzLTU0LjM3NS01NC4xNDQtNTQuMzc1LTI5Ljk1MywwLTU0LjM3NiwyNC40MjItNTQuMzc2LDU0LjM3NWg0OC44NDVjLTUuOTg5Ny0yLjMwNS0xMC4xMzctNy44MzM4LTEwLjEzNy0xNC41MTYsMC04Ljc1NSw3LjE0MjYtMTUuNjY3LDE1LjY2OC0xNS42NjcsOC43NTQzLDAsMTUuODk3LDYuOTEyNSwxNS44OTcsMTUuNjY3LDAsNi40NTI1LTMuOTE3LDExLjk4MS05LjQ0NjgsMTQuNTE2aDQ3LjY5NCIvPg0KPHBhdGggZD0ibTE2NC4xOCwyNDguMDNjMC45MjE4LTQ2LjA3OSwzNy4wOTUtODUuOTM5LDgzLjYzNS04Ny41NTMsMCw0Ni41NDItMzcuNTU1LDg1LjAyLTgzLjYzNSw4Ny41NTMiLz4NCjxwYXRoIGQ9Im0xNTcuMjcsMjQ4LjAzYy0wLjkyMTktNDYuMDc5LTM3LjA5NS04NS45MzktODMuODY2LTg3LjU1MywwLDQ2LjU0MiwzNy43ODYsODUuMDIsODMuODY2LDg3LjU1MyIvPg0KPHBhdGggZD0ibTM3My4zOSw3Ny43NTgtMTA5LjksMCwwLDE2Ni4zNSwxMDkuOSwwLDAtMjUuNTc1LTc1LjM0MiwwLDAtNDQuOTI5LDc1LjM0MiwwLDAtMjYuMjY2LTc1LjM0MiwwLDAtNDMuNzc3LDc1LjM0MiwwLDAtMjUuODA1Ii8+DQo8cGF0aCBkPSJtNDE0LjQsMTQ3LjM0LDMzLjg3LDBjMTEuMzQ1LDAsMTkuMDExLTEwLjc3NCwxOC44OTQtMjIuMTItMC4xMTYyNS0xMS4yMDgtNy42ODUtMjEuNjU4LTE4Ljg5NC0yMS42NThoLTMxLjU2NXYxNDAuNTVoLTM0Ljc5di0xNjYuMzVoNzcuODc2YzI1LjI0MSwwLDQzLjc2NSwyMi4yMjIsNDQuMDA2LDQ3LjQ2MiwwLjI0Mzc1LDI1LjUwOC0xOC40OTksNDguMzg2LTQ0LjAwNiw0OC4zODZoLTQ1LjM5di0yNi4yNjYiLz4NCjxwYXRoIGQ9Im00NjguMzEsMjQ0LjExLDM3LjA5NSwwLDE2LjEyOC00My43NzgsNjcuNzQsMC0xMC4xMzktMjcuNDE2LTQ3LjkyMiwwLDIzLjUtNjMuMzYxLDQ5LjA3NSwxMzQuNTYsMzcuMDk1LDAtNjYuMzU1LTE2Ni4zNS00Mi4xNjUsMC02NC4wNTEsMTY2LjM1LDAsMCIvPg0KPC9nPg0KPC9nPg0KPC9zdmc+">
         <p>United States Environmental Protection Agency</b>
       </div>
       <div class="usa-width-one-half text-right">
-        <%= link_to 'Home', root_path %>
+        <%= link_to 'Search', root_path %>
         <%= link_to 'Industry', new_submission_path %>
+        <%= link_to 'Learn About Submitting Manifests', '/api-documentation/' %>
       </div>
     </div>
-  </header>
+  </nav>
 
   <%= render "flashes" %>
 
-  <main class="usa-grid">
+  <header class="usa-grid">
     <div class="usa-width-one-whole">
       <h1>E-Manifest</h1>
+      <p>An electronic system of tracking hazardous waste</p>
     </div>
+  </header>
+
+  <main class="usa-grid">
     <%= yield %>
   </main>
 

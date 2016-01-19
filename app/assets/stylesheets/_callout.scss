@@ -21,6 +21,12 @@
   color: $secondary-background-color;
 }
 
+.expand-control {
+  background-color: $secondary-background-color;
+  border-radius: 10px;
+  color: $nav-font-color;
+}
+
 .callout [type=submit],
 .callout [type=reset] {
   display: inline-block;
