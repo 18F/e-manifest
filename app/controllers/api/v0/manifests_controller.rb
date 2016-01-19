@@ -56,18 +56,6 @@ class Api::V0::ManifestsController < ApiController
   private
 
   def find_manifest
-    if params[:id] || params[:uuid]
-      find_manifest_by_id
-    elsif params[:tracking_number]
-      find_manifest_by_tracking_number
-    end
-  end
-
-  def find_manifest_by_id
-    Manifest.find_by!(uuid: (params[:id] || params[:uuid]))
-  end
-
-  def find_manifest_by_tracking_number
-    Manifest.find_by!("content -> 'generator' ->> 'manifest_tracking_number' = ?", params[:tracking_number])
+    Manifest.find_by_uuid_or_tracking_number!(params[:id])
   end
 end

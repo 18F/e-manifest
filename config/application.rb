@@ -24,5 +24,6 @@ module EManifest
     end
     config.action_controller.action_on_unpermitted_parameters = :raise
     config.active_record.raise_in_transactional_callbacks = true
+    config.active_record.schema_format = :sql
   end
 end
