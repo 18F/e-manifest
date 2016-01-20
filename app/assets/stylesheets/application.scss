@@ -10,8 +10,9 @@
  @import "callout";
  @import "disclaimer";
  @import "header";
- @import "lists";
  @import "headings";
+ @import "lists";
+ @import "nav";
  @import "tables";
  @import "text";
 
@@ -20,6 +21,7 @@
    // font-family: $base-font-family;
  }
 
+ header,
  main {
    background-color: $base-background-color;
  }

@@ -1,7 +1,7 @@
 class ManifestValidator
   include JsonSchemaHelper
 
-  attr_reader :content, :errors
+  attr_reader :errors
 
   def initialize(content)
     if content.is_a?(String)
@@ -14,7 +14,7 @@ class ManifestValidator
 
   def run
     schema_file_path = schema_file('post-manifest')
-    @errors = JSON::Validator.fully_validate(schema_file_path, content, errors_as_objects: true)
+    @errors = JSON::Validator.fully_validate(schema_file_path, @content, errors_as_objects: true)
     !@errors.any?
   end
 

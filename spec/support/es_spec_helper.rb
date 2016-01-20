@@ -13,9 +13,6 @@ module EsSpecHelper
     unless es_server_running?
       Elasticsearch::Extensions::Test::Cluster.start(es_test_cluster_opts)
     end
-
-    # create index(s) to test against.
-    create_es_index(Manifest)
   end
 
   def stop_es_server
@@ -47,6 +44,7 @@ module EsSpecHelper
       end
     end
     puts "Completed #{completed} records of class #{klass}"
+    klass.__elasticsearch__.refresh_index!
   end
 
 end
@@ -55,6 +53,7 @@ RSpec.configure do |config|
   include EsSpecHelper
   config.before :each, elasticsearch: true do
     start_es_server unless es_server_running?
+    create_es_index(Manifest)
   end
   config.after :suite do
     stop_es_server

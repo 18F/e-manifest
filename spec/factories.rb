@@ -19,5 +19,12 @@ FactoryGirl.define do
         }
       }}
     end
+
+    trait :indexed do
+      after(:create) do |manifest, evaluator|
+        manifest.reindex
+        Manifest.__elasticsearch__.refresh_index!
+      end
+    end
   end
 end

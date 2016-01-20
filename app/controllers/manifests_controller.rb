@@ -23,6 +23,6 @@ class ManifestsController < ApplicationController
   end
 
   def show
-    @manifest = Manifest.find(params[:id])
+    @manifest = Manifest.find_by_uuid_or_tracking_number!(params[:id])
   end
 end
