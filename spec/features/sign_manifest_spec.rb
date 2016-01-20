@@ -4,7 +4,7 @@ feature 'Sign manifest' do
   scenario 'after submitting a manifest via form' do
     manifest = create(:manifest)
 
-    visit new_manifest_sign_or_upload_path(manifest)
+    visit new_manifest_sign_or_upload_path(manifest.uuid)
     click_on 'Sign'
 
     expect(page).to have_field('Username')
