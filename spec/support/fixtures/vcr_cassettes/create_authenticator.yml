@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Jan 2016 18:30:50 GMT
+      - Thu, 21 Jan 2016 00:28:02 GMT
       Server:
       - Apache-Coyote/1.1
       X-Frame-Options:
@@ -708,7 +708,7 @@ http_interactions:
           </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Wed, 20 Jan 2016 18:31:26 GMT
+  recorded_at: Thu, 21 Jan 2016 00:28:38 GMT
 - request:
     method: post
     uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService
@@ -736,13 +736,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Jan 2016 18:30:50 GMT
+      - Thu, 21 Jan 2016 00:28:02 GMT
       Server:
       - Apache-Coyote/1.1
       X-Frame-Options:
       - SAMEORIGIN, SAMEORIGIN
       Content-Type:
-      - multipart/related; type="application/xop+xml"; boundary="uuid:f10ec302-33bd-4cc5-a255-1325e4c816a1";
+      - multipart/related; type="application/xop+xml"; boundary="uuid:2a14cc47-b9cd-42f7-970d-b3ba031fc2dd";
         start="<root.message@cxf.apache.org>"; start-info="application/soap+xml"
       Content-Length:
       - '731'
@@ -750,13 +750,13 @@ http_interactions:
       - "*"
     body:
       encoding: UTF-8
-      string: "--uuid:f10ec302-33bd-4cc5-a255-1325e4c816a1\r\nContent-Type: application/xop+xml;
+      string: "--uuid:2a14cc47-b9cd-42f7-970d-b3ba031fc2dd\r\nContent-Type: application/xop+xml;
         charset=UTF-8; type=\"application/soap+xml\";\r\nContent-Transfer-Encoding:
         binary\r\nContent-ID: <root.message@cxf.apache.org>\r\n\r\n<soap:Envelope
         xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\"><soap:Body><ns2:AuthenticateResponse
-        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><securityToken>fakeSecurityToken</securityToken></ns2:AuthenticateResponse></soap:Body></soap:Envelope>\r\n--uuid:f10ec302-33bd-4cc5-a255-1325e4c816a1--"
+        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><securityToken>fakeSecurityToken</securityToken></ns2:AuthenticateResponse></soap:Body></soap:Envelope>\r\n--uuid:2a14cc47-b9cd-42f7-970d-b3ba031fc2dd--"
     http_version: 
-  recorded_at: Wed, 20 Jan 2016 18:31:26 GMT
+  recorded_at: Thu, 21 Jan 2016 00:28:39 GMT
 - request:
     method: get
     uri: https://devngn.epacdxnode.net/cdx-register/services/RegisterAuthService?wsdl
@@ -776,7 +776,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Jan 2016 18:30:51 GMT
+      - Thu, 21 Jan 2016 00:28:04 GMT
       Server:
       - Apache-Coyote/1.1
       X-Frame-Options:
@@ -898,7 +898,7 @@ http_interactions:
           </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Wed, 20 Jan 2016 18:31:27 GMT
+  recorded_at: Thu, 21 Jan 2016 00:28:39 GMT
 - request:
     method: post
     uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterAuthService
@@ -906,7 +906,7 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/auth/1"
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId>18f_certifier</userId><password>k84jf9sh2fa3nM5</password></tns:Authenticate></env:Body></env:Envelope>
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId>fakeUserId</userId><password>fakePassword</password></tns:Authenticate></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"Authenticate"'
@@ -926,7 +926,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Jan 2016 18:30:51 GMT
+      - Thu, 21 Jan 2016 00:28:04 GMT
       Server:
       - Apache-Coyote/1.1
       X-Frame-Options:
@@ -940,9 +940,9 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:AuthenticateResponse
-        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/auth/1"><User><firstName>Brandon</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-01-20T13:30:52-05:00</lastLogin><lastName>Kirby</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-08-21T16:11:14-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>18F_CERTIFIER</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></User></ns2:AuthenticateResponse></soap:Body></soap:Envelope>
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/auth/1"><User><firstName>Brandon</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-01-20T19:28:04-05:00</lastLogin><lastName>Kirby</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-08-21T16:11:14-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>fakeUserId</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></User></ns2:AuthenticateResponse></soap:Body></soap:Envelope>
     http_version: 
-  recorded_at: Wed, 20 Jan 2016 18:31:28 GMT
+  recorded_at: Thu, 21 Jan 2016 00:28:40 GMT
 - request:
     method: post
     uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService
@@ -950,7 +950,7 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1"
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:CreateActivityWithProperties><securityToken>fakeSecurityToken</securityToken><signatureUser><UserId>18F_CERTIFIER</UserId><FirstName>Brandon</FirstName><LastName>Kirby</LastName><MiddleInitial
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:CreateActivityWithProperties><securityToken>fakeSecurityToken</securityToken><signatureUser><UserId>fakeUserId</UserId><FirstName>Brandon</FirstName><LastName>Kirby</LastName><MiddleInitial
         xsi:nil="true"/></signatureUser><dataflowName>eManifest</dataflowName><properties><Property><Key>activityDescription</Key><Value>development
         test</Value></Property></properties><properties><Property><Key>roleCode</Key><Value>112090</Value></Property></properties></tns:CreateActivityWithProperties></env:Body></env:Envelope>
     headers:
@@ -972,13 +972,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Jan 2016 18:30:52 GMT
+      - Thu, 21 Jan 2016 00:28:05 GMT
       Server:
       - Apache-Coyote/1.1
       X-Frame-Options:
       - SAMEORIGIN, SAMEORIGIN
       Content-Type:
-      - multipart/related; type="application/xop+xml"; boundary="uuid:4e585b76-d4bf-4829-8662-4a795eb8bcc7";
+      - multipart/related; type="application/xop+xml"; boundary="uuid:3a5c5aba-dd32-41cc-9f12-49b7026338a3";
         start="<root.message@cxf.apache.org>"; start-info="application/soap+xml"
       Content-Length:
       - '570'
@@ -986,13 +986,13 @@ http_interactions:
       - "*"
     body:
       encoding: UTF-8
-      string: "--uuid:4e585b76-d4bf-4829-8662-4a795eb8bcc7\r\nContent-Type: application/xop+xml;
+      string: "--uuid:3a5c5aba-dd32-41cc-9f12-49b7026338a3\r\nContent-Type: application/xop+xml;
         charset=UTF-8; type=\"application/soap+xml\";\r\nContent-Transfer-Encoding:
         binary\r\nContent-ID: <root.message@cxf.apache.org>\r\n\r\n<soap:Envelope
         xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\"><soap:Body><ns2:CreateActivityWithPropertiesResponse
-        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><activityId>_10b773da-0f11-45e2-af65-ffa61b3f9f2c</activityId></ns2:CreateActivityWithPropertiesResponse></soap:Body></soap:Envelope>\r\n--uuid:4e585b76-d4bf-4829-8662-4a795eb8bcc7--"
+        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><activityId>fakeActivityId</activityId></ns2:CreateActivityWithPropertiesResponse></soap:Body></soap:Envelope>\r\n--uuid:3a5c5aba-dd32-41cc-9f12-49b7026338a3--"
     http_version: 
-  recorded_at: Wed, 20 Jan 2016 18:31:28 GMT
+  recorded_at: Thu, 21 Jan 2016 00:28:40 GMT
 - request:
     method: post
     uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService
@@ -1000,7 +1000,7 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1"
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:GetQuestion><securityToken>fakeSecurityToken</securityToken><activityId>_10b773da-0f11-45e2-af65-ffa61b3f9f2c</activityId><userId>18F_CERTIFIER</userId></tns:GetQuestion></env:Body></env:Envelope>
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:GetQuestion><securityToken>fakeSecurityToken</securityToken><activityId>fakeActivityId</activityId><userId>fakeUserId</userId></tns:GetQuestion></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"GetQuestion"'
@@ -1020,13 +1020,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Jan 2016 18:30:52 GMT
+      - Thu, 21 Jan 2016 00:28:05 GMT
       Server:
       - Apache-Coyote/1.1
       X-Frame-Options:
       - SAMEORIGIN, SAMEORIGIN
       Content-Type:
-      - multipart/related; type="application/xop+xml"; boundary="uuid:e6c63aec-9ae2-4c51-9259-26d7329e5bb5";
+      - multipart/related; type="application/xop+xml"; boundary="uuid:be936d19-138d-4969-af4e-214d230d5819";
         start="<root.message@cxf.apache.org>"; start-info="application/soap+xml"
       Content-Length:
       - '591'
@@ -1034,12 +1034,12 @@ http_interactions:
       - "*"
     body:
       encoding: UTF-8
-      string: "--uuid:e6c63aec-9ae2-4c51-9259-26d7329e5bb5\r\nContent-Type: application/xop+xml;
+      string: "--uuid:be936d19-138d-4969-af4e-214d230d5819\r\nContent-Type: application/xop+xml;
         charset=UTF-8; type=\"application/soap+xml\";\r\nContent-Transfer-Encoding:
         binary\r\nContent-ID: <root.message@cxf.apache.org>\r\n\r\n<soap:Envelope
         xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\"><soap:Body><ns2:GetQuestionResponse
         xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><question><questionId>1</questionId><text>What
-        is the first and middle name of your oldest sibling?</text></question></ns2:GetQuestionResponse></soap:Body></soap:Envelope>\r\n--uuid:e6c63aec-9ae2-4c51-9259-26d7329e5bb5--"
+        is the first and middle name of your oldest sibling?</text></question></ns2:GetQuestionResponse></soap:Body></soap:Envelope>\r\n--uuid:be936d19-138d-4969-af4e-214d230d5819--"
     http_version: 
-  recorded_at: Wed, 20 Jan 2016 18:31:28 GMT
+  recorded_at: Thu, 21 Jan 2016 00:28:41 GMT
 recorded_with: VCR 3.0.1

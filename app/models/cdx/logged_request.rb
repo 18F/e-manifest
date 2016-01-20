@@ -26,7 +26,7 @@ class CDX::LoggedRequest
   end
 
   def response
-    @respose ||= request
+    @response ||= request
   end
 
   def client
