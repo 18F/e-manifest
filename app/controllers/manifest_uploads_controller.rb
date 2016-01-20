@@ -18,7 +18,7 @@ class ManifestUploadsController < ApplicationController
 
   def find_or_initialize_manifest
     if params[:manifest_id]
-      manifest = Manifest.find(params[:manifest_id])
+      manifest = Manifest.find_by_uuid_or_tracking_number!(params[:manifest_id])
       manifest.content[:uploaded_file] = image_details
       manifest
     else
