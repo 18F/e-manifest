@@ -1,0 +1,19 @@
+---
+memory: 1536MB
+env:
+  RAILS_ENV: production
+services:
+  - e-manifest-dev-db
+  - emanifest-es-dev
+  - emanifest-redis-dev
+applications:
+- name: e-manifest-dev
+  host: e-manifest-dev
+  instances: 1
+  domain: 18f.gov
+  command: script/web-start
+- name: e-manifest-dev-worker
+  instances: 2
+  domain: 18f.gov
+  no-route: true
+  command: script/worker-start
