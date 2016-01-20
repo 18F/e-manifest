@@ -59,16 +59,22 @@
           "minLength": 4
         },
         "state_waste_codes": {
-          "description":"(13) State waste codes as per state regulations",
-          "type": "string",
-          "maxLength": 8,
-          "minLength": 4
+          "type": "array",
+          "items": {
+            "description":"(13) State waste codes as per state regulations",
+            "type": "string",
+            "maxLength": 8,
+            "minLength": 4
+          }
         },
         "epa_waste_codes": {
-          "description":"(13) Federal EPA waste codes as listed in the regulations",
-          "type": "string",
-          "maxLength": 4,
-          "minLength": 4
+          "type": "array",
+          "items": {
+            "description":"(13) Federal EPA waste codes as listed in the regulations",
+            "type": "string",
+            "maxLength": 4,
+            "minLength": 4
+          }
         },
         "packing_group": {
           "description": "(9b) Packing group defined by the US Department of Transportation",
@@ -85,9 +91,12 @@
           "enum":["BA","CF","CM","CW","CY","DF","DM","DT","DW","HT","TC","TT","TP"]
         },
         "hazard_classes": {
-          "description": "(9b) List of Hazard classes as defined by the US Department of Transportation",
-          "type": "string",
-          "COMMENT": "DOT Enumerated Values"
+          "type": "array",
+          "items": {
+            "description": "(9b) List of Hazard classes as defined by the US Department of Transportation",
+            "type": "string",
+            "COMMENT": "DOT Enumerated Values"
+          }
         },
         "hazardous_material": {
           "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
@@ -151,7 +160,7 @@
       "type": "string",
       "maxLength": 12,
       "minLength": 12,
-      "COMMENT": "add Regular Expressions"
+      "pattern": "^[A-Za-z]{3}[0-9]{9}$"
     }
   },
   "type": "object",

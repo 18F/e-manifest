@@ -1,6 +1,6 @@
 {
    "generator" : {
-      "us_epa_id_number" : "112712334321",
+      "us_epa_id_number" : "abc712334321",
       "emergency_response_phone" : "888-999-8888",
       "signatory" : {
          "day" : "6",
@@ -36,8 +36,8 @@
             "Fed1",
             "Fed2"
          ],
-         "id_number" : "771",
-         "number_of_containers" : "8",
+         "id_number" : "7710",
+         "number_of_containers" : 8,
          "state_waste_codes" : [
             "State1",
             "state2"
@@ -45,7 +45,7 @@
          "total_quantity" : "99",
          "proper_shipping_name" : "Hazardous Stuff",
          "unit_wt_vol" : "G",
-         "hazardous_material" : "yes",
+         "hazardous_material" : true,
          "hazard_classes" : [
             "6",
             "8"
@@ -57,23 +57,22 @@
             "Else"
          ],
          "total_quantity" : "953",
-         "hazardous_material" : "no",
-         "unit_wt_vol" : "Q",
-         "hazard_classes" : [],
-         "number_of_containers" : "12",
+         "hazardous_material" : false,
+         "unit_wt_vol" : "G",
+         "number_of_containers" : 12,
          "packing_group" : "81988931",
          "epa_waste_codes" : [
-            "Something"
+            "Fed3"
          ],
-         "id_number" : "671",
-         "container_type" : "CR"
+         "id_number" : "6710",
+         "container_type" : "CY"
       }
    ],
    "waste_handling_instructions" : "Do not feed after midnight.",
    "transporters" : [
       {
-         "us_epa_id_number" : "3881",
-         "company_name" : "Transporter National",
+         "us_epa_id_number" : "abc987654321",
+         "name" : "Transporter National",
          "signatory" : {
             "year" : "2015",
             "name" : "Jill Jones",
@@ -96,9 +95,9 @@
          "day" : "1"
       },
       "name" : "Facility Zero",
-      "us_epa_id_number" : "9238754",
+      "us_epa_id_number" : "def987654321",
       "discrepancy" : {
-         "us_epa_id_number" : "1734",
+         "us_epa_id_number" : "zxc987654321",
          "category_quantity" : true,
          "type" : "no_rejection",
          "signatory" : {
