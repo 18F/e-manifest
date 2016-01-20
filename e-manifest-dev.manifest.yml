@@ -13,7 +13,7 @@ applications:
   domain: 18f.gov
   command: script/web-start
 - name: e-manifest-dev-worker
-  instances: 2
+  instances: 1
   domain: 18f.gov
   no-route: true
   command: script/worker-start
