@@ -18,7 +18,7 @@ class CDX::HandleError
   end
 
   def repackage_error
-    {:description => description}
+    { description: description }
   end
 
   def error_hash
