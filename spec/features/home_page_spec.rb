@@ -15,6 +15,7 @@ feature 'Home page' do
 
     expect(page).to have_content old_manifest.tracking_number
     expect(page).to_not have_content new_manifest.tracking_number
+    expect(page).to have_link(old_manifest.tracking_number, href: manifest_path(old_manifest.uuid))
   end
 
   scenario 'navigates to submit manifest page', elasticsearch: true do
