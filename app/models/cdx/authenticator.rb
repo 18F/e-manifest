@@ -10,28 +10,29 @@ class CDX::Authenticator
 
   def perform
     repackage_response
-  rescue Savon::SOAPFault => e
-    log_and_repackage_error(e)
+  rescue Savon::SOAPFault => error
+    log_and_repackage_error(error)
   end
 
   private
 
-  def signature_user
-    @signature_user ||= CDX::User.new(opts, output_stream).authenticate
-  end
-
-  def security_token
-    @security_token ||= CDX::System.new(output_stream).authenticate
+  def repackage_response
+    {
+      activity_id: activity_id,
+      question: question,
+      token: security_token,
+      user_id: signature_user[:UserId]
+    }
   end
 
   def activity_id
     @activity_id ||= CDX::Activity.new({
-      :token => security_token,
-      :signature_user => signature_user,
-      :dataflow_name => "eManifest",
-      :activity_description => "development test",
-      :role_name => "TSDF",
-      :role_code => 112090
+      token: security_token,
+      signature_user: signature_user,
+      dataflow_name: "eManifest",
+      activity_description: "development test",
+      role_name: "TSDF",
+      role_code: 112090
     }, output_stream).create
   end
 
@@ -43,13 +44,12 @@ class CDX::Authenticator
     }, output_stream).get
   end
 
-  def repackage_response
-    {
-      :token => security_token,
-      :activity_id => activity_id,
-      :question => question,
-      :user_id => signature_user[:UserId]
-    }
+  def security_token
+    @security_token ||= CDX::System.new(output_stream).authenticate
+  end
+
+  def signature_user
+    @signature_user ||= CDX::User.new(opts, output_stream).authenticate
   end
 
   def log_and_repackage_error(error)

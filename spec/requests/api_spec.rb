@@ -1,30 +1,6 @@
 require 'rails_helper'
 
 describe 'API request spec' do
-  describe 'post /api/v0/tokens' do
-    let(:user_credentials) {
-      { 'user_id' => 'userId', 'password' => 'password' }
-    }
-
-    let(:authenticator) {
-      double('authenticator', perform: { it: 'worked', token: 'server' })
-    }
-
-    it 'posting a token and not exposing the authentication token' do
-      expect(CDX::Authenticator).to receive(:new)
-        .with(user_credentials)
-        .and_return(authenticator)
-
-      post '/api/v0/tokens',
-        user_credentials.to_json,
-        set_headers
-
-      session_id = request.session.id
-      expect(response.ok?).to eq(true)
-      expect(response.body).to eq({it: 'worked', token: session_id}.to_json)
-    end
-  end
-
   describe 'post /api/v0/manifests/:manifest_id/signature' do
     context 'sign by manifest id' do
       it 'creates retrieves and resaves a manifest with document id' do

@@ -14,24 +14,27 @@ class CDX::System < CDX::LoggedRequest
   end
 
   def log_response
-    output_stream.puts client.operations
+    output_stream.puts(client.operations)
     super
-  end
-
-  def response
-    @response ||= client.call(:authenticate, {
-      message: credentials
-    })
   end
 
   def repackage_response
     response.body[:authenticate_response][:security_token]
   end
 
+  def response
+    @response ||= client.call(
+      :authenticate,
+      { message: credentials }
+    )
+  end
+
   def credentials
     {
-      :userId => ENV['CDX_USERNAME'], :credential => ENV['CDX_PASSWORD'],
-      :domain => "default", :authenticationMethod => "password"
+      userId: ENV['CDX_USERNAME'],
+      credential: ENV['CDX_PASSWORD'],
+      domain: 'default',
+      authenticationMethod: 'password'
     }
   end
 end
