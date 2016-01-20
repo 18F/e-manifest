@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe ManifestValidator do
   it "handles either JSON string or object" do
-    json = { foo: 'bar' }
+    json = { generator: { manifest_tracking_number: '987654321abc' } }
     validator = ManifestValidator.new(json)
-    expect(validator.content).to eq( json )
+    expect(validator.run).to eq true
     validator = ManifestValidator.new(json.to_json)
-    expect(validator.content).to eq( { 'foo' => 'bar' } )
+    expect(validator.run).to eq true
   end
 
   it "returns false on invalid JSON" do
