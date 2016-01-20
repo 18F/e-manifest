@@ -25,7 +25,7 @@
          "zip_code" : "71291",
          "city" : "Looptown"
       },
-      "manifest_tracking_number" : "988767610000",
+      "manifest_tracking_number" : "987654321abc",
       "phone_number" : "800-883-1731"
    },
    "manifest_items" : [
@@ -83,11 +83,10 @@
       }
    ],
    "waste_pcb_description" : "None.",
-   "is_international_shipment" : "yes",
+   "is_international_shipment" : true,
    "report_management_method_codes" : [
-      "Method1",
-      "Method2",
-      "Method3"
+      "H100",
+      "H110"
    ],
    "designated_facility" : {
       "certification" : {
@@ -138,5 +137,5 @@
          "month" : "10"
       }
    },
-   "waste_non_hazardous_material_present" : "yes"
+   "waste_non_hazardous_material_present" : true
 }

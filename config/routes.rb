@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     namespace :v0 do
       resources :tokens, only: [:create]
       get 'manifests/search', to: 'manifests#search'
+      post 'manifests/validate', to: 'manifests#validate'
       resources :manifests, only: [:create, :show, :update] do
         resource :signature, only: [:create]
       end

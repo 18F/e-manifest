@@ -151,6 +151,40 @@
                 }
             }
         },
+        "/manifests/validate": {
+            "post": {
+                "summary": "Validate manifest JSON",
+                "description": "Validate the structure and content of an e-Manifest",
+                "parameters": [
+                    {
+                        "name": "manifest",
+                        "in": "body",
+                        "description": "JSON adhering to the Manifest schema",
+                        "required": true,
+                        "schema": {
+                          "$ref": "https://e-manifest.18f.gov/schemas/post-manifest.json#"
+                        }
+                    }
+                ],
+                "tags": [
+                    "manifests"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful validation of e-Manifest."
+                    },
+                    "422": {
+                        "description": "Failed to validate e-Manifest. Validation messages are included in the response."
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
         "/manifests/{id}/signature": {
             "post": {
                 "summary": "Sign manifest",

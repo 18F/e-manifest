@@ -27,7 +27,7 @@ describe 'JSON schemas' do
     schema_file = schema_file(schema_name)
     example_file = example_file(example_name)
     example = JSON.parse(File.read(example_file))
-    errors = JSON::Validator.fully_validate(schema_file, example, errors_as_objects: true)
+    errors = JSON::Validator.fully_validate(schema_file, example, errors_as_objects: true, strict: true)
     expect(errors).to eq []
   end
 end
