@@ -1,5 +1,9 @@
-<%= simple_form_for :token, url: manifest_tokens_path(@manifest.uuid), method: :post do |form| %>
-  <%= form.input :user_id, label: 'Username' %>
-  <%= form.input :password, label: 'Password' %>
-  <%= form.submit 'Login' %>
-<% end %>
+<div class="usa-width-one-whole">
+
+  <%= simple_form_for :token, url: manifest_tokens_path(@manifest.uuid), method: :post do |form| %>
+    <%= form.input :user_id, label: 'Username' %>
+    <%= form.input :password, label: 'Password' %>
+    <%= form.submit 'Login' %>
+  <% end %>
+
+</div>

@@ -1,9 +1,13 @@
-<h3>Sign or Upload</h3>
+<div class="usa-width-one-whole">
 
-<p>
-  Would you like to electronically sign this manifest (CDX login required) or
-  would you like to upload a scan of the original manifest?
-</p>
+  <h3>Sign or Upload</h3>
 
-<%= link_to 'Sign', new_manifest_token_path(@manifest.uuid) %>
-<%= link_to 'Upload', new_manifest_manifest_upload_path(@manifest.uuid) %>
+  <p>
+    Would you like to electronically sign this manifest (CDX login required) or
+    would you like to upload a scan of the original manifest?
+  </p>
+
+  <%= link_to 'Sign', new_manifest_token_path(@manifest.uuid) %>
+  <%= link_to 'Upload', new_manifest_manifest_upload_path(@manifest.uuid) %>
+
+</div>

@@ -1,22 +1,25 @@
 ---
+memory: 1536MB
 applications:
 - name: e-manifest
   host: e-manifest
   instances: 1
-  memory: 256M
   domain: 18f.gov
   command: script/web-start
   services:
     - e-manifest-db
     - emanifest-es-prod
     - emanifest-redis-prod
+  env:
+    RAILS_ENV: production
 - name: e-manifest-dev
   host: e-manifest-dev
   instances: 1
-  memory: 256M
   domain: 18f.gov
   command: script/web-start
   services:
     - e-manifest-dev-db
     - emanifest-es-dev
     - emanifest-redis-dev
+  env:
+    RAILS_ENV: production
