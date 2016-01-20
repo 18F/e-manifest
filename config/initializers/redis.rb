@@ -1,7 +1,7 @@
 # Redis is the storage for Sidekiq.
 # we assume defaults are fine for test/development.
 # https://github.com/mperham/sidekiq/wiki/Using-Redis
-if ENV["RACK_ENV"] == "production"
+if ENV["RAILS_ENV"] == "production"
   vcap = ENV["VCAP_SERVICES"]
   vcap_config = JSON.parse(vcap)
   vcap_config.keys.each do |vcap_key|

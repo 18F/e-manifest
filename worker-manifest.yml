@@ -10,6 +10,8 @@ applications:
     - e-manifest-db
     - emanifest-es-prod
     - emanifest-redis-prod
+  env:
+    RAILS_ENV: production
 - name: e-manifest-dev-worker
   instances: 1
   domain: 18f.gov
@@ -19,3 +21,5 @@ applications:
     - e-manifest-dev-db
     - emanifest-es-dev
     - emanifest-redis-dev
+  env:
+    RAILS_ENV: production
