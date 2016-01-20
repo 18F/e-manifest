@@ -3,8 +3,16 @@ class Api::V0::TokensController < ApiController
 
   def create
     response = CDX::Authenticator.new(auth_params).perform
-    session[:system_session_token] = response[:token]
-    response[:token] = session.id
-    render json: response.to_json
+
+    if response[:token]
+      session[:system_session_token] = response[:token]
+      response[:token] = session.id
+      render json: response.to_json, status: 200
+    else
+      render json: {
+        message: "Authentication failed",
+        errors: response[:descripton]
+      }.to_json, status: 401
+    end
   end
 end
