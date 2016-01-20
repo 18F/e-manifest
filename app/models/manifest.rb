@@ -86,13 +86,13 @@ class Manifest < ActiveRecord::Base
 
   after_commit on: [:create] do
     unless Rails.env.test?
-      reindex_async
+      reindex_async(:index)
     end
   end
 
   after_commit on: [:update] do
     unless Rails.env.test?
-      reindex_async
+      reindex_async(:update)
     end
   end
 
@@ -106,8 +106,8 @@ class Manifest < ActiveRecord::Base
     __elasticsearch__.index_document
   end
 
-  def reindex_async
-    IndexerWorker.perform_async(:index,  self.class.to_s, self.id)
+  def reindex_async(operation)
+    IndexerWorker.perform_async(operation,  self.class.to_s, self.id)
   end
 
   def remove_from_index
