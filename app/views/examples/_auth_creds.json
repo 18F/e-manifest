@@ -1,4 +1,6 @@
 {
-  "user_id" : "CDX user id",
-  "password" : "CDX password"
+  "token" : {
+    "user_id" : "CDX user id",
+    "password" : "CDX password"
+  }
 }

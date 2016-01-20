@@ -56,6 +56,8 @@ RSpec.configure do |config|
     create_es_index(Manifest)
   end
   config.after :suite do
-    # stop_es_server
+    if es_server_running?
+      stop_es_server
+    end
   end
 end

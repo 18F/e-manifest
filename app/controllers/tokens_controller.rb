@@ -1,4 +1,6 @@
 class TokensController < ApplicationController
+  include AuthParams
+
   def new
     @manifest = Manifest.find(params[:manifest_id])
   end
@@ -14,11 +16,5 @@ class TokensController < ApplicationController
       flash[:error] = "Username and password are not valid"
       render :new
     end
-  end
-
-  private
-
-  def auth_params
-    params.fetch(:token, {}).permit(:user_id, :password)
   end
 end
