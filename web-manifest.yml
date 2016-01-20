@@ -1,9 +1,9 @@
 ---
+memory: 1536MB
 applications:
 - name: e-manifest
   host: e-manifest
   instances: 1
-  memory: 256M
   domain: 18f.gov
   command: script/web-start
   services:
@@ -13,7 +13,6 @@ applications:
 - name: e-manifest-dev
   host: e-manifest-dev
   instances: 1
-  memory: 256M
   domain: 18f.gov
   command: script/web-start
   services:
