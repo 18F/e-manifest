@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :manifests, only: [:show] do
     resources :sign_or_upload, only: [:new]
     resources :manifest_uploads, only: [:new, :create]
+    resources :signatures, only: [:new, :create]
+    resources :tokens, only: [:new, :create]
   end
 
   resources :manifest_uploads, only: [:new, :create]

@@ -56,6 +56,6 @@ RSpec.configure do |config|
     create_es_index(Manifest)
   end
   config.after :suite do
-    stop_es_server
+    # stop_es_server
   end
 end
