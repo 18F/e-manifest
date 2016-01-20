@@ -16,7 +16,7 @@ describe 'Swagger docs', type: :apivore, order: :defined do
     end
     it do
       expect(subject).to validate(
-        :post, '/manifests', 201, manifest_as_json, set_headers
+        :post, '/manifests', 201, { '_data' => { manifest: JSON.parse(manifest_as_json) }.to_json, '_headers' => set_headers }
       )
     end
   end
