@@ -35,7 +35,7 @@ Status: 201
 Location: https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014
 ```
 
-## <a name="validate-manifest"></a>Valudate a manifest
+## <a name="validate-manifest"></a>Validate a manifest
 
 Before you submit a manifest, you may validate its content and structure.
 
@@ -63,7 +63,7 @@ If you do not know the e-Manifest ID, but you do have the Manifest Tracking Numb
 you can fetch the e-Manifest object with the Manifest Tracking Number.
 
 ```bash
-curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest/12345
+curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest/987654321abc
 ```
 
 The response for both endpoints looks the same:
@@ -98,7 +98,7 @@ or
 ```bash
 curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
   --data @manifest-patch.json \
-  https://e-manifest.18f.gov/api/v0/manifests/12345
+  https://e-manifest.18f.gov/api/v0/manifests/987654321abc
 ```
 
 An example `manifest-patch.json` file looks like:
@@ -116,11 +116,11 @@ by specifying specific fields within which your terms should match. Wildcards, b
 are all supported. See the [full query string syntax documentation]
 (https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax) for more details.
 
-Example of looking for a manifest by Manifest Tracking Number `12345`:
+Example of looking for a manifest by Manifest Tracking Number `987654321abc`:
 
 ```bash
 curl -i -X GET \
-  'https://e-manifest.18f.gov/api/v0/manifests/search?q=content.generator.manifest_tracking_number:12345'
+  'https://e-manifest.18f.gov/api/v0/manifests/search?q=content.generator.manifest_tracking_number:987654321abc'
 ```
 
 You can page through results with the `size` and `from` URL query parameters, and sort results by any field.
