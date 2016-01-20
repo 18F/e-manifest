@@ -9,8 +9,6 @@ class IndexerWorker
   sidekiq_options queue: 'elasticsearch', retry: false, backtrace: true
 
   def perform(operation, klass, record_id, options={})
-    klass.constantize.__elasticsearch__.client.logger.debug [operation, "#{klass}##{record_id} #{options.inspect}"]
-
     case operation.to_s
       when /index|update/
         record = klass.constantize.find(record_id)
