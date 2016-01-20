@@ -28,14 +28,14 @@ module EsSpecHelper
   def create_es_index(klass)
     errors = []
     completed = 0
-    puts "Creating Index for class #{klass}"
+    #puts "Creating Index for class #{klass}"
     klass.__elasticsearch__.create_index! force: true, index: klass.index_name
     klass.__elasticsearch__.refresh_index!
     klass.__elasticsearch__.import  :return => 'errors', :batch_size => 200    do |resp|
       # show errors immediately (rather than buffering them)
       errors += resp['items'].select { |k, v| k.values.first['error'] }
       completed += resp['items'].size
-      puts "Finished #{completed} items"
+      #puts "Finished #{completed} items"
       STDERR.flush
       STDOUT.flush
       if errors.size > 0
@@ -43,7 +43,7 @@ module EsSpecHelper
         STDOUT.puts pp(errors)
       end
     end
-    puts "Completed #{completed} records of class #{klass}"
+    #puts "Completed #{completed} records of class #{klass}"
     klass.__elasticsearch__.refresh_index!
   end
 
