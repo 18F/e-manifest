@@ -11,7 +11,7 @@ class TokensController < ApplicationController
     response = CDX::Authenticator.new(auth_params).perform
 
     if response[:question]
-      redirect_to new_manifest_signature_path(@manifest)
+      redirect_to new_manifest_signature_path(@manifest.uuid, response: response)
     else
       flash[:error] = "Username and password are not valid"
       render :new
