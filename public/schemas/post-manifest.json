@@ -5,6 +5,7 @@
   "definitions":{
     "address": {
       "type": "object",
+      "required": ["address_1", "city", "state"],
       "properties":{
         "address_1":   {
           "description": "Address line 1",
@@ -28,6 +29,12 @@
           "minLength":2,
           "COMMENT":" add Enummerated value"
         },
+        "country":   {
+          "description": "Name of Country, optional for domestic shipments",
+          "type": "string",
+          "maxLength":70,
+          "COMMENT":" add Enummerated value"
+        },
         "zip_code":   {
           "description": "Postal Code",
           "type": "string",
@@ -36,12 +43,30 @@
         }
       }
     },
+    "handler_defined_datum": {
+      "description":"Industry requested optional field, handlers define the description, content and the handler who requested this information.",
+      "type": "object",
+      "properties": {
+        "label": {
+          "description": "Label for the handler defined data.  This label is for the use of the handler for labeling the content of non-manifest related items",
+          "type": "string"
+        },
+        "content": {
+          "description":"handler defined content, this field may be used for holding and/or describing special ids, purchase orders, or other non-manifest related items",
+          "type": "string"
+        },
+        "us_epa_id_number": {
+          "description": "Handler Id number of entity using this field to ensure uniqueness and assist in retrieval",
+          "$ref": "#/definitions/us_epa_id_number"
+        }
+      }
+    },
     "manifest_item": {
       "type": "object",
       "properties": {
         "total_quantity": {
           "description": "(11) Total quantity for the listed unit of measure",
-          "type": "float"
+          "type": "number"
         },
         "unit_wt_vol": {
           "description": "(12) List of codes for unit measure as described the e-Manifest instructions",
@@ -73,13 +98,29 @@
             "description":"(13) Federal EPA waste codes as listed in the regulations",
             "type": "string",
             "maxLength": 4,
-            "minLength": 4
+            "minLength": 4,
+            "pattern": "^[DFKPU][0-9]{3}$"
           }
+        },
+        "form_code": {
+          "description":"Bienial Report place to the form code for the waste stream",
+          "type": "string",
+          "maxLength": 4,
+          "minLength": 4,
+          "pattern": "^W[0-9]{3}$"
+        },
+        "source_code": {
+          "description":"Bienial Report place to the source code for the waste stream",
+          "type": "string",
+          "maxLength": 4,
+          "minLength": 4,
+          "pattern": "^G[0-9]{2}$",
+          "COMMENT": "pattern does not match min/max length (only 3 chars defined)"
         },
         "packing_group": {
           "description": "(9b) Packing group defined by the US Department of Transportation",
           "type": "string",
-          "COMMENT": "DOT Enumerated Values"
+          "enum":["I","II","III"]
         },
         "number_of_containers": {
           "description": "(10) number of containers identified by container type",
@@ -95,14 +136,31 @@
           "items": {
             "description": "(9b) List of Hazard classes as defined by the US Department of Transportation",
             "type": "string",
-            "COMMENT": "DOT Enumerated Values"
+            "COMMENT": "DOT Enumerated Values, I would like to see if there is a service for these.  There are around 26 of these "
           }
         },
         "hazardous_material": {
           "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
           "type": "boolean"
+        },
+        "waste_handling_instruction": {
+          "description":"(14) Special Handling instructions on the manifest form.",
+          "type": "string"
+        },
+        "report_management_method_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "$ref": "#/definitions/report_management_method_code"
+          }
         }
       }
+    },
+    "report_management_method_code": {
+      "description":"(19) Federal Management method codes as listed in EPA guidance.  Current codes are listed in e-Manifest at https://e-manifest.18f.gov/method-codes.json",
+      "type": "string",
+      "maxLength": 4,
+      "minLength": 4
     },
     "signature_info": {
       "type": "object",
@@ -116,13 +174,13 @@
           "description": "Two digit month of signature",
           "type": "string",
           "maximum": 2,
-          "minimum": 2
+          "minimum": 1
         },
         "day": {
           "description": "Two digit day of signature",
           "type": "string",
           "maximum": 2,
-          "minimum": 2
+          "minimum": 1
         },
         "year": {
           "description": "Four digit year of signature",
@@ -201,10 +259,8 @@
           "$ref": "#/definitions/address"
         },
         "site_address_same_as_mailing_address": {
-          "description": "(5) An indicator if the generator's site address is the same as the mailing address.  If no then the site address fields should be filled out",
-          "type": "string",
-          "maxLength": 3,
-          "minLength": 2
+          "description": "(5) An indicator if the generator's site address is the same as the mailing address.  If false then the site address fields should be filled out",
+          "type": "boolean"
         },
         "site_address": {
           "description": "(5) Generator site address as presented in RCRAInfo",
@@ -259,10 +315,24 @@
           "type": "string",
           "enum":["export_from_us", "import_to_us"]
         },
+        "consent_number": {
+          "description": "Consent number provided so that the waste can be exported out of a country.",
+          "type": "string",
+          "pattern": "^[0-9]{6}[EI][0-9]{5}$"
+        },
         "port_of_entry_exit": {
           "description": "(16) City and State of point of entry or export.",
-          "type": "string",
-          "maxLength": 30
+          "type": "object",
+          "properties": {
+            "city": {
+              "description": "(16) City of point of entry or export.",
+              "$ref": "#/definitions/address/properties/city"
+            },
+            "state": {
+              "description": "(16) State of point of entry or export.",
+              "$ref": "#/definitions/address/properties/state"
+            }
+          }
         }
       }
     },
@@ -302,7 +372,7 @@
               "type": "string",
               "maxLength": 12,
               "minLength": 12,
-              "COMMENT": "add Regular Expressions"
+              "pattern": "^[0-9]{9}[A-Za-z]{3}$"
             },
             "name": {
               "description":"(18b) Alternative designated facility company name as presented in RCRAInfo",
@@ -361,21 +431,30 @@
       "description":"(14) Special Handling instructions on the manifest form.  Use this field for required PCB information.",
       "type": "string"
     },
+    "number_of_pages": {
+      "description":"(2) Number of Pages on manifest (paper manifests only).",
+      "type": "integer"
+    },
     "waste_non_hazardous_material_present": {
       "description": "(9) Boolean to state if the manifest has US Department of Transportation nonhazardous materials indicated on the form",
       "type": "boolean"
     },
     "waste_handling_instructions": {
       "description":"(14) Special Handling instructions on the manifest form.",
-      "type": "string"
+      "$ref": "#/definitions/manifest_item/properties/waste_handling_instruction"
+    },
+    "handler_defined_data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/handler_defined_datum"
+      }
     },
     "report_management_method_codes": {
       "type": "array",
       "items": {
-        "description":"(19) Federal Management method codes as listed in EPA guidance.  Current codes are listed in e-Manifest at https://e-manifest.18f.gov/method-codes.json",
-        "type": "string",
-        "maxLength": 4,
-        "minLength": 4
+         "type": "string",
+         "$ref": "#/definitions/report_management_method_code"
       }
     }
   }
