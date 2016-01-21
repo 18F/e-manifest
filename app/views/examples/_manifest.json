@@ -104,35 +104,35 @@
       "us_epa_id_number" : "DEF987654321",
       "phone_number" : "888-848-1318",
       "address" : {
-         "address_1" : "360 Zero Circle",
-         "address_2" : "Two Pi",
-         "state" : "PA",
-         "zip_code" : "23171",
-         "city" : "Pie Town",
+        "address_1" : "360 Zero Circle",
+        "address_2" : "Two Pi",
+        "state" : "PA",
+        "zip_code" : "23171",
+        "city" : "Pie Town"
+      },
       "discrepancy" : {
-         "us_epa_id_number" : "ZXC987654321",
-         "manifest_tracking_number" : "123456789ABC",
-         "category_quantity" : true,
-         "type" : "no_rejection",
-         "signatory" : {
-            "month" : "08",
-            "year" : "2015",
-            "name" : "Johnny Appleseed",
-            "day" : "08"
-         },
-         "description" : "Only received 940 quarts of used oil.",
-         "address" : {
-            "zip_code" : "91919",
-            "city" : "Alternative",
-            "state" : "AK",
-            "address_2" : "Ste 671",
-            "address_1" : "88 Alternate Av"
-         },
-         "name" : "Alternate Facility Y",
-         "phone_number" : "877-577-2771"
+        "us_epa_id_number" : "ZXC987654321",
+        "manifest_tracking_number" : "123456789ABC",
+        "category_quantity" : true,
+        "type" : "no_rejection",
+        "signatory" : {
+          "month" : "08",
+          "year" : "2015",
+          "name" : "Johnny Appleseed",
+          "day" : "08"
+        },
+        "description" : "Only received 940 quarts of used oil.",
+        "address" : {
+          "zip_code" : "91919",
+          "city" : "Alternative",
+          "state" : "AK",
+          "address_2" : "Ste 671",
+          "address_1" : "88 Alternate Av"
+        },
+        "name" : "Alternate Facility Y",
+        "phone_number" : "877-577-2771"
       },
       "has_discrepancy" : true
-      }
    },
    "international_shipment" : {
       "export_import" : "export_from_us",
