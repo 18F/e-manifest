@@ -16,6 +16,14 @@ GIT
       savon (~> 2)
 
 GIT
+  remote: https://github.com/pkarman/json-schema
+  revision: 124f4b4d691f7212b7450ebc28b71dee1b80aa6e
+  branch: require_all
+  specs:
+    json-schema (2.6.0)
+      addressable (~> 2.3.8)
+
+GIT
   remote: https://github.com/pkarman/swagger-ui_rails.git
   revision: 9b73a7fc76753af3ebd03d30fecf4038251bf3c3
   submodules: true
@@ -165,8 +173,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     json-patch (1.0.0)
-    json-schema (2.6.0)
-      addressable (~> 2.3.8)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -360,7 +366,7 @@ DEPENDENCIES
   flutie
   jquery-rails
   json-patch
-  json-schema
+  json-schema!
   kaminari
   launchy
   neat (~> 1.7.0)
