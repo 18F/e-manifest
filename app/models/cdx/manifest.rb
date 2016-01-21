@@ -16,13 +16,11 @@ class CDX::Manifest
   private
 
   def repackage_response
-    {
-      document_id: document_id
-    }
+    { document_id: document_id }
   end
 
   def validate_answer
-    CDX::Answer.new(opts, output_stream).validate
+    CDX::Answer.new(opts, output_stream).perform
   end
 
   def document_id

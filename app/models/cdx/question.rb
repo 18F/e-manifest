@@ -1,16 +1,17 @@
 class CDX::Question < CDX::LoggedRequest
-  alias :get :perform
-
   private
 
   def request
-    client.call(:get_question, {
-      message: {
-        :securityToken => opts[:token],
-        :activityId =>    opts[:activity_id],
-        :userId =>        opts[:user][:UserId]
+    client.call(
+      :get_question,
+      {
+        message: {
+          securityToken: opts[:token],
+          activityId: opts[:activity_id],
+          userId: opts[:user][:UserId]
+        }
       }
-    })
+    )
   end
 
   def question_response_data
@@ -19,8 +20,8 @@ class CDX::Question < CDX::LoggedRequest
 
   def repackage_response
     {
-      :question_id => question_response_data[:question_id],
-      :question_text => question_response_data[:text]
+      question_id: question_response_data[:question_id],
+      question_text: question_response_data[:text]
     }
   end
 end

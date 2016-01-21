@@ -5,8 +5,6 @@ class CDX::System < CDX::LoggedRequest
     @output_stream = output_stream
   end
 
-  alias :authenticate :perform
-
   private
 
   def log_opts
@@ -18,15 +16,15 @@ class CDX::System < CDX::LoggedRequest
     super
   end
 
-  def repackage_response
-    response.body[:authenticate_response][:security_token]
-  end
-
   def response
     @response ||= client.call(
       :authenticate,
       { message: credentials }
     )
+  end
+
+  def repackage_response
+    response.body[:authenticate_response][:security_token]
   end
 
   def credentials
