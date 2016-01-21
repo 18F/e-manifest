@@ -6,4 +6,8 @@ module ApplicationHelper
       manifest_uploads_path
     end
   end
+
+  def emanifest_env
+    ENV['EMANIFEST_ENV'] || Rails.env
+  end
 end
