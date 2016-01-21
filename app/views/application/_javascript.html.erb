@@ -2,7 +2,9 @@
 
 <%= yield :javascript %>
 
+<% if emanifest_env == "production" %>
 <script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js" id="_fed_an_ua_tag"></script>
+<% end %>
 
 <% if Rails.env.test? %>
   <%= javascript_tag do %>
