@@ -4,6 +4,6 @@ class ApiDocumentationController < ApplicationController
   end
 
   def swagger
-    render 'api-docs/swagger/index', layout: false
+    render 'api-docs/swagger/index'
   end
 end

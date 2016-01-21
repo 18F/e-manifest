@@ -1,0 +1,24 @@
+.swagger-section form {
+  max-width: 100%;
+}
+
+.swagger-section ul:not(.options) {
+  width: 100%;
+}
+
+.swagger-section ul li:before {
+  content: '';
+  display: none;
+}
+
+.swagger-section .endpoints {
+  margin-bottom: 0;
+}
+
+.swagger-section .operations {
+  margin: 0;
+}
+
+.swagger-section .toggleOperation {
+  margin: .3em;
+}

@@ -1,24 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="ROBOTS" content="NOODP" />
-  <meta name="viewport" content="initial-scale=1" />
-  <title>e-Manifest API Documentation</title>
-  <%= stylesheet_link_tag 'swagger-ui' %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="swagger-section">
-  <header>
-    <div class='container'>
-      <div>
-        <h1>e-Manifest</h1>
-        <%= link_to 'Home', root_path %>
-        <%= link_to 'Industry', new_submission_path %>
-      </div>
-    </div>
-  </header>
-<%= render "javascript" %>
-<%= render 'swagger_ui/swagger_ui', discovery_url: 'swagger.json' %>
-</body>
-</html>
+<%= stylesheet_link_tag 'swagger-ui/screen' %>
+<div class="swagger-section usa-width-one-whole">
+  <%= render "javascript" %>
+  <%= render 'swagger_ui/swagger_ui', discovery_url: 'swagger.json' %>
+</div>

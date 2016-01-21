@@ -1,11 +1,14 @@
 @charset "utf-8";
 
 /*
+
  * = require us_web_design_standards
  * = require us_web_design_standards_fonts
+ * = require swagger-ui/screen
  */
 
  @import "variables";
+ @import "reset";
 
  @import "callout";
  @import "disclaimer";
@@ -25,3 +28,8 @@
  main {
    background-color: $base-background-color;
  }
+
+.swagger-section ul,
+.swagger-section ol {
+  list-style-type: none;
+}
