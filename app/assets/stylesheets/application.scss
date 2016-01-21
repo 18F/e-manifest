@@ -8,7 +8,6 @@
  */
 
  @import "variables";
- @import "reset";
 
  @import "callout";
  @import "disclaimer";
@@ -16,6 +15,7 @@
  @import "headings";
  @import "lists";
  @import "nav";
+ @import "swagger";
  @import "tables";
  @import "text";
 
@@ -28,8 +28,3 @@
  main {
    background-color: $base-background-color;
  }
-
-.swagger-section ul,
-.swagger-section ol {
-  list-style-type: none;
-}
