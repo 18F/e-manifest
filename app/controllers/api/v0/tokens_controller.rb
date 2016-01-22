@@ -11,7 +11,7 @@ class Api::V0::TokensController < ApiController
     else
       render json: {
         message: "Authentication failed",
-        errors: response[:descripton]
+        errors: response[:description]
       }.to_json, status: 401
     end
   end

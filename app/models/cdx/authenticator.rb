@@ -1,5 +1,3 @@
-# NOTE: this class is a unique snow flake combining many requests and doing error logging
-# not sure if it could/should be rolled into the LoggedRequest too
 class CDX::Authenticator
   attr_reader :opts, :output_stream
 
@@ -21,7 +19,7 @@ class CDX::Authenticator
       activity_id: activity_id,
       question: question,
       token: security_token,
-      user_id: signature_user[:user_id]
+      user_id: signature_user[:UserId]
     }
   end
 
@@ -56,15 +54,6 @@ class CDX::Authenticator
 
   def security_token
     @security_token ||= CDX::System.new(output_stream).perform
-  end
-
-  def repackage_response
-    {
-      token: security_token,
-      activity_id: activity_id,
-      question: question,
-      user_id: signature_user[:UserId]
-    }
   end
 
   def log_and_repackage_error(error)
