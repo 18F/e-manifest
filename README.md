@@ -12,12 +12,12 @@ This is a Rails application with a Postgres database. The app contains both API
 endpoints and web views. The API is a JSON REST API. The web app and the API
 use the same database.
 
-ElasticSearch is used to search for manifest records. We chose ElasticSearch
-because it offloads read-access from the database and provides full-text search
-that can be painful to apply directly to a database
+Elasticsearch is used to search for manifest records. Elasticsearch offloads
+read-access from the database and provides full-text search that can be painful
+to apply directly to a database
 
 Redis is being used for Sidekiq job processing. The Redis + Sidekiq solution
-offloads the database/ElasticSearch syncing to an async process.
+offloads the database/Elasticsearch syncing to an async process.
 
 ## Developer onboarding
 
