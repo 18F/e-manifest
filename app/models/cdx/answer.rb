@@ -1,4 +1,10 @@
 class CDX::Answer < CDX::LoggedRequest
+  def perform
+    super
+  rescue Savon::SOAPFault => error
+    log_and_repackage_error(error)
+  end
+
   private
 
   def request
@@ -18,5 +24,9 @@ class CDX::Answer < CDX::LoggedRequest
 
   def repackage_response
     response.body[:validate_answer_response][:valid_answer]
+  end
+
+  def log_and_repackage_error(error)
+    CDX::HandleError.new(error, output_stream).perform
   end
 end

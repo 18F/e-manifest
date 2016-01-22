@@ -716,7 +716,7 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1"
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId>Emanifest_admin@epa.gov</userId><credential>Devemanifest09</credential><domain>default</domain><authenticationMethod>password</authenticationMethod></tns:Authenticate></env:Body></env:Envelope>
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId><CDX_PASSWORD></userId><credential><CDX_USERNAME</credential><domain>default</domain><authenticationMethod>password</authenticationMethod></tns:Authenticate></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"Authenticate"'
@@ -906,7 +906,7 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/auth/1"
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId>18f_certifier</userId><password>k84jf9sh2fa3nM5</password></tns:Authenticate></env:Body></env:Envelope>
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId>fakeUserName</userId><password>fakePassword</password></tns:Authenticate></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"Authenticate"'

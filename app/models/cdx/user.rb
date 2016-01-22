@@ -16,10 +16,6 @@ class CDX::User < CDX::LoggedRequest
     CDX::Client::Auth
   end
 
-  def user_data
-    response.hash[:envelope][:body][:authenticate_response][:user]
-  end
-
   def log_response
     output_stream.puts "---"
     output_stream.puts response.hash
@@ -33,5 +29,9 @@ class CDX::User < CDX::LoggedRequest
       LastName: user_data[:last_name],
       MiddleInitial: user_data[:middle_initial]
     }
+  end
+
+  def user_data
+    @user_data ||= response.hash[:envelope][:body][:authenticate_response][:user]
   end
 end

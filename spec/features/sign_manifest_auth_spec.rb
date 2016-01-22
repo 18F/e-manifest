@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Sign manifest' do
+feature 'Sign manifest authentication' do
   scenario 'after submitting a manifest via form' do
     VCR.use_cassette('auth_success') do
       manifest = create(:manifest)
@@ -16,22 +16,17 @@ feature 'Sign manifest' do
     end
   end
 
-  scenario 'submits correct answer to auth question' do
-    VCR.use_cassette('sign_success') do
+  scenario 'with wrong username or password' do
+    VCR.use_cassette('user_auth_failure') do
       manifest = create(:manifest)
 
-      visit new_manifest_token_path(manifest.uuid)
-      fill_in 'Username', with: 'correct_username'
-      fill_in 'Password', with: 'correct_password'
+      visit new_manifest_sign_or_upload_path(manifest.uuid)
+      click_on 'Sign'
+      fill_in 'Username', with: 'invalid_username'
+      fill_in 'Password', with: 'incorrect_password'
       click_on 'Login'
-      fill_in 'Answer', with: 'correct_answer'
-      click_on 'Sign manifest'
 
-      expect(page).to have_content(
-        "All done! Manifest #{manifest.tracking_number} has been signed and submitted."
-      )
-      expect(page).to have_content('Back to home')
-      expect(page).to have_content('New manifest')
+      expect(page).to have_content('user INVALID_USERNAME does not exist')
     end
   end
 end

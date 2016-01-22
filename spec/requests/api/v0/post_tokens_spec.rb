@@ -12,6 +12,9 @@ describe 'POST /api/v0/tokens' do
 
       expect(response.status).to eq(401)
       expect(parsed_response['token']).to be_nil
+      expect(parsed_response['errors']).to eq(
+        'Unable to authenticate user - The user account could not be located. Could not perform central authentication for user <change_me> in domain <default>'
+      )
     end
   end
 
