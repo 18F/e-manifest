@@ -31,6 +31,15 @@
   reviewing.
 * A pull request must receive a thumbs up from at least one person other than
   the author before it can be merged.
+* We generally require test coverage for all pull requests, but we are not
+  dogmatic about it. If something is difficult to test and the reason for why is
+  explained, an un-tested pull request may be accepted.
+* We write Request specs for API integration tests, feature specs (with
+  Capybara) for web integration tests, and RSpec unit tests for new Ruby classes /
+  methods. These are all in the `spec` directory of the app.
+  Capybara specs are in `spec/features` and request specs are in `spec/requests`.
+* The tests are run by the Travis CI service on every pull request and we do not
+  merge pull requests with broken tests.
 * The pull request reviewer merges the pull request when it is ready.
 * The merger should also push the updated master branch to production.
 * When a feature is reviewed/merged and pushed to production (our only integration
