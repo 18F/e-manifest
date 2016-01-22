@@ -112,8 +112,8 @@
         "source_code": {
           "description":"Bienial Report place to the source code for the waste stream",
           "type": "string",
-          "maxLength": 4,
-          "minLength": 4,
+          "maxLength": 3,
+          "minLength": 3,
           "pattern": "^G[0-9]{2}$",
           "COMMENT": "pattern does not match min/max length (only 3 chars defined)"
         },
