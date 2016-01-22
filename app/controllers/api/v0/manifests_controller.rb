@@ -1,6 +1,8 @@
 class Api::V0::ManifestsController < ApiController
   include ManifestParams
 
+  rescue_from ActiveRecord::RecordNotFound, with: :manifest_not_found_error
+
   def search
     if !params[:q] && !params[:aq]
       render json: {message: 'Missing q or aq param'}, status: 400
@@ -28,42 +30,32 @@ class Api::V0::ManifestsController < ApiController
         tracking_number = manifest_params[:manifest_tracking_number]
         render json: {
           message: "Manifest #{tracking_number} submitted successfully.",
-        }.to_json, status: 201
+        }, status: 201
       else
         render json: {
           message: "Validation failed",
           errors: @manifest.errors.full_messages.to_sentence
-        }.to_json, status: 422
+        }, status: 422
       end
     end
   end
 
   def show
-    begin
-      manifest = find_manifest
-    rescue ActiveRecord::RecordNotFound => _error
-      render json: {}, status: 404
-      return
-    end
-
+    manifest = find_manifest
     render json: ManifestSerializer.new(manifest).to_json
   end
 
   def update
-    begin
-      manifest = find_manifest
+    manifest = find_manifest
 
-      patch = JSON.parse(request.body.read)
-      patch_json = patch.to_json
+    patch = JSON.parse(request.body.read)
+    patch_json = patch.to_json
 
-      manifest_content_json = manifest[:content].to_json
-      new_json = JSON.patch(manifest_content_json, patch_json);
-      manifest.update_column(:content, new_json)
+    manifest_content_json = manifest[:content].to_json
+    new_json = JSON.patch(manifest_content_json, patch_json);
+    manifest.update_column(:content, new_json)
 
-      render json: ManifestSerializer.new(manifest).to_json
-    rescue ActiveRecord::RecordNotFound => _error
-      status 404
-    end
+    render json: ManifestSerializer.new(manifest).to_json
   end
 
   private
@@ -78,8 +70,15 @@ class Api::V0::ManifestsController < ApiController
       render json: {
         message: "Validation failed",
         errors: validator.error_messages
-      }.to_json, status: 422
+      }, status: 422
     end
     !validator.errors.any?
+  end
+
+  def manifest_not_found_error
+    render json: {
+      message: "Manifest not found",
+      errors: ["No manifest for id #{params[:id]}"]
+    }, status: 404
   end
 end
