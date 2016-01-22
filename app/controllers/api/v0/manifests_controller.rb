@@ -1,5 +1,6 @@
 class Api::V0::ManifestsController < ApiController
   include ManifestParams
+  include Rails.application.routes.url_helpers
 
   rescue_from ActiveRecord::RecordNotFound, with: :manifest_not_found_error
 
@@ -27,9 +28,11 @@ class Api::V0::ManifestsController < ApiController
       @manifest = Manifest.new(content: manifest_params)
 
       if @manifest.save
-        tracking_number = manifest_params[:manifest_tracking_number]
+        @manifest.reload
+        tracking_number = @manifest.tracking_number
         render json: {
           message: "Manifest #{tracking_number} submitted successfully.",
+          location: api_v0_manifest_url(@manifest.uuid)
         }, status: 201
       else
         render json: {

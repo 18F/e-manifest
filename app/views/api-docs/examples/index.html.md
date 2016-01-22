@@ -26,13 +26,15 @@ An example `manifest.json` file looks like:
 <%= render 'examples/manifest.json' %>
 ```
 
-The response from that POST will include no body content, but the `Location` header will contain
-the URL of the submitted manifest, which will include the unique e-Manifest identifier. A successful
+The response from that POST will include a JSON-encoded body with the tracking number as a `message`
+and the URI of the e-Manifest as a `location`, which will include the unique e-Manifest identifier. A successful
 submission should return a 201 status.
 
-```http
-Status: 201
-Location: https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014
+```json
+{
+  "message": "Manifest 987654321ABC submitted successfully.",
+  "location": "https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014"
+}
 ```
 
 ## <a name="validate-manifest"></a>Validate a manifest
