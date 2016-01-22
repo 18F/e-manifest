@@ -31,8 +31,14 @@ class Populator
     manifest[:my_id] = iteration
     manifest["generator"]["name"] = "#{random_string()[0..8]} Generator"
     manifest["designated_facility"]["name"] = "#{random_string()[0..8]} Facility"
-    manifest["generator"]["manifest_tracking_number"] = SecureRandom.random_number(1_000_000_000)
+    manifest["generator"]["manifest_tracking_number"] = random_tracking_number
     { content: manifest.to_json }
+  end
+
+  def random_tracking_number
+    num = '%09d' % SecureRandom.random_number(1_000_000_000)
+    str = (0...3).map { (65 + rand(26)).chr }.join
+    "#{num}#{str}"
   end
 
   def manifest_template
