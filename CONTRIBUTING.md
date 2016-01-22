@@ -48,6 +48,32 @@
 
 Server tests are in rspec. Just run `rspec`.
 
+### Load Tests
+
+Load testing requires manually installing some gems.
+
+```bash
+% gem install tourbus faraday faraday_middleware excon test-unit
+```
+
+Running the tests uses the `tourbus` command:
+
+```bash
+% tourbus -n 100 -c 3 post_manifest
+% tourbus -n 100 -c 3 get_manifest
+% tourbus -n 100 -c 3 search_manifest
+```
+
+For any HTTP requests that do not require unique data (such as searching or fetching a known manifest)
+you can also use the `ab` Apache Bench command.
+
+```bash
+% ab -n 100 -c 3 'http://localhost:5000/api/v0/manifests/search?q=generator'
+% ab -n 100 -c 3 'http://localhost:5000/api/v0/manifests/someknownUUIDhere'
+```
+
+The `ab` tool has better reporting but cannot handle things like POSTing a unique manifest tracking number per request.
+
 ### Deploying to cloud.gov
 
 * To deploy to *e-manifest.18f.gov*: `cf target -o epa-emanifest -s prod && script/deploy e-manifest`
