@@ -34,12 +34,6 @@
                     },
                     "422": {
                         "description": "Failed to create e-Manifest. Validation messages are included in the response."
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             }
@@ -68,12 +62,9 @@
                         }
                     },
                     "404": {
-                        "description": "Not found. The parameters did not match any record."
-                    },
-                    "default": {
-                        "description": "Unexpected error",
+                        "description": "Not found. The parameters did not match any record.",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                          "$ref": "#/definitions/ManifestNotFound"
                         }
                     }
                 }
@@ -101,13 +92,10 @@
                         "description": "Successfully updated."
                     },
                     "404": {
-                        "description": "The given parameter did not match an existing manifest."
-                    },
-                    "default": {
-                        "description": "Unexpected error",
+                        "description": "The given parameter did not match an existing manifest.",
                         "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
+                           "$ref": "#/definitions/ManifestNotFound"
+                         }
                     }
                 }
             }
@@ -137,15 +125,15 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful search. Does not indicate any non-zero number of results."
+                        "description": "Successful search. Does not indicate any non-zero number of results.",
+                        "schema": {
+                          "$ref": "#/definitions/SearchResults"
+                        }
                     },
                     "400": {
-                        "description": "Invalid request. Typically means missing the :q or :aq parameter."
-                    },
-                    "default": {
-                        "description": "Unexpected error",
+                        "description": "Invalid request. Typically means missing the :q or :aq parameter.",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                          "$ref": "#/definitions/InvalidSearch"
                         }
                     }
                 }
@@ -170,17 +158,11 @@
                     "manifests"
                 ],
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Successful validation of e-Manifest."
                     },
                     "422": {
                         "description": "Failed to validate e-Manifest. Validation messages are included in the response."
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             }
@@ -208,12 +190,6 @@
                         "description": "Successful signature",
                         "schema": {
                             "$ref": "#/definitions/Document"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -248,12 +224,6 @@
                     },
                     "401": {
                         "description": "Authentication failed"
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             }
@@ -366,17 +336,38 @@
                 }
             }
         },
-        "Error": {
+        "ManifestNotFound": {
+          "type": "object"
+        },
+        "SearchResults": {
             "type": "object",
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32"
+                "total": {
+                    "type": "number"
                 },
+                "max_score": {
+                    "type": "number"
+                },
+                "hits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SearchResult"
+                    }
+                }
+            }
+        },
+        "SearchResult": {
+            "type": "object",
+            "properties": {
+                "_source": {
+                    "$ref": "https://e-manifest.18f.gov/schemas/post-manifest.json#"
+                }
+            }
+        },
+        "InvalidSearch": {
+            "type": "object",
+            "properties": {
                 "message": {
-                    "type": "string"
-                },
-                "fields": {
                     "type": "string"
                 }
             }
