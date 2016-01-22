@@ -7,8 +7,8 @@ module JsonSchemaHelper
     "#{schema_directory}/#{name}.json"
   end
 
-  def read_schema_file(name)
-    JSON.parse(File.read(schema_file(name)))
+  def read_schema_file(name, opts = {})
+    JSON.parse(File.read(schema_file(name)), opts)
   end
 
   def register_schemas_by_uri
