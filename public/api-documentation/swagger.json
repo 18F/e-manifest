@@ -354,16 +354,8 @@
                 "hits": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/SearchResult"
+                        "$ref": "https://e-manifest.18f.gov/schemas/get-manifest.json#"
                     }
-                }
-            }
-        },
-        "SearchResult": {
-            "type": "object",
-            "properties": {
-                "_source": {
-                    "$ref": "https://e-manifest.18f.gov/schemas/post-manifest.json#"
                 }
             }
         },
