@@ -31,5 +31,6 @@ describe ManifestValidator do
     json = read_example_json_file('manifest')
     validator = ManifestValidator.new(json)
     expect(validator.run).to eq true
+    expect(validator.errors).to eq []
   end
 end

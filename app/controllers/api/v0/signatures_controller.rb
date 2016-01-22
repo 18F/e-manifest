@@ -39,9 +39,9 @@ class Api::V0::SignaturesController < ApiController
       manifest.activity_id = signature_request[:activity_id]
       manifest.signed_at = Time.current
       manifest.save!
-      return 200
+      200
     else
-      return 422
+      422
     end
   end
 end
