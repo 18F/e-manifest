@@ -20,7 +20,7 @@ module TourHelper
     response = user_agent.post do |req|
       req.url emanifest_api_url("/manifests")
       req.headers['Content-Type'] = 'application/json'
-      req.body = { manifest: manifest_content }.to_json
+      req.body = manifest_content.to_json
     end
     if response.status == 201
       uri = response.body['location']
