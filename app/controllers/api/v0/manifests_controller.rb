@@ -1,6 +1,4 @@
 class Api::V0::ManifestsController < ApiController
-  rescue_from ActiveRecord::RecordNotFound, with: :manifest_not_found_error
-
   def search
     if !params[:q] && !params[:aq]
       render json: {message: 'Missing q or aq param'}, status: 400
@@ -61,10 +59,6 @@ class Api::V0::ManifestsController < ApiController
 
   private
 
-  def find_manifest
-    Manifest.find_by_uuid_or_tracking_number!(params[:id])
-  end
-
   def validate_manifest(content)
     validator = ManifestValidator.new(content)
     unless validator.run
@@ -74,20 +68,5 @@ class Api::V0::ManifestsController < ApiController
       }, status: 422
     end
     !validator.errors.any?
-  end
-
-  def manifest_not_found_error
-    render json: {
-      message: "Manifest not found",
-      errors: ["No manifest for id #{params[:id]}"]
-    }, status: 404
-  end
-
-  def read_body_as_json
-    begin
-      manifest_content = JSON.parse(request.body.read)
-    rescue JSON::ParserError => error
-      render json: {message: "Invalid JSON in request: #{error}"}, status: 400
-    end
   end
 end
