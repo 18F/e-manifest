@@ -1,6 +1,4 @@
 class Api::V0::ManifestsController < ApiController
-  include ManifestParams
-
   rescue_from ActiveRecord::RecordNotFound, with: :manifest_not_found_error
 
   def search
@@ -12,30 +10,31 @@ class Api::V0::ManifestsController < ApiController
   end
 
   def validate
-    begin
-      manifest_content = JSON.parse(request.body.read)
+    manifest_content = read_body_as_json
+    unless performed?
       if validate_manifest(manifest_content)
         render json: {message: "Manifest structure is valid"}, status: 200
       end
-    rescue JSON::ParserError => error
-      render json: {message: "Invalid JSON in request: #{error}"}, status: 400
     end
   end
 
   def create
-    if validate_manifest(manifest_params)
-      @manifest = Manifest.new(content: manifest_params)
+    manifest_content = read_body_as_json
+    unless performed?
+      if validate_manifest(manifest_content)
+        @manifest = Manifest.new(content: manifest_content)
 
-      if @manifest.save
-        tracking_number = manifest_params[:manifest_tracking_number]
-        render json: {
-          message: "Manifest #{tracking_number} submitted successfully.",
-        }, status: 201
-      else
-        render json: {
-          message: "Validation failed",
-          errors: @manifest.errors.full_messages.to_sentence
-        }, status: 422
+        if @manifest.save
+          tracking_number = @manifest.tracking_number
+          render json: {
+            message: "Manifest #{tracking_number} submitted successfully.",
+          }, status: 201
+        else
+          render json: {
+            message: "Validation failed",
+            errors: @manifest.errors.full_messages.to_sentence
+          }, status: 422
+        end
       end
     end
   end
@@ -47,15 +46,17 @@ class Api::V0::ManifestsController < ApiController
 
   def update
     manifest = find_manifest
+    patch = read_body_as_json
 
-    patch = JSON.parse(request.body.read)
-    patch_json = patch.to_json
+    unless performed?
+      patch_json = patch.to_json
+      manifest_content_json = manifest[:content].to_json
+      new_json = JSON.patch(manifest_content_json, patch_json)
 
-    manifest_content_json = manifest[:content].to_json
-    new_json = JSON.patch(manifest_content_json, patch_json);
-    manifest.update_column(:content, new_json)
+      manifest.update_column(:content, new_json)
 
-    render json: ManifestSerializer.new(manifest).to_json
+      render json: ManifestSerializer.new(manifest).to_json
+    end
   end
 
   private
@@ -80,5 +81,13 @@ class Api::V0::ManifestsController < ApiController
       message: "Manifest not found",
       errors: ["No manifest for id #{params[:id]}"]
     }, status: 404
+  end
+
+  def read_body_as_json
+    begin
+      manifest_content = JSON.parse(request.body.read)
+    rescue JSON::ParserError => error
+      render json: {message: "Invalid JSON in request: #{error}"}, status: 400
+    end
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 include JsonSchemaSpecHelper
 
-describe 'Swagger docs', type: :apivore, order: :defined do
+describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
   before(:all) do
     register_schemas_by_uri
   end
@@ -17,13 +17,12 @@ describe 'Swagger docs', type: :apivore, order: :defined do
     end
     it do
       expect(subject).to validate(
-        # TODO must we require 'manifest' key? that is inconsistent with PATCH and /validate
-        :post, '/manifests', 201, { '_data' => { manifest: manifest_as_json }.to_json }.merge(header_params)
+        :post, '/manifests', 201, { '_data' => manifest_as_json.to_json }.merge(header_params)
       )
     end
     it do
       expect(subject).to validate(
-        :post, '/manifests', 422, { '_data' => { manifest: { invalid_json: true } }.to_json }.merge(header_params)
+        :post, '/manifests', 422, { '_data' => { invalid_json: true }.to_json }.merge(header_params)
       )
     end
     it do
