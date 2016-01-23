@@ -1,6 +1,7 @@
 require 'faraday'
 require 'faraday_middleware'
 require 'pp'
+require 'yaml'
 
 module TourHelper
   def emanifest_host
@@ -20,7 +21,7 @@ module TourHelper
     response = user_agent.post do |req|
       req.url emanifest_api_url("/manifests")
       req.headers['Content-Type'] = 'application/json'
-      req.body = manifest_content.to_json
+      req.body = { manifest: manifest_content }.to_json
     end
     if response.status == 201
       uri = response.body['location']
@@ -48,6 +49,32 @@ module TourHelper
     end
   end
 
+  def authenticate_manifest(manifest)
+    credentials = get_random_cdx_user
+    token_request = { token: credentials }
+    user_agent.post do |req|
+      req.url manifest[:uri] + '/signature'
+      req.headers['Content-Type'] = 'application/json'
+      req.body = token_request.to_json
+    end
+  end
+
+  def sign_manifest(token_response, manifest)
+    puts token_response.pretty_inspect
+
+  end
+
+  def get_random_cdx_user
+    cdx_config = read_cdx_config
+    puts cdx_config.pretty_inspect
+    users = cdx_config['users']
+    users.shuffle.first
+  end
+
+  def read_cdx_config
+    YAML.load_file('test_cdx_config.yml')
+  end
+
   def example_manifest_json
     manifest_content = JSON.parse(File.read('app/views/examples/_manifest.json'))
     manifest_content['generator']['manifest_tracking_number'] = random_tracking_number
@@ -65,7 +92,7 @@ module TourHelper
   end
 
   def user_agent
-    Faraday.new() do |faraday|
+    Faraday.new({ headers: { 'Accept' => 'application/json' } }) do |faraday|
       faraday.request(:url_encoded)
       faraday.response(:json)
       faraday.adapter(:excon)
