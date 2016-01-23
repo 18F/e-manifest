@@ -49,7 +49,7 @@ SET default_with_oids = false;
 
 CREATE TABLE manifests (
     id integer NOT NULL,
-    content jsonb,
+    content json,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     activity_id character varying,
@@ -138,7 +138,7 @@ INSERT INTO schema_migrations (version) VALUES ('20160112190459');
 
 INSERT INTO schema_migrations (version) VALUES ('20160115181255');
 
-INSERT INTO schema_migrations (version) VALUES ('20160115203719');
-
 INSERT INTO schema_migrations (version) VALUES ('20160115204128');
+
+INSERT INTO schema_migrations (version) VALUES ('20160120171331');
 

@@ -1,7 +1,7 @@
 ---
+memory: 1536MB
 applications:
 - name: e-manifest
-  memory: 128M
   domain: 18f.gov
   host: e-manifest
   command: script/foreman-start
@@ -11,7 +11,6 @@ applications:
     RAILS_ENV: production
     DEFAULT_URL_HOST: e-manifest.18f.gov
 - name: e-manifest-dev
-  memory: 256M
   domain: 18f.gov
   host: e-manifest-dev
   command: script/foreman-start

@@ -12,7 +12,7 @@
     <tbody>
       <% @manifests.each do |manifest| %>
         <tr>
-          <td><%= link_to manifest.tracking_number, manifest_path(manifest) %></td>
+          <td><%= link_to manifest.tracking_number, manifest_path(manifest.uuid) %></td>
           <td><%= manifest.generator_name %></td>
           <td><%= manifest.disposal_facility %></td>
           <td><%= manifest.created_on %></td>

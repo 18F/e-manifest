@@ -191,7 +191,7 @@ GEM
     neat (1.7.2)
       bourbon (>= 4.0)
       sass (>= 3.3)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     nori (2.6.0)
     normalize-rails (3.0.3)
@@ -327,6 +327,7 @@ GEM
     us_web_design_standards (0.0.2)
       railties
       sass (~> 3.4)
+    vcr (3.0.1)
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
@@ -395,6 +396,7 @@ DEPENDENCIES
   title
   uglifier
   us_web_design_standards
+  vcr
   web-console
   webmock
 

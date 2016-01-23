@@ -8,9 +8,10 @@ class ManifestsController < ApplicationController
     @manifest = Manifest.new(content: manifest_params)
 
     if @manifest.save!
+      @manifest.reload
       tracking_number = manifest_params[:generator][:manifest_tracking_number]
       flash[:notice] = "Manifest #{tracking_number} submitted successfully."
-      redirect_to new_manifest_sign_or_upload_path(@manifest)
+      redirect_to new_manifest_sign_or_upload_path(@manifest.uuid)
     end
   end
 

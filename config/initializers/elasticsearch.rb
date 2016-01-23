@@ -12,7 +12,7 @@ es_client_args = {
 }
 
 # we use "production" env for all things at cloud.gov
-if ENV["RACK_ENV"] == "production"
+if ENV["RAILS_ENV"] == "production"
   vcap = ENV["VCAP_SERVICES"]
   vcap_config = JSON.parse(vcap)
   vcap_config.keys.each do |vcap_key|
@@ -21,7 +21,7 @@ if ENV["RACK_ENV"] == "production"
       es_client_args[:url] = es_config[0]["credentials"]["uri"]
     end 
   end 
-elsif ENV["RACK_ENV"] == "test"
+elsif ENV["RAILS_ENV"] == "test"
   es_client_args[:url] = "http://localhost:#{(ENV['TEST_CLUSTER_PORT'] || 9250)}"
 else
   es_client_args[:url] = ENV["ES_URL"] || "http://localhost:9200"

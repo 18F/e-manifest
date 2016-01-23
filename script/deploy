@@ -14,5 +14,4 @@ if ! hash autopilot 2>/dev/null; then
   exit 1
 fi
 
-cf zero-downtime-push $1 -f web-manifest.yml
-cf zero-downtime-push ${1}-worker -f worker-manifest.yml
+cf zero-downtime-push $1 -f ${1}.manifest.yml

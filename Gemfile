@@ -63,6 +63,7 @@ group :test do
   gem 'simplecov', require: false
   gem 'timecop'
   gem 'webmock'
+  gem 'vcr'
 end
 
 group :staging, :production do
