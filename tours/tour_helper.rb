@@ -21,26 +21,13 @@ module TourHelper
 
   def create_manifest
     manifest_content = example_manifest_json
-    response = user_agent.post do |req|
-      req.url emanifest_api_url("/manifests")
-      req.headers['Content-Type'] = 'application/json'
-      req.body = manifest_content.to_json
-    end
+    response = post_json(emanifest_api_url("/manifests"), manifest_content.to_json)
     if response.status == 201
       uri = response.body['location']
       tracking_number = response.body['message'].match(/Manifest (\w+) /)[1]
-      { 
-        status: response.status,
-        uri: uri, 
-        content: manifest_content, 
-        uuid: uri.gsub(/^.+\//, ''), 
-        tracking_number: tracking_number 
-      }
+      { status: response.status, uri: uri, content: manifest_content, uuid: uri.gsub(/^.+\//, ''), tracking_number: tracking_number }
     else
-      {
-        status: response.status,
-        body: response.body
-      }
+      { status: response.status, body: response.body }
     end
   end
 
@@ -55,11 +42,7 @@ module TourHelper
   def authenticate_manifest(manifest)
     credentials = get_random_cdx_user
     token_request = { token: credentials }
-    user_agent.post do |req|
-      req.url emanifest_api_url("/tokens")
-      req.headers['Content-Type'] = 'application/json'
-      req.body = token_request.to_json
-    end
+    post_json(emanifest_api_url("/tokens"), token_request.to_json)
   end
 
   def sign_manifest(token_response, manifest)
@@ -72,11 +55,7 @@ module TourHelper
       answer: lookup_cdx_answer(token_response.body['question']['question_text']),
       user_id: token_response.body['user_id'],
     }
-    user_agent.post do |req|
-      req.url uri
-      req.headers['Content-Type'] = 'application/json'
-      req.body = sign_request.to_json
-    end
+    post_json(uri, sign_request.to_json)
   end
 
   def lookup_cdx_answer(question)
@@ -109,6 +88,21 @@ module TourHelper
 
   def example_patch_manifest_json
     read_example_json_file_as_json('manifest_patch')
+  end
+
+  def post_json(uri, body)
+    user_agent.post do |req|
+      req.url uri
+      req.headers['Content-Type'] = 'application/json'
+      req.body = body
+    end
+  end
+
+  def get_json(uri)
+    user_agent.get do |req|
+      req.url uri
+      req.headers['Content-Type'] = 'application/json'
+    end
   end
 
   def user_agent
