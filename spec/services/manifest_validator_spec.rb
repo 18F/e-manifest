@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ExampleJsonHelper
 
 describe ManifestValidator do
   it "handles either JSON string or object" do
@@ -27,7 +28,7 @@ describe ManifestValidator do
   end
 
   it "recognizes valid JSON" do
-    json = File.read("#{Rails.root.join('app', 'views', 'examples')}/_manifest.json")
+    json = read_example_json_file('manifest')
     validator = ManifestValidator.new(json)
     expect(validator.run).to eq true
   end
