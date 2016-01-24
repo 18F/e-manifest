@@ -114,6 +114,10 @@ In addition to these API keys, you will need the username, password, and
 security question answers in order to sign in via the web UI. These can also be
 obtained via team members.
 
+The `CDX_LOG` and `CDX_COLOR` environment variables control the verbosity and style of the CDX
+model logging. Currently the `CDX_LOG` variable must be set to `true` when running the rspec test suite,
+and therefor is explicitly set in the `.env.test` file.
+
 ## Public domain
 
 This project is in the public domain within the United States, and
