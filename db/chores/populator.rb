@@ -1,4 +1,5 @@
 require "json"
+require_relative '../../app/helpers/example_json_helper'
 
 class Populator
   include ExampleJsonHelper
