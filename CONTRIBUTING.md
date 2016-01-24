@@ -65,6 +65,9 @@ Load testing requires manually installing some gems.
 % gem install tourbus faraday faraday_middleware excon test-unit
 ```
 
+A file named `test_cdx_config.yml` is expected at the root of the application. You can obtain a copy of this file,
+not stored in git, from a team member.
+
 Running the tests uses the `tourbus` command:
 
 ```bash
