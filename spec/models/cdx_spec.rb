@@ -38,6 +38,7 @@ describe "CDX" do
     end
 
     it 'outputs the response body' do
+      pending("TODO do not test logging since it is configurable")
       CDX::Question.new(opts, output_stream).perform
       expect(output_stream.string).to include(auth_response.body.to_s)
     end

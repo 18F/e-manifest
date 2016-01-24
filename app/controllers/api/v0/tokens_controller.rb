@@ -5,8 +5,7 @@ class Api::V0::TokensController < ApiController
     response = CDX::Authenticator.new(auth_params).perform
 
     if response[:token]
-      session[:system_session_token] = response[:token]
-      response[:token] = session.id
+      response[:token] = Base64.strict_encode64(response[:token])
       render json: response.to_json, status: 200
     else
       render json: {

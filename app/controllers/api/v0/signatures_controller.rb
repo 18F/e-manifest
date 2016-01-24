@@ -7,17 +7,18 @@ class Api::V0::SignaturesController < ApiController
       return
     end
 
-    sign_request = JSON.parse(request.body.read)
+    sign_request = JSON.parse(request.body.read, symbolize_names: true)
     manifest_content = manifest[:content].to_json
     sign_request[:manifest_content] = manifest_content
-    system_session_token = session[:system_session_token]
-    sign_request["token"] = system_session_token
+    if sign_request[:token]
+      sign_request[:token] = Base64.strict_decode64(sign_request[:token])
+    end
 
     response = CDX::Manifest.new(sign_request).sign
 
     if (response.key?(:document_id))
       manifest[:document_id] = response[:document_id]
-      manifest[:activity_id] = sign_request["activity_id"]
+      manifest[:activity_id] = sign_request[:activity_id]
       manifest.save
     end
 
