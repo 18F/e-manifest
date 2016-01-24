@@ -77,7 +77,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def self.find_by_uuid_or_tracking_number!(id)
-    find_by_uuid_or_tracking_number(id) or raise ActiveRecord::RecordNotFound.new "Could not find #{id} by uuid or tracking_number"
+    find_by_uuid_or_tracking_number(id) or raise ManifestNotFound.new "Could not find #{id} by uuid or tracking_number"
   end
 
   include Elasticsearch::Model
