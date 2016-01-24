@@ -6,11 +6,7 @@ describe 'POST manifests' do
       manifest_tracking_number = "987654321abc"
       expect {
         post '/api/v0/manifests',
-          {
-            manifest: {
-              generator: { manifest_tracking_number: manifest_tracking_number }
-            }
-          }.to_json,
+          { generator: { manifest_tracking_number: manifest_tracking_number } }.to_json,
           set_headers
       }.to change { Manifest.count }.by(1)
 
@@ -41,7 +37,7 @@ describe 'POST manifests' do
     it 'requires min length manifest tracking number' do
       expect {
         post '/api/v0/manifests',
-          { manifest: { generator: { manifest_tracking_number: "abc123" } } }.to_json,
+          { generator: { manifest_tracking_number: "abc123" } }.to_json,
           set_headers
       }.to change { Manifest.count }.by(0)
 
@@ -59,7 +55,7 @@ describe 'POST manifests' do
     it 'requires manifest tracking number to be a String' do
       expect {
         post '/api/v0/manifests',
-          { manifest: { generator: { manifest_tracking_number: 123 } } }.to_json,
+          { generator: { manifest_tracking_number: 123 } }.to_json,
           set_headers
       }.to change { Manifest.count }.by(0)
 
