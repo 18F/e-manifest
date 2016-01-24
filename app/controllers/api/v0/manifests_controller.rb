@@ -31,6 +31,7 @@ class Api::V0::ManifestsController < ApiController
           tracking_number = @manifest.tracking_number
           render json: {
             message: "Manifest #{tracking_number} submitted successfully.",
+            location: api_v0_manifest_url(@manifest.uuid)
           }, status: 201
         else
           render json: {
