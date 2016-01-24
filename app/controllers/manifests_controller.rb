@@ -36,7 +36,6 @@ class ManifestsController < ApplicationController
   def validate_manifest(content)
     validator = ManifestValidator.new(content)
     unless validator.run
-      puts content.pretty_inspect
       @errors = validator.error_messages
     end
     !validator.errors.any?
