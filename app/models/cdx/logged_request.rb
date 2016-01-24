@@ -15,24 +15,20 @@ class CDX::LoggedRequest
   private
 
   def log_opts
-    if log?
-      if ENV['CDX_COLOR']
-        output_stream.puts ANSI.blue{ self.class.name }
-        output_stream.puts ANSI.blue{ opts.pretty_inspect }
-      else
-        output_stream.puts self.class.name
-        output_stream.puts opts
-      end
+    if log? && ENV['CDX_COLOR']
+      output_stream.puts ANSI.blue{ self.class.name }
+      output_stream.puts ANSI.blue{ opts.pretty_inspect }
+    elsif log?
+      output_stream.puts self.class.name
+      output_stream.puts opts
     end
   end
 
   def log_response
-    if log?
-      if ENV['CDX_COLOR']
-        output_stream.puts ANSI.green{ response.body.pretty_inspect }
-      else
-        output_stream.puts response.body
-      end
+    if log? && ENV['CDX_COLOR']
+      output_stream.puts ANSI.green{ response.body.pretty_inspect }
+    elsif log?
+      output_stream.puts response.body
     end
   end
 

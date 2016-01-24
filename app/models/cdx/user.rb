@@ -17,16 +17,12 @@ class CDX::User < CDX::LoggedRequest
   end
 
   def log_response
-    if log?
-      if ENV['CDX_COLOR']
-        output_stream.puts ANSI.blue{ "---" }
-        output_stream.puts ANSI.blue{ response.hash.pretty_inspect }
-        output_stream.puts ANSI.blue{ "---" }
-      else
-        output_stream.puts "---"
-        output_stream.puts response.hash
-        output_stream.puts "---"
-      end
+    if log? && ENV['CDX_COLOR']
+      output_stream.puts ANSI.blue{ response.hash.pretty_inspect }
+    elsif log?
+      output_stream.puts "---"
+      output_stream.puts response.hash
+      output_stream.puts "---"
     end
   end
 
