@@ -53,20 +53,43 @@ module TourHelper
     credentials = get_random_cdx_user
     token_request = { token: credentials }
     user_agent.post do |req|
-      req.url manifest[:uri] + '/signature'
+      req.url emanifest_api_url("/tokens")
       req.headers['Content-Type'] = 'application/json'
       req.body = token_request.to_json
     end
   end
 
   def sign_manifest(token_response, manifest)
-    puts token_response.pretty_inspect
+    uri = manifest[:uri] + '/signature'
+    sign_request = {
+      token: token_response.body['token'],
+      activity_id: token_response.body['activity_id'],
+      id: manifest[:uuid],
+      question_id: token_response.body['question']['question_id'],
+      answer: lookup_cdx_answer(token_response.body['question']['question_text']),
+      user_id: token_response.body['user_id'],
+    }
+    user_agent.post do |req|
+      req.url uri
+      req.headers['Content-Type'] = 'application/json'
+      req.body = sign_request.to_json
+    end
+  end
 
+  def lookup_cdx_answer(question)
+    cdx_config = read_cdx_config
+    answer = ''
+    cdx_config['q_and_a'].each do |set|
+      if set['question'] == question
+        answer = set['answer']
+        break
+      end
+    end
+    answer
   end
 
   def get_random_cdx_user
     cdx_config = read_cdx_config
-    puts cdx_config.pretty_inspect
     users = cdx_config['users']
     users.shuffle.first
   end
