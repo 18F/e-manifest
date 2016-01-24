@@ -13,7 +13,7 @@ class CDX::Client
     {
       wsdl: CDX_SIGN_SERVICE_URL,
       pretty_print_xml: true,
-      log: (ENV['CDX_LOG'].to_bool || false),
+      log: (ENV['CDX_LOG'].present? ? ENV['CDX_LOG'].to_bool : false),
       soap_version: 2,
       convert_request_keys_to: :none,
     }
