@@ -1,5 +1,6 @@
 require 'rails_helper'
 include JsonSchemaSpecHelper
+include ExampleJsonHelper
 
 describe 'JSON schemas' do
   before(:all) do
@@ -15,19 +16,10 @@ describe 'JSON schemas' do
     end 
   end
 
-  def schema_file(name)
-    "#{schema_directory}/#{name}.json"
-  end
-
-  def example_file(name)
-    "#{Rails.root.join('app', 'views', 'examples')}/_#{name}.json"
-  end
-
   def validate_example(schema_name, example_name)
-    schema_file = schema_file(schema_name)
-    example_file = example_file(example_name)
-    example = JSON.parse(File.read(example_file))
-    errors = JSON::Validator.fully_validate(schema_file, example, errors_as_objects: true, strict: true, require_all: false)
+    schema_file_path = schema_file(schema_name)
+    example = read_example_json_file_as_json(example_name)
+    errors = JSON::Validator.fully_validate(schema_file_path, example, errors_as_objects: true, strict: true, require_all: false)
     expect(errors).to eq []
   end
 end

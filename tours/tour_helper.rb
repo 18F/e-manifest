@@ -2,8 +2,11 @@ require 'faraday'
 require 'faraday_middleware'
 require 'pp'
 require 'yaml'
+require_relative '../app/helpers/example_json_helper'
 
 module TourHelper
+  include ExampleJsonHelper
+
   def emanifest_host
     ENV['EMANIFEST_HOST'] || 'http://localhost:3000'
   end
@@ -99,19 +102,13 @@ module TourHelper
   end
 
   def example_manifest_json
-    manifest_content = JSON.parse(File.read('app/views/examples/_manifest.json'))
+    manifest_content = read_example_json_file_as_json('manifest')
     manifest_content['generator']['manifest_tracking_number'] = random_tracking_number
     manifest_content
   end
 
   def example_patch_manifest_json
-    JSON.parse(File.read('app/views/examples/_manifest_patch.json'))
-  end
-
-  def random_tracking_number
-    num = '%09d' % SecureRandom.random_number(1_000_000_000)
-    str = (0...3).map { (65 + rand(26)).chr }.join
-    "#{num}#{str}"
+    read_example_json_file_as_json('manifest_patch')
   end
 
   def user_agent
