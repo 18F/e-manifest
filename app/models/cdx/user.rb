@@ -17,9 +17,11 @@ class CDX::User < CDX::LoggedRequest
   end
 
   def log_response
-    output_stream.puts "---"
-    output_stream.puts response.hash
-    output_stream.puts "---"
+    if log?
+      output_stream.puts ANSI.blue{ "---" }
+      output_stream.puts ANSI.blue{ response.hash.pretty_inspect }
+      output_stream.puts ANSI.blue{ "---" }
+    end
   end
 
   def repackage_response
