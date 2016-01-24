@@ -15,3 +15,7 @@ if defined? RSpec
 end
 
 task default: "bundler:audit"
+
+task :tour do
+  system("tourbus")
+end
