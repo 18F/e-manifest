@@ -15,7 +15,7 @@ class CDX::LoggedRequest
   private
 
   def log_opts
-    if log? && ENV['CDX_COLOR']
+    if color_log?
       output_stream.puts ANSI.blue{ self.class.name }
       output_stream.puts ANSI.blue{ opts.pretty_inspect }
     elsif log?
@@ -25,7 +25,7 @@ class CDX::LoggedRequest
   end
 
   def log_response
-    if log? && ENV['CDX_COLOR']
+    if color_log?
       output_stream.puts ANSI.green{ response.body.pretty_inspect }
     elsif log?
       output_stream.puts response.body
@@ -50,5 +50,9 @@ class CDX::LoggedRequest
 
   def log?
     client.savon.globals[:log]
+  end
+
+  def color_log?
+    log? && ENV['CDX_COLOR']
   end
 end
