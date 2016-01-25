@@ -49,7 +49,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "the e-Manifest ID",
+                        "description": "the e-Manifest ID or Manifest Tracking Number",
                         "required": true,
                         "type": "string"
                     }
@@ -82,7 +82,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "the e-Manifest ID",
+                        "description": "the e-Manifest ID or Manifest Tracking Number",
                         "required": true,
                         "type": "string"
                     }
@@ -175,6 +175,13 @@
                 "summary": "Sign manifest",
                 "description": "Signs a specified manifest with CDX's CROMERR services.",
                 "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the e-Manifest ID or Manifest Tracking Number",
+                        "required": true,
+                        "type": "string"
+                    },
                     {
                         "name": "signature",
                         "in": "body",

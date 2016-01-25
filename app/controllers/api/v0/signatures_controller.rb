@@ -3,14 +3,16 @@ class Api::V0::SignaturesController < ApiController
     manifest = find_manifest(params[:manifest_id])
     signature_request = prep_signature_request(manifest)
 
-    cdx_start = Time.now
+    cdx_start = Time.current
     cdx_response = CDX::Manifest.new(signature_request).sign
-    cdx_stop = Time.now
+    cdx_stop = Time.current
     Rails.logger.debug(ANSI.blue{ "  CDX signature time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
 
     status = update_manifest(cdx_response, signature_request, manifest)
 
-    render(json: cdx_response.to_json, status: status) unless performed?
+    unless performed?
+      render(json: cdx_response.to_json, status: status)
+    end
   end
 
   private
@@ -37,10 +39,9 @@ class Api::V0::SignaturesController < ApiController
       manifest.activity_id = signature_request[:activity_id]
       manifest.signed_at = Time.current
       manifest.save!
-      status = 200
+      return 200
     else
-      status = 422
+      return 422
     end
-    status
   end
 end
