@@ -28,18 +28,8 @@ class Api::V0::ManifestsController < ApiController
           render json: {
             message: "Manifest Tracking Number is not unique"
           }, status: 409
-        elsif @manifest.save
-          @manifest.reload
-          tracking_number = @manifest.tracking_number
-          render json: {
-            message: "Manifest #{tracking_number} submitted successfully.",
-            location: api_v0_manifest_url(@manifest.uuid)
-          }, status: 201
         else
-          render json: {
-            message: "Validation failed",
-            errors: @manifest.errors.full_messages.to_sentence
-          }, status: 422
+          create_manifest(@manifest)
         end
 
       end
@@ -67,6 +57,21 @@ class Api::V0::ManifestsController < ApiController
   end
 
   private
+
+  def create_manifest(manifest)
+    if manifest.save
+      manifest.reload
+      render json: {
+        message: "Manifest #{manifest.tracking_number} submitted successfully.",
+        location: api_v0_manifest_url(manifest.uuid)
+      }, status: 201
+    else
+      render json: {
+        message: "Validation failed",
+        errors: manifest.errors.full_messages.to_sentence
+      }, status: 422
+    end
+  end
 
   def validate_manifest(content)
     validator = ManifestValidator.new(content)
