@@ -97,4 +97,22 @@ describe Manifest do
       end
     end
   end
+
+  describe '#generator_mailing_address' do
+    context 'generator_mailing_address is present' do
+      it 'returns hash of generator_mailing_address' do
+        manifest = build(:manifest, content: { generator: { mailing_address: { zip_code: '12345' } } } )
+
+        expect(manifest.generator_mailing_address).to eq({ 'zip_code' => '12345' })
+      end
+    end
+
+    context 'generator_mailing_address is absent' do
+      it 'returns empty hash' do
+        manifest = build(:manifest)
+
+        expect(manifest.generator_mailing_address).to eq({})
+      end
+    end
+  end
 end
