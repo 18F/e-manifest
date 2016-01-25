@@ -3,7 +3,10 @@ class Api::V0::SignaturesController < ApiController
     manifest = find_manifest(params[:manifest_id])
     signature_request = prep_signature_request(manifest)
 
+    cdx_start = Time.now
     cdx_response = CDX::Manifest.new(signature_request).sign
+    cdx_stop = Time.now
+    Rails.logger.debug(ANSI.blue{ "  CDX signature time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
 
     status = update_manifest(cdx_response, signature_request, manifest)
 
