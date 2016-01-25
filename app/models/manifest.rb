@@ -35,7 +35,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def generator_mailing_address
-    content_field('generator.mailing_address')
+    content_field('generator.mailing_address') || {}
   end
 
   def transporters
