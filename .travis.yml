@@ -11,3 +11,4 @@ addons:
 services:
   - postgresql
   - elasticsearch
+  - redis
