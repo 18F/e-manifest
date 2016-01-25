@@ -17,17 +17,25 @@ class Api::V0::SignaturesController < ApiController
 
   def prep_signature_request(manifest)
     signature_request = read_body_as_json(symbolize_names: true)
-    signature_request[:manifest_content] = manifest[:content].to_json
+    signature_request[:manifest_content] = manifest.content.to_json
     if signature_request[:token]
-      signature_request[:token] = Base64.strict_decode64(signature_request[:token])
+      signature_request[:token] = lookup_signature_token(signature_request[:token])
+    else
+      render json: { message: "Missing signature token" }, status: 403
     end
     signature_request
+  end
+
+  def lookup_signature_token(user_token)
+    redis = Redis.new
+    redis.get(user_token)
   end
 
   def update_manifest(cdx_response, signature_request, manifest)
     if cdx_response.key?(:document_id)
       manifest.document_id = cdx_response[:document_id]
       manifest.activity_id = signature_request[:activity_id]
+      manifest.signed_at = Time.now
       manifest.save!
       status = 200
     else
