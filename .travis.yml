@@ -11,3 +11,7 @@ addons:
 services:
   - postgresql
   - elasticsearch
+  - redis
+env:
+  - RACK_ENV=test
+  - RAILS_ENV=test

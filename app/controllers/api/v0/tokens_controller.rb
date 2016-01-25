@@ -8,7 +8,8 @@ class Api::V0::TokensController < ApiController
     Rails.logger.debug(ANSI.blue{ "  CDX authenticator time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
 
     if response[:token]
-      response[:token] = Base64.strict_encode64(response[:token])
+      user_token = store_signature_token(response[:token])
+      response[:token] = user_token
       render json: response.to_json, status: 200
     else
       render json: {
@@ -16,5 +17,14 @@ class Api::V0::TokensController < ApiController
         errors: response[:description]
       }.to_json, status: 401
     end
+  end
+
+  private
+
+  def store_signature_token(cdx_token)
+    user_token = SecureRandom.uuid
+    redis = Redis.new
+    redis.set(user_token, cdx_token)
+    user_token
   end
 end

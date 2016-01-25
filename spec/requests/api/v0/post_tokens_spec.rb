@@ -29,6 +29,7 @@ describe 'POST /api/v0/tokens' do
 
       expect(response.status).to eq(200)
       expect(parsed_response['token']).not_to be_nil
+      expect(Redis.new.get(parsed_response['token'])).to_not be_nil
      end
   end
 
