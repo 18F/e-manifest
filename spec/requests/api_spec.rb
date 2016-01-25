@@ -15,6 +15,7 @@ describe 'API request spec' do
         manifest.reload
         expect(manifest.document_id).to eq('44')
         expect(manifest.activity_id).to eq('22')
+        expect(manifest.signed_at).to_not eq(nil)
       end
 
       it 'will not update the document/activity id if the CDX request does not include the right key' do
@@ -29,6 +30,7 @@ describe 'API request spec' do
         manifest.reload
         expect(manifest.document_id).to eq(nil)
         expect(manifest.activity_id).to eq(nil)
+        expect(manifest.signed_at).to eq(nil)
       end
     end
 
@@ -53,6 +55,7 @@ describe 'API request spec' do
         manifest.reload
         expect(manifest.document_id).to eq('44')
         expect(manifest.activity_id).to eq('22')
+        expect(manifest.signed_at).to_not eq(nil)
       end
     end
   end
