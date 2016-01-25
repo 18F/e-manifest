@@ -1,6 +1,4 @@
 class Api::V0::ManifestsController < ApiController
-  include Rails.application.routes.url_helpers
-
   rescue_from ActiveRecord::RecordNotFound, with: :manifest_not_found_error
 
   def search
