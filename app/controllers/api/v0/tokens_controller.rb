@@ -19,6 +19,8 @@ class Api::V0::TokensController < ApiController
     end
   end
 
+  private
+
   def store_signature_token(cdx_token)
     user_token = SecureRandom.uuid
     redis = Redis.new
