@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Create manifest' do
   scenario 'fills in tracking number' do
-    manifest_tracking_number = '12345'
+    manifest_tracking_number = '987654321abc'
     visit new_manifest_path
 
     fill_in 'Manifest Tracking Number (4)', with: manifest_tracking_number
@@ -12,10 +12,10 @@ feature 'Create manifest' do
   end
 
   scenario 'fills in all fields' do
-    manifest_tracking_number = '12345'
+    manifest_tracking_number = '987654321ABC'
     visit new_manifest_path
 
-    fill_in 'U.S. EPA ID Number (1)', with: 'test epa id number'
+    fill_in 'U.S. EPA ID Number (1)', with: 'abc987654321'
     fill_in 'Emergency Response Phone (3)', with: '555-555-5555'
     fill_in 'Manifest Tracking Number (4)', with: manifest_tracking_number
     fill_in 'Name (5)', with: 'Mailing name'
@@ -27,12 +27,12 @@ feature 'Create manifest' do
 
     within('.transporter-1') do
       fill_in 'Company Name (6)', with: 'Transporter company 1 name'
-      fill_in 'U.S. EPA ID Number (6)', with: 'Transporter 1 EPA number'
+      fill_in 'U.S. EPA ID Number (6)', with: 'def987654321'
     end
 
     within('.transporter-2') do
       fill_in 'Company Name (6)', with: 'Transporter company 2 name'
-      fill_in 'U.S. EPA ID Number (6)', with: 'Transporter 2 EPA number'
+      fill_in 'U.S. EPA ID Number (6)', with: 'ghi987654321'
     end
 
     fill_in 'Name (8)', with: 'Designated facility name'
@@ -41,7 +41,7 @@ feature 'Create manifest' do
     select 'Maine', from: 'State (8)'
     fill_in 'ZIP code (8)', with: '12345'
     fill_in 'Phone number (8)', with: '555-555-5555'
-    fill_in 'U.S. EPA ID Number (8)', with: 'Designated facility API number'
+    fill_in 'U.S. EPA ID Number (8)', with: 'jkl987654321'
     #
     # fill_in 'Proper Shipping Name', with: 'Proper shipping name'
     # fill_in 'Hazard Class', with: 'Hazard class value'
