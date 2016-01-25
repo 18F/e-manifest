@@ -1,6 +1,9 @@
 require "json"
+require_relative '../../app/helpers/example_json_helper'
 
 class Populator
+  include ExampleJsonHelper
+
   def initialize(model, n_records=100, randomize_created_at=false)
     @model = model
     @n_records = (n_records || 100).to_i
@@ -27,16 +30,12 @@ class Populator
   end
 
   def make_manifest_record(iteration)
-    manifest = JSON.parse(manifest_template)
+    manifest = read_example_json_file_as_json('manifest')
     manifest[:my_id] = iteration
     manifest["generator"]["name"] = "#{random_string()[0..8]} Generator"
     manifest["designated_facility"]["name"] = "#{random_string()[0..8]} Facility"
-    manifest["generator"]["manifest_tracking_number"] = SecureRandom.random_number(1_000_000_000)
+    manifest["generator"]["manifest_tracking_number"] = random_tracking_number
     { content: manifest.to_json }
-  end
-
-  def manifest_template
-    File.read(Rails.root.join('app', 'views', 'examples', '_manifest.json'))
   end
 
   def random_string

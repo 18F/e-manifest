@@ -57,6 +57,37 @@
 
 Server tests are in rspec. Just run `rspec`.
 
+### Load Tests
+
+Load testing requires manually installing some gems.
+
+```bash
+% gem install tourbus faraday faraday_middleware excon test-unit
+```
+
+See the [tourbus docs](https://github.com/dbrady/tourbus).
+
+A file named `test_cdx_config.yml` is expected at the root of the application. You can obtain a copy of this file,
+not stored in git, from a team member.
+
+Running the tests uses the `tourbus` command:
+
+```bash
+% tourbus -n 100 -c 3 post_manifest
+% tourbus -n 100 -c 3 get_manifest
+% tourbus -n 100 -c 3 search_manifest
+```
+
+For any HTTP requests that do not require unique data (such as searching or fetching a known manifest)
+you can also use the `ab` Apache Bench command.
+
+```bash
+% ab -n 100 -c 3 'http://localhost:5000/api/v0/manifests/search?q=generator'
+% ab -n 100 -c 3 'http://localhost:5000/api/v0/manifests/someknownUUIDhere'
+```
+
+The `ab` tool has better reporting but cannot handle things like POSTing a unique manifest tracking number per request.
+
 ### Deploying to cloud.gov
 
 * To deploy to *e-manifest.18f.gov*: `cf target -o epa-emanifest -s prod && script/deploy e-manifest`
@@ -84,6 +115,10 @@ located in the root with the following form:
 In addition to these API keys, you will need the username, password, and
 security question answers in order to sign in via the web UI. These can also be
 obtained via team members.
+
+The `CDX_LOG` and `CDX_COLOR` environment variables control the verbosity and style of the CDX
+model logging. Currently the `CDX_LOG` variable must be set to `true` when running the rspec test suite,
+and therefor is explicitly set in the `.env.test` file.
 
 ## Public domain
 

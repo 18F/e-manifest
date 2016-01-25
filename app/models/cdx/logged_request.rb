@@ -15,14 +15,29 @@ class CDX::LoggedRequest
   private
 
   def log_opts
+    if color_log?
+      puts_color_log_opts
+    elsif log?
+      puts_log_opts
+    end
+  end
+
+  def puts_log_opts
     output_stream.puts self.class.name
     output_stream.puts opts
   end
 
+  def puts_color_log_opts
+    output_stream.puts ANSI.blue{ self.class.name }
+    output_stream.puts ANSI.blue{ opts.pretty_inspect }
+  end
+
   def log_response
-    output_stream.puts "---"
-    output_stream.puts response.body
-    output_stream.puts "---"
+    if color_log?
+      output_stream.puts ANSI.green{ response.body.pretty_inspect }
+    elsif log?
+      output_stream.puts response.body
+    end
   end
 
   def response
@@ -39,5 +54,13 @@ class CDX::LoggedRequest
 
   def repackage_response
     raise NotImplementedError
+  end
+
+  def log?
+    client.savon.globals[:log]
+  end
+
+  def color_log?
+    log? && ENV['CDX_COLOR']
   end
 end

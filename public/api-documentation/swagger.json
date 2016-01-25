@@ -30,7 +30,10 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Successful creation of e-Manifest. The Location header denotes the manifest URL (e.g. `/api/0.1/manifest/:id`)."
+                        "description": "Successful creation of e-Manifest. The Location header denotes the manifest URL (e.g. `/api/0.1/manifest/:id`).",
+                        "schema": {
+                          "$ref": "#/definitions/CreationSuccessful"
+                        }
                     },
                     "422": {
                         "description": "Failed to create e-Manifest. Validation messages are included in the response."
@@ -358,16 +361,8 @@
                 "hits": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/SearchResult"
+                        "$ref": "https://e-manifest.18f.gov/schemas/get-manifest.json#"
                     }
-                }
-            }
-        },
-        "SearchResult": {
-            "type": "object",
-            "properties": {
-                "_source": {
-                    "$ref": "https://e-manifest.18f.gov/schemas/post-manifest.json#"
                 }
             }
         },
@@ -376,6 +371,31 @@
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "CreationSuccessful": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                }
+            }
+        },
+        "FailedAction": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         }

@@ -1,4 +1,6 @@
 class Api::V0::ManifestsController < ApiController
+  rescue_from ActiveRecord::RecordNotFound, with: :manifest_not_found_error
+
   def search
     if !params[:q] && !params[:aq]
       render json: {message: 'Missing q or aq param'}, status: 400
@@ -23,9 +25,11 @@ class Api::V0::ManifestsController < ApiController
         @manifest = Manifest.new(content: manifest_content)
 
         if @manifest.save
+          @manifest.reload
           tracking_number = @manifest.tracking_number
           render json: {
             message: "Manifest #{tracking_number} submitted successfully.",
+            location: api_v0_manifest_url(@manifest.uuid)
           }, status: 201
         else
           render json: {
@@ -33,6 +37,7 @@ class Api::V0::ManifestsController < ApiController
             errors: @manifest.errors.full_messages.to_sentence
           }, status: 422
         end
+
       end
     end
   end

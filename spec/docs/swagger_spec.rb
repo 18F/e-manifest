@@ -1,5 +1,6 @@
 require 'rails_helper'
 include JsonSchemaSpecHelper
+include ExampleJsonHelper
 
 describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
   before(:all) do
@@ -90,14 +91,10 @@ describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
   end
 
   def manifest_as_json
-    read_example_file_as_json('manifest')
+    read_example_json_file_as_json('manifest')
   end
 
   def manifest_patch_as_json
-    read_example_file_as_json('manifest_patch')
-  end
-
-  def read_example_file_as_json(name)
-    JSON.parse(File.read("#{Rails.root.join('app', 'views', 'examples')}/_#{name}.json"))
+    read_example_json_file_as_json('manifest_patch')
   end
 end

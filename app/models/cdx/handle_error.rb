@@ -1,3 +1,6 @@
+require 'ansi'
+require 'pp'
+
 class CDX::HandleError
   attr_reader :error, :output_stream
 
@@ -14,7 +17,11 @@ class CDX::HandleError
   private
 
   def log_error
-    output_stream.puts error_hash
+    if ENV['CDX_COLOR']
+      output_stream.puts ANSI.red{ error_hash.pretty_inspect }
+    else
+      output_stream.puts error_hash
+    end
   end
 
   def repackage_error
