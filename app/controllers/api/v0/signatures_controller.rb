@@ -35,7 +35,7 @@ class Api::V0::SignaturesController < ApiController
     if cdx_response.key?(:document_id)
       manifest.document_id = cdx_response[:document_id]
       manifest.activity_id = signature_request[:activity_id]
-      manifest.signed_at = Time.now
+      manifest.signed_at = Time.current
       manifest.save!
       status = 200
     else
