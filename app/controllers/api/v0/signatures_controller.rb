@@ -10,7 +10,9 @@ class Api::V0::SignaturesController < ApiController
 
     status = update_manifest(cdx_response, signature_request, manifest)
 
-    render(json: cdx_response.to_json, status: status) unless performed?
+    unless performed?
+      render(json: cdx_response.to_json, status: status)
+    end
   end
 
   private
@@ -29,10 +31,9 @@ class Api::V0::SignaturesController < ApiController
       manifest.document_id = cdx_response[:document_id]
       manifest.activity_id = signature_request[:activity_id]
       manifest.save!
-      status = 200
+      return 200
     else
-      status = 422
+      return 422
     end
-    status
   end
 end
