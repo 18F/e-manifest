@@ -22,14 +22,18 @@ class ManifestUploadsController < ApplicationController
       manifest.content[:uploaded_file] = image_details
       manifest
     else
-      Manifest.new(content: manifest_upload_params)
+      Manifest.new(content: parsed_upload_params)
     end
+  end
+
+  def parsed_upload_params
+    manifest_upload_params.merge(uploaded_file: image_details)
   end
 
   def manifest_upload_params
     params.require(:manifest).permit(
       generator: [:manifest_tracking_number],
-      uploaded_file: image_details
+      uploaded_file: [:content, :content_type, :file_name]
     )
   end
 
