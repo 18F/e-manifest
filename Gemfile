@@ -7,7 +7,7 @@ ruby '2.2.3'
 gem 'kaminari'
 gem 'elasticsearch-dsl'
 gem 'elasticsearch-model'
-gem 'elasticsearch-rails-ha', git: 'https://github.com/18F/elasticsearch-rails-ha-gem.git'
+gem 'elasticsearch-rails-ha', '~> 1.0.2'
 
 gem 'autoprefixer-rails'
 gem 'active_model_serializers'
