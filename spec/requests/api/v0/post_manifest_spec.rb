@@ -68,5 +68,21 @@ describe 'POST manifests' do
         ]
       })
     end
+
+    it 'requires manifest tracking number be unique' do
+      manifest = create(:manifest)
+      expect {
+        post '/api/v0/manifests',
+        manifest.content.to_json,
+        set_headers
+      }.to change { Manifest.count }.by(0)
+
+      response_json = JSON.parse(response.body, symbolize_names: true)
+      expect(response.status).to eq 422
+      expect(response_json).to eq({
+        message: 'Validation failed',
+        errors: 'Tracking number must be unique'
+      })
+    end
   end
 end
