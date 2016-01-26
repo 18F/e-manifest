@@ -55,7 +55,8 @@ CREATE TABLE manifests (
     activity_id character varying,
     document_id character varying,
     uuid uuid DEFAULT uuid_generate_v4(),
-    signed_at timestamp without time zone
+    signed_at timestamp without time zone,
+    user_id integer DEFAULT 0 NOT NULL
 );
 
 
@@ -149,6 +150,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_manifests_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_manifests_on_user_id ON manifests USING btree (user_id);
+
+
+--
 -- Name: index_manifests_on_uuid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -177,6 +185,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manifests
+    ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -201,4 +217,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160120171331');
 INSERT INTO schema_migrations (version) VALUES ('20160125160835');
 
 INSERT INTO schema_migrations (version) VALUES ('20160126213552');
+
+INSERT INTO schema_migrations (version) VALUES ('20160126221849');
 

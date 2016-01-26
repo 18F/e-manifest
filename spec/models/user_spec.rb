@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe User do
+  describe 'Associations' do
+    it { should have_many(:manifests) }
+  end
+
   describe 'cdx_user_id' do
     it 'is always required' do
       user = create(:user)

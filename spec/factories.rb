@@ -7,6 +7,7 @@ FactoryGirl.define do
         name: "Company name",
       }
     }}
+    association :user, factory: :user
 
     after(:create) do |manifest, evaluator|
       manifest.reload # get uuid
@@ -30,6 +31,6 @@ FactoryGirl.define do
   end
 
   factory :user do
-    cdx_user_id SecureRandom.hex()[0..15]
+    cdx_user_id { SecureRandom.hex()[0..15] }
   end
 end
