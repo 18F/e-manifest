@@ -34,7 +34,8 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
         VCR.use_cassette('api_sign_success') do
           manifest = create(:manifest)
           document_id_from_fixture = "fakeDocumentId"
-          json = { activity_id: activity_id,
+          json = {
+            activity_id: activity_id,
             answer: "Test",
             question: question,
             question_id: question_id,
@@ -56,23 +57,7 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
   end
 
   context 'sign failure' do
-    context 'token not sent with request' do
-      it 'returns a helpful error message' do
-        VCR.use_cassette('user_auth_failure') do
-          manifest = create(:manifest)
-
-          post "/api/v0/manifests/#{manifest.tracking_number}/signature",
-            {}.to_json
-            set_headers
-
-            manifest.reload
-            expect(response.status).to eq 403
-            expect(manifest.signed_at).to eq nil
-        end
-      end
-    end
-
-    context 'token not sent with request' do
+    context 'bad tken sent with request' do
       it 'returns a helpful error message' do
         VCR.use_cassette('user_auth_failure') do
           manifest = create(:manifest)

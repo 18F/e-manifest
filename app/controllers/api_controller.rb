@@ -18,9 +18,9 @@ class ApiController < ApplicationController
 
   def read_body_as_json(opts = {})
     begin
-      deserialized = JSON.parse(request.body.read, opts)
+      JSON.parse(request.body.read, opts)
     rescue JSON::ParserError => error
-      render json: {message: "Invalid JSON in request: #{error}"}, status: 400
+      render json: { message: "Invalid JSON in request: #{error}" }, status: 400
     end
   end
 end
