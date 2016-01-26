@@ -23,7 +23,7 @@ class ManifestsController < ApplicationController
     if params[:q] || params[:aq]
       @search_response = Manifest.authorized_search(params)
     else
-      @search_response = Manifest.authorized_search({public: true})
+      @search_response = Manifest.authorized_search(params.merge({public: true}))
     end
     @es_response = @search_response[:es_response]
     @manifests = @es_response.records.to_a
