@@ -39,7 +39,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def transporters
-    content_field('transporters')
+    content_field('transporters') || []
   end
 
   def designated_facility_name
@@ -57,7 +57,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def manifest_items
-    content_field('manifest_items')
+    content_field('manifest_items') || []
   end
 
   def waste_handling_instructions
@@ -66,6 +66,10 @@ class Manifest < ActiveRecord::Base
 
   def waste_report_codes
     content_field('report_management_method_codes') || []
+  end
+
+  def handler_defined
+    content_field('handler_defined_data') || []
   end
 
   def self.find_by_uuid_or_tracking_number(id)
