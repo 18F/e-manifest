@@ -28,4 +28,8 @@ FactoryGirl.define do
       end
     end
   end
+
+  factory :user do
+    cdx_user_id SecureRandom.hex()[0..15]
+  end
 end
