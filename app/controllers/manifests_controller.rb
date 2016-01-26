@@ -21,12 +21,13 @@ class ManifestsController < ApplicationController
 
   def index
     if params[:q] || params[:aq]
-      @es_response = Manifest.authorized_search(params)
-      @manifests = @es_response.records.to_a
+      @search_response = Manifest.authorized_search(params)
     else
-      @es_response = Manifest.authorized_search({public: true})
-      @manifests = @es_response.records.to_a
+      @search_response = Manifest.authorized_search({public: true})
     end
+    @es_response = @search_response[:es_response]
+    @manifests = @es_response.records.to_a
+    build_search_stats
   end
 
   def show
@@ -41,5 +42,14 @@ class ManifestsController < ApplicationController
       @errors = validator.error_messages
     end
     !validator.errors.any?
+  end
+
+  def build_search_stats
+    dsl_hash = @search_response[:dsl].to_hash
+    @stats = {
+      from: dsl_hash[:from] + 1,
+      to: dsl_hash[:from] + dsl_hash[:size],
+      total: @search_response[:es_response].results.total,
+    }
   end
 end

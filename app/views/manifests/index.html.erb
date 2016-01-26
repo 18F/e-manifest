@@ -3,7 +3,7 @@
   <h3>Manifests</h3>
 
   <div class="stats">
-    Currently viewing <%= @manifests.size %> of <%= number_with_delimiter @es_response.results.total %> results.
+    Currently viewing <%= @stats[:from] %>-<%= @stats[:to] %> of <%= number_with_delimiter @stats[:total] %> results.
   </div>
 
   <table>
@@ -30,7 +30,7 @@
     </tbody>
   </table>
 
-  <div class="pager" style="background-color:#1188ff">
+  <div class="pager">
     <%= paginate @es_response, current_page: (params[:page]||1).to_i %>
   </div>
 </div>
