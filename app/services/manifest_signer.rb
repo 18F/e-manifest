@@ -14,10 +14,7 @@ class ManifestSigner
     Rails.logger.debug(ANSI.blue{ "  CDX signature time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
 
     if cdx_response.key?(:document_id)
-      manifest.document_id = cdx_response[:document_id]
-      manifest.activity_id = args[:activity_id]
-      manifest.signed_at = Time.current
-      manifest.save!
+      update_manifest(cdx_response, args)
     end
 
     cdx_response
@@ -26,6 +23,13 @@ class ManifestSigner
   private
 
   attr_reader :args
+
+  def update_manifest(cdx_response, args)
+    manifest.document_id = cdx_response[:document_id]
+    manifest.activity_id = args[:activity_id]
+    manifest.signed_at = Time.current
+    manifest.save!
+  end
 
   def parsed_args
     args[:manifest] = manifest.content.to_s
