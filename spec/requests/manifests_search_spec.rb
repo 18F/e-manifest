@@ -10,7 +10,7 @@ describe 'manifests search', elasticsearch: true do
     end
 
     it 'paginates' do
-      10.times { create(:manifest, :indexed) }
+      5.times { create(:manifest, :indexed) }
       get "/manifests?aq[content.generator.name]=company&page=2&size=2"
       expect(response.body).to include("Currently viewing 3-4 of 10 results")
     end
