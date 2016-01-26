@@ -51,5 +51,8 @@ class ManifestsController < ApplicationController
       to: dsl_hash[:from] + dsl_hash[:size],
       total: @search_response[:es_response].results.total,
     }
+    if @stats[:total] < dsl_hash[:size]
+      @stats[:to] = @stats[:total]
+    end
   end
 end
