@@ -1,6 +1,8 @@
 require 'date'
 
 class Manifest < ActiveRecord::Base
+  include Searchable
+
   validate :tracking_number, :validate_tracking_number_unique
 
   def content_field(json_xpath)
@@ -78,46 +80,6 @@ class Manifest < ActiveRecord::Base
 
   def self.find_by_uuid_or_tracking_number!(id)
     find_by_uuid_or_tracking_number(id) or raise ManifestNotFound.new "Could not find #{id} by uuid or tracking_number"
-  end
-
-  include Elasticsearch::Model
-
-  ActiveRecord::Base.raise_in_transactional_callbacks = true
-
-  after_commit on: [:create] do
-    unless Rails.env.test?
-      reindex_async(:index)
-    end
-  end
-
-  after_commit on: [:update] do
-    unless Rails.env.test?
-      reindex_async(:update)
-    end
-  end
-
-  after_commit on: [:destroy] do
-    unless Rails.env.test?
-      IndexerWorker.perform_async(:delete,  self.class.to_s, self.id)
-    end
-  end
-
-  def reindex
-    __elasticsearch__.index_document
-  end
-
-  def reindex_async(operation)
-    IndexerWorker.perform_async(operation,  self.class.to_s, self.id)
-  end
-
-  def remove_from_index
-    __elasticsearch__.destroy_document
-  end
-
-  def self.rebuild_index
-    __elasticsearch__.create_index! force: true
-    __elasticsearch__.import
-    __elasticsearch__.refresh_index!
   end
 
   def self.authorized_search(params, user=nil)
