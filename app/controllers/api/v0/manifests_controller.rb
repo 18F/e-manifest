@@ -5,7 +5,7 @@ class Api::V0::ManifestsController < ApiController
     if !params[:q] && !params[:aq]
       render json: {message: 'Missing q or aq param'}, status: 400
     else
-      render json: ManifestSearchSerializer.new(Manifest.authorized_search(params)).to_json
+      render json: ManifestSearchSerializer.new(Manifest.authorized_search(params)[:es_response]).to_json
     end
   end
 
