@@ -88,7 +88,8 @@ class Manifest < ActiveRecord::Base
 
   def self.authorized_search(params, user=nil)
     dsl = Search::QueryDSL.new(params: params, user: user)
-    search(dsl)
+    resp = search(dsl)
+    { es_response: resp, dsl: dsl }
   end
 
   private
