@@ -10,7 +10,7 @@ feature 'View manifest' do
 
     visit manifest_path(manifest_tracking_number)
 
-    expect(page).to have_content('Download File Upload')
+    expect(page).to have_content('Download Scanned Image')
   end
 
   scenario 'manifest has file uploaded after creation', elasticsearch: true do
@@ -25,7 +25,7 @@ feature 'View manifest' do
 
     visit manifest_path(manifest_tracking_number)
 
-    expect(page).to have_content('Download File Upload')
+    expect(page).to have_content('Download Scanned Image')
   end
 
   scenario 'manifest does not have a file upload' do
@@ -36,7 +36,7 @@ feature 'View manifest' do
 
     visit manifest_path(manifest_tracking_number)
 
-    expect(page).not_to have_content('Download File Upload')
+    expect(page).not_to have_content('Download Scanned Image')
     expect(page).to have_content('No scanned image available for this manifest.')
   end
 end
