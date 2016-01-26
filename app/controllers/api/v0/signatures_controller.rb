@@ -15,16 +15,7 @@ class Api::V0::SignaturesController < ApiController
   private
 
   def validate_signature(content)
-    validator = SignatureValidator.new(content)
-
-    if validator.run == false
-      render json: {
-        message: "Validation failed",
-        errors: validator.error_messages
-      }, status: 422
-    end
-
-    !validator.errors.any?
+    run_validator(SignatureValidator.new(content))
   end
 
   def status_code(cdx_response)
