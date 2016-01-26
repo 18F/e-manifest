@@ -91,7 +91,9 @@ describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
   end
 
   def manifest_as_json
-    read_example_json_file_as_json('manifest')
+    manifest = read_example_json_file_as_json('manifest')
+    manifest['generator']['manifest_tracking_number'] = random_tracking_number
+    manifest
   end
 
   def manifest_patch_as_json

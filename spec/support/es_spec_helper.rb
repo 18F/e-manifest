@@ -40,7 +40,7 @@ module EsSpecHelper
       STDOUT.flush
       if errors.size > 0
         STDOUT.puts "ERRORS in #{$$}:"
-        STDOUT.puts pp(errors)
+        STDOUT.puts errors.pretty_inspect
       end
     end
     puts "Refreshing index for class #{klass}"

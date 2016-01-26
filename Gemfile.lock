@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/18F/elasticsearch-rails-ha-gem.git
-  revision: a5af4828e3c688b67911e85ea7cdddcce31885b3
-  specs:
-    elasticsearch-rails-ha (1.0.0)
-      ansi
-      elasticsearch-model
-      elasticsearch-rails
-
-GIT
   remote: https://github.com/jessieay/savon-multipart.git
   revision: 6771eaee41aacb5220af9a096164d63acca05b1b
   specs:
@@ -143,6 +134,10 @@ GEM
       elasticsearch (> 0.4)
       hashie
     elasticsearch-rails (0.1.8)
+    elasticsearch-rails-ha (1.0.2)
+      ansi
+      elasticsearch-model
+      elasticsearch-rails
     elasticsearch-transport (1.0.15)
       faraday
       multi_json
@@ -361,7 +356,7 @@ DEPENDENCIES
   elasticsearch-dsl
   elasticsearch-extensions
   elasticsearch-model
-  elasticsearch-rails-ha!
+  elasticsearch-rails-ha (~> 1.0.2)
   email_validator
   factory_girl_rails
   flutie
