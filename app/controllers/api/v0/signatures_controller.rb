@@ -1,19 +1,30 @@
 class Api::V0::SignaturesController < ApiController
   def create
     manifest = find_manifest(params[:manifest_id])
-    signature_request = prep_signature_request(manifest)
-    cdx_response = ManifestSigner.new(signature_request).perform
+    signature_request = read_body_as_json(symbolize_names: true)
 
-    unless performed?
-      render(json: cdx_response.to_json, status: status_code(cdx_response))
+    if validate_signature(signature_request)
+      cdx_response = ManifestSigner.new(signature_request.merge(manifest: manifest)).perform
+
+      unless performed?
+        render(json: cdx_response.to_json, status: status_code(cdx_response))
+      end
     end
   end
 
   private
 
-  def prep_signature_request(manifest)
-    signature_request = read_body_as_json(symbolize_names: true)
-    signature_request.merge(manifest: manifest)
+  def validate_signature(content)
+    validator = SignatureValidator.new(content)
+
+    if validator.run == false
+      render json: {
+        message: "Validation failed",
+        errors: validator.error_messages
+      }, status: 422
+    end
+
+    !validator.errors.any?
   end
 
   def status_code(cdx_response)

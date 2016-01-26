@@ -26,7 +26,7 @@ class ManifestSigner
   attr_reader :args
 
   def parsed_args
-    args[:manifest_content] = manifest.content.to_json
+    args[:manifest] = manifest.content.to_s
 
     if args[:token]
       args[:token] = lookup_signature_token(args[:token])

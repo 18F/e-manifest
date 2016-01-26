@@ -7,7 +7,6 @@
   "required" : [
     "activity_id",
     "answer",
-    "question",
     "question_id",
     "token",
     "user_id"
@@ -19,10 +18,6 @@
     },
     "answer": {
       "description": "reply to security question from CDX",
-      "type": "string"
-    },
-    "question": {
-      "description": "question text from CDX API",
       "type": "string"
     },
     "question_id": {

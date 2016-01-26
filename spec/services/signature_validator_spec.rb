@@ -5,7 +5,6 @@ describe SignatureValidator do
     json = {
       activity_id: '12345',
       answer: 'jane doe',
-      question: 'name of a person',
       question_id: '1',
       token: 'ABX1234',
       user_id: 'user_id'
@@ -26,7 +25,6 @@ describe SignatureValidator do
     json = {
       activity_id: '12345',
       answer: 'jane doe',
-      question: 'name of a person',
       question_id: '1',
       token: 'ABX123',
       foo: 'bar'

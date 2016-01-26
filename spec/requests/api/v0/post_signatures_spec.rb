@@ -11,10 +11,9 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
           json = {
             activity_id: activity_id,
             answer: "Tester",
-            question: question,
             question_id: question_id,
             token: token,
-            user_id: user_id
+            user_id: user_id,
           }
 
           post "/api/v0/manifests/#{manifest.uuid}/signature",
@@ -37,10 +36,9 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
           json = {
             activity_id: activity_id,
             answer: "Test",
-            question: question,
             question_id: question_id,
             token: token,
-            user_id: user_id
+            user_id: user_id,
           }
 
           post "/api/v0/manifests/#{manifest.tracking_number}/signature",
