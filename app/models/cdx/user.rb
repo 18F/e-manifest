@@ -23,6 +23,8 @@ class CDX::User < CDX::LoggedRequest
       output_stream.puts "---"
       output_stream.puts response.hash
       output_stream.puts "---"
+    else
+      output_stream.puts response.hash
     end
   end
 

@@ -75,7 +75,7 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
   private
 
   def auth
-    @_auth ||= CDX::Authenticator.new({ user_id: user_id, password: "fakePassword" }).perform
+    @_auth ||= CDX::Authenticator.new({ user_id: user_id, password: "fakePassword" }, stream_logger).perform
   end
 
   def token

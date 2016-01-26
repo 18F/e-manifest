@@ -4,9 +4,11 @@ class ManifestSigner
   end
 
   def perform
+    output_stream = StreamLogger.new(Rails.logger)
+
     cdx_start = Time.current
 
-    cdx_response = CDX::Manifest.new(parsed_args).sign
+    cdx_response = CDX::Manifest.new(parsed_args, output_stream).sign
 
     cdx_stop = Time.current
     Rails.logger.debug(ANSI.blue{ "  CDX signature time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })

@@ -15,7 +15,7 @@ describe ManifestSigner do
         }
 
         cdx_manifest = double(sign: { document_id: "document_id" })
-        allow(CDX::Manifest).to receive(:new).with(args).and_return(cdx_manifest)
+        allow(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
         signer = ManifestSigner.new(args).perform
 
@@ -34,7 +34,7 @@ describe ManifestSigner do
         }
 
         cdx_manifest = double(sign: { document_id: "document_id" })
-        allow(CDX::Manifest).to receive(:new).with(args).and_return(cdx_manifest)
+        allow(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
         ManifestSigner.new(args).perform
 
@@ -53,7 +53,7 @@ describe ManifestSigner do
         }
 
         cdx_manifest = double(sign: { document_id: "document_id" })
-        allow(CDX::Manifest).to receive(:new).with(args).and_return(cdx_manifest)
+        allow(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
         ManifestSigner.new(args).perform
 
@@ -72,7 +72,7 @@ describe ManifestSigner do
         }
 
         cdx_manifest = double(sign: { document_id: "document_id" })
-        allow(CDX::Manifest).to receive(:new).with(args).and_return(cdx_manifest)
+        allow(CDX::Manifest).to receive(:new).and_return(cdx_manifest)
 
         ManifestSigner.new(args).perform
 

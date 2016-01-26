@@ -2,8 +2,9 @@ class Api::V0::TokensController < ApiController
   include AuthParams
 
   def create
+    output_stream = StreamLogger.new(Rails.logger)
     cdx_start = Time.current
-    response = CDX::Authenticator.new(auth_params).perform
+    response = CDX::Authenticator.new(auth_params, output_stream).perform
     cdx_stop = Time.current
     Rails.logger.debug(ANSI.blue{ "  CDX authenticator time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
 
