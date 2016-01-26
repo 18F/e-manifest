@@ -2,10 +2,7 @@ class Api::V0::TokensController < ApiController
   include AuthParams
 
   def create
-    cdx_start = Time.current
-    response = CDX::Authenticator.new(auth_params).perform
-    cdx_stop = Time.current
-    Rails.logger.debug(ANSI.blue{ "  CDX authenticator time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
+    response = authenticate_with_cdx
 
     if response[:token]
       user_token = store_signature_token(response[:token])
@@ -20,6 +17,15 @@ class Api::V0::TokensController < ApiController
   end
 
   private
+
+  def authenticate_with_cdx
+    output_stream = StreamLogger.new(Rails.logger)
+    cdx_start = Time.current
+    response = CDX::Authenticator.new(auth_params, output_stream).perform
+    cdx_stop = Time.current
+    Rails.logger.debug(ANSI.blue{ "  CDX authenticator time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
+    response
+  end
 
   def store_signature_token(cdx_token)
     user_token = SecureRandom.uuid

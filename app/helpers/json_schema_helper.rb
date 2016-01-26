@@ -1,10 +1,10 @@
 module JsonSchemaHelper
-  def schema_directory
-    "#{Rails.public_path}/schemas"
-  end
-
   def schema_file(name)
     "#{schema_directory}/#{name}.json"
+  end
+
+  def schema_directory
+    "#{Rails.public_path}/schemas"
   end
 
   def read_schema_file(name, opts = {})
@@ -17,6 +17,6 @@ module JsonSchemaHelper
       schema_buf = JSON.parse(File.read(schema_file))
       schema = JSON::Schema.new(schema_buf, :ignored)
       JSON::Validator.add_schema(schema)
-    end 
+    end
   end
 end

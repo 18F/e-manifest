@@ -5,14 +5,14 @@ class SignaturesController < ApplicationController
   end
 
   def create
-    answer = CDX::Answer.new(secret_question_params.except(:question)).perform
     @manifest = Manifest.find_by_uuid_or_tracking_number(params[:manifest_id])
+    cdx_response = ManifestSigner.new(parsed_signature_params).perform
 
-    if answer == true
+    if cdx_response.key?(:document_id)
       redirect_to manifest_signature_path(@manifest.uuid)
     else
-      flash.now[:error] = answer[:description]
-      @response = secret_question_params
+      flash.now[:error] = cdx_response[:description]
+      @response = signature_params
       render :new
     end
   end
@@ -24,7 +24,11 @@ class SignaturesController < ApplicationController
 
   private
 
-  def secret_question_params
+  def parsed_signature_params
+    signature_params.merge(manifest: @manifest).symbolize_keys
+  end
+
+  def signature_params
     params.fetch(:secret_question, {}).permit(
       :activity_id,
       :answer,

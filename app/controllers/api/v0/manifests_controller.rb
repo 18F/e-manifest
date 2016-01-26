@@ -65,13 +65,6 @@ class Api::V0::ManifestsController < ApiController
   private
 
   def validate_manifest(content)
-    validator = ManifestValidator.new(content)
-    unless validator.run
-      render json: {
-        message: "Validation failed",
-        errors: validator.error_messages
-      }, status: 422
-    end
-    !validator.errors.any?
+    run_validator(ManifestValidator.new(content))
   end
 end

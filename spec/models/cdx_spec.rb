@@ -147,44 +147,4 @@ describe "CDX" do
       expect(output_stream.string).to include('document_id')
     end
   end
-
-  describe 'CDX::Manifest.new(args, output_stream).sign' do
-    let(:opts) {
-      double('opts')
-    }
-
-    let(:error) {
-      e = Savon::SOAPFault.new('something went wrong', double)
-      allow(e).to receive(:to_hash).and_return({
-        fault: {
-          detail: {
-            register_auth_fault: {
-              description: 'bad credentials'
-            }
-          }
-        }
-      })
-      e
-    }
-
-    before do
-      allow_any_instance_of(CDX::Answer).to receive(:perform)
-      allow_any_instance_of(CDX::Sign).to receive(:perform).and_return('document_id')
-    end
-
-    it 'validates the answer' do
-      expect_any_instance_of(CDX::Answer).to receive(:perform)
-      CDX::Manifest.new(opts, output_stream).sign
-    end
-
-    it 'signs the manifest' do
-      expect_any_instance_of(CDX::Sign).to receive(:perform).and_return('document_id')
-      CDX::Manifest.new(opts, output_stream).sign
-    end
-
-    it 'logs the error' do
-      allow_any_instance_of(CDX::Answer).to receive(:perform).and_raise(error)
-      expect(CDX::Manifest.new(opts, output_stream).sign).to eq({description: 'bad credentials'})
-    end
-  end
 end

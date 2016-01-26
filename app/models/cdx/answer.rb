@@ -23,7 +23,9 @@ class CDX::Answer < CDX::LoggedRequest
   end
 
   def repackage_response
-    response.body[:validate_answer_response][:valid_answer]
+    if response.body[:validate_answer_response]
+      response.body[:validate_answer_response][:valid_answer]
+    end
   end
 
   def log_and_repackage_error(error)

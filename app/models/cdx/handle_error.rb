@@ -33,8 +33,11 @@ class CDX::HandleError
   end
 
   def description
-    fault_detail = error_hash[:fault][:detail]
-    parent = fault_detail[:register_auth_fault] || fault_detail[:register_fault]
-    parent[:description]
+    if fault_detail = error_hash[:fault][:detail]
+      parent = fault_detail[:register_auth_fault] || fault_detail[:register_fault]
+      parent[:description]
+    else
+      error_hash[:fault][:reason]
+    end
   end
 end

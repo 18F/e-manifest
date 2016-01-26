@@ -12,9 +12,7 @@ class CDX::System < CDX::LoggedRequest
   end
 
   def log_response
-    if log?
-      output_stream.puts(client.operations)
-    end
+    output_stream.puts(client.operations)
     super
   end
 

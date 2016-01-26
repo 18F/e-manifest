@@ -17,7 +17,7 @@ class CDX::LoggedRequest
   def log_opts
     if color_log?
       puts_color_log_opts
-    elsif log?
+    else
       puts_log_opts
     end
   end
@@ -35,7 +35,7 @@ class CDX::LoggedRequest
   def log_response
     if color_log?
       output_stream.puts ANSI.green{ response.body.pretty_inspect }
-    elsif log?
+    else
       output_stream.puts response.body
     end
   end

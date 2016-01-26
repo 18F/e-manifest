@@ -19,10 +19,8 @@ class CDX::User < CDX::LoggedRequest
   def log_response
     if color_log?
       output_stream.puts ANSI.blue{ response.hash.pretty_inspect }
-    elsif log?
-      output_stream.puts "---"
+    else
       output_stream.puts response.hash
-      output_stream.puts "---"
     end
   end
 
