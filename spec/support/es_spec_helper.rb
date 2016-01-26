@@ -43,7 +43,7 @@ module EsSpecHelper
         STDOUT.puts pp(errors)
       end
     end
-    #puts "Completed #{completed} records of class #{klass}"
+    puts "Refreshing index for class #{klass}"
     klass.__elasticsearch__.refresh_index!
   end
 
