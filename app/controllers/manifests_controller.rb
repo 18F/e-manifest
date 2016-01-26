@@ -21,9 +21,11 @@ class ManifestsController < ApplicationController
 
   def index
     if params[:q] || params[:aq]
-      @manifests = Manifest.authorized_search(params).records.to_a
+      @es_response = Manifest.authorized_search(params)
+      @manifests = @es_response.records.to_a
     else
-      @manifests = Manifest.authorized_search({public: true}).records.to_a
+      @es_response = Manifest.authorized_search({public: true})
+      @manifests = @es_response.records.to_a
     end
   end
 

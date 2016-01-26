@@ -1,6 +1,10 @@
 <div class="usa-width-two-thirds">
 
-  <h3>Public manifests</h3>
+  <h3>Manifests</h3>
+
+  <div class="stats">
+    Currently viewing <%= @manifests.size %> of <%= number_with_delimiter @es_response.results.total %> results.
+  </div>
 
   <table>
     <thead>
@@ -26,6 +30,9 @@
     </tbody>
   </table>
 
+  <div class="pager" style="background-color:#1188ff">
+    <%= paginate @es_response, current_page: (params[:page]||1).to_i %>
+  </div>
 </div>
 
 <div class="usa-width-one-third">
