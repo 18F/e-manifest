@@ -456,6 +456,24 @@
          "type": "string",
          "$ref": "#/definitions/report_management_method_code"
       }
+    },
+    "uploaded_file": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "description":"base 64 encoded file",
+          "type": "string"
+        },
+        "content_type": {
+          "description":"file type",
+          "type": "string",
+          "enum":["application/pdf"]
+        },
+        "file_name": {
+          "description":"name of manifest upload file",
+          "type": "string"
+        }
+      }
     }
   }
 }
