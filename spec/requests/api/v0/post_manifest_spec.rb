@@ -78,8 +78,11 @@ describe 'POST manifests' do
       }.to change { Manifest.count }.by(0)
 
       response_json = JSON.parse(response.body, symbolize_names: true)
-      expect(response.status).to eq 409
-      expect(response_json).to eq({ message: 'Manifest Tracking Number is not unique' })
+      expect(response.status).to eq 422
+      expect(response_json).to eq({
+        message: 'Validation failed',
+        errors: 'Tracking number must be unique'
+      })
     end
   end
 end

@@ -23,15 +23,7 @@ class Api::V0::ManifestsController < ApiController
     unless performed?
       if validate_manifest(manifest_content)
         @manifest = Manifest.new(content: manifest_content)
-
-        if Manifest.find_by_tracking_number(@manifest.tracking_number)
-          render json: {
-            message: "Manifest Tracking Number is not unique"
-          }, status: 409
-        else
-          create_manifest(@manifest)
-        end
-
+        create_manifest(@manifest)
       end
     end
   end

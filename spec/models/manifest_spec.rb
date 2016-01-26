@@ -49,7 +49,7 @@ describe Manifest do
         manifest = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
         expect {
           manifest_dup = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
-        }.to raise_exception(ActiveRecord::RecordNotUnique)
+        }.to raise_exception(ActiveRecord::RecordInvalid)
       end
     end
   end
@@ -73,7 +73,7 @@ describe Manifest do
       it 'raises exception when called as find_by_uuid_or_tracking_number! and not found' do
         expect {
           Manifest.find_by_uuid_or_tracking_number!('foo')
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(ManifestNotFound)
       end
     end
   end

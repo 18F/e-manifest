@@ -1,7 +1,15 @@
 require 'date'
 
 class Manifest < ActiveRecord::Base
-  validates :tracking_number, presence: true
+  validate :tracking_number, :validate_tracking_number_unique
+
+  def validate_tracking_number_unique
+    if tracking_number.blank?
+      errors.add(:tracking_number, "must be present")
+    elsif !id && Manifest.find_by_tracking_number(tracking_number)
+      errors.add(:tracking_number, "must be unique")
+    end
+  end
 
   def content_field(json_xpath)
     fields = json_xpath.split('.')
