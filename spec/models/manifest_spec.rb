@@ -51,6 +51,16 @@ describe Manifest do
           manifest_dup = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
         }.to raise_exception(ActiveRecord::RecordInvalid)
       end
+
+      it 'does not allow tracking number to change to non-unique' do
+        manifest = create(:manifest)
+        manifest2 = create(:manifest)
+        manifest.content['generator']['manifest_tracking_number'] = manifest2.tracking_number
+
+        expect {
+          manifest.save!
+        }.to raise_exception(ActiveRecord::RecordInvalid)
+      end
     end
   end
 

@@ -6,9 +6,19 @@ class Manifest < ActiveRecord::Base
   def validate_tracking_number_unique
     if tracking_number.blank?
       errors.add(:tracking_number, "must be present")
-    elsif !id && Manifest.find_by_tracking_number(tracking_number)
+    elsif tracking_number_already_exists?
+      errors.add(:tracking_number, "must be unique")
+    elsif exists_with_different_tracking_number?
       errors.add(:tracking_number, "must be unique")
     end
+  end
+
+  def tracking_number_already_exists?
+    !id && Manifest.find_by_tracking_number(tracking_number)
+  end
+
+  def exists_with_different_tracking_number?
+    id && Manifest.find_by_tracking_number(tracking_number) != self
   end
 
   def content_field(json_xpath)
