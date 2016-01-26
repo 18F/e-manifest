@@ -1,9 +1,10 @@
 class ManifestUploadsController < ApplicationController
   def new
+    @manifest = find_or_initialize_manifest
   end
 
   def create
-    manifest = find_or_initialize_manifest
+    manifest = update_manifest(find_or_initialize_manifest)
 
     if manifest.save
       flash[:notice] = "Upload for manifest #{manifest.tracking_number} submitted successfully."
@@ -18,11 +19,17 @@ class ManifestUploadsController < ApplicationController
 
   def find_or_initialize_manifest
     if params[:manifest_id]
-      manifest = Manifest.find_by_uuid_or_tracking_number!(params[:manifest_id])
-      manifest.content[:uploaded_file] = image_details
-      manifest
+      Manifest.find_by_uuid_or_tracking_number!(params[:manifest_id])
     else
-      Manifest.new(content: parsed_upload_params)
+      Manifest.new
+    end
+  end
+
+  def update_manifest(manifest)
+    if params[:manifest_id]
+      manifest.tap { |object| object.content[:uploaded_file] = image_details }
+    else
+      manifest.tap { |object| object.content = parsed_upload_params }
     end
   end
 

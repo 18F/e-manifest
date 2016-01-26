@@ -4,10 +4,11 @@
 
   <%= simple_form_for :manifest, url: upload_path, method: :post do |form| %>
     <%= form.input :uploaded_file, as: :file %>
-    <%= form.simple_fields_for :generator do |generator| %>
-      <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number' %>
+    <% if !@manifest.persisted? %>
+      <%= form.simple_fields_for :generator do |generator| %>
+        <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number' %>
+      <% end %>
     <% end %>
     <%= form.submit 'Submit' %>
   <% end %>
-
 </div>
