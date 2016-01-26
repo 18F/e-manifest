@@ -1,13 +1,4 @@
 <div class="usa-width-one-whole">
-
-  <% if @errors %>
-    <div class="validation-errors">
-    <% @errors.each do |error| %>
-      <div class="error"><%= error %></div>
-    <% end %>
-    </div>
-  <% end %>
-
   <h3>Submit new manifest</h3>
 
   <%= simple_form_for :manifest, url: manifests_path, method: :post do |form| %>

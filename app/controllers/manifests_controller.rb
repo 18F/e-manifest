@@ -13,7 +13,7 @@ class ManifestsController < ApplicationController
       flash[:notice] = "Manifest #{tracking_number} submitted successfully."
       redirect_to new_manifest_sign_or_upload_path(@manifest.uuid)
     else
-      flash[:error] = @manifest.errors.full_messages.to_sentence
+      flash[:error] = @errors || @manifest.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -38,7 +38,7 @@ class ManifestsController < ApplicationController
   def validate_manifest(content)
     validator = ManifestValidator.new(content)
     unless validator.run
-      @errors = validator.error_messages
+      @errors = validator.errors
     end
     !validator.errors.any?
   end
