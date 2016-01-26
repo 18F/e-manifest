@@ -65,7 +65,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def waste_report_codes
-    content_field('report_management_method_codes')
+    content_field('report_management_method_codes') || []
   end
 
   def self.find_by_uuid_or_tracking_number(id)

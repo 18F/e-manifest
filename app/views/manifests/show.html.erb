@@ -54,9 +54,9 @@
       <dt>Unit Wt./Vol.</dt>
       <dd><%= m["unit_wt_vol"] %></dd>
       <dt>U.S. EPA Federal Waste Codes</dt>
-      <dd><%= with_comma m["epa_waste_codes"] %></dd>
+      <dd><%= (m["epa_waste_codes"] || []).join(', ') %></dd>
       <dt>State Waste Codes</dt>
-      <dd><%= with_comma m["state_waste_codes"] %></dd>
+      <dd><%= (m["state_waste_codes"] || []).join(', ') %></dd>
     </dl>
   <% end %>
 
@@ -69,7 +69,7 @@
     <dd></dd>
     <dt>Hazardous Waste Report Management Method Codes</dt>
     <dd>
-      <%= with_comma @manifest.waste_report_codes %>
+      <%= @manifest.waste_report_codes.join(', ') %>
     </dd>
     <dt>Transporter Name of Signatory</dt>
     <dd></dd>
