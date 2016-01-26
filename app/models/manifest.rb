@@ -3,24 +3,6 @@ require 'date'
 class Manifest < ActiveRecord::Base
   validate :tracking_number, :validate_tracking_number_unique
 
-  def validate_tracking_number_unique
-    if tracking_number.blank?
-      errors.add(:tracking_number, "must be present")
-    elsif tracking_number_already_exists?
-      errors.add(:tracking_number, "must be unique")
-    elsif exists_with_different_tracking_number?
-      errors.add(:tracking_number, "must be unique")
-    end
-  end
-
-  def tracking_number_already_exists?
-    !id && Manifest.find_by_tracking_number(tracking_number)
-  end
-
-  def exists_with_different_tracking_number?
-    id && Manifest.find_by_tracking_number(tracking_number) != self
-  end
-
   def content_field(json_xpath)
     fields = json_xpath.split('.')
     if content && fields.inject(content) { |h,k| h[k] if h }
@@ -141,5 +123,26 @@ class Manifest < ActiveRecord::Base
   def self.authorized_search(params, user=nil)
     dsl = Search::QueryDSL.new(params: params, user: user)
     search(dsl)
+  end
+
+  private
+
+  def validate_tracking_number_unique
+    if tracking_number.blank?
+      errors.add(:tracking_number, "must be present")
+    elsif tracking_number_already_exists?
+      errors.add(:tracking_number, "must be unique")
+    elsif exists_with_different_tracking_number?
+      errors.add(:tracking_number, "must be unique")
+    end
+  end
+
+  def tracking_number_already_exists?
+    !id && Manifest.find_by_tracking_number(tracking_number)
+  end
+
+  def exists_with_different_tracking_number?
+    existing = Manifest.find_by_tracking_number(tracking_number)
+    id && existing && existing.id != id
   end
 end
