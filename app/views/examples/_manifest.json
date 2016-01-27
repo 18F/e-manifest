@@ -1,5 +1,6 @@
 {
    "generator" : {
+      "manifest_tracking_number" : "987654321ABC",
       "us_epa_id_number" : "ABC712334321",
       "emergency_response_phone" : "888-999-8888",
       "signatory" : {
@@ -25,7 +26,6 @@
          "zip_code" : "71291",
          "city" : "Looptown"
       },
-      "manifest_tracking_number" : "987654321ABC",
       "phone_number" : "800-883-1731"
    },
    "manifest_items" : [
