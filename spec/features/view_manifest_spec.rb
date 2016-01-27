@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature 'View manifest' do
+  before :each do
+    @current_session = mock_authenticated_session
+  end
+
   scenario 'manifest has a file uploaded during creation', elasticsearch: true do
     manifest_tracking_number = '987654321abc'
     visit new_manifest_upload_path
