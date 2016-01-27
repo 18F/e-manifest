@@ -17,5 +17,11 @@ describe User do
         create(:user, cdx_user_id: user.cdx_user_id)
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
+
+    it '#find_or_create' do
+      user = User.find_or_create(SecureRandom.hex()[0..15])
+      user2 = User.find_or_create(user.cdx_user_id)
+      expect(user).to eq user2
+    end
   end
 end

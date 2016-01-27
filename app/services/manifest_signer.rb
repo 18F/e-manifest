@@ -46,7 +46,7 @@ class ManifestSigner
   end
 
   def lookup_signature_token(user_token)
-    redis = Redis.new
-    redis.get(user_token)
+    session = UserSession.new(user_token)
+    session.cdx_token
   end
 end

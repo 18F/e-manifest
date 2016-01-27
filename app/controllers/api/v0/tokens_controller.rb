@@ -28,9 +28,8 @@ class Api::V0::TokensController < ApiController
   end
 
   def store_signature_token(cdx_token)
-    user_token = SecureRandom.uuid
-    redis = Redis.new
-    redis.set(user_token, cdx_token)
-    user_token
+    user = User.find_or_create(auth_params[:user_id])
+    session = UserSession.create(user, cdx_token)
+    session.token
   end
 end
