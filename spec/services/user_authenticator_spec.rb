@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe UserAuthenticator do
+  before(:each) do
+    user = create(:user)
+    session = UserSession.create(user, { token: SecureRandom.hex })
+    allow_any_instance_of(UserAuthenticator).to receive(:authenticate).and_return(session)
+    allow_any_instance_of(UserAuthenticator).to receive(:cdx_response).and_return(session.cdx_auth_response)
+    allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Bad user_id or password')
+  end
+
   describe 'workflow' do
     it '#authenticate' do
       authenticator = UserAuthenticator.new(user_id: 'user', password: 'pass')
@@ -14,8 +22,7 @@ describe UserAuthenticator do
     end
 
     it '#error_message' do
-      authenticator = UserAuthenticator.new(user_id: 'user', password: 'pass', mock_error: true)
-      expect(authenticator.authenticate).to eq nil
+      authenticator = UserAuthenticator.new(user_id: 'nope', password: 'never')
       expect(authenticator.error_message).to eq 'Bad user_id or password'
     end
 

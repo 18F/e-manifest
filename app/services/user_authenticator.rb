@@ -4,7 +4,6 @@ class UserAuthenticator
   def initialize(credentials)
     @user_id = credentials[:user_id] or raise ArgumentError.new ":user_id required"
     @password = credentials[:password] or raise ArgumentError.new ":password required"
-    @mock_error = credentials[:mock_error]
   end
 
   def authenticate
@@ -19,16 +18,12 @@ class UserAuthenticator
   private
 
   def run_cdx_authenticator
-    if Rails.env.test?
-      @mock_error ? { description: 'Bad user_id or password' } : { token: SecureRandom.hex }
-    else
-      output_stream = StreamLogger.new(Rails.logger)
-      cdx_start = Time.current
-      response = CDX::Authenticator.new({user_id: user_id, password: password}, output_stream).perform
-      cdx_stop = Time.current
-      Rails.logger.debug(ANSI.blue{ "  CDX authenticator time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
-      response
-    end
+    output_stream = StreamLogger.new(Rails.logger)
+    cdx_start = Time.current
+    response = CDX::Authenticator.new({user_id: user_id, password: password}, output_stream).perform
+    cdx_stop = Time.current
+    Rails.logger.debug(ANSI.blue{ "  CDX authenticator time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
+    response
   end
 
   def create_session
