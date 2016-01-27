@@ -9,15 +9,7 @@ class AuthController < ApplicationController
 
   def login
     if auth_params
-      user_session = authenticate_with_cdx
-      if @auth_error
-        flash[:error] = @auth_error
-        redirect_to login_url
-      else
-        session[:user_session_id] = user_session.token
-        flash[:message] = 'Success!'
-        redirect_to params[:back] || session[:back] || root_path
-      end
+      authenticate
     else
       flash[:error] = 'Missing user_id and/or password'
       redirect_to login_url
@@ -35,6 +27,20 @@ class AuthController < ApplicationController
     else
       flash[:error] = 'You were not logged in.'
       redirect_to root_path
+    end
+  end
+
+  private
+
+  def authenticate
+    user_session = authenticate_with_cdx
+    if @auth_error
+      flash[:error] = @auth_error
+      redirect_to login_url
+    else
+      session[:user_session_id] = user_session.token
+      flash[:message] = 'Success!'
+      redirect_to params[:back] || session[:back] || root_path
     end
   end
 end
