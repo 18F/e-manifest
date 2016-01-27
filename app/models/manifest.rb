@@ -103,6 +103,8 @@ class Manifest < ActiveRecord::Base
   def validate_tracking_number_unique
     if tracking_number.blank?
       errors.add(:tracking_number, "must be present")
+    elsif tracking_number !~ /^[0-9]{9}[A-Za-z]{3}$/
+      errors.add(:tracking_number, "must be 12 characters, starting with 9 numbers and ending with 3 letters")
     elsif tracking_number_already_exists?
       errors.add(:tracking_number, "must be unique")
     elsif exists_with_different_tracking_number?

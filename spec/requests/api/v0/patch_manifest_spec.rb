@@ -7,13 +7,14 @@ describe 'PATCH Manifest' do
   describe 'PATCH manifest' do
     context 'finds manifest with id param' do
       it 'updates removes and adds fields to a manifest by uuid' do
+        manifest_tracking_number = '987654321ABC'
         patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
         manifest = create(
           :manifest,
           activity_id: 2,
           document_id: 3,
           content: {
-            generator: { manifest_tracking_number: '12345' },
+            generator: { manifest_tracking_number: manifest_tracking_number },
             hello: 'world',
             foo: ['bar', 'baz', 'quux'],
             nested: { something: 'good' }
@@ -32,7 +33,7 @@ describe 'PATCH Manifest' do
           'newitem' => 'beta',
           'foo' => ['bar', 'quux'],
           'nested' => { 'something' => 'ok' },
-          'generator' => { 'manifest_tracking_number' => '12345' }
+          'generator' => { 'manifest_tracking_number' => manifest_tracking_number }
         }
 
         parsed_response = JSON.parse(response.body)
@@ -44,13 +45,14 @@ describe 'PATCH Manifest' do
       end
 
       it 'updates removes and adds fields to a manifest by tracking number' do
+       manifest_tracking_number = '987654321ABC'
         patch_command = [{"op": "replace", "path": "/hello", "value": "people"}, {"op": "add", "path": "/newitem", "value": "beta"},{"op": "remove", "path": "/foo/1"},{"op": "replace", "path": "/nested/something", "value": "ok"}]
         manifest = create(
           :manifest,
           activity_id: 2,
           document_id: 3,
           content: {
-            generator: { manifest_tracking_number: '12345' },
+            generator: { manifest_tracking_number: manifest_tracking_number },
             hello: 'world',
             foo: ['bar', 'baz', 'quux'],
             nested: { something: 'good' }
@@ -69,7 +71,7 @@ describe 'PATCH Manifest' do
           'newitem' => 'beta',
           'foo' => ['bar', 'quux'],
           'nested' => { 'something' => 'ok' },
-          'generator' => { 'manifest_tracking_number' => '12345' }
+          'generator' => { 'manifest_tracking_number' => manifest_tracking_number }
         }
 
         parsed_response = JSON.parse(response.body)

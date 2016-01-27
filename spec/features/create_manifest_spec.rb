@@ -15,6 +15,26 @@ feature 'Create manifest' do
     expect(page).to have_content("Manifest #{manifest_tracking_number} submitted successfully.")
   end
 
+  scenario 'does not fill in tracking number' do
+    visit new_manifest_path
+
+    click_on 'Continue'
+
+    expect(page).to have_content("Tracking number must be present")
+  end
+
+  scenario 'fills in tracking number that does not match validation regex' do
+    manifest_tracking_number = "invalid"
+    visit new_manifest_path
+
+    fill_in 'Manifest Tracking Number (4)', with: manifest_tracking_number
+    click_on 'Continue'
+
+    expect(page).to have_content(
+      "Tracking number must be 12 characters, starting with 9 numbers and ending with 3 letters"
+    )
+  end
+
   scenario 'fills in all fields' do
     manifest_tracking_number = '987654321ABC'
     visit new_manifest_path
