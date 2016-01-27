@@ -1,13 +1,4 @@
 <div class="usa-width-one-whole">
-
-  <% if @errors %>
-    <div class="validation-errors">
-    <% @errors.each do |error| %>
-      <div class="error"><%= error %></div>
-    <% end %>
-    </div>
-  <% end %>
-
   <h3>Submit new manifest</h3>
 
   <%= simple_form_for :manifest, url: manifests_path, method: :post do |form| %>
@@ -15,7 +6,7 @@
     <%= form.simple_fields_for :generator do |generator| %>
       <%= generator.input :us_epa_id_number, label: 'U.S. EPA ID Number (1)' %>
       <%= generator.input :emergency_response_phone, label: 'Emergency Response Phone (3)' %>
-      <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)' %>
+      <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)', required: true %>
       <%= generator.input :name, label: 'Name (5)' %>
 
       <h3>Mailing address</h3>

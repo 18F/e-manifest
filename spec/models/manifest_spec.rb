@@ -7,6 +7,29 @@ describe Manifest do
 
       expect(manifest).to be_invalid
     end
+
+    it 'validates uniqueness of manifest tracking number' do
+      manifest = create(:manifest)
+      duplicate_manifest = build(
+        :manifest,
+        content: { generator: { manifest_tracking_number: manifest.tracking_number} }
+      )
+
+      expect(duplicate_manifest).to be_invalid
+    end
+
+    it 'does not validate uniqueness of manifest trackig number against itself' do
+      manifest = create(:manifest)
+      manifest.content['generator']['manifest_tracking_number'] = manifest.tracking_number
+
+      expect(manifest).to be_valid
+    end
+
+    it 'validates format of manifest tracking number' do
+      manifest = build(:manifest, content: { generator: { manifest_tracking_number: '123' } })
+
+      expect(manifest).to be_invalid
+    end
   end
 
   describe '#uuid' do
@@ -44,7 +67,7 @@ describe Manifest do
       end
 
       it 'does not allow manifests with duplicate tracking number' do
-        tracking_number = '12345'
+       tracking_number = '987654321ABC'
 
         manifest = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
         expect {
