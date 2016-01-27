@@ -16,5 +16,12 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 end
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
 ActiveRecord::Migration.maintain_test_schema!
 Capybara.javascript_driver = :webkit

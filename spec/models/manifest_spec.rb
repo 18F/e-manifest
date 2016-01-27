@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe Manifest do
+  describe 'Associations' do
+    it { should have_many(:transporters) }
+  end
+
   describe 'Validations' do
     it 'validates presence of manifest tracking number' do
       manifest = build(:manifest, content: { generator: {} })

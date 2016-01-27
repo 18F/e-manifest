@@ -88,10 +88,48 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: transporters; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transporters (
+    id integer NOT NULL,
+    us_epa_id_number character varying,
+    name character varying,
+    manifest_id integer NOT NULL
+);
+
+
+--
+-- Name: transporters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transporters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transporters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transporters_id_seq OWNED BY transporters.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY manifests ALTER COLUMN id SET DEFAULT nextval('manifests_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transporters ALTER COLUMN id SET DEFAULT nextval('transporters_id_seq'::regclass);
 
 
 --
@@ -103,10 +141,25 @@ ALTER TABLE ONLY manifests
 
 
 --
+-- Name: transporters_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transporters
+    ADD CONSTRAINT transporters_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: index_manifests_on_uuid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_manifests_on_uuid ON manifests USING btree (uuid);
+
+
+--
+-- Name: index_transporters_on_manifest_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transporters_on_manifest_id ON transporters USING btree (manifest_id);
 
 
 --
@@ -137,8 +190,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150924181500');
 
 INSERT INTO schema_migrations (version) VALUES ('20160112190459');
 
-INSERT INTO schema_migrations (version) VALUES ('20160115181255');
-
 INSERT INTO schema_migrations (version) VALUES ('20160115203719');
 
 INSERT INTO schema_migrations (version) VALUES ('20160115204128');
@@ -146,4 +197,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160115204128');
 INSERT INTO schema_migrations (version) VALUES ('20160120171331');
 
 INSERT INTO schema_migrations (version) VALUES ('20160125160835');
+
+INSERT INTO schema_migrations (version) VALUES ('20160127004047');
 
