@@ -7,7 +7,7 @@ class Api::V0::TokensController < ApiController
     if @auth_error
       render json: { message: "Authentication failed", errors: @auth_error }.to_json, status: 401
     else
-      response = user_session.cdx_response.dup
+      response = user_session.cdx_auth_response.dup
       response[:token] = user_session.token
       render json: response.to_json, status: 200
     end
