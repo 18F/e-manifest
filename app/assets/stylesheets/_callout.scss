@@ -31,3 +31,16 @@
 .callout [type=reset] {
   display: inline-block;
 }
+
+.callout dl {
+  padding: 0;
+}
+
+.callout dt {
+  margin: 0;
+  width: 9.5em;
+}
+
+.callout dd {
+  width: auto;
+}
