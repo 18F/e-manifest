@@ -35,6 +35,13 @@ describe UserSession do
       session_from_token = UserSession.new(session.token)
       expect(session_from_token.get(:foo)).to eq 'bar'
     end
+
+    it 'sets multiple, gets singular' do
+      user = create(:user)
+      session = UserSession.create(user)
+      session.set(foo: 'bar', color: 'green')
+      expect(session.get(:color)).to eq 'green'
+    end
   end
 
   describe '#expire' do
