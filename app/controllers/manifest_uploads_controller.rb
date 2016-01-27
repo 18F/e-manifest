@@ -4,14 +4,13 @@ class ManifestUploadsController < ApplicationController
   end
 
   def create
-    manifest = update_manifest(find_or_initialize_manifest)
+    @manifest = update_manifest(find_or_initialize_manifest)
 
-    if !upload_missing?(manifest) && manifest.save
-      manifest = find_or_initialize_manifest
-      flash[:notice] = "Upload for manifest #{manifest.tracking_number} submitted successfully."
+    if !upload_missing? && @manifest.save
+      flash[:notice] = "Upload for manifest #{@manifest.tracking_number} submitted successfully."
       redirect_to root_path
     else
-      flash[:error] = manifest.errors.full_messages.to_sentence
+      flash[:error] = @manifest.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -46,9 +45,9 @@ class ManifestUploadsController < ApplicationController
     end
   end
 
-  def upload_missing?(manifest)
+  def upload_missing?
     if params[:manifest][:uploaded_file].blank?
-      manifest.errors.add(:file_upload, "must be present.")
+      @manifest.errors.add(:file_upload, "must be present.")
     end
   end
 
