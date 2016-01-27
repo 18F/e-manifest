@@ -22,7 +22,7 @@ class AuthController < ApplicationController
         user_session.expire
       end
       session.delete(:user_session_id)
-      flash[:message] = 'You have been signed out.'
+      flash[:notice] = 'You have been signed out.'
       redirect_to root_path
     else
       flash[:error] = 'You were not logged in.'
@@ -39,7 +39,7 @@ class AuthController < ApplicationController
       redirect_to login_url
     else
       session[:user_session_id] = user_session.token
-      flash[:message] = 'Success!'
+      flash[:notice] = 'Success!'
       redirect_to params[:back] || session[:back] || root_path
     end
   end

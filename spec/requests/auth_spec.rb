@@ -18,7 +18,7 @@ describe 'Auth' do
       mock_user_authenticator_pass
       post "/login?back=#{new_submission_path}", { token: { user_id: 'foo', password: 'bar' } }
       expect(response).to redirect_to new_submission_path
-      expect(flash[:message]).to eq 'Success!'
+      expect(flash[:notice]).to eq 'Success!'
     end
   end
 
@@ -30,7 +30,7 @@ describe 'Auth' do
 
       get "/logout"
       expect(response).to redirect_to root_path
-      expect(flash[:message]).to eq 'You have been signed out.'
+      expect(flash[:notice]).to eq 'You have been signed out.'
       expect(session[:user_session_id]).to be_nil
       expect(UserSession.new(user_session.token).user).to be_nil
     end
