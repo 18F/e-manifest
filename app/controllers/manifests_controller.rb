@@ -2,6 +2,8 @@ class ManifestsController < ApplicationController
   include ManifestParams
 
   def new
+    @manifest = Manifest.new
+    @manifest.transporters.build
   end
 
   def create

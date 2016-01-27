@@ -4,6 +4,8 @@ class Manifest < ActiveRecord::Base
   include Searchable
 
   validate :tracking_number, :validate_tracking_number_unique
+  has_many :transporters
+  accepts_nested_attributes_for :transporters, reject_if: :all_blank, allow_destroy: true
 
   def content_field(json_xpath)
     fields = json_xpath.split('.')
@@ -38,10 +40,6 @@ class Manifest < ActiveRecord::Base
 
   def generator_mailing_address
     content_field('generator.mailing_address') || {}
-  end
-
-  def transporters
-    content_field('transporters') || []
   end
 
   def designated_facility_name

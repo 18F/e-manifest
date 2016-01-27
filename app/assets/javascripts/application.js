@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require_tree .
 //= require swagger-ui
+//= require cocoon
