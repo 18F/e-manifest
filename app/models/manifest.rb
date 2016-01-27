@@ -94,6 +94,10 @@ class Manifest < ActiveRecord::Base
     { es_response: resp, dsl: dsl }
   end
 
+  def is_public?
+    created_at < 90.days.ago
+  end
+
   private
 
   def validate_tracking_number_unique
