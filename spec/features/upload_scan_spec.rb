@@ -19,6 +19,8 @@ feature 'Upload scan', elasticsearch: true do
     fill_in 'Manifest Tracking Number (4)', with: manifest_tracking_number
     click_on 'Continue'
     click_on 'Upload'
+    expect(page).not_to have_field('Manifest Tracking Number')
+
     attach_file('manifest[uploaded_file]', Rails.root + "spec/support/fixtures/epa_form.pdf")
     click_on 'Submit'
 
