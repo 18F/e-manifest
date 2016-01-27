@@ -144,7 +144,7 @@
         "container_type": {
           "description": "(10) List of codes for type of container used in as described the e-Manifest instructions",
           "type": "string",
-          "enum":["BA","CF","CM","CW","CY","DF","DM","DT","DW","HT","TC","TT","TP"]
+          "enum":["BA","CF","CM","CW","CY","DF","DM","DT","DW","HG","TC","TT","TP"]
         },
         "hazard_classes": {
           "type": "array",
@@ -181,27 +181,13 @@
       "type": "object",
       "properties":{
         "name": {
-          "description": "Name of the signatory",
+          "description": "Name of the signatory (15)",
           "type": "string",
           "maxLength": 30
         },
-        "month": {
-          "description": "Two digit month of signature",
-          "type": "string",
-          "maximum": 2,
-          "minimum": 1
-        },
-        "day": {
-          "description": "Two digit day of signature",
-          "type": "string",
-          "maximum": 2,
-          "minimum": 1
-        },
-        "year": {
-          "description": "Four digit year of signature",
-          "type": "string",
-          "maximum": 4,
-          "minimum": 4
+        "date": {
+           "description": "Date of signature (15)",
+           "type": "date"
         }
       }
     },
@@ -273,10 +259,6 @@
           "description": "(5) Generator mailing address as presented in RCRAInfo",
           "$ref": "#/definitions/address"
         },
-        "site_address_same_as_mailing_address": {
-          "description": "(5) An indicator if the generator's site address is the same as the mailing address.  If false then the site address fields should be filled out",
-          "type": "boolean"
-        },
         "site_address": {
           "description": "(5) Generator site address as presented in RCRAInfo",
           "$ref": "#/definitions/address"
@@ -298,35 +280,15 @@
         "$ref": "#/definitions/transporter"
       }
     },
-    "is_international_shipment": {
-      "description": "(16) Indicator whether the generator or site has a us_epa_id_number",
-      "type": "boolean"
-    },
     "international_shipment": {
       "type": "object",
       "properties": {
         "date_leaving_us": {
-          "month": {
-            "description": "(16) Two digit month of signature",
-            "type": "integer",
-            "maximum": 2,
-            "minimum": 2
-          },
-          "day": {
-            "description": "(16) Two digit day of signature",
-            "type": "integer",
-            "maximum": 2,
-            "minimum": 2
-          },
-          "year": {
-            "description": "(16) Four digit year of signature",
-            "type": "integer",
-            "maximum": 4,
-            "minimum": 4
-          }
+           "description": "Date leaving U.S. (16)",
+           "type": "date"
         },
         "export_import": {
-          "description": "(16) ",
+          "description": "(16)",
           "type": "string",
           "enum":["export_from_us", "import_to_us"]
         },
@@ -374,10 +336,6 @@
         "address": {
           "description": "(8) designated facility address as presented in RCRAInfo",
           "$ref": "#/definitions/address"
-        },
-        "has_discrepancy": {
-          "description": "(18) Indication if there is a discrepency on the manifest",
-          "type": "boolean"
         },
         "discrepancy": {
           "type": "object",

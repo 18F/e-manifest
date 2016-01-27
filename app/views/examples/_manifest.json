@@ -3,12 +3,9 @@
       "us_epa_id_number" : "ABC712334321",
       "emergency_response_phone" : "888-999-8888",
       "signatory" : {
-         "day" : "06",
-         "year" : "2015",
-         "name" : "Bob Smith",
-         "month" : "06"
+         "date" : "2016-01-27",
+         "name" : "Bob Smith"
       },
-      "site_address_same_as_mailing_address" : false,
       "name" : "Generator Y",
       "site_address" : {
          "zip_code" : "93818",
@@ -80,25 +77,20 @@
          "us_epa_id_number" : "ABC987654321",
          "name" : "Transporter National",
          "signatory" : {
-            "year" : "2015",
-            "name" : "Jill Jones",
-            "day" : "7",
-            "month" : "7"
+            "date" : "2016-01-27",
+            "name" : "Jill Jones"
          }
       }
    ],
    "waste_pcb_description" : "None.",
-   "is_international_shipment" : true,
    "report_management_method_codes" : [
       "H100",
       "H110"
    ],
    "designated_facility" : {
       "certification" : {
-         "month" : "10",
-         "year" : "2015",
-         "name" : "Betty Black",
-         "day" : "1"
+         "date" : "2016-01-27",
+         "name" : "Betty Black"
       },
       "name" : "Facility Zero",
       "us_epa_id_number" : "DEF987654321",
@@ -116,10 +108,8 @@
         "category_quantity" : true,
         "type" : "no_rejection",
         "signatory" : {
-          "month" : "08",
-          "year" : "2015",
-          "name" : "Johnny Appleseed",
-          "day" : "08"
+          "date" : "2016-01-27",
+          "name" : "Johnny Appleseed"
         },
         "description" : "Only received 940 quarts of used oil.",
         "address" : {
@@ -131,8 +121,7 @@
         },
         "name" : "Alternate Facility Y",
         "phone_number" : "877-577-2771"
-      },
-      "has_discrepancy" : true
+      }
    },
    "international_shipment" : {
       "export_import" : "export_from_us",
@@ -140,17 +129,15 @@
         "city":"Savannah",
         "state":"GA"
       },
-      "date_leaving_us" : {
-         "year" : "2015",
-         "day" : "22",
-         "month" : "10"
-      },
-      "consent_number":"000373E10001"
+      "date_leaving_us" : "2016-01-27",
+      "consent_number" : "000373E10001"
    },
    "waste_non_hazardous_material_present" : true,
-   "handler_defined_data": [{
-     "label": "Customer ID Number",
-     "content": "QE99MAGPC12345",
-     "us_epa_id_number":"DEF987654321"
-   }]
+   "handler_defined_data": [
+      {
+      "label": "Customer ID Number",
+      "content": "QE99MAGPC12345",
+      "us_epa_id_number":"DEF987654321"
+    }
+   ]
 }

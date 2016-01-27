@@ -3,14 +3,9 @@
    "content" : {
       "international_shipment" : {
          "export_import" : "export_from_us",
-         "date_leaving_us" : {
-            "year" : "2015",
-            "day" : "22",
-            "month" : "10"
-         },
+         "date_leaving_us" : "2016-01-27",
          "port_of_entry_exit" : "Savannah, GA"
       },
-      "is_international_shipment" : "yes",
       "manifest_items" : [
          {
             "proper_shipping_name" : "Hazardous Stuff",
@@ -61,10 +56,8 @@
          "name" : "Facility Zero",
          "phone_number" : "888-848-1318",
          "certification" : {
-            "month" : "10",
-            "day" : "1",
-            "name" : "Betty Black",
-            "year" : "2015"
+            "date" : "2016-01-27",
+            "name" : "Betty Black"
          },
          "discrepancy" : {
             "description" : "Only received 940 quarts of shoes.",
@@ -73,9 +66,7 @@
             "phone_number" : "877-577-2771",
             "signatory" : {
                "name" : "Johnny Appleseed",
-               "year" : "2015",
-               "month" : "8",
-               "day" : "8"
+               "date" : "2016-01-27"
             },
             "address" : {
                "address_1" : "88 Alternate Av",
@@ -87,7 +78,6 @@
             "category_quantity" : true,
             "name" : "Alternate Facility Y"
          },
-         "has_discrepancy" : true,
          "us_epa_id_number" : "9238754",
          "address" : {
             "zip_code" : "23171",
@@ -102,10 +92,8 @@
             "us_epa_id_number" : "3881",
             "company_name" : "Transporter National",
             "signatory" : {
-               "name" : "Jill Jones",
-               "year" : "2015",
-               "month" : "7",
-               "day" : "7"
+              "date" : "2016-01-27",
+              "name" : "Jill Jones"
             }
          }
       ],
@@ -117,10 +105,8 @@
          "manifest_tracking_number" : "98876761",
          "no_us_epa_id_number" : false,
          "signatory" : {
-            "year" : "2015",
-            "name" : "Bob Smith",
-            "day" : "6",
-            "month" : "6"
+            "date" : "2016-01-27",
+            "name" : "Bob Smith"
          },
          "site_address" : {
             "address_1" : "123 Site Place",
@@ -138,7 +124,6 @@
          },
          "phone_number" : "800-883-1731",
          "us_epa_id_number" : "112712334321",
-         "site_address_same_as_mailing_address" : "no",
          "emergency_response_phone" : "888-999-8888"
       }
    },
