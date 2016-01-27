@@ -13,7 +13,7 @@ class TokensController < ApplicationController
       flash[:error] = @auth_error
       render :new, status: 401
     else
-      response = user_session.cdx_response.dup
+      response = user_session.cdx_auth_response.dup
       response[:token] = user_session.token
       redirect_to new_manifest_signature_path(@manifest.uuid, response: response)
     end

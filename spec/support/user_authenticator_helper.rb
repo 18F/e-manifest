@@ -3,6 +3,12 @@ module UserAuthenticatorHelper
     UserSession.create(user, cdx_response)
   end
 
+  def mock_authenticated_session
+    user_session = mock_user_authenticator_pass
+    allow_any_instance_of(ApplicationController).to receive(:user_session).and_return(user_session)
+    user_session
+  end
+
   def mock_user_authenticator_pass
     user = create(:user)
     session = UserSession.create(user, { token: SecureRandom.hex })

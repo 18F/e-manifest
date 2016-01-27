@@ -1,5 +1,4 @@
 require 'rails_helper'
-include UserAuthenticatorHelper
 
 describe 'POST /api/v0/tokens' do
   it 'returns a 401 and no token when auth fails' do

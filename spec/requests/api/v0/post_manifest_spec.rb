@@ -1,13 +1,10 @@
 require 'rails_helper'
-include UserAuthenticatorHelper
 
 describe 'POST manifests' do
+  before(:each) do
+    @current_session = mock_authenticated_session
+  end
   context 'valid manifest params' do
-    before(:each) do
-      user = create(:user)
-      login_as(user)
-    end
-
     it 'creates a new manifest' do
       manifest_tracking_number = "987654321abc"
       expect {

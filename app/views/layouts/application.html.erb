@@ -29,9 +29,9 @@
         <%= link_to 'Industry', new_submission_path %>
         <%= link_to 'API', '/api-documentation/' %>
         <% if current_user %>
-        <%= link_to "Logout #{current_user.cdx_user_id}", logout_path %>
+        <%= link_to "Sign Out #{current_user.cdx_user_id}", logout_path %>
         <% else %>
-        <%= link_to "Login", login_path %>
+        <%= link_to "Sign in", login_path %>
         <% end %>
       </div>
     </div>

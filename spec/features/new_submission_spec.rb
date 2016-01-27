@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature 'New submission' do
+  before(:each) do
+    @current_session = mock_authenticated_session
+  end
+
   scenario 'can submit manifest via form' do
     visit new_submission_path
 

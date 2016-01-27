@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe 'PATCH Manifest' do
+  before(:each) do
+    @current_session = mock_authenticated_session
+  end
   describe 'PATCH manifest' do
     context 'finds manifest with id param' do
       it 'updates removes and adds fields to a manifest by uuid' do
@@ -14,7 +17,8 @@ describe 'PATCH Manifest' do
             hello: 'world',
             foo: ['bar', 'baz', 'quux'],
             nested: { something: 'good' }
-          }
+          },
+          user: @current_session.user
         )
 
         patch "/api/v0/manifests/#{manifest.uuid}",
@@ -50,7 +54,8 @@ describe 'PATCH Manifest' do
             hello: 'world',
             foo: ['bar', 'baz', 'quux'],
             nested: { something: 'good' }
-          }
+          },
+          user: @current_session.user
         )
 
         patch "/api/v0/manifests/#{manifest.tracking_number}",

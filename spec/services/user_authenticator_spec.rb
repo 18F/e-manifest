@@ -1,5 +1,4 @@
 require 'rails_helper'
-include UserAuthenticatorHelper
 
 describe UserAuthenticator do
   describe 'workflow' do

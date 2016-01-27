@@ -1,5 +1,4 @@
 require 'rails_helper'
-include UserAuthenticatorHelper
 
 describe 'Auth' do
   describe 'login' do

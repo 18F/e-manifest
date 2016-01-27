@@ -5,6 +5,15 @@ class ApiController < ApplicationController
 
   private
 
+  def authenticate_user!
+    unless authenticated?
+      render json: {
+        message: "Permission denied",
+        errors: "Missing or invalid authorization token"
+      }, status: 403
+    end
+  end
+
   def run_validator(validator)
     if validator.run == false
       render json: {

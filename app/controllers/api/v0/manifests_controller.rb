@@ -19,10 +19,15 @@ class Api::V0::ManifestsController < ApiController
   end
 
   def create
-    manifest_content = read_body_as_json
+    authenticate_user!
+    # TODO authz based on roles
+    unless performed?
+      manifest_content = read_body_as_json
+    end
+
     unless performed?
       if validate_manifest(manifest_content)
-        @manifest = Manifest.new(content: manifest_content)
+        @manifest = Manifest.new(content: manifest_content, user: current_user)
         create_manifest(@manifest)
       end
     end
@@ -34,10 +39,15 @@ class Api::V0::ManifestsController < ApiController
   end
 
   def update
-    manifest = find_manifest
-    patch = read_body_as_json
+    authenticate_user!
 
     unless performed?
+      manifest = find_manifest
+      authorize_manifest(manifest)
+    end
+
+    unless performed?
+      patch = read_body_as_json
       patch_json = patch.to_json
       manifest_content_json = manifest[:content].to_json
       new_json = JSON.patch(manifest_content_json, patch_json)
@@ -67,5 +77,15 @@ class Api::V0::ManifestsController < ApiController
 
   def validate_manifest(content)
     run_validator(ManifestValidator.new(content))
+  end
+
+  def authorize_manifest(manifest)
+    # TODO more complicated authz based on roles+orgs
+    unless manifest.user == current_user
+      render json: {
+        message: "Permission denied",
+        errors: "You may not update a manifest you did not create."
+      }, status: 403
+    end
   end
 end

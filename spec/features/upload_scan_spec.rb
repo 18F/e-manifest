@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature 'Upload scan', elasticsearch: true do
+  before(:each) do
+    @current_session = mock_authenticated_session
+  end
+
   scenario 'upload instead of filling out form' do
     manifest_tracking_number = '987654321abc'
     visit new_manifest_upload_path

@@ -2,11 +2,13 @@ class ManifestsController < ApplicationController
   include ManifestParams
 
   def new
+    authenticate_user!
   end
 
   def create
+    authenticate_user!
     if validate_manifest(manifest_params)
-      @manifest = Manifest.new(content: manifest_params)
+      @manifest = Manifest.new(content: manifest_params, user: current_user)
 
       if @manifest.save!
         @manifest.reload

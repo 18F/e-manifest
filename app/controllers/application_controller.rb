@@ -3,11 +3,19 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  private
+
   def current_user
     @current_user ||= find_current_user
   end
 
-  private
+  def authenticate_user!
+    unless authenticated?
+      flash[:error] = 'You must be logged in to access this page.'
+      session[:back] = request.original_url
+      redirect_to login_path(back: session[:back])
+    end
+  end
 
   def find_current_user
     if user_session

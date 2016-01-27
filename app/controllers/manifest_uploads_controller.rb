@@ -3,6 +3,8 @@ class ManifestUploadsController < ApplicationController
   end
 
   def create
+    authenticate_user!
+
     manifest = find_or_initialize_manifest
 
     if manifest.save
@@ -22,7 +24,7 @@ class ManifestUploadsController < ApplicationController
       manifest.content[:uploaded_file] = image_details
       manifest
     else
-      Manifest.new(content: parsed_upload_params)
+      Manifest.new(content: parsed_upload_params, user: current_user)
     end
   end
 
