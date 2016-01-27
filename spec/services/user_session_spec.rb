@@ -11,7 +11,7 @@ describe UserSession do
 
     it 'persists cdx_token' do
       user = create(:user)
-      session = UserSession.create(user, 'abc123')
+      session = UserSession.create(user, { token: 'abc123' })
       expect(session.cdx_token).to eq 'abc123'
       expect_redis_to_have_key(session.token)
     end

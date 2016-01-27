@@ -13,9 +13,9 @@ class UserSession
     @@redis ||= Redis::Namespace.new(@@namespace.to_sym, redis: Redis.new)
   end
 
-  def self.create(user, cdx_token = nil)
+  def self.create(user, cdx_auth_response = nil)
     session = self.new(SecureRandom.uuid, user)
-    session.set(cdx_token: cdx_token)
+    session.set(cdx_auth_response: cdx_auth_response)
     session
   end
 
@@ -40,7 +40,11 @@ class UserSession
   end
 
   def cdx_token
-    get_attr(:cdx_token)
+    (cdx_auth_response || {})[:token]
+  end
+
+  def cdx_auth_response
+    get_attr(:cdx_auth_response)
   end
 
   def cdx_roles
@@ -61,7 +65,7 @@ class UserSession
   end
 
   def expire
-    self.class.redis.expire(@token, -1)
+    redis.expire(@token, -1)
   end
 
   def created_at
@@ -74,6 +78,10 @@ class UserSession
 
   private
 
+  def redis
+    self.class.redis
+  end
+
   def get_attr(key)
     @session[key]
   end
@@ -83,7 +91,7 @@ class UserSession
   end
 
   def find_session
-    payload = self.class.redis.get(@token)
+    payload = redis.get(@token)
     if payload
       JSON.parse(payload, symbolize_names: true)
     end
@@ -91,8 +99,8 @@ class UserSession
 
   def write_session
     @session[:updated_at] = Time.current
-    self.class.redis.set(@token, @session.to_json)
-    self.class.redis.expire(@token, TTL)
+    redis.set(@token, @session.to_json)
+    redis.expire(@token, TTL)
   end
 
   def create_session
