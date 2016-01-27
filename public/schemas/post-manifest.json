@@ -146,6 +146,10 @@
           "type": "string",
           "enum":["BA","CF","CM","CW","CY","DF","DM","DT","DW","HG","TC","TT","TP"]
         },
+        "hazardous_material": {
+          "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
+          "type": "boolean"
+        },
         "hazard_classes": {
           "type": "array",
           "items": {
@@ -153,10 +157,6 @@
             "type": "string",
             "COMMENT": "DOT Enumerated Values, I would like to see if there is a service for these.  There are around 26 of these "
           }
-        },
-        "hazardous_material": {
-          "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
-          "type": "boolean"
         },
         "waste_handling_instruction": {
           "description":"(14) Special Handling instructions on the manifest form.",
@@ -401,7 +401,7 @@
       }
     },
     "waste_pcb_description": {
-      "description":"(14) Special Handling instructions on the manifest form.  Use this field for required PCB information.",
+      "description":"(14) Special Handling instructions on the manifest form. Use this field for required PCB information.",
       "type": "string"
     },
     "number_of_pages": {
