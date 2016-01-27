@@ -9,6 +9,7 @@ module UserAuthenticatorHelper
     allow_any_instance_of(UserAuthenticator).to receive(:authenticate).and_return(session)
     allow_any_instance_of(UserAuthenticator).to receive(:session).and_return(session)
     allow_any_instance_of(UserAuthenticator).to receive(:cdx_response).and_return(session.cdx_auth_response)
+    session
   end
 
   def mock_user_authenticator_fail
@@ -16,5 +17,6 @@ module UserAuthenticatorHelper
     session = UserSession.create(user, { token: SecureRandom.hex })
     allow_any_instance_of(UserAuthenticator).to receive(:authenticate).and_return(nil)
     allow_any_instance_of(UserAuthenticator).to receive(:cdx_response).and_return({description: 'Bad user_id or password'})
+    session
   end
 end

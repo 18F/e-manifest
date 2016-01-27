@@ -1,0 +1,9 @@
+<div class="usa-width-one-whole">
+
+  <%= simple_form_for :token, url: login_path, method: :post do |form| %>
+    <%= form.input :user_id, label: 'Username' %>
+    <%= form.input :password, label: 'Password' %>
+    <%= form.submit 'Login' %>
+  <% end %>
+
+</div>

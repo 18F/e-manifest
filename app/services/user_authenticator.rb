@@ -29,8 +29,7 @@ class UserAuthenticator
   def create_session
     if cdx_response[:token]
       user = User.find_or_create(user_id)
-      session = UserSession.create(user, cdx_response[:token])
-      session.set(cdx_response: cdx_response)
+      session = UserSession.create(user, cdx_response)
       session
     end
   end

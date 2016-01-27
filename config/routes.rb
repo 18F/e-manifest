@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :manifest_uploads, only: [:new, :create]
   resources :submissions, only: [:new]
 
+  get 'login', to: 'auth#new'
+  post 'login', to: 'auth#login'
+  get 'logout', to: 'auth#logout'
+
   get 'api-examples', to: 'api_documentation#examples'
   get 'api-diagnostics', to: 'api_documentation#diagnostics'
   get 'api-documentation', to: 'api_documentation#swagger'

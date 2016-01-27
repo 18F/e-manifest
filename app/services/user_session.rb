@@ -110,7 +110,7 @@ class UserSession
   end
 
   def create_payload
-    payload = { created_at: Time.current, updated_at: Time.current, cdx_token: @cdx_token }
+    payload = { created_at: Time.current, updated_at: Time.current }
     if @user
       payload[:id] = @user.id  
     end
