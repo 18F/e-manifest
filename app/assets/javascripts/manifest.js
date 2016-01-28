@@ -28,7 +28,7 @@ function hideAddressFields() {
 
 function addTransporter() {
   var lastTransporterNumber = $(".transporters").find('input#transporter-number').last().data('number');
-  var transporterNumber = lastTransporterNumber + 1
+  var transporterNumber = lastTransporterNumber + 1;
 
   var transporter = '<div class="transporter"> ' +
     '<h4>Transporter ' + transporterNumber + '</h4> ' +
@@ -39,13 +39,13 @@ function addTransporter() {
     '<label for="signatory_name">Name of signatory (17)</label> ' +
     '<input type="text" ,="" name="manifest[transporters]['+ transporterNumber +'][signatory][name]"> ' +
     '<label for="signatory_date">Date of signature (17)</label>' +
-    '<input type="date" name="manifest[transporters]['+ transporterNumber +'][signatory][date]" id="date">'
+    '<input type="date" name="manifest[transporters]['+ transporterNumber +'][signatory][date]" id="date">';
 
    $('.transporters').append(transporter);
 }
 
 function removeTransporter() {
-  var transporters = $(".transporters").find('.transporter')
+  var transporters = $(".transporters").find('.transporter');
 
   if (transporters.size() > 1) {
     transporters.last().remove();
