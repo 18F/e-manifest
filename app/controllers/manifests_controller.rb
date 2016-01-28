@@ -13,10 +13,7 @@ class ManifestsController < ApplicationController
       @manifest = Manifest.new(content: manifest_params, user: current_user)
 
       if @manifest.valid? && validate_manifest(manifest_params)
-        @manifest.save!
-        @manifest.reload
-        flash[:notice] = "Manifest #{@manifest.tracking_number} submitted successfully."
-        redirect_to new_manifest_sign_or_upload_path(@manifest.uuid)
+        create_manifest
       else
         flash[:error] = error_messages
         render :new
@@ -40,6 +37,13 @@ class ManifestsController < ApplicationController
   end
 
   private
+
+  def create_manifest
+    @manifest.save!
+    @manifest.reload
+    flash[:notice] = "Manifest #{@manifest.tracking_number} submitted successfully."
+    redirect_to new_manifest_sign_or_upload_path(@manifest.uuid)
+  end
 
   def has_permission?
     if !@manifest.is_public?
