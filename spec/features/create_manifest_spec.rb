@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 feature 'Create manifest' do
-  before :each do
-    @current_session = mock_authenticated_session
+  scenario 'create manifest requires authentication' do
+    visit new_manifest_path
+
+    expect(page).to have_content('You must be logged in to access this page.')
   end
 
   scenario 'fills in tracking number' do
+    mock_authenticated_session
     manifest_tracking_number = '987654321abc'
     visit new_manifest_path
 
@@ -16,6 +19,7 @@ feature 'Create manifest' do
   end
 
   scenario 'does not fill in tracking number' do
+    mock_authenticated_session
     visit new_manifest_path
 
     click_on 'Continue'
@@ -24,6 +28,7 @@ feature 'Create manifest' do
   end
 
   scenario 'fills in tracking number that does not match validation regex' do
+    mock_authenticated_session
     manifest_tracking_number = "invalid"
     visit new_manifest_path
 
@@ -36,6 +41,7 @@ feature 'Create manifest' do
   end
 
   scenario 'fills in all fields' do
+    mock_authenticated_session
     manifest_tracking_number = '987654321ABC'
     visit new_manifest_path
 
