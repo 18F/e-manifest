@@ -1,5 +1,7 @@
 class ManifestUploadsController < ApplicationController
   def new
+    authenticate_user!
+
     @manifest = find_or_initialize_manifest
   end
 
