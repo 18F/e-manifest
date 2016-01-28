@@ -9,16 +9,18 @@ class ManifestsController < ApplicationController
   def create
     authenticate_user!
 
-    @manifest = Manifest.new(content: manifest_params, user: current_user)
+    unless performed?
+      @manifest = Manifest.new(content: manifest_params, user: current_user)
 
-    if @manifest.valid? && validate_manifest(manifest_params)
-      @manifest.save!
-      @manifest.reload
-      flash[:notice] = "Manifest #{@manifest.tracking_number} submitted successfully."
-      redirect_to new_manifest_sign_or_upload_path(@manifest.uuid)
-    else
-      flash[:error] = validation_errors
-      render :new
+      if @manifest.valid? && validate_manifest(manifest_params)
+        @manifest.save!
+        @manifest.reload
+        flash[:notice] = "Manifest #{@manifest.tracking_number} submitted successfully."
+        redirect_to new_manifest_sign_or_upload_path(@manifest.uuid)
+      else
+        flash[:error] = error_messages
+        render :new
+      end
     end
   end
 
@@ -58,20 +60,16 @@ class ManifestsController < ApplicationController
     render "authorization_error", status: 403, locals: { msg: "You do not have permission to view this record." }
   end
 
-  def validation_errors
-    if @manifest.errors.any?
-      @manifest.errors.full_messages.to_sentence
-    elsif @errors
-      @errors
-    end
-  end
-
   def validate_manifest(content)
     validator = ManifestValidator.new(content)
     unless validator.run
       @errors = validator.error_messages
     end
     !validator.errors.any?
+  end
+
+  def error_messages
+    [[@errors] + [@manifest.errors.full_messages]].flatten.compact.to_sentence
   end
 
   def build_search_stats

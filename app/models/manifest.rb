@@ -68,6 +68,10 @@ class Manifest < ActiveRecord::Base
     content_field('waste_handling_instructions')
   end
 
+  def waste_pcb_description
+    content_field('waste_pcb_description')
+  end
+
   def waste_report_codes
     content_field('report_management_method_codes') || []
   end
