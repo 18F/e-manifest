@@ -10,12 +10,13 @@ class ManifestsController < ApplicationController
 
     @manifest = Manifest.new(content: manifest_params, user: current_user)
 
-    if validate_manifest(manifest_params) && @manifest.save
+    if @manifest.valid? && validate_manifest(manifest_params)
+      @manifest.save!
       @manifest.reload
       flash[:notice] = "Manifest #{@manifest.tracking_number} submitted successfully."
       redirect_to new_manifest_sign_or_upload_path(@manifest.uuid)
     else
-      flash[:error] = @errors || @manifest.errors.full_messages.to_sentence
+      flash[:error] = validation_errors
       render :new
     end
   end
@@ -37,10 +38,18 @@ class ManifestsController < ApplicationController
 
   private
 
+  def validation_errors
+    if @manifest.errors.any?
+      @manifest.errors.full_messages.to_sentence
+    elsif @errors
+      @errors
+    end
+  end
+
   def validate_manifest(content)
     validator = ManifestValidator.new(content)
     unless validator.run
-      @errors = validator.errors
+      @errors = validator.error_messages
     end
     !validator.errors.any?
   end
