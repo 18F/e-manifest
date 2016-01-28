@@ -1,5 +1,6 @@
 class ManifestsController < ApplicationController
   include ManifestParams
+  include SearchParams
 
   def new
     authenticate_user!
@@ -37,10 +38,6 @@ class ManifestsController < ApplicationController
   end
 
   private
-
-  def has_search_params?
-    params[:q] || params[:aq]
-  end
 
   def has_permission?
     if !@manifest.is_public?

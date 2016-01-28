@@ -1,4 +1,6 @@
 class Api::V0::ManifestsController < ApiController
+  include SearchParams
+
   rescue_from ActiveRecord::RecordNotFound, with: :manifest_not_found_error
 
   def search
@@ -35,26 +37,37 @@ class Api::V0::ManifestsController < ApiController
 
   def show
     manifest = find_manifest
-    render json: ManifestSerializer.new(manifest).to_json
+    if has_permission_to_view?(manifest)
+      unless performed?
+        render json: ManifestSerializer.new(manifest).to_json
+      end
+    else
+      unless performed?
+        render json: {
+          message: "Permission denied",
+          errors: "You do not have permission to view this manifest."
+        }, status: 403
+      end
+    end
   end
 
   def update
-    authenticate_user!
+    manifest = find_manifest
+    if has_permission_to_update?(manifest)
+      if (patch = read_body_as_json)
+        patch_json = patch.to_json
+        manifest_content_json = manifest[:content].to_json
+        new_json = JSON.patch(manifest_content_json, patch_json)
 
-    unless performed?
-      manifest = find_manifest
-      authorize_manifest(manifest)
-    end
+        manifest.update_column(:content, new_json)
 
-    unless performed?
-      patch = read_body_as_json
-      patch_json = patch.to_json
-      manifest_content_json = manifest[:content].to_json
-      new_json = JSON.patch(manifest_content_json, patch_json)
-
-      manifest.update_column(:content, new_json)
-
-      render json: ManifestSerializer.new(manifest).to_json
+        render json: ManifestSerializer.new(manifest).to_json
+      end
+    else
+      render json: {
+        message: "Permission denied",
+        errors: "You do not have permission to update this manifest."
+      }, status: 403
     end
   end
 
@@ -79,13 +92,25 @@ class Api::V0::ManifestsController < ApiController
     run_validator(ManifestValidator.new(content))
   end
 
-  def authorize_manifest(manifest)
+  def has_permission_to_update?(manifest)
+    if !authenticated?
+      false
     # TODO more complicated authz based on roles+orgs
-    unless manifest.user == current_user
-      render json: {
-        message: "Permission denied",
-        errors: "You may not update a manifest you did not create."
-      }, status: 403
+    elsif manifest.user == current_user
+      true
+    else
+      false
+    end
+  end
+
+  def has_permission_to_view?(manifest)
+    if manifest.is_public?
+      true
+    elsif authenticated?
+      # TODO more complicated authz based on roles+orgs
+      manifest.user == current_user
+    else
+      false
     end
   end
 end
