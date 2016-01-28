@@ -34,9 +34,29 @@ class ManifestsController < ApplicationController
 
   def show
     @manifest = Manifest.find_by_uuid_or_tracking_number!(params[:id])
+    has_permission? or return
   end
 
   private
+
+  def has_permission?
+    if !@manifest.is_public?
+      authenticate_user!
+
+      unless performed?
+        # TODO apply org+roles authz policy
+        if @manifest.user != current_user
+          render_authz_error
+          false
+        end
+      end
+    end
+    true
+  end
+
+  def render_authz_error
+    render "authorization_error", status: 403, locals: { msg: "You do not have permission to view this record." }
+  end
 
   def validation_errors
     if @manifest.errors.any?
