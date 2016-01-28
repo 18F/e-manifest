@@ -13,7 +13,7 @@ class ManifestsController < ApplicationController
       flash[:notice] = "Manifest #{tracking_number} submitted successfully."
       redirect_to new_manifest_sign_or_upload_path(@manifest.uuid)
     else
-      flash[:error] = [[@errors] + [@manifest.errors.full_messages]].flatten.to_sentence
+      flash[:error] = [[@errors] + [@manifest.errors.full_messages]].flatten.compact.to_sentence
       render :new
     end
   end
