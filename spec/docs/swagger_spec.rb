@@ -10,6 +10,10 @@ describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
   subject { Apivore::SwaggerChecker.instance_for('/api-documentation/swagger.json') }
 
   context 'has valid paths' do
+    before(:each) do
+      @current_session = mock_authenticated_session
+    end
+
     it do
       expect(subject).to validate(:get, '/manifests/{id}', 200, params)
     end
@@ -71,7 +75,7 @@ describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
   end
 
   def manifest
-    @_manifest ||= create(:manifest)
+    @_manifest ||= create(:manifest, user: @current_session.user)
   end
 
   def params

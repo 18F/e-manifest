@@ -20,7 +20,7 @@ describe Search::QueryDSL do
     expect(dsl.to_hash).to eq({
       filter: {
         bool: {
-          must: [
+          should: [
             range: {
               created_at: {
                 lt: 'now-90d'

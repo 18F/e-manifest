@@ -4,6 +4,8 @@ class Manifest < ActiveRecord::Base
   include Searchable
 
   validate :tracking_number, :validate_tracking_number_unique
+  validates :user_id, presence: true
+  belongs_to :user, class_name: 'User'
 
   def content_field(json_xpath)
     fields = json_xpath.split('.')
@@ -94,6 +96,10 @@ class Manifest < ActiveRecord::Base
     dsl = Search::QueryDSL.new(params: params, user: user)
     resp = search(dsl)
     { es_response: resp, dsl: dsl }
+  end
+
+  def is_public?
+    created_at < 90.days.ago
   end
 
   private

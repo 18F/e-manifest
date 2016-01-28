@@ -148,4 +148,19 @@ describe Manifest do
       end
     end
   end
+
+  describe '#is_public?' do
+    context 'calculates public status' do
+      it 'is true for older than 90 days' do
+        manifest = create(:manifest)
+        manifest.created_at = Time.current - 91.days.ago.to_f
+        expect(manifest.is_public?).to eq true
+      end
+
+      it 'is false for newer than 90 days' do
+        manifest = create(:manifest)
+        expect(manifest.is_public?).to eq false
+      end
+    end
+  end
 end

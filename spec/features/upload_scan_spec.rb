@@ -1,7 +1,12 @@
 require 'rails_helper'
 
-feature 'Upload scan' do
-  scenario 'upload instead of filling out form', elasticsearch: true do
+feature 'Upload scan', elasticsearch: true do
+  scenario 'upload requires authenticated session' do
+    visit new_manifest_upload_path
+    expect(page).to have_content('You must be logged in to access this page.')
+  end
+  scenario 'upload instead of filling out form' do
+    mock_authenticated_session
     manifest_tracking_number = '987654321abc'
     visit new_manifest_upload_path
 
@@ -13,6 +18,7 @@ feature 'Upload scan' do
   end
 
   scenario 'does not add file upload' do
+    mock_authenticated_session
     manifest_tracking_number = '987654321abc'
     visit new_manifest_upload_path
 
@@ -23,6 +29,7 @@ feature 'Upload scan' do
   end
 
   scenario 'upload after filling in form', elasticsearch: true do
+    mock_authenticated_session
     manifest_tracking_number = '987654321abc'
     visit new_manifest_path
 

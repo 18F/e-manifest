@@ -1,9 +1,13 @@
 class ManifestUploadsController < ApplicationController
   def new
+    authenticate_user!
+
     @manifest = find_or_initialize_manifest
   end
 
   def create
+    authenticate_user!
+
     @manifest = update_manifest(find_or_initialize_manifest)
 
     if !upload_missing? && @manifest.save
@@ -33,7 +37,7 @@ class ManifestUploadsController < ApplicationController
     if params[:manifest_id]
       Manifest.find_by_uuid_or_tracking_number!(params[:manifest_id])
     else
-      Manifest.new
+      Manifest.new(user: current_user)
     end
   end
 

@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'New submission' do
   scenario 'can submit manifest via form' do
     visit new_submission_path
+    mock_authenticated_session
 
     click_link "Submit via form"
 
@@ -11,6 +12,7 @@ feature 'New submission' do
 
   scenario 'can submit manifest via upload' do
     visit new_submission_path
+    mock_authenticated_session
 
     click_link 'Upload scan'
 
