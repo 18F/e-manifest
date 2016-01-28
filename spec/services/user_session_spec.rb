@@ -53,6 +53,15 @@ describe UserSession do
       session.expire
       expect(UserSession.new(token).get(:foo)).to eq nil
     end
+
+    it 'respects class-level ttl' do
+      user = create(:user)
+      UserSession.ttl = 1
+      session = UserSession.create(user)
+      UserSession.ttl = UserSession::TTL
+      sleep 2
+      expect(UserSession.new(session.token).created_at).to be > session.created_at
+    end
   end
 
   describe '#touch' do

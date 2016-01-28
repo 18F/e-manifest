@@ -2,11 +2,16 @@ class UserSession
   attr_reader :session, :token
 
   TTL = 4 * 60 * 60
+  @@ttl = TTL
 
   @@namespace = "user_session"
 
   def self.namespace=namespace
     @@namespace = namespace
+  end
+
+  def self.ttl=seconds
+    @@ttl = seconds.to_i
   end
 
   def self.redis
@@ -100,7 +105,7 @@ class UserSession
   def write_session
     @session[:updated_at] = Time.current
     redis.set(@token, @session.to_json)
-    redis.expire(@token, TTL)
+    redis.expire(@token, @@ttl)
   end
 
   def create_session
