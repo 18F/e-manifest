@@ -2,39 +2,53 @@
   <h3>Submit new manifest</h3>
 
   <%= simple_form_for :manifest, url: manifests_path, method: :post do |form| %>
-    <h3>Generator</h3>
-    <%= form.simple_fields_for :generator do |generator| %>
-      <%= generator.input :us_epa_id_number, label: 'U.S. EPA ID Number (1)' %>
-      <%= generator.input :emergency_response_phone, label: 'Emergency Response Phone (3)' %>
-      <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)', required: true %>
-      <%= generator.input :name, label: 'Name (5)' %>
-      <%= generator.simple_fields_for :signatory do |signature| %>
-        <%= signature.input :name, label: 'Name of generator/offeror signatory (15)' %>
-        <%= label_tag 'Date of signature (15)' %>
-        <%= date_field_tag 'date', nil, name: "manifest[generator][signatory][date]"  %>
+    <fieldset>
+      <h3>Generator</h3>
+      <%= form.simple_fields_for :generator do |generator| %>
+        <%= generator.input :us_epa_id_number, label: 'U.S. EPA ID Number (1)' %>
+        <%= generator.input :emergency_response_phone, label: 'Emergency Response Phone (3)' %>
+        <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)', required: true %>
+        <%= generator.input :name, label: 'Name (5)' %>
+        <%= generator.simple_fields_for :signatory do |signature| %>
+          <%= signature.input :name, label: 'Name of generator/offeror signatory (15)' %>
+          <%= label_tag 'Date of signature (15)' %>
+          <%= date_field_tag 'date', nil, name: "manifest[generator][signatory][date]"  %>
+        <% end %>
+
+        <div class="mailing-address">
+          <h3>Mailing address</h3>
+          <%= render partial: 'address', locals: { fields: 'mailing_address', object: generator, number: 5 } %>
+        </div>
+
+        <%= generator.input :phone_number, label: 'Phone number (5)' %>
+
+        <%= generator.input :site_address_same_as_mailing, as: :radio_buttons, label: 'Site address same as mailing address', boolean_style: :inline %>
+
+        <div class="site-address">
+          <h3>Site address</h3>
+          <%= render partial: 'address', locals: { fields: 'site_address', object: generator, number: 5 } %>
+        </div>
       <% end %>
 
-      <h3>Mailing address</h3>
-      <%= render partial: 'address', locals: { fields: 'mailing_address', object: generator, number: 5 } %>
+    </fieldset>
 
-      <%= generator.input :phone_number, label: 'Phone number (5)' %>
-    <% end %>
+    <fieldset>
+      <h3>Transporter 1</h3>
+      <div class="transporter-1">
+        <%= simple_fields_for :transporters do |transporter| %>
+          <%= transporter.input :name, label: 'Company Name (6)' %>
+          <%= transporter.input :us_epa_id_number, label: 'U.S. EPA ID Number (6)' %>
+        <% end %>
+      </div>
 
-    <h3>Transporter 1</h3>
-    <div class="transporter-1">
-      <%= simple_fields_for :transporters do |transporter| %>
-        <%= transporter.input :name, label: 'Company Name (6)' %>
-        <%= transporter.input :us_epa_id_number, label: 'U.S. EPA ID Number (6)' %>
-      <% end %>
-    </div>
-
-    <h3>Transporter 2</h3>
-    <div class="transporter-2">
-      <%= simple_fields_for :transporters do |transporter| %>
-        <%= transporter.input :name, label: 'Company Name (6)' %>
-        <%= transporter.input :us_epa_id_number, label: 'U.S. EPA ID Number (6)' %>
-      <% end %>
-    <div>
+      <h3>Transporter 2</h3>
+      <div class="transporter-2">
+        <%= simple_fields_for :transporters do |transporter| %>
+          <%= transporter.input :name, label: 'Company Name (6)' %>
+          <%= transporter.input :us_epa_id_number, label: 'U.S. EPA ID Number (6)' %>
+        <% end %>
+      <div>
+    </fieldset>
 
     <h3>Designated Facility</h3>
     <%= form.simple_fields_for :designated_facility do |facility| %>
