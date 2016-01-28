@@ -38,7 +38,7 @@ feature 'View manifest' do
   scenario 'may not view a non-public manifest you do not have access to' do
     manifest_tracking_number = create_new_manifest
 
-    user_session = login_as_different_user
+    diff_user_session = mock_authenticated_session
 
     visit manifest_path(manifest_tracking_number)
 
@@ -52,24 +52,17 @@ feature 'View manifest' do
     manifest_tracking_number = create_new_manifest
     Timecop.return
 
-    user_session = login_as_different_user
+    diff_user_session = mock_authenticated_session
 
     visit manifest_path(manifest_tracking_number)
 
     expect(page.status_code).to eq(200)
 
-    user_session.expire
+    diff_user_session.expire
 
     visit manifest_path(manifest_tracking_number)
 
     expect(page.status_code).to eq(200)
-  end
-
-  def login_as_different_user
-    user = create(:user)
-    user_session = login_as(user)
-    allow_any_instance_of(ApplicationController).to receive(:user_session).and_return(user_session)
-    user_session
   end
 
   def create_new_manifest
