@@ -3,7 +3,15 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  after_action :extend_session
+
   private
+
+  def extend_session
+    if user_session
+      user_session.touch
+    end
+  end
 
   def current_user
     @current_user ||= find_current_user
