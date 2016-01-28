@@ -105,7 +105,7 @@ module Search
         @dsl.filter.bool do
           bools.each do |must_filter|
             filter_block = must_filter.instance_variable_get(:@block)
-            must &filter_block
+            should &filter_block
           end
         end
       end
@@ -125,7 +125,7 @@ module Search
     def authz_filter
       searchdsl = self
       Filter.new do
-        fail "authz_filter not yet implemented"
+        term user_id: searchdsl.user.id
       end
     end
 

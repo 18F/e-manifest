@@ -22,11 +22,10 @@ class ManifestsController < ApplicationController
   end
 
   def index
-    if params[:q] || params[:aq]
-      @search_response = Manifest.authorized_search(params)
-    else
-      @search_response = Manifest.authorized_search(params.merge({public: true}))
+    if !authenticated? || !has_search_params?
+      params.merge!({public: true})
     end
+    @search_response = Manifest.authorized_search(params, current_user)
     @es_response = @search_response[:es_response]
     @manifests = @es_response.records.to_a
     build_search_stats
@@ -38,6 +37,10 @@ class ManifestsController < ApplicationController
   end
 
   private
+
+  def has_search_params?
+    params[:q] || params[:aq]
+  end
 
   def has_permission?
     if !@manifest.is_public?
