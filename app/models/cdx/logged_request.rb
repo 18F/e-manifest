@@ -29,7 +29,11 @@ class CDX::LoggedRequest
 
   def puts_color_log_opts
     output_stream.puts ANSI.blue{ self.class.name }
-    output_stream.puts ANSI.blue{ opts.pretty_inspect }
+    output_stream.puts ANSI.blue{ redacted_opts.pretty_inspect }
+  end
+
+  def redacted_opts
+    opts
   end
 
   def log_response
