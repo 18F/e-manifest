@@ -40,6 +40,9 @@
   <%= simple_form_for :aq, url: manifests_path, method: :get, html: { class: "callout"} do |form| %>
     <h2>Search  manifests</h2>
 
+    <label class="featured" for="manifest_tracking_number">Manifest Tracking Number</label>
+    <input id="manifest_tracking_number" name="aq[content.generator.manifest_tracking_number]" type="text">
+
     <label class="featured" for="generator_name">Generator name</label>
     <input id="generator_name" name="aq[content.generator.name]" type="text">
     <label class="featured" for="tsdf_name">Disposal facility name</label>
@@ -76,6 +79,9 @@
         <input id="to_date" name="to_date" type="date">
       </div>
     </div>
+
+    <label class="featured" for="general">General search</label>
+    <input id="general" name="q" type="text">
 
     <%= form.submit 'Search' %>
     <input type="reset" class="usa-button-outline" value="Clear">
