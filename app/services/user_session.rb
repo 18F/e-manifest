@@ -18,10 +18,9 @@ class UserSession
     @@redis ||= Redis::Namespace.new(@@namespace.to_sym, redis: Redis.new)
   end
 
-  def self.create(user, cdx_auth_response = nil)
+  def self.create(user, cdx_response = nil)
     session = self.new(SecureRandom.uuid, user)
-    session.set(cdx_auth_response: cdx_auth_response)
-    session
+    session.set(cdx: cdx_response)
   end
 
   def self.flush_all
@@ -45,11 +44,11 @@ class UserSession
   end
 
   def cdx_token
-    (cdx_auth_response || {})[:token]
+    cdx[:token]
   end
 
-  def cdx_auth_response
-    get_attr(:cdx_auth_response)
+  def cdx
+    get_attr(:cdx) || {}
   end
 
   def cdx_roles
@@ -59,10 +58,17 @@ class UserSession
   def set(attrs)
     @session.merge!(attrs)
     write_session
+    self
   end
 
   def get(attr_name)
     get_attr(attr_name)
+  end
+
+  def merge_cdx(more_cdx)
+    @session[:cdx] = cdx.merge(more_cdx)
+    write_session
+    self
   end
 
   def touch
@@ -79,6 +85,19 @@ class UserSession
 
   def updated_at
     Time.parse(get(:updated_at).to_s)
+  end
+
+  def signature_response
+    if cdx[:token]
+      {
+        token: @token,
+        activity_id: cdx[:activity_id],
+        question: cdx[:question],
+        user_id: cdx[:user_id]
+      }
+    else
+      { description: cdx[:description] }
+    end
   end
 
   private

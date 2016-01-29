@@ -11,18 +11,18 @@ module UserAuthenticatorHelper
 
   def mock_user_authenticator_pass
     user = create(:user)
-    session = UserSession.create(user, { token: SecureRandom.hex })
+    session = UserSession.create(user, { firstName: 'Jane', lastName: 'Doe' })
+    cdx_signature = { token: SecureRandom.hex, question: { question_id: 123, question_text: 'color?' }, activity_id: SecureRandom.hex }
     allow_any_instance_of(UserAuthenticator).to receive(:authenticate).and_return(session)
+    allow_any_instance_of(UserAuthenticator).to receive(:authorize_signature).and_return(session.merge_cdx(cdx_signature))
     allow_any_instance_of(UserAuthenticator).to receive(:session).and_return(session)
-    allow_any_instance_of(UserAuthenticator).to receive(:cdx_response).and_return(session.cdx_auth_response)
+    allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return(nil)
     session
   end
 
   def mock_user_authenticator_fail
-    user = create(:user)
-    session = UserSession.create(user, { token: SecureRandom.hex })
     allow_any_instance_of(UserAuthenticator).to receive(:authenticate).and_return(nil)
-    allow_any_instance_of(UserAuthenticator).to receive(:cdx_response).and_return({description: 'Bad user_id or password'})
-    session
+    allow_any_instance_of(UserAuthenticator).to receive(:authorize_signature).and_return(nil)
+    allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Bad user_id or password')
   end
 end

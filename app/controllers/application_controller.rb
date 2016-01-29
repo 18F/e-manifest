@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   def user_session
     if session[:user_session_id]
       UserSession.new(session[:user_session_id])
-    elsif params[:token]
+    elsif params[:token] && params[:token].is_a?(String)
       UserSession.new(params[:token])
     end
   end

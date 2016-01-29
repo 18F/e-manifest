@@ -17,6 +17,33 @@ describe UserSession do
     end
   end
 
+  describe '#cdx' do
+    it 'merges multiple responses' do
+      user = create(:user)
+      session = UserSession.create(user, { firstName: 'Bob' })
+      expect(session.cdx[:firstName]).to eq 'Bob'
+      session.merge_cdx({ token: 'abc123' })
+      expect(session.cdx).to eq({ token: 'abc123', firstName: 'Bob' })
+    end
+
+    it '#signature_response' do
+      user = create(:user)
+      session = UserSession.create(user, { firstName: 'Bob' })
+      session.merge_cdx({
+        token: 'abc123',
+        question: { question_id: 123, question_text: 'color?' },
+        activity_id: 'xyz',
+        user_id: user.cdx_user_id
+      })
+      expect(session.signature_response).to eq({
+        token: session.token,
+        question: { question_id: 123, question_text: 'color?' },
+        activity_id: 'xyz',
+        user_id: user.cdx_user_id
+      })
+    end
+  end
+
   describe '#new' do
     it 'finds user via token' do
       user = create(:user)
