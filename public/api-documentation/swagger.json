@@ -211,12 +211,18 @@
                 "description": "Authenticates a user with CDX's CROMERR services for signing a manifest. Values in the response are needed to sign the manifest.",
                 "parameters": [
                     {
-                        "name": "credentials",
+                        "name": "token",
                         "in": "body",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/Credentials"
                         }
+                    },
+                    {
+                        "name": "authenticate",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "tags": [
@@ -233,7 +239,10 @@
                         }
                     },
                     "401": {
-                        "description": "Authentication failed"
+                        "description": "Authentication failed",
+                        "schema": {
+                            "$ref": "#/definitions/FailedAction"
+                        }
                     }
                 }
             }
@@ -286,6 +295,14 @@
             }
         },
         "Credentials": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "$ref": "#/definitions/Token"
+                }
+            }
+        },
+        "Token": {
             "type": "object",
             "properties": {
                 "user_id": {

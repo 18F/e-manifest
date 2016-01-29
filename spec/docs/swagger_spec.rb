@@ -15,6 +15,14 @@ describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
     end
 
     it do
+      expect(subject).to validate(
+        :post, '/tokens', 200, {
+            '_query_string' => 'authenticate=1',
+            '_data' => { token: {user_id: 'foo', password: 'bar' } }.to_json
+          }.merge(header_params)
+      )
+    end
+    it do
       expect(subject).to validate(:get, '/manifests/{id}', 200, params.merge(header_params))
     end
     it do

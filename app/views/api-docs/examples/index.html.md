@@ -8,10 +8,36 @@ The production base URL is **https://e-manifest.18f.gov/api/v0**
 
 Notation note: path variables are expressed as `:variable_name`. The colon is not part of the URI.
 
+## Generate an Authorization Token
+
+Before you can create or modify any manifests, or search for any non-public manifests, you must
+create an Authorization Token.
+
+```bash
+curl -i -X POST -H 'Content-Type: application/json' \
+  --data @auth-creds.json \
+  'https://e-manifest.18f.gov/api/v0/tokens?authenticate=1'
+```
+
+An example `auth-creds.json` file looks like:
+
+```json
+<%= render 'examples/auth_creds.json' %>
+```
+
+The authentication response looks like:
+
+```json
+<%= render 'examples/authentication_response.json' %>
+```
+
+You will use the *token* value as the `Authorization` HTTP header value in all other API requests.
+
 ## Submit a manifest
 
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer your-auth-token' \
   --data @manifest.json \
   https://e-manifest.18f.gov/api/v0/manifests
 ```
@@ -43,6 +69,7 @@ Before you submit a manifest, you may validate its content and structure.
 
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer your-auth-token' \
   --data @manifest.json \
   https://e-manifest.18f.gov/api/v0/manifests/validate
 ```
@@ -58,14 +85,16 @@ To retrieve a previously submitted e-Manifest, you need the e-Manifest ID from
 the [Submit a manifest example](#submit-a-manifest).
 
 ```bash
-curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest/de305d54-75b4-431b-adb2-eb6b9e546014
+curl -i -X GET -H 'Authorization: Bearer your-auth-token' \
+  https://e-manifest.18f.gov/api/v0/manifest/de305d54-75b4-431b-adb2-eb6b9e546014
 ```
 
 If you do not know the e-Manifest ID, but you do have the Manifest Tracking Number from Line 4 of form 8700-22,
 you can fetch the e-Manifest object with the Manifest Tracking Number.
 
 ```bash
-curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest/987654321abc
+curl -i -X GET -H 'Authorization: Bearer your-auth-token' \
+   https://e-manifest.18f.gov/api/v0/manifest/987654321abc
 ```
 
 The response for both endpoints looks the same:
@@ -89,6 +118,7 @@ Manifest Tracking Number.
 
 ```bash
 curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
+  -H 'Authorization: Bearer your-auth-token' \
   --data @manifest-patch.json \
   https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014
 ```
@@ -97,6 +127,7 @@ or
 
 ```bash
 curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
+  -H 'Authorization: Bearer your-auth-token' \
   --data @manifest-patch.json \
   https://e-manifest.18f.gov/api/v0/manifests/987654321abc
 ```
@@ -119,14 +150,14 @@ are all supported. See the [full query string syntax documentation]
 Example of looking for a manifest by Manifest Tracking Number `987654321abc`:
 
 ```bash
-curl -i -X GET \
+curl -i -X GET -H 'Authorization: Bearer your-auth-token' \
   'https://e-manifest.18f.gov/api/v0/manifests/search?q=content.generator.manifest_tracking_number:987654321abc'
 ```
 
 You can page through results with the `size` and `from` URL query parameters, and sort results by any field.
 
 ```bash
-curl -i -X GET \
+curl -i -X GET -H 'Authorization: Bearer your-auth-token' \
   'https://e-manifest.18f.gov/api/v0/manifests/search?q=abc123&from=0&size=10&sort[]=id:desc'
 ```
 
@@ -136,12 +167,13 @@ The search response format looks like:
 <%= render 'examples/manifest_search.json' %>
 ```
 
-## Authenticate User
+## Generate a Signature Authorization Token
 
-You must authenticate with the CDX CROMERR service for signing a manifest. Values in the response are needed to sign the manifest.
+You must re-authenticate with the CDX CROMERR service for signing a manifest. Values in the response are needed to sign the manifest.
 
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer your-auth-token' \
   --data @auth-creds.json \
   https://e-manifest.18f.gov/api/v0/tokens
 ```
@@ -152,22 +184,23 @@ An example `auth-creds.json` file looks like:
 <%= render 'examples/auth_creds.json' %>
 ```
 
-The authentication response looks like:
+The authorization response looks like:
 
 ```json
 <%= render 'examples/auth_response.json' %>
 ```
 
-You will use the authentication response to [Sign your manifest](#sign-manifest).
+You will use the authorization response to [Sign your manifest](#sign-manifest).
 
 ## Sign manifest
 
-To sign a manifest you must first [Authenticate](#authenticate-user).
+To sign a manifest you must first [Generate an Authorization Token](#generate-an-authorization-token)
 
 You can sign a manifest with either the e-Manifest ID or the Manifest Tracking Number:
 
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer your-auth-token' \
   --data @sign-manifest.json \
   https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014/signature
 ```
