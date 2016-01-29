@@ -42,7 +42,7 @@ feature 'Create manifest' do
 
   scenario 'fills in all fields', :js do
     mock_authenticated_session
-    manifest_tracking_number = '987654321ABC'
+    manifest_tracking_number = '987654321abc'
     visit new_manifest_path
 
     # Generator
@@ -59,7 +59,7 @@ feature 'Create manifest' do
     end
 
     fill_in 'Phone number (5)', with: '555-555-5555'
-    page.execute_script %($('#manifest_generator_site_address_same_as_mailing_false').click())
+    find('#manifest_generator_site_address_same_as_mailing_false').trigger('click')
 
     within('.site-address') do
       fill_in_address_fields
@@ -67,10 +67,10 @@ feature 'Create manifest' do
 
     # Transporters
     within('.transporter') do
-      fill_in 'manifest[transporters][1][name]', with: 'Transporter company 1 name'
-      fill_in 'manifest[transporters][1][us_epa_id_number]', with: 'def987654321'
-      fill_in 'manifest[transporters][1][signatory][name]', with: 'TransporterSigner Smith'
-      fill_in 'manifest[transporters][1][signatory][date]', with: '11/23/2016'
+      fill_in 'manifest[transporters][][name]', with: 'Transporter company 1 name'
+      fill_in 'manifest[transporters][][us_epa_id_number]', with: 'def987654321'
+      fill_in 'manifest[transporters][][signatory][name]', with: 'TransporterSigner Smith'
+      fill_in 'manifest[transporters][][signatory][date]', with: '11/23/2016'
     end
 
     # Designated facility
@@ -83,33 +83,51 @@ feature 'Create manifest' do
     fill_in 'U.S. EPA ID Number (8)', with: 'jkl987654321'
 
     # Manifest items
-    select 'True', from: 'This shipment contains hazardous material (9a)'
-    fill_in 'Comma separated hazard classes (9b)', with: 'class 1, class 2'
-    fill_in 'Proper shipping name (9b)', with: 'Proper shipping name'
-    fill_in 'ID number (9b)', with: '12345'
-    fill_in 'Packing group (9b)', with: 'packing group'
-    fill_in 'Number of containers (10)', with: 'container number'
-    select 'BA (Burlap, cloth, paper or plastic bags)', from: 'Container type (10)'
-    select 'Gallons', from: 'Unit Wt./Vol. (12)'
-    fill_in 'Total quantity for the listed unit of measure (11)', with: 1
-    fill_in 'Comma separated list of federal waste codes (13)', with: '1234, 4321'
-    fill_in 'Comma separated list of state and other waste codes (13)', with: 'state, other'
+    within('.manifest-items div.manifest-item:nth-child(1)') do
+      select 'True', from: 'This shipment contains hazardous material (9a)'
+      fill_in 'Comma separated hazard classes (9b)', with: 'class 1, class 2'
+      fill_in 'Proper shipping name (9b)', with: 'Proper shipping name'
+      fill_in 'ID number (9b)', with: '12345'
+      select 'I', from: 'Packing group (9b)'
+      fill_in 'Number of containers (10)', with: 2
+      select 'BA (Burlap, cloth, paper or plastic bags)', from: 'Container type (10)'
+      select 'Gallons', from: 'Unit Wt./Vol. (12)'
+      fill_in 'Total quantity for the listed unit of measure (11)', with: 1
+      fill_in 'Comma separated list of federal waste codes (13)', with: 'D004,D003'
+      fill_in 'Comma separated list of state and other waste codes (13)', with: 'D004,D003'
+    end
+
+    click_on '+ Add an additional manifest item'
+
+    within('.manifest-items div.manifest-item:nth-child(2)') do
+      select 'True', from: 'This shipment contains hazardous material (9a)'
+      fill_in 'Comma separated hazard classes (9b)', with: 'class 1, class 2'
+      fill_in 'Proper shipping name (9b)', with: 'Proper shipping name'
+      fill_in 'ID number (9b)', with: '12345'
+      select 'I', from: 'Packing group (9b)'
+      fill_in 'Number of containers (10)', with: 2
+      select 'BA (Burlap, cloth, paper or plastic bags)', from: 'Container type (10)'
+      select 'Gallons', from: 'Unit Wt./Vol. (12)'
+      fill_in 'Total quantity for the listed unit of measure (11)', with: 1
+      fill_in 'Comma separated list of federal waste codes (13)', with: 'D004,D003'
+      fill_in 'Comma separated list of state and other waste codes (13)', with: 'D004,D003'
+    end
+
 
     # Other
     fill_in 'Special handling instructions and additional information (14)', with: 'be careful'
     fill_in 'PCB description (14)', with: 'description'
 
     # International
-    page.execute_script %($('#manifest_international_shipment_true').click())
+    find('#manifest_international_true').trigger('click')
     select 'Export from U.S.', from: 'Import/Export (16)'
     fill_in 'City of Entry/Exit (16)', with: 'Anytown'
     select 'Maine', from: 'State of Entry/Exit (16)'
     fill_in 'manifest[international_shipment][date_leaving_us]', with: '11/23/2016'
 
+    click_on 'Continue'
 
-    # click_on 'Continue'
-
-    # expect(page).to have_content("Manifest #{manifest_tracking_number} submitted successfully.")
+    expect(page).to have_content("Manifest #{manifest_tracking_number} submitted successfully.")
   end
 
   private

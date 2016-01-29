@@ -50,7 +50,7 @@ class Manifest < ActiveRecord::Base
     content_field('designated_facility.name')
   end
 
-  def international_shipment
+  def international
   end
 
   def designated_facility_signed_date
