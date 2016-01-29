@@ -20,20 +20,28 @@ $(document).ready(function () {
     });
 
     $("#manifest_generator_site_address_same_as_mailing_false").click(function () {
-        showAddressFields();
+        showFields(".site-address");
+    });
+
+    $("#manifest_designated_facility_shipment_has_discrepancy_true").click(function() {
+      showFields(".discrepancy");
     });
 
     $("#manifest_generator_site_address_same_as_mailing_true").click(function () {
-        hideAddressFields();
+       hideFields(".site-address");
+    });
+
+    $("#manifest_designated_facility_shipment_has_discrepancy_false").click(function() {
+      hideFields(".discrepancy");
     });
 });
 
-function showAddressFields() {
-  $(".site-address").show();
+function showFields(className) {
+  $(className).show();
 }
 
-function hideAddressFields() {
-  $(".site-address").hide();
+function hideFields(className) {
+  $(className).hide();
 }
 
 function addTransporter() {

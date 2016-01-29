@@ -378,7 +378,7 @@
               "enum":["no_rejection","partial_rejection","full_rejection"]
             },
             "description": {
-              "description": "(14) Description of discrepancy",
+              "description": "(18) Description of discrepancy",
               "type": "string"
             },
             "signatory": {
