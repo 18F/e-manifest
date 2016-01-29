@@ -1,0 +1,13 @@
+<div class="transporter">
+  <h4>Transporter 1</h4>
+  <%= simple_fields_for :transporters do |transporter| %>
+    <%= label_tag :company_name, 'Company name (6)' %>
+    <input type='text', name="manifest[transporters][1][name]" data-number="1" id="transporter-number">
+    <%= label_tag :us_epa_id_number, 'U.S. EPA ID number (6)' %>
+    <input type='text', name="manifest[transporters][1][us_epa_id_number]">
+    <%= label_tag :signatory_name, 'Name of signatory (17)' %>
+    <input type='text', name="manifest[transporters][1][signatory][name]">
+    <%= label_tag :signatory_date, 'Date of signature (17)' %>
+    <%= date_field_tag 'date', nil, name: "manifest[transporters][1][signatory][date]"  %>
+  <% end %>
+</div>

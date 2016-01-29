@@ -54,21 +54,23 @@ feature 'Create manifest' do
 
     # Mailing address
     fill_in 'Name (5)', with: 'Mailing name'
-    fill_in 'Address 1 (5)', with: '123 Main Street'
-    fill_in 'City (5)', with: 'Anytown'
-    select 'California', from: 'State (5)'
-    fill_in 'ZIP code (5)', with: '12345'
-    fill_in 'Phone number (5)', with: '555-555-5555'
-
-    # Transporters
-    within('.transporter-1') do
-      fill_in 'Company Name (6)', with: 'Transporter company 1 name'
-      fill_in 'U.S. EPA ID Number (6)', with: 'def987654321'
+    within('.mailing-address') do
+      fill_in_address_fields
     end
 
-    within('.transporter-2') do
-      fill_in 'Company Name (6)', with: 'Transporter company 2 name'
-      fill_in 'U.S. EPA ID Number (6)', with: 'ghi987654321'
+    fill_in 'Phone number (5)', with: '555-555-5555'
+    find('#manifest_generator_site_address_same_as_mailing_false').click
+
+    within('.site-address') do
+      fill_in_address_fields
+    end
+
+    # Transporters
+    within('.transporter') do
+      fill_in 'manifest[transporters][1][name]', with: 'Transporter company 1 name'
+      fill_in 'manifest[transporters][1][us_epa_id_number]', with: 'def987654321'
+      fill_in 'manifest[transporters][1][signatory][name]', with: 'TransporterSigner Smith'
+      fill_in 'manifest[transporters][1][signatory][date]', with: '11/23/2016'
     end
 
     # Designated facility
@@ -107,5 +109,14 @@ feature 'Create manifest' do
     # click_on 'Continue'
 
     # expect(page).to have_content("Manifest #{manifest_tracking_number} submitted successfully.")
+  end
+
+  private
+
+  def fill_in_address_fields
+    fill_in 'Address 1 (5)', with: '123 Main Street'
+    fill_in 'City (5)', with: 'Anytown'
+    select 'California', from: 'State (5)'
+    fill_in 'ZIP code (5)', with: '12345'
   end
 end
