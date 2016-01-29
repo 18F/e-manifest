@@ -6,7 +6,17 @@ $(document).ready(function () {
 
     $(".remove-transporter").click(function (event) {
       event.preventDefault();
-      removeTransporter();
+      removeItem(".tranporters", ".transporter");
+    });
+
+    $(".add-manifest-item").click(function (event) {
+      event.preventDefault();
+      addManifestItem();
+    });
+
+    $(".remove-manifest-item").click(function (event) {
+      event.preventDefault();
+      removeItem(".manifest-items", ".manifest-item");
     });
 
     $("#manifest_generator_site_address_same_as_mailing_false").click(function () {
@@ -44,10 +54,41 @@ function addTransporter() {
    $('.transporters').append(transporter);
 }
 
-function removeTransporter() {
-  var transporters = $(".transporters").find('.transporter');
+function addManifestItem() {
+  var lastManifestItemNumber = $(".manifest-items").find('.js-manifest-item').last().data('number');
+  var manifestItemNumber = lastManifestItemNumber + 1;
+  var newManifestItem = $('.manifest-item').last().clone();
+  $('.manifest-items').append(newManifestItem);
 
-  if (transporters.size() > 1) {
-    transporters.last().remove();
+  var newManifest = $(".manifest-item").last();
+  replaceHeaderNumber(newManifest, lastManifestItemNumber, manifestItemNumber);
+  replaceDataAttr(newManifest, manifestItemNumber);
+  replaceInputNameAttrs(newManifest, lastManifestItemNumber, manifestItemNumber);
+}
+
+function replaceHeaderNumber(newManifest, lastManifestItemNumber, manifestItemNumber) {
+  var header = newManifest.find('h4');
+  var newHeader = header.text().replace(lastManifestItemNumber, manifestItemNumber);
+  header.text(newHeader);
+}
+
+function replaceDataAttr(newManifest, manifestItemNumber) {
+  newManifest.find('#manifest_items_hazardous_material').last().attr('data-number', manifestItemNumber);
+}
+
+function replaceInputNameAttrs(newManifest, lastManifestItemNumber, manifestItemNumber) {
+  var manifestItemInputs = newManifest.find('input, select');
+  $(manifestItemInputs).each(function() {
+    var name = $(this).attr('name');
+    var newName = name.replace(lastManifestItemNumber, manifestItemNumber);
+    $(this).attr('name', newName);
+  });
+}
+
+function removeItem(parentClass, childClass) {
+  var items = $(parentClass).find(childClass);
+
+  if (items.size() > 1) {
+    items.last().remove();
   }
 }

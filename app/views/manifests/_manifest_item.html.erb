@@ -1,0 +1,17 @@
+<div class="manifest-item">
+  <h4>Manifest Item 1</h4>
+  <%= simple_fields_for :manifest_items do |manifest_item| %>
+    <%= manifest_item.input :hazardous_material, label: 'This shipment contains hazardous material (9a)', as: :select, collection: ['True', 'False'], input_html: { class: 'js-manifest-item', name: "manifest[manifest_items][1][hazardous_material]", data: { number: '1' } } %>
+    <%= manifest_item.input :hazard_classes, label: 'Comma separated hazard classes (9b)', input_html: { name: "manifest[manifest_items][1][hazard_class]" } %>
+    <%= manifest_item.input :proper_shipping_name, label: 'Proper shipping name (9b)', input_html: { name: "manifest[manifest_items][1][proper_shipping_name]" } %>
+    <%= manifest_item.input :id_number, label: 'ID number (9b)', input_html: { name: "manifest[manifest_items][1][id_number]" } %>
+    <%= manifest_item.input :packing_group, label: 'Packing group (9b)', input_html: { name: "manifest[manifest_items][1][packing_group]" } %>
+    <%= manifest_item.input :number_of_containers, label: 'Number of containers (10)', input_html: { name: "manifest[manifest_items][1][number_of_containers]" } %>
+    <%= manifest_item.input :container_type, as: :select, collection: container_types, label: 'Container type (10)', input_html: { name: "manifest[manifest_items][1][container_type]" } %>
+    <%= manifest_item.input :unit_wt_vol, label: 'Unit Wt./Vl. (11)', input_html: { name: "manifest[manifest_items][1][unit_wt_vol]" } %>
+    <%= manifest_item.input :total_quantity, label: 'Total quantity for the listed unit of measure (11)', input_html: { name: "manifest[manifest_items][1][total_quantity]" } %>
+    <%= manifest_item.input :unit_wt_bol, as: :select, collection: units_of_measure, label: 'Unit Wt./Vol. (12)', input_html: { name: "manifest[manifest_items][1][unit_wt_bol]" } %>
+    <%= manifest_item.input :epa_waste_codes, label: 'Comma separated list of federal waste codes (13)', input_html: { name: "manifest[manifest_items][1][epa_waste_codes]" } %>
+    <%= manifest_item.input :state_waste_codes, label: 'Comma separated list of state and other waste codes (13)', input_html: { name: "manifest[manifest_items][1][state_waste_codes]" } %>
+  <% end %>
+</div>

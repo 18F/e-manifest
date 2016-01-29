@@ -3,5 +3,11 @@
 }
 
 .transporter {
-  border: 1px solid black;
+  padding: 1em;
+  background-color: $light-gray;
+ }
+
+.manifest-item {
+  padding: 1em;
+  background-color: $light-gray;
  }
