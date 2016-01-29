@@ -5,10 +5,12 @@
 0. Install Ruby (RVM / Rbenv or another Ruby version manager is ideal for easy version updates)
 0. Install Bundler (`gem install bundler`) and foreman (`gem install foreman`)
 0. Install Postgres and make sure postgres/bin is on your $PATH.
-0. Start postgres if it isn't automatically running: `postgres -D /usr/local/var/postgres`
+0. Start Postgres if it isn't automatically running: `postgres -D /usr/local/var/postgres`
 0. Install Elasticsearch and make sure it is running.
 0. Install Redis and make sure it is running.
-0. Install the [Qt implementation of Webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) as we now depend on [capybara-webkit gem](https://github.com/thoughtbot/capybara-webkit).
+0. Install
+[PhantomJS](https://github.com/jonleighton/poltergeist#installing-phantomjs)
+(used for running Capybara tests with JavaScript turned on)
 0. Run `./bin/setup` to initialize the rails application and install the
    necessary dependencies.
 0. Edit the environment-specific variables in a `.env`.
