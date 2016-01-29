@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     $(".remove-transporter").click(function (event) {
       event.preventDefault();
-      removeTransporter();
+      removeItem(".tranporters", ".transporter");
     });
 
     $(".add-manifest-item").click(function (event) {
@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     $(".remove-manifest-item").click(function (event) {
       event.preventDefault();
-      removeManifestItem();
+      removeItem(".manifest-items", ".manifest-item");
     });
 
     $("#manifest_generator_site_address_same_as_mailing_false").click(function () {
@@ -54,14 +54,6 @@ function addTransporter() {
    $('.transporters').append(transporter);
 }
 
-function removeTransporter() {
-  var transporters = $(".transporters").find('.transporter');
-
-  if (transporters.size() > 1) {
-    transporters.last().remove();
-  }
-}
-
 function addManifestItem() {
   var lastManifestItemNumber = $(".manifest-items").find('.js-manifest-item').last().data('number');
   var manifestItemNumber = lastManifestItemNumber + 1;
@@ -93,10 +85,10 @@ function replaceInputNameAttrs(newManifest, lastManifestItemNumber, manifestItem
   });
 }
 
-function removeManifestItem() {
-  var manifestItems = $(".manifest-items").find('.manifest-item');
+function removeItem(parentClass, childClass) {
+  var items = $(parentClass).find(childClass);
 
-  if (manifestItems.size() > 1) {
-    manifestItems.last().remove();
+  if (items.size() > 1) {
+    items.last().remove();
   }
 }
