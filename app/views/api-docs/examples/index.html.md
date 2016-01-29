@@ -8,7 +8,7 @@ The production base URL is **https://e-manifest.18f.gov/api/v0**
 
 Notation note: path variables are expressed as `:variable_name`. The colon is not part of the URI.
 
-## <a name="submit-manifest"></a>Submit a manifest
+## Submit a manifest
 
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
@@ -37,7 +37,7 @@ submission should return a 201 status.
 }
 ```
 
-## <a name="validate-manifest"></a>Validate a manifest
+## Validate a manifest
 
 Before you submit a manifest, you may validate its content and structure.
 
@@ -52,10 +52,10 @@ will be a JSON string containing any validation errors.
 
 If the manifest is valid, the response status code will be 200.
 
-## <a name="fetch-manifest"></a>Fetch a manifest
+## Fetch a manifest
 
 To retrieve a previously submitted e-Manifest, you need the e-Manifest ID from
-the [Submit a manifest example](#submit-manifest).
+the [Submit a manifest example](#submit-a-manifest).
 
 ```bash
 curl -i -X GET https://e-manifest.18f.gov/api/v0/manifest/de305d54-75b4-431b-adb2-eb6b9e546014
@@ -74,7 +74,7 @@ The response for both endpoints looks the same:
 <%= render 'examples/manifest_response.json' %>
 ```
 
-## <a name="update-manifest"></a>Update manifest
+## Update manifest
 
 You may update a previously submitted e-Manifest.
 
@@ -84,10 +84,8 @@ If the manifest has previously been signed, updating it does not change what has
 The update request uses the HTTP `PATCH` method. See [JSON Patch](http://tools.ietf.org/html/rfc6902) and
 [JSON Pointer](http://tools.ietf.org/html/rfc6901) for specification details.
 
-Just as in the [Fetch a manifest example](#fetch-manifest), you may use either the e-Manifest ID or the
+Just as in the [Fetch a manifest example](#fetch-a-manifest), you may use either the e-Manifest ID or the
 Manifest Tracking Number.
-
-**TODO do we support changing the manifest tracking number internal to the document as part of a PATCH?**
 
 ```bash
 curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
@@ -109,9 +107,9 @@ An example `manifest-patch.json` file looks like:
 <%= render 'examples/manifest_patch.json' %>
 ```
 
-The response format is the same as in the [Fetch a manifest example](#fetch-manifest).
+The response format is the same as in the [Fetch a manifest example](#fetch-a-manifest).
 
-## <a name="search-manifest"></a>Search for manifests
+## Search for manifests
 
 The e-Manifest API supports full-text search of all e-Manifests. You can search with simple terms, or
 by specifying specific fields within which your terms should match. Wildcards, booleans and phrase search
@@ -138,7 +136,7 @@ The search response format looks like:
 <%= render 'examples/manifest_search.json' %>
 ```
 
-## <a name="authenticate-user"></a>Authenticate User
+## Authenticate User
 
 You must authenticate with the CDX CROMERR service for signing a manifest. Values in the response are needed to sign the manifest.
 
@@ -162,7 +160,7 @@ The authentication response looks like:
 
 You will use the authentication response to [Sign your manifest](#sign-manifest).
 
-## <a name="sign-manifest"></a>Sign manifest
+## Sign manifest
 
 To sign a manifest you must first [Authenticate](#authenticate-user).
 
@@ -180,7 +178,7 @@ where `sign-manifest.json` looks like:
 <%= render 'examples/sign_manifest.json' %>
 ```
 
-## <a name="management-codes"></a>Management method codes
+## Management method codes
 
 Fetch the list of valid hazardous waste report management method codes like this:
 
