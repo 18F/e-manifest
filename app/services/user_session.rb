@@ -50,6 +50,14 @@ class UserSession
     @user = user
   end
 
+  def user_name
+    if cdx[:FirstName] && cdx[:LastName]
+      "#{cdx[:FirstName]} #{cdx[:LastName]}"
+    else
+      user.cdx_user_id
+    end
+  end
+
   def cdx_token
     cdx[:token]
   end
