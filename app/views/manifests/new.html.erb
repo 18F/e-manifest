@@ -55,21 +55,20 @@
       <%= facility.input :us_epa_id_number, label: 'U.S. EPA ID Number (8)' %>
     <% end %>
 
-    <h3>Waste</h3>
-    <%= form.simple_fields_for :manifest_items do |manifest_item| %>
-      <%= manifest_item.input :hazardous_material, label: 'This shipment contains hazardous material (9a)', as: :select, collection: ['True', 'False']  %>
-      <%= manifest_item.input :hazard_classes, label: 'Comma separated hazard classes (9b)' %>
-      <%= manifest_item.input :proper_shipping_name, label: 'Proper shipping name (9b)' %>
-      <%= manifest_item.input :id_number, label: 'ID number (9b)' %>
-      <%= manifest_item.input :packing_group, label: 'Packing group (9b)' %>
-      <%= manifest_item.input :number_of_containers, label: 'Number of containers (10)' %>
-      <%= manifest_item.input :container_type, as: :select, collection: container_types, label: 'Container type (10)' %>
-      <%= manifest_item.input :unit_wt_vol, label: 'Unit Wt./Vl. (11)' %>
-      <%= manifest_item.input :total_quantity, label: 'Total quantity for the listed unit of measure (11)' %>
-      <%= manifest_item.input :unit_wt_bol, as: :select, collection: units_of_measure, label: 'Unit Wt./Vol. (12)' %>
-      <%= manifest_item.input :epa_waste_codes, label: 'Comma separated list of federal waste codes (13)' %>
-      <%= manifest_item.input :state_waste_codes, label: 'Comma separated list of state and other waste codes (13)' %>
-    <% end %>
+    <fieldset>
+      <h3>Waste</h3>
+      <div class="manifest-items">
+        <%= render 'manifest_item' %>
+      </div>
+
+      <div>
+        <%= link_to '+ Add an additional manifest item', '#', class: 'add-manifest-item' %>
+      </div>
+
+      <div>
+        <%= link_to '- Remove manifest item', '#', class: 'remove-manifest-item' %>
+      </div>
+    </fieldset>
 
     <h3>Other</h3>
     <%= form.input :waste_pcb_description, label: 'PCB description (14)' %>

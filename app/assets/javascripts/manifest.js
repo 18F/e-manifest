@@ -9,6 +9,16 @@ $(document).ready(function () {
       removeTransporter();
     });
 
+    $(".add-manifest-item").click(function (event) {
+      event.preventDefault();
+      addManifestItem();
+    });
+
+    $(".remove-manifest-item").click(function (event) {
+      event.preventDefault();
+      removeManifestItem();
+    });
+
     $("#manifest_generator_site_address_same_as_mailing_false").click(function () {
         showAddressFields();
     });
@@ -49,5 +59,35 @@ function removeTransporter() {
 
   if (transporters.size() > 1) {
     transporters.last().remove();
+  }
+}
+
+function addManifestItem() {
+  var lastManifestItemNumber = $(".manifest-items").find('.js-manifest-item').last().data('number');
+  var manifestItemNumber = lastManifestItemNumber + 1;
+
+  var newManifestItem = $('.manifest-item').last().clone();
+  $('.manifest-items').append(newManifestItem);
+  var newManifest = $(".manifest-item").last()
+
+  var header = newManifest.find('h4')
+  var newHeader = header.text().replace(lastManifestItemNumber, manifestItemNumber);
+  header.text(newHeader);
+  newManifest.find('#manifest_items_hazardous_material').last().attr('data-number', manifestItemNumber);
+
+  var manifestItemInputs = newManifest.find('input, select');
+
+  $(manifestItemInputs).each(function() {
+    name = $(this).attr('name');
+    newName = name.replace(lastManifestItemNumber, manifestItemNumber);
+    $(this).attr('name', newName);
+  });
+}
+
+function removeManifestItem() {
+  var manifestItems = $(".manifest-items").find('.manifest-item');
+
+  if (manifestItems.size() > 1) {
+    manifestItems.last().remove();
   }
 }
