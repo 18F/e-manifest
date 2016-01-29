@@ -65,21 +65,30 @@ function removeTransporter() {
 function addManifestItem() {
   var lastManifestItemNumber = $(".manifest-items").find('.js-manifest-item').last().data('number');
   var manifestItemNumber = lastManifestItemNumber + 1;
-
   var newManifestItem = $('.manifest-item').last().clone();
   $('.manifest-items').append(newManifestItem);
-  var newManifest = $(".manifest-item").last()
 
-  var header = newManifest.find('h4')
+  var newManifest = $(".manifest-item").last();
+  replaceHeaderNumber(newManifest, lastManifestItemNumber, manifestItemNumber);
+  replaceDataAttr(newManifest, manifestItemNumber);
+  replaceInputNameAttrs(newManifest, lastManifestItemNumber, manifestItemNumber);
+}
+
+function replaceHeaderNumber(newManifest, lastManifestItemNumber, manifestItemNumber) {
+  var header = newManifest.find('h4');
   var newHeader = header.text().replace(lastManifestItemNumber, manifestItemNumber);
   header.text(newHeader);
+}
+
+function replaceDataAttr(newManifest, manifestItemNumber) {
   newManifest.find('#manifest_items_hazardous_material').last().attr('data-number', manifestItemNumber);
+}
 
+function replaceInputNameAttrs(newManifest, lastManifestItemNumber, manifestItemNumber) {
   var manifestItemInputs = newManifest.find('input, select');
-
   $(manifestItemInputs).each(function() {
-    name = $(this).attr('name');
-    newName = name.replace(lastManifestItemNumber, manifestItemNumber);
+    var name = $(this).attr('name');
+    var newName = name.replace(lastManifestItemNumber, manifestItemNumber);
     $(this).attr('name', newName);
   });
 }
