@@ -1,6 +1,6 @@
 module AuthParams
   def auth_params
-    params.fetch(:token, {}).permit(:user_id, :password)
+    params.fetch(:token, {}).permit(:user_id, :password, :back)
   end
 
   private

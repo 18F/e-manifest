@@ -34,10 +34,8 @@ class UserAuthenticator
     cdx_start = Time.current
     begin
       response = CDX::User.new({user_id: user_id, password: @password}, output_stream).perform
-      puts "CDX::User perform == #{response.pretty_inspect}"
     rescue Savon::SOAPFault => error
       response = CDX::HandleError.new(error, output_stream).perform
-      puts "caught SOAP error: #{error} -> now #{response.pretty_inspect}"
     end
     cdx_stop = Time.current
     Rails.logger.debug(ANSI.blue{ "  CDX::User time: #{sprintf('%#g', (cdx_stop - cdx_start))} seconds" })
@@ -64,6 +62,7 @@ class UserAuthenticator
   end
 
   def merge_session(cdx_response)
+    @session.user = User.find_or_create(user_id)
     @session.merge_cdx(cdx_response)
   end
 end

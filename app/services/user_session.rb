@@ -20,6 +20,9 @@ class UserSession
 
   def self.create(user, cdx_response = nil)
     session = self.new(SecureRandom.uuid, user)
+    if cdx_response && cdx_response[:description]
+      cdx_response[:last_error] = cdx_response.delete(:description)
+    end
     session.set(cdx: cdx_response)
   end
 
@@ -41,6 +44,10 @@ class UserSession
     elsif get(:id)
       User.find( get(:id) )
     end
+  end
+
+  def user=user
+    @user = user
   end
 
   def cdx_token
@@ -66,6 +73,9 @@ class UserSession
   end
 
   def merge_cdx(more_cdx)
+    if more_cdx[:description]
+      more_cdx[:last_error] = more_cdx.delete(:description)
+    end
     @session[:cdx] = cdx.merge(more_cdx)
     write_session
     self
@@ -96,7 +106,7 @@ class UserSession
         user_id: cdx[:user_id]
       }
     else
-      { description: cdx[:description] }
+      { description: cdx[:last_error] }
     end
   end
 
@@ -123,6 +133,9 @@ class UserSession
 
   def write_session
     @session[:updated_at] = Time.current
+    if @user
+      @session[:id] = @user.id  
+    end
     redis.set(@token, @session.to_json)
     redis.expire(@token, @@ttl)
   end
@@ -135,9 +148,6 @@ class UserSession
 
   def create_payload
     payload = { created_at: Time.current, updated_at: Time.current }
-    if @user
-      payload[:id] = @user.id  
-    end
     payload
   end
 end

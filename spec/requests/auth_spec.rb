@@ -20,6 +20,13 @@ describe 'Auth' do
       expect(response).to redirect_to new_submission_path
       expect(flash[:notice]).to eq 'Success!'
     end
+
+    it 'ignores :back param on POST failure' do
+      mock_user_authenticator_fail
+      post "/login?back=#{new_submission_path}", { token: { user_id: 'foo', password: 'bar' } }
+      expect(response).to redirect_to login_path
+      expect(flash[:error]).to eq 'Bad user_id or password'
+    end
   end
 
   describe 'logout' do
