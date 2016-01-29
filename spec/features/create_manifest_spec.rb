@@ -54,11 +54,16 @@ feature 'Create manifest' do
 
     # Mailing address
     fill_in 'Name (5)', with: 'Mailing name'
-    fill_in 'Address 1 (5)', with: '123 Main Street'
-    fill_in 'City (5)', with: 'Anytown'
-    select 'California', from: 'State (5)'
-    fill_in 'ZIP code (5)', with: '12345'
+    within('.mailing-address') do
+      fill_in_address_fields
+    end
+
     fill_in 'Phone number (5)', with: '555-555-5555'
+    find('#manifest_generator_site_address_same_as_mailing_false').click
+
+    within('.site-address') do
+      fill_in_address_fields
+    end
 
     # Transporters
     within('.transporter-1') do
@@ -107,5 +112,14 @@ feature 'Create manifest' do
     # click_on 'Continue'
 
     # expect(page).to have_content("Manifest #{manifest_tracking_number} submitted successfully.")
+  end
+
+  private
+
+  def fill_in_address_fields
+    fill_in 'Address 1 (5)', with: '123 Main Street'
+    fill_in 'City (5)', with: 'Anytown'
+    select 'California', from: 'State (5)'
+    fill_in 'ZIP code (5)', with: '12345'
   end
 end
