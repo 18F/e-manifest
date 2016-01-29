@@ -27,12 +27,20 @@ $(document).ready(function () {
       showFields(".discrepancy");
     });
 
+    $("#manifest_international_shipment_true").click(function() {
+      showFields(".international");
+    });
+
     $("#manifest_generator_site_address_same_as_mailing_true").click(function () {
        hideFields(".site-address");
     });
 
     $("#manifest_designated_facility_shipment_has_discrepancy_false").click(function() {
       hideFields(".discrepancy");
+    });
+
+    $("#manifest_international_shipment_false").click(function() {
+      hideFields(".international");
     });
 });
 

@@ -74,16 +74,19 @@
     <%= form.input :waste_handling_instructions, label: 'Special handling instructions and additional information (14)' %>
 
   <h3>International</h3>
-    <%= form.simple_fields_for :international_shipment do |shipment| %>
-      <%= shipment.input :export_input, label: 'Import/Export (16)', as: :select, collection: import_options %>
-      <%= label_tag :date_leaving_us, 'Date leaving U.S. (16)' %>
-      <%= date_field_tag 'date_leaving_us', nil, name: "manifest[international_shipment][date_leaving_us]" %>
-      <%= shipment.simple_fields_for :port_of_entry_exit do |port| %>
-        <%= port.input :city, label: 'City of Entry/Exit (16)' %>
-        <%= port.input :state, label: 'State of Entry/Exit (16)', collection: us_states %>
-      <% end %>
-    <% end %>
+    <%= form.input :international_shipment, as: :radio_buttons, label: 'This shipment is international', boolean_style: :inline %>
 
+    <div class="international">
+      <%= form.simple_fields_for :international_shipment do |shipment| %>
+        <%= shipment.input :export_input, label: 'Import/Export (16)', as: :select, collection: import_options %>
+        <%= label_tag :date_leaving_us, 'Date leaving U.S. (16)' %>
+        <%= date_field_tag 'date_leaving_us', nil, name: "manifest[international_shipment][date_leaving_us]" %>
+        <%= shipment.simple_fields_for :port_of_entry_exit do |port| %>
+          <%= port.input :city, label: 'City of Entry/Exit (16)' %>
+          <%= port.input :state, label: 'State of Entry/Exit (16)', collection: us_states %>
+        <% end %>
+      <% end %>
+    </div>
 
     <%= form.submit 'Continue' %>
   <% end %>

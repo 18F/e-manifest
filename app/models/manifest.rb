@@ -50,6 +50,9 @@ class Manifest < ActiveRecord::Base
     content_field('designated_facility.name')
   end
 
+  def international_shipment
+  end
+
   def designated_facility_signed_date
     if content_field('designated_facility')
       certification = content_field('designated_facility.certification')
