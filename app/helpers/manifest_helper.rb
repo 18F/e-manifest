@@ -44,4 +44,12 @@ module ManifestHelper
       ["Import to U.S.", "import_to_us"],
     ]
   end
+
+  def discrepancy_types
+    [
+      ["No rejection", "no_rejection"],
+      ["Partial rejection", "partial_rejection"],
+      ["Full rejection", "full_rejection"],
+    ]
+  end
 end

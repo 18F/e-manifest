@@ -47,13 +47,12 @@
       </div>
     </fieldset>
 
-    <h3>Designated Facility</h3>
-    <%= form.simple_fields_for :designated_facility do |facility| %>
-      <%= facility.input :name, label: 'Name (8)' %>
-      <%= render partial: 'address', locals: { fields: 'address', object: facility, number: 8 } %>
-      <%= facility.input :phone_number, label: 'Phone number (8)' %>
-      <%= facility.input :us_epa_id_number, label: 'U.S. EPA ID Number (8)' %>
-    <% end %>
+    <div class="designated-facility">
+      <fieldset>
+        <h3>Designated Facility</h3>
+        <%= render 'designated_facility', form: form %>
+      </fieldset>
+    </div>
 
     <fieldset>
       <h3>Waste</h3>
