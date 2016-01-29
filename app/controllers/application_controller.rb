@@ -34,10 +34,8 @@ class ApplicationController < ActionController::Base
   def user_session
     if session[:user_session_id]
       UserSession.new(session[:user_session_id])
-    elsif request.headers['Authorization']
-      if (token = request.headers['Authorization'].match(/^Bearer (\S+)/i)[1])
-        UserSession.new(token)
-      end
+    elsif authorization_token?
+      UserSession.new(authorization_token)
     elsif params[:token] && params[:token].is_a?(String)
       UserSession.new(params[:token])
     end
@@ -45,5 +43,13 @@ class ApplicationController < ActionController::Base
 
   def authenticated?
     current_user.present?
+  end
+
+  def authorization_token?
+    request.headers['Authorization'] && request.headers['Authorization'].match(/^Bearer (\S+)/i)
+  end
+
+  def authorization_token
+    request.headers['Authorization'].match(/^Bearer (\S+)/i)[1]
   end
 end
