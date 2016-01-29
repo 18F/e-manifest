@@ -40,7 +40,7 @@ feature 'Create manifest' do
     )
   end
 
-  scenario 'fills in all fields' do
+  scenario 'fills in all fields', :js do
     mock_authenticated_session
     manifest_tracking_number = '987654321ABC'
     visit new_manifest_path
@@ -59,7 +59,7 @@ feature 'Create manifest' do
     end
 
     fill_in 'Phone number (5)', with: '555-555-5555'
-    find('#manifest_generator_site_address_same_as_mailing_false').click
+    page.execute_script %($('#manifest_generator_site_address_same_as_mailing_false').click())
 
     within('.site-address') do
       fill_in_address_fields

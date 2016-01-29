@@ -7,6 +7,15 @@ GIT
       savon (~> 2)
 
 GIT
+  remote: https://github.com/jessieay/us_web_design_standards_gem.git
+  revision: 0d777d5ee7c486e64733944cce5ab4d35c6f6c95
+  branch: rails-assets-fixes
+  specs:
+    us_web_design_standards (0.0.2)
+      railties
+      sass (~> 3.4)
+
+GIT
   remote: https://github.com/pkarman/json-schema
   revision: 8802742564720b3119a69addf906c1a5e0e237f1
   branch: require_all
@@ -321,9 +330,6 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    us_web_design_standards (0.0.2)
-      railties
-      sass (~> 3.4)
     vcr (3.0.1)
     wasabi (3.5.0)
       httpi (~> 2.0)
@@ -393,7 +399,7 @@ DEPENDENCIES
   timecop
   title
   uglifier
-  us_web_design_standards
+  us_web_design_standards!
   vcr
   web-console
   webmock

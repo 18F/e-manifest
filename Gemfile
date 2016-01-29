@@ -35,7 +35,7 @@ gem 'uglifier'
 gem 'redcarpet'
 gem 'savon-multipart', git: 'https://github.com/jessieay/savon-multipart.git'
 gem 'swagger-ui_rails', git: 'https://github.com/pkarman/swagger-ui_rails.git', submodules: true
-gem 'us_web_design_standards'
+gem 'us_web_design_standards', git: 'https://github.com/jessieay/us_web_design_standards_gem.git', branch: 'rails-assets-fixes'
 
 group :development do
   gem 'spring'
