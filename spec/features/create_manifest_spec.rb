@@ -66,14 +66,11 @@ feature 'Create manifest' do
     end
 
     # Transporters
-    within('.transporter-1') do
-      fill_in 'Company Name (6)', with: 'Transporter company 1 name'
-      fill_in 'U.S. EPA ID Number (6)', with: 'def987654321'
-    end
-
-    within('.transporter-2') do
-      fill_in 'Company Name (6)', with: 'Transporter company 2 name'
-      fill_in 'U.S. EPA ID Number (6)', with: 'ghi987654321'
+    within('.transporter') do
+      fill_in 'manifest[transporters][1][name]', with: 'Transporter company 1 name'
+      fill_in 'manifest[transporters][1][us_epa_id_number]', with: 'def987654321'
+      fill_in 'manifest[transporters][1][signatory][name]', with: 'TransporterSigner Smith'
+      fill_in 'manifest[transporters][1][signatory][date]', with: '11/23/2016'
     end
 
     # Designated facility
