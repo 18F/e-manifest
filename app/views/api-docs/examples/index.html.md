@@ -8,6 +8,33 @@ The production base URL is **https://e-manifest.18f.gov/api/v0**
 
 Notation note: path variables are expressed as `:variable_name`. The colon is not part of the URI.
 
+On this page you may learn about how to:
+
+* [Validate a manifest](#validate-a-manifest)
+* [Generate an Authentication Token](#generate-an-authorization-token)
+* [Submit a manifest](#submit-a-manifest)
+* [Fetch a manifest](#fetch-a-manifest)
+* [Update a manifest](#update-a-manifest)
+* [Search for manifests](#search-for-manifests)
+* [Generate a Signature Authorization Token](#generate-a-signature-authorization-token)
+* [Sign a manifest](#sign-a-manifest)
+* [Management method codes](#management-method-codes)
+
+## Validate a manifest
+
+Before you submit a manifest, you may validate its content and structure.
+
+```bash
+curl -i -X POST -H 'Content-Type: application/json' \
+  --data @manifest.json \
+  https://e-manifest.18f.gov/api/v0/manifests/validate
+```
+
+If there is a validation error, the response status code will be 422 and the response body
+will be a JSON string containing any validation errors.
+
+If the manifest is valid, the response status code will be 200.
+
 ## Generate an Authorization Token
 
 Before you can create or modify any manifests, or search for any non-public manifests, you must
@@ -103,12 +130,12 @@ The response for both endpoints looks the same:
 <%= render 'examples/manifest_response.json' %>
 ```
 
-## Update manifest
+## Update a manifest
 
 You may update a previously submitted e-Manifest.
 
 If the manifest has previously been signed, updating it does not change what has been previously signed
-(see [Sign a manifest example](#sign-manifest)). You must re-sign the updated e-Manifest.
+(see [Sign a manifest example](#sign-a-manifest)). You must re-sign the updated e-Manifest.
 
 The update request uses the HTTP `PATCH` method. See [JSON Patch](http://tools.ietf.org/html/rfc6902) and
 [JSON Pointer](http://tools.ietf.org/html/rfc6901) for specification details.
@@ -190,9 +217,9 @@ The authorization response looks like:
 <%= render 'examples/auth_response.json' %>
 ```
 
-You will use the authorization response to [Sign your manifest](#sign-manifest).
+You will use the authorization response to [Sign your manifest](#sign-a-manifest).
 
-## Sign manifest
+## Sign a manifest
 
 To sign a manifest you must first [Generate an Authorization Token](#generate-an-authorization-token)
 
