@@ -100,6 +100,7 @@ feature 'Create manifest' do
     fill_in 'PCB description (14)', with: 'description'
 
     # International
+    page.execute_script %($('#manifest_international_shipment_true').click())
     select 'Export from U.S.', from: 'Import/Export (16)'
     fill_in 'City of Entry/Exit (16)', with: 'Anytown'
     select 'Maine', from: 'State of Entry/Exit (16)'
