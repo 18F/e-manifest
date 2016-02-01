@@ -27,7 +27,7 @@ $(document).ready(function () {
       showFields(".discrepancy");
     });
 
-    $("#manifest_international_shipment_true").click(function() {
+    $("#manifest_international_true").click(function() {
       showFields(".international");
     });
 
@@ -39,7 +39,7 @@ $(document).ready(function () {
       hideFields(".discrepancy");
     });
 
-    $("#manifest_international_shipment_false").click(function() {
+    $("#manifest_international_false").click(function() {
       hideFields(".international");
     });
 });
@@ -59,13 +59,13 @@ function addTransporter() {
   var transporter = '<div class="transporter"> ' +
     '<h4>Transporter ' + transporterNumber + '</h4> ' +
     '<label for="company_name">Company name (6)</label> ' +
-    '<input type="text" ,="" name="manifest[transporters]['+ transporterNumber +'][name]" data-number='+ transporterNumber +' id="transporter-number">' +
+    '<input type="text" ,="" name="manifest[transporters][][name]" data-number='+ transporterNumber +' id="transporter-number">' +
     '<label for="us_epa_id_number">U.S. EPA ID number (6)</label> ' +
-    '<input type="text" ,="" name="manifest[transporters]['+ transporterNumber +'][us_epa_id_number]"> ' +
+    '<input type="text" ,="" name="manifest[transporters][][us_epa_id_number]"> ' +
     '<label for="signatory_name">Name of signatory (17)</label> ' +
-    '<input type="text" ,="" name="manifest[transporters]['+ transporterNumber +'][signatory][name]"> ' +
+    '<input type="text" ,="" name="manifest[transporters][][signatory][name]"> ' +
     '<label for="signatory_date">Date of signature (17)</label>' +
-    '<input type="date" name="manifest[transporters]['+ transporterNumber +'][signatory][date]" id="date">';
+    '<input type="date" name="manifest[transporters][][signatory][date]" id="date">';
 
    $('.transporters').append(transporter);
 }
@@ -79,7 +79,6 @@ function addManifestItem() {
   var newManifest = $(".manifest-item").last();
   replaceHeaderNumber(newManifest, lastManifestItemNumber, manifestItemNumber);
   replaceDataAttr(newManifest, manifestItemNumber);
-  replaceInputNameAttrs(newManifest, lastManifestItemNumber, manifestItemNumber);
 }
 
 function replaceHeaderNumber(newManifest, lastManifestItemNumber, manifestItemNumber) {
@@ -90,15 +89,6 @@ function replaceHeaderNumber(newManifest, lastManifestItemNumber, manifestItemNu
 
 function replaceDataAttr(newManifest, manifestItemNumber) {
   newManifest.find('#manifest_items_hazardous_material').last().attr('data-number', manifestItemNumber);
-}
-
-function replaceInputNameAttrs(newManifest, lastManifestItemNumber, manifestItemNumber) {
-  var manifestItemInputs = newManifest.find('input, select');
-  $(manifestItemInputs).each(function() {
-    var name = $(this).attr('name');
-    var newName = name.replace(lastManifestItemNumber, manifestItemNumber);
-    $(this).attr('name', newName);
-  });
 }
 
 function removeItem(parentClass, childClass) {
