@@ -16,7 +16,7 @@ class CDX::UserRoles < CDX::ProfileRequest
   end
 
   def user_profile
-    @user_profile ||= CDX::UserProfile.new(opts).perform
+    @user_profile ||= CDX::UserProfile.new(opts.merge(security_token: security_token)).perform
   end
 
   def repackage_response
