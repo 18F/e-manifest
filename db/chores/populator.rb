@@ -31,11 +31,12 @@ class Populator
 
   def make_manifest_record(iteration)
     manifest = read_example_json_file_as_json('manifest')
+    user = User.find_or_create('unknown_user')
     manifest[:my_id] = iteration
     manifest["generator"]["name"] = "#{random_string()[0..8]} Generator"
     manifest["designated_facility"]["name"] = "#{random_string()[0..8]} Facility"
     manifest["generator"]["manifest_tracking_number"] = random_tracking_number
-    { content: manifest.to_json }
+    { user: user, content: manifest.to_json }
   end
 
   def random_string
