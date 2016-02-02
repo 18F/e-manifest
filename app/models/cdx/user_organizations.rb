@@ -15,7 +15,7 @@ class CDX::UserOrganizations < CDX::ProfileRequest
   end
 
   def user_profile
-    @user_profile ||= CDX::UserProfile.new(opts.merge(security_token: security_token)).perform
+    @user_profile ||= opts[:user] || CDX::UserProfile.new(opts.merge(security_token: security_token)).perform
   end
 
   def repackage_response
