@@ -30,9 +30,9 @@ class AddCdxOrgRoles < ActiveRecord::Migration
     add_index :user_org_roles, :role_id
     add_index :user_org_roles, :user_id
 
-    execute "ALTER TABLE user_org_roles ADD CONSTRAINT organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organizations (id)"
-    execute "ALTER TABLE user_org_roles ADD CONSTRAINT role_id_fkey FOREIGN KEY (role_id) REFERENCES roles (id)"
-    execute "ALTER TABLE user_org_roles ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users (id)"
+    execute "ALTER TABLE user_org_roles ADD CONSTRAINT organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organizations (id) ON DELETE CASCADE"
+    execute "ALTER TABLE user_org_roles ADD CONSTRAINT role_id_fkey FOREIGN KEY (role_id) REFERENCES roles (id) ON DELETE CASCADE"
+    execute "ALTER TABLE user_org_roles ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE"
   end
 
   def down
