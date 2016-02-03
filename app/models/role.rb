@@ -1,5 +1,7 @@
 class Role < ActiveRecord::Base
   has_many :user_org_roles
+  has_many :users, through: :user_org_roles
+  has_many :organizations, through: :user_org_roles
 
   validates :cdx_role_name, :cdx_role_code, presence: true
 
