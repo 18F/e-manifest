@@ -1,5 +1,7 @@
 class Organization < ActiveRecord::Base
   has_many :user_org_roles
+  has_many :users, through: :user_org_roles
+  has_many :roles, through: :user_org_roles
 
   validates :cdx_org_name, :cdx_org_id, presence: true
 
