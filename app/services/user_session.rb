@@ -18,10 +18,12 @@ class UserSession
     @@redis ||= Redis::Namespace.new(@@namespace.to_sym, redis: Redis.new)
   end
 
-  def self.create(user, cdx_auth_response = nil)
+  def self.create(user, cdx_response = nil)
     session = self.new(SecureRandom.uuid, user)
-    session.set(cdx_auth_response: cdx_auth_response)
-    session
+    if cdx_response && cdx_response[:description]
+      cdx_response[:last_error] = cdx_response.delete(:description)
+    end
+    session.set(cdx: cdx_response)
   end
 
   def self.flush_all
@@ -44,12 +46,24 @@ class UserSession
     end
   end
 
-  def cdx_token
-    (cdx_auth_response || {})[:token]
+  def user=user
+    @user = user
   end
 
-  def cdx_auth_response
-    get_attr(:cdx_auth_response)
+  def user_name
+    if cdx[:FirstName] && cdx[:LastName]
+      "#{cdx[:FirstName]} #{cdx[:LastName]}"
+    else
+      user.cdx_user_id
+    end
+  end
+
+  def cdx_token
+    cdx[:token]
+  end
+
+  def cdx
+    get_attr(:cdx) || {}
   end
 
   def cdx_roles
@@ -59,10 +73,20 @@ class UserSession
   def set(attrs)
     @session.merge!(attrs)
     write_session
+    self
   end
 
   def get(attr_name)
     get_attr(attr_name)
+  end
+
+  def merge_cdx(more_cdx)
+    if more_cdx[:description]
+      more_cdx[:last_error] = more_cdx.delete(:description)
+    end
+    @session[:cdx] = cdx.merge(more_cdx)
+    write_session
+    self
   end
 
   def touch
@@ -79,6 +103,19 @@ class UserSession
 
   def updated_at
     Time.parse(get(:updated_at).to_s)
+  end
+
+  def signature_response
+    if cdx[:token]
+      {
+        token: @token,
+        activity_id: cdx[:activity_id],
+        question: cdx[:question],
+        user_id: cdx[:user_id]
+      }
+    else
+      { description: cdx[:last_error] }
+    end
   end
 
   private
@@ -104,6 +141,9 @@ class UserSession
 
   def write_session
     @session[:updated_at] = Time.current
+    if @user
+      @session[:id] = @user.id  
+    end
     redis.set(@token, @session.to_json)
     redis.expire(@token, @@ttl)
   end
@@ -116,9 +156,6 @@ class UserSession
 
   def create_payload
     payload = { created_at: Time.current, updated_at: Time.current }
-    if @user
-      payload[:id] = @user.id  
-    end
     payload
   end
 end

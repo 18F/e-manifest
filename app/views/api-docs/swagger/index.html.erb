@@ -1,4 +1,14 @@
 <div class="swagger-section usa-width-one-whole">
-  This page is an interactive reference to the API. You can also read <%= link_to 'API examples', '/api-examples' %>.
+  <div>
+   This page is an interactive reference to the API. You can also read <%= link_to 'API examples', '/api-examples' %>.
+  </div>
+
+  <% unless current_user %>
+   <div>
+    <strong>NOTE:</strong> many API methods will not work unless you first
+    <%= link_to "Sign in", login_path(back: request.original_url) %>.
+   </div>
+  <% end %>
+
   <%= render 'swagger_ui/swagger_ui', discovery_url: 'swagger.json' %>
 </div>

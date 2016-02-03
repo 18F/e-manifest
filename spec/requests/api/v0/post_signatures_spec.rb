@@ -55,18 +55,18 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
   end
 
   context 'sign failure' do
-    context 'bad tken sent with request' do
+    context 'bad token sent with request' do
       it 'returns a helpful error message' do
         VCR.use_cassette('user_auth_failure') do
           manifest = create(:manifest)
 
           post "/api/v0/manifests/#{manifest.tracking_number}/signature",
-            { token: 'fakeToken' }.to_json
+            { token: 'fakeToken' }.to_json,
             set_headers
 
-            manifest.reload
-            expect(response.status).to eq 422
-            expect(manifest.signed_at).to eq nil
+          manifest.reload
+          expect(response.status).to eq 422
+          expect(manifest.signed_at).to eq nil
         end
       end
     end

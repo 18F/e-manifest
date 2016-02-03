@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :current_user
+  helper_method :current_user, :user_session
 
   after_action :extend_session
 
@@ -34,12 +34,22 @@ class ApplicationController < ActionController::Base
   def user_session
     if session[:user_session_id]
       UserSession.new(session[:user_session_id])
-    elsif params[:token]
+    elsif authorization_token?
+      UserSession.new(authorization_token)
+    elsif params[:token] && params[:token].is_a?(String)
       UserSession.new(params[:token])
     end
   end
 
   def authenticated?
     current_user.present?
+  end
+
+  def authorization_token?
+    request.headers['Authorization'] && request.headers['Authorization'].match(/^Bearer (\S+)/i)
+  end
+
+  def authorization_token
+    request.headers['Authorization'].match(/^Bearer (\S+)/i)[1]
   end
 end

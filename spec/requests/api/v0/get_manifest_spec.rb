@@ -7,8 +7,7 @@ describe 'GET Manifest' do
         user_session = mock_authenticated_session
         manifest = create(:manifest, activity_id: 1, document_id: 2, user: user_session.user)
 
-        get "/api/v0/manifests/#{manifest.uuid}",
-          set_headers
+        get "/api/v0/manifests/#{manifest.uuid}", nil, set_headers
 
         expect(response.status).to eq(200)
         expect(response).to match_response_schema("get-manifest")
@@ -18,16 +17,14 @@ describe 'GET Manifest' do
         user_session = mock_authenticated_session
         manifest = create(:manifest, activity_id: 1, document_id: 2, user: user_session.user)
 
-        get "/api/v0/manifests/#{manifest.tracking_number}",
-          set_headers
+        get "/api/v0/manifests/#{manifest.tracking_number}", nil, set_headers
 
         expect(response.status).to eq(200)
         expect(response).to match_response_schema("get-manifest")
       end
 
       it 'sends a 404 when the manifest cannot be found' do
-        get "/api/v0/manifests/9940010140808v9019",
-          set_headers
+        get "/api/v0/manifests/9940010140808v9019", nil, set_headers
 
         expect(response.status).to eq(404)
       end
@@ -37,8 +34,7 @@ describe 'GET Manifest' do
       it 'allows anyone to view public manifest' do
         manifest = create(:manifest, created_at: 100.days.ago)
 
-        get "/api/v0/manifests/#{manifest.uuid}",
-          set_headers
+        get "/api/v0/manifests/#{manifest.uuid}", nil, set_headers
 
         expect(response.status).to eq(200)
       end
@@ -47,8 +43,7 @@ describe 'GET Manifest' do
         user_session = mock_authenticated_session
         manifest = create(:manifest, user: user_session.user)
 
-        get "/api/v0/manifests/#{manifest.uuid}",
-          set_headers
+        get "/api/v0/manifests/#{manifest.uuid}", nil, set_headers
 
         expect(response.status).to eq(200)
       end
@@ -56,8 +51,7 @@ describe 'GET Manifest' do
       it 'disallows anon user from seeing private manifest' do
         manifest = create(:manifest)
 
-        get "/api/v0/manifests/#{manifest.uuid}",
-          set_headers
+        get "/api/v0/manifests/#{manifest.uuid}", nil, set_headers
 
         expect(response.status).to eq(403)
       end
@@ -68,8 +62,7 @@ describe 'GET Manifest' do
 
         diff_user_session = mock_authenticated_session
 
-        get "/api/v0/manifests/#{manifest.uuid}",
-          set_headers
+        get "/api/v0/manifests/#{manifest.uuid}", nil, set_headers
 
         expect(response.status).to eq(403)
       end

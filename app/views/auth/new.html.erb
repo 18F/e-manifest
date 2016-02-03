@@ -3,6 +3,7 @@
   <%= simple_form_for :token, url: login_path, method: :post do |form| %>
     <%= form.input :user_id, label: 'Username' %>
     <%= form.input :password, label: 'Password' %>
+    <%= form.hidden_field :back, value: params[:back] %>
     <%= form.submit 'Login' %>
   <% end %>
 

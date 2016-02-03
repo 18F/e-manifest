@@ -24,6 +24,12 @@ class CDX::User < CDX::LoggedRequest
     end
   end
 
+  def redacted_opts
+    ropts = opts.dup
+    ropts[:password] = :filtered
+    ropts
+  end
+
   def repackage_response
     {
       UserId: user_data[:user_id],

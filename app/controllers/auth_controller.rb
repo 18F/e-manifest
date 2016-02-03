@@ -40,7 +40,13 @@ class AuthController < ApplicationController
     else
       session[:user_session_id] = user_session.token
       flash[:notice] = 'Success!'
-      redirect_to params[:back] || session[:back] || root_path
+      previous_url = fetch_previous_url
+      session.delete(:back)
+      redirect_to previous_url
     end
+  end
+
+  def fetch_previous_url
+    params[:back] || params[:token][:back] || session[:back] || root_path
   end
 end

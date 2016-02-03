@@ -15,10 +15,18 @@ describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
     end
 
     it do
-      expect(subject).to validate(:get, '/manifests/{id}', 200, params)
+      expect(subject).to validate(
+        :post, '/tokens', 200, {
+            '_query_string' => 'authenticate=1',
+            '_data' => { token: {user_id: 'foo', password: 'bar' } }.to_json
+          }.merge(header_params)
+      )
     end
     it do
-      expect(subject).to validate(:get, '/manifests/{id}', 404, unknown_manifest_params)
+      expect(subject).to validate(:get, '/manifests/{id}', 200, params.merge(header_params))
+    end
+    it do
+      expect(subject).to validate(:get, '/manifests/{id}', 404, unknown_manifest_params.merge(header_params))
     end
     it do
       expect(subject).to validate(
@@ -44,12 +52,12 @@ describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
     end
     it do
       expect(subject).to validate(
-        :get, '/manifests/search', 200, { '_query_string' => 'q=test' }
+        :get, '/manifests/search', 200, { '_query_string' => 'q=test' }.merge(header_params)
       )
     end
     it do
       expect(subject).to validate(
-        :get, '/manifests/search', 400, {}
+        :get, '/manifests/search', 400, {}.merge(header_params)
       )
     end
     it do
@@ -63,7 +71,7 @@ describe 'Swagger docs', type: :apivore, order: :defined, elasticsearch: true do
       )
     end
     it do
-      expect(subject).to validate(:get, '/method_codes', 200)
+      expect(subject).to validate(:get, '/method_codes', 200, header_params)
     end
   end
 

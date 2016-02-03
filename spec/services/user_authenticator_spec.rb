@@ -12,7 +12,7 @@ describe UserAuthenticator do
       mock_user_authenticator_pass
       authenticator = UserAuthenticator.new(user_id: 'user', password: 'pass')
       authenticator.authenticate
-      expect(authenticator.cdx_response[:token]).to_not be_nil
+      expect(authenticator.session.cdx).to_not be_nil
     end
 
     it '#error_message' do
@@ -32,6 +32,16 @@ describe UserAuthenticator do
       expect {
         UserAuthenticator.new(user_id: 'foo')
       }.to raise_error ArgumentError
+    end
+  end
+
+  describe 'user session' do
+    it 'merges new cdx response with existing session' do
+      user_session = mock_user_authenticator_pass
+      authenticator = UserAuthenticator.new({user_id: 'user', password: 'pass'}, user_session)
+      expect(authenticator.authorize_signature).to be_a UserSession
+      expect(authenticator.authorize_signature.token).to eq user_session.token
+      expect(authenticator.authorize_signature.cdx_token).to_not be_nil
     end
   end
 end

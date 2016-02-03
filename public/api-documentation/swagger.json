@@ -10,6 +10,48 @@
         "application/json"
     ],
     "paths": {
+        "/tokens": {
+            "post": {
+                "summary": "Authenticate a user",
+                "description": "Authenticates a user with CDX's CROMERR services for signing a manifest. Values in the response are needed to sign the manifest.",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Credentials"
+                        }
+                    },
+                    {
+                        "name": "authenticate",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "authentication"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful authentication",
+                        "schema": {
+                            "$ref": "#/definitions/Authentication"
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication failed",
+                        "schema": {
+                            "$ref": "#/definitions/FailedAction"
+                        }
+                    }
+                }
+            }
+        },
         "/manifests": {
             "post": {
                 "summary": "Submit new manifest",
@@ -192,8 +234,7 @@
                     }
                 ],
                 "tags": [
-                    "manifests",
-                    "signatures"
+                    "manifests"
                 ],
                 "responses": {
                     "200": {
@@ -201,39 +242,6 @@
                         "schema": {
                             "$ref": "#/definitions/Document"
                         }
-                    }
-                }
-            }
-        },
-        "/tokens": {
-            "post": {
-                "summary": "Authenticate a user",
-                "description": "Authenticates a user with CDX's CROMERR services for signing a manifest. Values in the response are needed to sign the manifest.",
-                "parameters": [
-                    {
-                        "name": "credentials",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/Credentials"
-                        }
-                    }
-                ],
-                "tags": [
-                    "signatures"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful authentication",
-                        "schema": {
-                            "$ref": "#/definitions/Authentication"
-                        }
-                    },
-                    "401": {
-                        "description": "Authentication failed"
                     }
                 }
             }
@@ -286,6 +294,14 @@
             }
         },
         "Credentials": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "$ref": "#/definitions/Token"
+                }
+            }
+        },
+        "Token": {
             "type": "object",
             "properties": {
                 "user_id": {
