@@ -389,7 +389,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 --
 
 ALTER TABLE ONLY user_org_roles
-    ADD CONSTRAINT organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organizations(id);
+    ADD CONSTRAINT organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
 
 
 --
@@ -397,7 +397,7 @@ ALTER TABLE ONLY user_org_roles
 --
 
 ALTER TABLE ONLY user_org_roles
-    ADD CONSTRAINT role_id_fkey FOREIGN KEY (role_id) REFERENCES roles(id);
+    ADD CONSTRAINT role_id_fkey FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE;
 
 
 --
@@ -413,7 +413,7 @@ ALTER TABLE ONLY manifests
 --
 
 ALTER TABLE ONLY user_org_roles
-    ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
