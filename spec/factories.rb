@@ -33,4 +33,22 @@ FactoryGirl.define do
   factory :user do
     cdx_user_id { SecureRandom.hex()[0..15] }
   end
+
+  factory :organization do
+    cdx_org_name 'some org'
+    cdx_org_id '12345'
+  end
+
+  factory :role do
+    cdx_role_name 'some role'
+    cdx_role_code '12345'
+  end
+
+  factory :user_org_role do
+    association :user, factory: :user
+    association :organization, factory: :organization
+    association :role, factory: :role
+    cdx_user_role_id '12345'
+    cdx_status 'Active'
+  end
 end
