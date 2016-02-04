@@ -15,19 +15,23 @@ class UserProfileSyncer
 
   def sync_cdx_with_local
     User.transaction do
-      add_missing_roles
+      add_or_update_roles
       delete_stale_roles
     end
   end
 
-  def add_missing_roles
+  def add_or_update_roles
     profile[:organizations].each do |org_name, cdx_org|
-      cdx_org[:roles].each do |role_name, cdx_role|
-        if !user.has_role_for_org?(org_name, role_name)
-          add_org_role_to_user(cdx_org[:org], cdx_role)
-        elsif user.org_role_status_for(org_name, role_name) != cdx_role[:status][:code]
-          update_org_role_status(org_name, role_name, cdx_role[:status][:code])
-        end
+      sync_roles_for_org(org_name, cdx_org)
+    end
+  end
+
+  def sync_roles_for_org(org_name, cdx_org)
+    cdx_org[:roles].each do |role_name, cdx_role|
+      if !user.has_role_for_org?(org_name, role_name)
+        add_org_role_to_user(cdx_org[:org], cdx_role)
+      elsif user.org_role_status_for(org_name, role_name) != cdx_role[:status][:code]
+        update_org_role_status(org_name, role_name, cdx_role[:status][:code])
       end
     end
   end
