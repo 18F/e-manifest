@@ -15,10 +15,6 @@ class CDX::UserRoles < CDX::ProfileRequest
     )
   end
 
-  def user_profile
-    @user_profile ||= opts[:user] || CDX::UserProfile.new(opts.merge(security_token: security_token)).perform
-  end
-
   def repackage_response
     roles_data.is_a?(Array) ? roles_data : [roles_data]
   end 
