@@ -8,14 +8,29 @@ class UserProfileBuilder
 
   def run
     profile = { organizations: {} }
-    user_profile = CDX::UserProfile.new(user_id: user.cdx_user_id)
-    profile[:user] = user_profile.perform
-    organizations = CDX::UserOrganizations.new(
+    cdx_user_profile = build_user_profile
+    profile[:user] = cdx_user_profile.perform
+    organizations = fetch_organizations(profile[:user], cdx_user_profile.security_token)
+    populate_roles(organizations, profile, cdx_user_profile.security_token)
+    profile
+  end
+
+  private
+
+  def build_user_profile
+    CDX::UserProfile.new(user_id: user.cdx_user_id)
+  end
+
+  def fetch_organizations(user_profile, security_token)
+    CDX::UserOrganizations.new(
       user_id: user.cdx_user_id,
       dataflow: dataflow,
-      user: profile[:user],
-      security_token: user_profile.security_token
+      user: user_profile,
+      security_token: security_token
     ).perform
+  end
+
+  def populate_roles(organizations, profile, security_token)
     organizations.each do |org|
       profile[:organizations][org[:organization_name]] = { org: org, roles: {} }
       roles = CDX::UserRoles.new(
@@ -23,12 +38,11 @@ class UserProfileBuilder
         dataflow: dataflow,
         organization: org,
         user: profile[:user],
-        security_token: user_profile.security_token
+        security_token: security_token
       ).perform
       roles.each do |role|
         profile[:organizations][org[:organization_name]][:roles][role[:type][:description]] = role
       end
     end
-    profile
   end
 end
