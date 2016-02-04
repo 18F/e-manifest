@@ -14,10 +14,6 @@ class CDX::UserOrganizations < CDX::ProfileRequest
     )   
   end
 
-  def user_profile
-    @user_profile ||= opts[:user] || CDX::UserProfile.new(opts.merge(security_token: security_token)).perform
-  end
-
   def repackage_response
     orgs_data.is_a?(Array) ? orgs_data : [orgs_data]
   end 
