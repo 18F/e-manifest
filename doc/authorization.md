@@ -2,7 +2,7 @@
 
 ## Overview
 
-[CDX](https://devngn.epacdxnode.net/) provides User authentication and authorization 
+The [CDX development environment](https://devngn.epacdxnode.net/) provides User authentication and authorization 
 services. The e-Manifest application delegates all storage and management to CDX,
 and communicates with the CDX SOAP API via the `CDX::*` model classes.
 For efficiency, the e-Manifest application caches some CDX data locally
@@ -25,6 +25,6 @@ share a single UserSession object.
 Authorization is performed via the [Pundit gem](https://github.com/elabs/pundit).
 CDX User, Organization and Role profile information is cached locally in Postgres
 via the `UserProfileBuilder` and `UserProfileSyncer` classes. Postgres is used
-to persist authorization profiles beyond the short lifespan of a `UserSession`,
-because authorization roles must be included in the Elasticsearch indices, which
+to persist authorization profiles beyond the short lifespan of a `UserSession`
+because authorization roles must be included in the Elasticsearch indices which
 may be re-built asynchronously to any given user session.

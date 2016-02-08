@@ -6,31 +6,30 @@
 [![Code
 Climate](https://codeclimate.com/github/18F/e-manifest/badges/gpa.svg)](https://codeclimate.com/github/18F/e-manifest)
 
+
 ## Application architecture
 
-This is a Rails application with a Postgres database. The app contains both API
+This is a Rails application with a Postgres database containing both API
 endpoints and web views. The API is a JSON REST API. The web app and the API
 use the same database.
 
-Elasticsearch is used to search for manifest records. Elasticsearch offloads
-read-access from the database and provides full-text search that can be painful
-to apply directly to a database
+We use Elasticsearch to search for manifest records. Elasticsearch offloads
+read-access from the database and provides full-text search capabilities painful
+to apply directly to a database.
 
-Redis is being used for Sidekiq job processing. The Redis + Sidekiq solution
+Redis is used for Sidekiq job processing. The Redis + Sidekiq solution
 offloads the database/Elasticsearch syncing to an async process.
 
 ## Developer onboarding
 
-Here are some tips and resources for getting started on this project. Note that
-not all of these resources are available to people outside of the EPA / 18F for
-security reasons.
+Here are some tips and resources for getting started on this project. Note not all resources are available to people outside of the EPA / 18F for security reasons.
 
 * Join the `#c-epa-emanifest` and `#e-manifest-partners` channels in the 18F
   Slack organization.
 * Ask in Slack for the Vendor Onboarding document for background on the problem space.
 * Read the [project
   brief](https://docs.google.com/document/d/1v_rRaV5euxmBdH8D_Huo37kN3Yu76sNn2TXVJJB4v40/edit).
-* Make sure you've been added to the [Trello
+* Make sure you're added to the [Trello
   board](https://trello.com/b/0geMlbgF/epa-emanifest).
 * Set up the app using the instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
 
