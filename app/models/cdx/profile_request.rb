@@ -4,10 +4,14 @@ class CDX::ProfileRequest < CDX::LoggedRequest
   end
 
   def user_profile
-    @user_profile ||= opts[:user] || CDX::UserProfile.new(opts.merge(security_token: security_token)).perform
+    @user_profile ||= opts[:user] || perform_user_profile
   end
 
   private
+
+  def perform_user_profile
+    CDX::UserProfile.new(opts.merge(security_token: security_token), output_stream).perform
+  end
 
   def client
     CDX::Client::Authz
