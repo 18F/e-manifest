@@ -115,8 +115,7 @@ located in the root with the following form:
 In addition to these API keys, you need the username, password, and security question answers in order to sign in via the web UI. These can also be obtained via team members.
 
 The `CDX_LOG` and `CDX_COLOR` environment variables control the verbosity and style of the CDX
-model logging. Currently the `CDX_LOG` variable must be set to `true` when running the rspec test suite,
-and therefore is explicitly set in the `.env.test` file.
+model logging.
 
 See also the [Authentication and Authorization architecture documentation](doc/authorization.md).
 
