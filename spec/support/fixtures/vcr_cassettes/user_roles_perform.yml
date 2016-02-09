@@ -1,0 +1,283 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId><CDX_USERNAME></userId><credential><CDX_PASSWORD></credential><domain>default</domain><authenticationMethod>password</authenticationMethod></tns:Authenticate></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"Authenticate"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '496'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 08 Feb 2016 21:34:46 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - multipart/related; type="application/xop+xml"; boundary="uuid:da3874d3-3183-4220-bd7d-d9808a04ed45";
+        start="<root.message@cxf.apache.org>"; start-info="application/soap+xml"
+      Content-Length:
+      - '731'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: "--uuid:da3874d3-3183-4220-bd7d-d9808a04ed45\r\nContent-Type: application/xop+xml;
+        charset=UTF-8; type=\"application/soap+xml\";\r\nContent-Transfer-Encoding:
+        binary\r\nContent-ID: <root.message@cxf.apache.org>\r\n\r\n<soap:Envelope
+        xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\"><soap:Body><ns2:AuthenticateResponse
+        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.XR2D_NBB_nNyjL--uLLM7A,,.</securityToken></ns2:AuthenticateResponse></soap:Body></soap:Envelope>\r\n--uuid:da3874d3-3183-4220-bd7d-d9808a04ed45--"
+    http_version: 
+  recorded_at: Mon, 08 Feb 2016 21:34:46 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:RetrieveUser><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.XR2D_NBB_nNyjL--uLLM7A,,.</securityToken><userId>e-manifest-dev</userId></tns:RetrieveUser></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"RetrieveUser"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '621'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 08 Feb 2016 21:34:46 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '739'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:RetrieveUserResponse
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/1"><User><firstName>Test</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-02-02T16:13:41-05:00</lastLogin><lastName>Tester</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-09-30T14:35:53-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>E-MANIFEST-DEV</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></User></ns2:RetrieveUserResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Mon, 08 Feb 2016 21:34:47 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:RetrieveOrganizationsByDataflow><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.XR2D_NBB_nNyjL--uLLM7A,,.</securityToken><user><firstName>Test</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-02-02T16:13:41-05:00</lastLogin><lastName>Tester</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-09-30T14:35:53-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>E-MANIFEST-DEV</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></user><dataflow>eManifest</dataflow></tns:RetrieveOrganizationsByDataflow></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"RetrieveOrganizationsByDataflow"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '1178'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 08 Feb 2016 21:34:46 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '792'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:RetrieveOrganizationsByDataflowResponse
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/1"><Organization><cdxEsaStatus>Received</cdxEsaStatus><city>WASHINGTON</city><country><code>US</code><name>UNITED
+        STATES</name></country><email>emanifest@epa.gov</email><mailingAddress1>1200
+        PENN AVE</mailingAddress1><organizationId>15404</organizationId><organizationName>EPA
+        2</organizationName><phone>7033080022</phone><primaryOrg>true</primaryOrg><state><code>DC</code><countryCode>US</countryCode><name>District
+        of Columbia</name><region>3</region></state><userOrganizationId>86328</userOrganizationId><zip>20460</zip></Organization></ns2:RetrieveOrganizationsByDataflowResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Mon, 08 Feb 2016 21:34:47 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId><CDX_USERNAME></userId><credential><CDX_PASSWORD></credential><domain>default</domain><authenticationMethod>password</authenticationMethod></tns:Authenticate></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"Authenticate"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '496'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 08 Feb 2016 21:34:46 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - multipart/related; type="application/xop+xml"; boundary="uuid:846da73c-d60a-4569-a804-775a4fcc3e8d";
+        start="<root.message@cxf.apache.org>"; start-info="application/soap+xml"
+      Content-Length:
+      - '731'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: "--uuid:846da73c-d60a-4569-a804-775a4fcc3e8d\r\nContent-Type: application/xop+xml;
+        charset=UTF-8; type=\"application/soap+xml\";\r\nContent-Transfer-Encoding:
+        binary\r\nContent-ID: <root.message@cxf.apache.org>\r\n\r\n<soap:Envelope
+        xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\"><soap:Body><ns2:AuthenticateResponse
+        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.XR2D_NBB_nP-tDTC3r1NsQ,,.</securityToken></ns2:AuthenticateResponse></soap:Body></soap:Envelope>\r\n--uuid:846da73c-d60a-4569-a804-775a4fcc3e8d--"
+    http_version: 
+  recorded_at: Mon, 08 Feb 2016 21:34:47 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:RetrieveUser><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.XR2D_NBB_nP-tDTC3r1NsQ,,.</securityToken><userId>e-manifest-dev</userId></tns:RetrieveUser></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"RetrieveUser"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '621'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 08 Feb 2016 21:34:46 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '739'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:RetrieveUserResponse
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/1"><User><firstName>Test</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-02-02T16:13:41-05:00</lastLogin><lastName>Tester</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-09-30T14:35:53-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>E-MANIFEST-DEV</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></User></ns2:RetrieveUserResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Mon, 08 Feb 2016 21:34:47 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:RetrieveRolesForDataflow><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.XR2D_NBB_nP-tDTC3r1NsQ,,.</securityToken><user><firstName>Test</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-02-02T16:13:41-05:00</lastLogin><lastName>Tester</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-09-30T14:35:53-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>E-MANIFEST-DEV</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></user><organzation><cdxEsaStatus>Received</cdxEsaStatus><city>WASHINGTON</city><country><code>US</code><name>UNITED
+        STATES</name></country><email>emanifest@epa.gov</email><mailingAddress1>1200
+        PENN AVE</mailingAddress1><organizationId>15404</organizationId><organizationName>EPA
+        2</organizationName><phone>7033080022</phone><primaryOrg>true</primaryOrg><state><code>DC</code><countryCode>US</countryCode><name>District
+        of Columbia</name><region>3</region></state><userOrganizationId>86328</userOrganizationId><zip>20460</zip></organzation><dataflow>eManifest</dataflow></tns:RetrieveRolesForDataflow></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"RetrieveRolesForDataflow"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '1697'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 08 Feb 2016 21:34:48 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '502'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:RetrieveRolesForDataflowResponse
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/1"><Role><dataflow>eManifest</dataflow><status><code>Active</code><description>Active</description></status><subject>EPA123456789</subject><type><code>112090</code><description>TSDF</description><status>Active</status></type><userRoleId>87638</userRoleId></Role></ns2:RetrieveRolesForDataflowResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Mon, 08 Feb 2016 21:34:48 GMT
+recorded_with: VCR 3.0.1
