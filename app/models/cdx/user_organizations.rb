@@ -15,7 +15,7 @@ class CDX::UserOrganizations < CDX::ProfileRequest
   end
 
   def repackage_response
-    orgs_data.is_a?(Array) ? orgs_data : [orgs_data]
+    lower_camelize(orgs_data.is_a?(Array) ? orgs_data : [orgs_data])
   end 
 
   def orgs_data

@@ -14,7 +14,7 @@ class CDX::UserProfile < CDX::ProfileRequest
   end
 
   def repackage_response
-    user_data
+    lower_camelize(user_data)
   end
 
   def user_data

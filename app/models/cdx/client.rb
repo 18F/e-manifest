@@ -16,7 +16,7 @@ class CDX::Client
       pretty_print_xml: true,
       log: (ENV['CDX_LOG'].present? ? ENV['CDX_LOG'].to_bool : false),
       soap_version: 2,
-      convert_request_keys_to: :lower_camelcase
+      convert_request_keys_to: :none
     }
   end
 
