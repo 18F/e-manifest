@@ -9,6 +9,7 @@ applications:
   - e-manifest-db
   env:
     RAILS_ENV: production
+    EMANIFEST_ENV: production
     DEFAULT_URL_HOST: e-manifest.18f.gov
 - name: e-manifest-dev
   domain: 18f.gov
@@ -18,4 +19,5 @@ applications:
   - e-manifest-dev-db
   env:
     RAILS_ENV: production
+    EMANIFEST_ENV: development
     DEFAULT_URL_HOST: e-manifest-dev.18f.gov
