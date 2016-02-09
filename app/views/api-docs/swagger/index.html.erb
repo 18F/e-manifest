@@ -11,4 +11,10 @@
   <% end %>
 
   <%= render 'swagger_ui/swagger_ui', discovery_url: 'swagger.json' %>
+
+  <% if current_user %>
+    <script type="text/javascript">
+      window.authorizations.add("key", new ApiKeyAuthorization("Authorization", "Bearer <%= user_session.token %>", "header"));
+    </script>
+  <% end %>
 </div>
