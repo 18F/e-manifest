@@ -6,7 +6,7 @@ describe 'CDX::UserOrganizations' do
       opts = { user_id: 'e-manifest-dev', dataflow: 'eManifest' }
       orgs = CDX::UserOrganizations.new(opts, stream_logger)
       response = orgs.perform
-      expect(response[0][:organization_name]).to eq('EPA 2')
+      expect(response[0][:organizationName]).to eq('EPA 2')
     end
   end
 end

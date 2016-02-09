@@ -16,7 +16,7 @@ class CDX::UserRoles < CDX::ProfileRequest
   end
 
   def repackage_response
-    roles_data.is_a?(Array) ? roles_data : [roles_data]
+    lower_camelize(roles_data.is_a?(Array) ? roles_data : [roles_data])
   end 
 
   def roles_data
