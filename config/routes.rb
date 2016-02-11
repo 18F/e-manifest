@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'login', to: 'auth#new'
   post 'login', to: 'auth#login'
   get 'logout', to: 'auth#logout'
+  get 'profile', to: 'auth#profile'
 
   get 'api-examples', to: 'api_documentation#examples'
   get 'api-diagnostics', to: 'api_documentation#diagnostics'
