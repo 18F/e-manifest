@@ -29,6 +29,16 @@ describe 'Auth' do
     end
   end
 
+  describe 'profile' do
+    it 'shows orgs + roles' do
+      user_session = mock_authenticated_session
+      user_org_role = create(:user_org_role, user: user_session.user, cdx_status: 'foo')
+      get "/profile"
+      expect(response.body).to include('foo')
+      expect(response.body).to include(user_session.user_name)
+    end
+  end
+
   describe 'logout' do
     it 'clears session' do
       user_session = mock_user_authenticator_pass
