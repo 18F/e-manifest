@@ -1,10 +1,10 @@
 class CDX::Client
   attr_reader :savon
 
-  CDX_BASE_URL = ENV['CDX_BASE_URL'] || "https://devngn.epacdxnode.net"
-  CDX_SIGN_SERVICE_URL = ENV['CDX_SIGN_SERVICE_URL'] || "#{CDX_BASE_URL}/cdx-register/services/RegisterSignService?wsdl"
-  CDX_AUTH_SERVICE_URL = ENV['CDX_AUTH_SERVICE_URL'] || "#{CDX_BASE_URL}/cdx-register/services/RegisterAuthService?wsdl"
-  CDX_AUTHZ_SERVICE_URL = ENV['CDX_AUTHZ_SERVICE_URL'] || "#{CDX_BASE_URL}/cdx-register/services/RegisterService?wsdl"
+  CDX_BASE_URL = ENV['CDX_BASE_URL'] || "https://devngn.epacdxnode.net/cdx-register/services"
+  CDX_SIGN_SERVICE_URL = ENV['CDX_SIGN_SERVICE_URL'] || "#{CDX_BASE_URL}/RegisterSignService?wsdl"
+  CDX_AUTH_SERVICE_URL = ENV['CDX_AUTH_SERVICE_URL'] || "#{CDX_BASE_URL}/RegisterAuthService?wsdl"
+  CDX_AUTHZ_SERVICE_URL = ENV['CDX_AUTHZ_SERVICE_URL'] || "#{CDX_BASE_URL}/RegisterService?wsdl"
 
   def initialize(opts={})
     @savon = Savon.client(default_opts.merge(opts))
