@@ -32,7 +32,7 @@ class UserProfileBuilder
 
   def populate_roles(organizations, profile, security_token)
     organizations.each do |org|
-      profile[:organizations][org[:organization_name]] = { org: org, roles: {} }
+      profile[:organizations][org[:organizationName]] = { org: org, roles: {} }
       roles = CDX::UserRoles.new(
         user_id: user.cdx_user_id,
         dataflow: dataflow,
@@ -41,7 +41,7 @@ class UserProfileBuilder
         security_token: security_token
       ).perform
       roles.each do |role|
-        profile[:organizations][org[:organization_name]][:roles][role[:type][:description]] = role
+        profile[:organizations][org[:organizationName]][:roles][role[:type][:description]] = role
       end
     end
   end

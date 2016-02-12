@@ -30,6 +30,9 @@ class AuthController < ApplicationController
     end
   end
 
+  def profile
+  end
+
   private
 
   def authenticate
