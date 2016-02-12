@@ -50,7 +50,7 @@ class UserProfileSyncer
     org = Organization.from_cdx(cdx_org)
     role = Role.from_cdx(cdx_role)
     user_org_role = UserOrgRole.new(organization: org, role: role)
-    user_org_role.cdx_user_role_id = cdx_role[:user_role_id]
+    user_org_role.cdx_user_role_id = cdx_role[:userRoleId]
     user_org_role.cdx_status = cdx_role[:status][:code]
     user.user_org_roles << user_org_role
   end

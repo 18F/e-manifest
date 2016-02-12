@@ -9,7 +9,7 @@ describe Organization do
 
   describe '#from_cdx' do
     it 'parsed CDX response' do
-      cdx_org = { organization_name: 'foo', organization_id: '123' }
+      cdx_org = { organizationName: 'foo', organizationId: '123' }
       organization = Organization.from_cdx(cdx_org)
       expect(organization).to be_a(Organization)
       expect(organization.cdx_org_name).to eq('foo')

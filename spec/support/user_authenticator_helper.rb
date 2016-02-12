@@ -25,4 +25,45 @@ module UserAuthenticatorHelper
     allow_any_instance_of(UserAuthenticator).to receive(:authorize_signature).and_return(nil)
     allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Bad user_id or password')
   end
+
+  def mock_cdx_user_profile
+    {
+      organizations: {
+        "EPA 2" => {
+          org: {
+            organizationId: "15404",
+            organizationName: "EPA 2",
+            primaryOrg: true,
+            userOrganizationId: "86328",
+          },
+          roles: {
+            "TSDF" => {
+              dataflow: "eManifest",
+              status: {
+                code: "Active",
+                description: "Active"
+              },
+              type: {
+                code: "112090",
+                description: "TSDF",
+                status: "Active"
+              },
+              userRoleId: "87638"
+            }
+          }
+        }
+      },
+      user: {
+        firstName: "Test",
+        lastName: "Tester",
+        status: "Valid",
+        userId: "some_user",
+      }
+    }
+  end
+
+  def mock_cdx_profiles
+    allow(UserProfileWorker).to receive(:perform_async).and_return(true)
+    allow_any_instance_of(UserProfileBuilder).to receive(:run).and_return(mock_cdx_user_profile)
+  end
 end

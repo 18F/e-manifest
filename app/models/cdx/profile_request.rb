@@ -24,6 +24,8 @@ class CDX::ProfileRequest < CDX::LoggedRequest
       thing.each do |subthing|
         lower_camelize(subthing)
       end
+    elsif thing.nil?
+      # no-op
     else
       fail "Unsupported object: #{thing.pretty_inspect}"
     end

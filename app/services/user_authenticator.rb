@@ -57,12 +57,15 @@ class UserAuthenticator
       nil
     else
       user = User.find_or_create(user_id)
-      UserSession.create(user, cdx_response)
+      session = UserSession.create(user, cdx_response)
+      UserProfileWorker.perform_async(user.id)
+      session
     end
   end
 
   def merge_session(cdx_response)
     @session.user = User.find_or_create(user_id)
+    UserProfileWorker.perform_async(@session.user.id)
     @session.merge_cdx(cdx_response)
   end
 end
