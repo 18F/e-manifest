@@ -1,5 +1,5 @@
 ---
-memory: 1536MB
+memory: 1024MB
 env:
   RAILS_ENV: production
 services:
