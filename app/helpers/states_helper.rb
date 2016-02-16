@@ -55,4 +55,56 @@ module StatesHelper
       ['Wyoming', 'WY']
     ]
   end
+
+  def canadian_provinces
+    [
+      ['Ontario', 'ON'],
+      ['Quebec', 'QC'],
+      ['Nova Scotia', 'NS'],
+      ['New Brunswick', 'NB'],
+      ['Manitoba', 'MB'],
+      ['British Columbia', 'BC'],
+      ['Prince Edward Island', 'PE'],
+      ['Saskatchewan', 'SK'],
+      ['Alberta', 'AB'],
+      ['Newfoundland and Labrador', 'NL']
+    ]
+  end
+
+  def mexican_states
+    [
+      ['Aguascalientes', 'MX - AG'],
+      ['Baja California', 'MX - BN'],
+      ['Baja California Sur', 'MX - BS'],
+      ['Campeche', 'MX - CM'],
+      ['Chiapas', 'MX - CP'],
+      ['Chihauhua', 'MX - CH'],
+      ['Coahuila', 'MX - CA'],
+      ['Colima', 'MX - CL'],
+      ['Federal District', 'MX - DF'],
+      ['Durango', 'MX - DU'],
+      ['Guanajuato', 'MX - GT'],
+      ['Guerrero', 'MX - GR'],
+      ['Hidalgo', 'MX - HI'],
+      ['Jalisco', 'MX - JA'],
+      ['México', 'MX - MX'],
+      ['Michoacán', 'MX - MC'],
+      ['Morelos', 'MX - MR'],
+      ['Nayarit', 'MX - NA'],
+      ['Nuevo León', 'MX - NL'],
+      ['Oaxaca', 'MX - OA'],
+      ['Puebla', 'MX - PU'],
+      ['Querétaro', 'MX - QE'],
+      ['Quintana Roo', 'MX - QR'],
+      ['San Luis Potosí', 'MX - SL'],
+      ['Sinaloa', 'MX - SI'],
+      ['Sonora', 'MX - SO'],
+      ['Tabasco', 'MX - TB'],
+      ['Tamaulipas', 'MX - TM'],
+      ['Tlaxcala', 'MX - TL'],
+      ['Veracruz', 'MX - VE'],
+      ['Yucatán', 'MX - YU'],
+      ['Zacatecas', 'MX - ZA']
+    ]
+  end
 end
