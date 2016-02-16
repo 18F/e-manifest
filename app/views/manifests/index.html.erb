@@ -53,18 +53,42 @@
         <label for="origin_state">Generator state</label>
         <select name="aq[content.generator.mailing_address.state]" id="origin_state" class="usa-input-grid-tiny tiny-input">
           <option value="">--</option>
-          <% us_states.each do |state| %>
-           <option value=<%=state[1]%>><%=state[1]%></option>
-          <% end %>
+          <optgroup label="United States">
+            <% us_states.each do |state| %>
+             <option value=<%=state[1]%>><%=state[1]%></option>
+            <% end %>
+          </optgroup>
+          <optgroup label="Canadian Provinces">
+            <% canadian_provinces.each do |province| %>
+             <option value=<%=province[1]%>><%=province[1]%></option>
+            <% end %>
+          </optgroup>
+          <optgroup label="Mexican States">
+            <% mexican_states.each do |state| %>
+             <option value=<%=state[1]%>><%=state[1]%></option>
+            <% end %>
+          </optgroup>
         </select>
       </div>
       <div class="usa-width-one-half">
         <label for="disposal_state">Disposal facility state</label>
         <select name="aq[content.designated_facility.address.state]" id="disposal_state" class="tiny-input">
           <option value="">--</option>
-          <% us_states.each do |state| %>
-           <option value=<%=state[1]%>><%=state[1]%></option>
-          <% end %>
+          <optgroup label="United States">
+            <% us_states.each do |state| %>
+             <option value=<%=state[1]%>><%=state[1]%></option>
+            <% end %>
+          </optgroup>
+          <optgroup label="Canadian Provinces">
+            <% canadian_provinces.each do |province| %>
+             <option value=<%=province[1]%>><%=province[1]%></option>
+            <% end %>
+          </optgroup>
+          <optgroup label="Mexican States">
+            <% mexican_states.each do |state| %>
+             <option value=<%=state[1]%>><%=state[1]%></option>
+            <% end %>
+          </optgroup>
         </select>
       </div>
     </div>
