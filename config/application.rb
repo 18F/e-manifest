@@ -25,5 +25,11 @@ module EManifest
     config.action_controller.action_on_unpermitted_parameters = :raise
     config.active_record.raise_in_transactional_callbacks = true
     config.active_record.schema_format = :sql
+    config.middleware.insert_before 0, "Rack::Cors", :logger => (-> { Rails.logger }) do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :patch, :options, :head], max_age: 0
+      end
+    end
   end
 end
