@@ -5,8 +5,9 @@ describe ManifestSearchSerializer do
     manifest = create(:manifest)
     Manifest.rebuild_index
     manifest.reload
-    es_response = Manifest.authorized_search({q: manifest.uuid})[:es_response]
-
+    es_execute_with_retries 3 do
+      es_response = Manifest.authorized_search({q: manifest.uuid})[:es_response]
+    end
     serialized = ManifestSearchSerializer.new(es_response).to_json
 
     serialized_from_json = JSON.parse(serialized)

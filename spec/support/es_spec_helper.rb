@@ -47,6 +47,19 @@ module EsSpecHelper
     klass.__elasticsearch__.refresh_index!
   end
 
+  # h/t https://devmynd.com/blog/2014-2-dealing-with-failing-elasticserach-tests/
+  def es_execute_with_retries(retries = 3, &block)
+    begin
+      retries -= 1
+      response = block.call
+    rescue Elasticsearch::Transport::Transport::Errors::ServiceUnavailable => error
+      if retries > 0 && error.message.match(/all shards failed/)
+        retry
+      else
+        raise error
+      end
+    end
+  end
 end
 
 RSpec.configure do |config|
