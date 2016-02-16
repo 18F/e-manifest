@@ -6,6 +6,16 @@
         "version": "v0"
     },
     "basePath": "/api/v0",
+    "schemes": [
+        "https"
+    ],
+    "externalDocs": {
+        "description": "API Examples",
+        "url": "https://e-manifest.18f.gov/api-examples"
+    },
+    "consumes": [
+        "application/json"
+    ],
     "produces": [
         "application/json"
     ],
