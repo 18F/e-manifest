@@ -14,3 +14,7 @@
 /tags
 /tmp/*
 test_cdx_config.yml
+e-manifest-dev-worker_manifest.yml
+e-manifest-dev_manifest.yml
+e-manifest-worker_manifest.yml
+e-manifest_manifest.yml
