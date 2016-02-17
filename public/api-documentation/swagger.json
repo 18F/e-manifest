@@ -327,12 +327,6 @@
       "type": "object",
       "description": "<a href='https://e-manifest.18f.gov/schemas/get-manifest.json'>full schema</a>",
       "properties": {
-        "document_id": {
-          "type": "string"
-        },
-        "activity_id": {
-          "type": "string"
-        },
         "content": {
           "$ref": "#/definitions/PostManifest"
         }
