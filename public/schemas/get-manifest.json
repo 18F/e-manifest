@@ -3,9 +3,7 @@
   "id" : "https://e-manifest.18f.gov/schemas/get-manifest.json",
   "method": "GET",
   "title": "e-Manifest API - GET Manifest",
-  "type": [
-    "object"
-  ],
+  "type": "object",
   "required": [
     "document_id",
     "activity_id",
