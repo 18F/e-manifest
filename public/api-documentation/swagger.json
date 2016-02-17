@@ -70,10 +70,10 @@
                     {
                         "name": "manifest",
                         "in": "body",
-                        "description": "JSON adhering to the Manifest schema",
+                        "description": "JSON adhering to https://e-manifest.18f.gov/schemas/post-manifest.json",
                         "required": true,
                         "schema": {
-                          "$ref": "https://e-manifest.18f.gov/schemas/post-manifest.json#"
+                          "$ref": "#/definitions/PostManifest"
                         }
                     }
                 ],
@@ -113,7 +113,7 @@
                     "200": {
                         "description": "Successful retrieval of the e-Manifest.",
                         "schema": {
-                          "$ref": "https://e-manifest.18f.gov/schemas/get-manifest.json#"
+                          "$ref": "#/definitions/GetManifest"
                         }
                     },
                     "404": {
@@ -202,10 +202,10 @@
                     {
                         "name": "manifest",
                         "in": "body",
-                        "description": "JSON adhering to the Manifest schema",
+                        "description": "JSON adhering to https://e-manifest.18f.gov/schemas/post-manifest.json",
                         "required": true,
                         "schema": {
-                          "$ref": "https://e-manifest.18f.gov/schemas/post-manifest.json#"
+                            "$ref" : "#/definitions/PostManifest"
                         }
                     }
                 ],
@@ -214,10 +214,16 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful validation of e-Manifest."
+                        "description": "Successful validation of e-Manifest.",
+                        "schema": {
+                            "$ref" : "#/definitions/ValidManifest"
+                        }
                     },
                     "422": {
-                        "description": "Failed to validate e-Manifest. Validation messages are included in the response."
+                        "description": "Failed to validate e-Manifest. Validation messages are included in the response.",
+                        "schema": {
+                            "$ref" : "#/definitions/InvalidManifest"
+                        }
                     }
                 }
             }
@@ -300,6 +306,35 @@
             "properties": {
                 "document_id": {
                     "type": "string"
+                }
+            }
+        },
+        "PostManifest": {
+            "type": "object",
+            "description": "full schema at https://e-manifest.18f.gov/schemas/post-manifest.json",
+            "properties": {
+                "generator": {
+                    "type" : "object",
+                    "properties": {
+                        "manifest_tracking_number": {
+                            "type" : "string"
+                        }
+                    }
+                }
+            }
+        },
+        "GetManifest": {
+            "type": "object",
+            "description": "full schema at https://e-manifest.18f.gov/schemas/get-manifest.json",
+            "properties": {
+                "document_id": {
+                    "type": "string"
+                },
+                "activity_id": {
+                    "type": "string"
+                },
+                "content": {
+                    "$ref": "#/definitions/PostManifest"
                 }
             }
         },
@@ -387,7 +422,7 @@
                 "hits": {
                     "type": "array",
                     "items": {
-                        "$ref": "https://e-manifest.18f.gov/schemas/get-manifest.json#"
+                        "type": "object"
                     }
                 }
             }
@@ -424,6 +459,17 @@
                     }
                 }
             }
+        },
+        "ValidManifest": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "InvalidManifest": {
+            "$ref" : "#/definitions/FailedAction"
         }
     }
 }
