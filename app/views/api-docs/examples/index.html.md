@@ -90,22 +90,6 @@ submission should return a 201 status.
 }
 ```
 
-## Validate a manifest
-
-Before you submit a manifest, you may validate its content and structure.
-
-```bash
-curl -i -X POST -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer your-auth-token' \
-  --data @manifest.json \
-  https://e-manifest.18f.gov/api/v0/manifests/validate
-```
-
-If there is a validation error, the response status code will be 422 and the response body
-will be a JSON string containing any validation errors.
-
-If the manifest is valid, the response status code will be 200.
-
 ## Fetch a manifest
 
 To retrieve a previously submitted e-Manifest, you need the e-Manifest ID from
