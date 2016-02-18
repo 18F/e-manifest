@@ -402,7 +402,7 @@
       }
     },
     "ManifestNotFound": {
-      "type": "object"
+      "$ref" : "#/definitions/FailedAction"
     },
     "SearchResults": {
       "type": "object",
