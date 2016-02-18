@@ -9,6 +9,10 @@ class Role < ActiveRecord::Base
     find_from_cdx(cdx_role) || create_from_cdx(cdx_role)
   end
 
+  def tsdf_certifier?
+    cdx_role_name == "TSDF Certifier" || cdx_role_code == "112110"
+  end
+
   private
 
   def self.find_from_cdx(cdx_role)

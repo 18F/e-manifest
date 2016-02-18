@@ -211,6 +211,8 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (2.15.3)
+    pundit (1.0.1)
+      activesupport (>= 3.0.0)
     queryparams (0.0.3)
     rack (1.6.4)
     rack-canonical-host (0.1.0)
@@ -386,6 +388,7 @@ DEPENDENCIES
   poltergeist
   pry-rails
   puma
+  pundit
   queryparams
   rack-canonical-host
   rack-cors

@@ -35,20 +35,28 @@ FactoryGirl.define do
   end
 
   factory :organization do
+    sequence(:cdx_org_id) { |n| "org_#{n}" }
     cdx_org_name 'some org'
-    cdx_org_id '12345'
   end
 
   factory :role do
+    sequence(:cdx_role_code) { |n| "role_code_#{n}" }
     cdx_role_name 'some role'
-    cdx_role_code '12345'
+
+    trait :tsdf_certifier do
+      cdx_role_name 'TSDF Certifier'
+    end
   end
 
   factory :user_org_role do
     association :user, factory: :user
     association :organization, factory: :organization
     association :role, factory: :role
-    cdx_user_role_id '12345'
+    sequence(:cdx_user_role_id)
     cdx_status 'Active'
+
+    trait :tsdf_certifier do
+      association :role, :tsdf_certifier
+    end
   end
 end
