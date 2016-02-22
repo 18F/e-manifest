@@ -103,7 +103,7 @@ describe "CDX" do
     let(:opts) {
       {
         id:  'id',
-        manifest_content: 'content',
+        manifest: 'content',
         token: 'token',
         activity_id: 'activity_id'
       }
