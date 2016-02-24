@@ -9,7 +9,7 @@ The production base URL is **https://e-manifest.18f.gov/api/v0**
 Notation note: path variables are expressed as `:variable_name`. The colon is not part of the URI.
 
 On this page you may learn about how to:
-
+* [Get an API Key] (#get-an-api-key)
 * [Validate a manifest](#validate-a-manifest)
 * [Generate an Authentication Token](#generate-an-authorization-token)
 * [Submit a manifest](#submit-a-manifest)
@@ -20,6 +20,10 @@ On this page you may learn about how to:
 * [Sign a manifest](#sign-a-manifest)
 * [Management method codes](#management-method-codes)
 
+## Get an API Key
+If you are a developer from a TSDF and you'd like to request an API key so you can use the e-Manifest APIs, please check your organization's policies on implementing e-manifest.  Some companies may use unique API keys for each facility, others may use one API key for an entire company.  If you have questions please email emanifest@epa.gov (mailto:"emanifest@epa.gov).
+
+Of you need a API key, go to api.data.gov.  Click the "Get an API key" link.  Fill out the simple form, and please put "EPA's e-Manifest" under the optional field "How will you use this API key". With in a few seconds, you should recieve an email with your new API key and you're ready to go!
 ## Validate a manifest
 
 Before you submit a manifest, you may validate its content and structure.
