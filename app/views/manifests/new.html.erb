@@ -71,7 +71,7 @@
 
     <h3>Other</h3>
     <%= form.input :waste_pcb_description, label: 'PCB description (14)' %>
-    <%= form.input :waste_handling_instructions, label: 'Special handling instructions and additional information (14)' %>
+    <%= form.input :waste_handling_instructions, as: :text, label: 'Special handling instructions and additional information (14)' %>
 
   <h3>International</h3>
     <%= form.input :international, as: :radio_buttons, label: 'This shipment is international', boolean_style: :inline %>
