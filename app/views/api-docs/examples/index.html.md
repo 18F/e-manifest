@@ -21,7 +21,7 @@ On this page you may learn about how to:
 * [Management method codes](#management-method-codes)
 
 ## Get an API Key
-If you are a developer from a TSDF and you'd like to request an API key so you can use the e-Manifest APIs, please check your organization's policies on implementing e-manifest.  Some companies may use unique API keys for each facility, others may use one API key for an entire company.  If you have questions please email emanifest@epa.gov (mailto:"emanifest@epa.gov).
+If you are a developer from a TSDF and you'd like to request an API key so you can use the e-Manifest APIs, please check your organization's policies on implementing e-manifest.  Some companies may use unique API keys for each facility, others may use one API key for an entire company.  If you have questions please email emanifest@epa.gov.
 
 Of you need a API key, go to api.data.gov.  Click the "Get an API key" link.  Fill out the simple form, and please put "EPA's e-Manifest" under the optional field "How will you use this API key". With in a few seconds, you should recieve an email with your new API key and you're ready to go!
 ## Validate a manifest
