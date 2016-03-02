@@ -4,11 +4,19 @@ Rails.application.routes.draw do
 
   resources :manifests, only: [:show] do
     resources :sign_or_upload, only: [:new]
-    resources :manifest_uploads, only: [:new, :create]
+    resources :manifest_uploads, only: [:new, :create, :show]
+    resources :signatures, only: [:new, :create]
+    get 'signature', to: 'signatures#show'
+    resources :tokens, only: [:new, :create]
   end
 
   resources :manifest_uploads, only: [:new, :create]
   resources :submissions, only: [:new]
+
+  get 'login', to: 'auth#new'
+  post 'login', to: 'auth#login'
+  get 'logout', to: 'auth#logout'
+  get 'profile', to: 'auth#profile'
 
   get 'api-examples', to: 'api_documentation#examples'
   get 'api-diagnostics', to: 'api_documentation#diagnostics'

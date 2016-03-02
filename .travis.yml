@@ -7,7 +7,11 @@ cache: bundler
 script:
 - bundle exec rspec spec
 addons:
-  postgresql: "9.4"
+  postgresql: "9.3"
 services:
   - postgresql
   - elasticsearch
+  - redis
+env:
+  - RACK_ENV=test
+  - RAILS_ENV=test

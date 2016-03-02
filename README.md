@@ -1,27 +1,35 @@
 # The e-Manifest App for EPA
 
-This is a Ruby/Sinatra/Angular app, with a Jekyll static site in the `_static` directory. The Jekyll site will be generated in the `public/` directory, which Sinatra routes to automatically.
-
-Don't edit the `public/` folder directly! Jekyll will overwrite everything when building the site.
-
 [View the live application »](https://e-manifest.18f.gov)
 
 [![Build Status](https://travis-ci.org/18F/e-manifest.svg?branch=master)](https://travis-ci.org/18F/e-manifest)
 [![Code
 Climate](https://codeclimate.com/github/18F/e-manifest/badges/gpa.svg)](https://codeclimate.com/github/18F/e-manifest)
 
+
+## Application architecture
+
+This is a Rails application with a Postgres database containing both API
+endpoints and web views. The API is a JSON REST API. The web app and the API
+use the same database.
+
+We use Elasticsearch to search for manifest records. Elasticsearch offloads
+read-access from the database and provides full-text search capabilities painful
+to apply directly to a database.
+
+Redis is used for Sidekiq job processing. The Redis + Sidekiq solution
+offloads the database/Elasticsearch syncing to an async process.
+
 ## Developer onboarding
 
-Here are some tips and resources for getting started on this project. Note that
-not all of these resources are available to people outside of the EPA / 18F for
-security reasons.
+Here are some tips and resources for getting started on this project. Note not all resources are available to people outside of the EPA / 18F for security reasons.
 
 * Join the `#c-epa-emanifest` and `#e-manifest-partners` channels in the 18F
   Slack organization.
 * Ask in Slack for the Vendor Onboarding document for background on the problem space.
 * Read the [project
   brief](https://docs.google.com/document/d/1v_rRaV5euxmBdH8D_Huo37kN3Yu76sNn2TXVJJB4v40/edit).
-* Make sure you've been added to the [Trello
+* Make sure you're added to the [Trello
   board](https://trello.com/b/0geMlbgF/epa-emanifest).
 * Set up the app using the instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
 

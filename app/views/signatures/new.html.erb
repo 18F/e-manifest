@@ -1,0 +1,16 @@
+<div class="usa-width-one-whole">
+
+  Question: <%= @response[:question] %>
+
+  <%= simple_form_for :secret_question, url: manifest_signatures_path(@manifest.uuid), method: :post do |form| %>
+
+    <%= form.input :answer, label: 'Answer' %>
+    <%= form.hidden_field :question, value: @response[:question] %>
+    <%= form.hidden_field :question_id, value: @response[:question_id] %>
+    <%= form.hidden_field :activity_id, value: @response[:activity_id] %>
+    <%= form.hidden_field :token, value: @response[:token] %>
+    <%= form.hidden_field :user_id, value: @response[:user_id] %>
+    <%= form.submit 'Sign manifest' %>
+  <% end %>
+
+</div>

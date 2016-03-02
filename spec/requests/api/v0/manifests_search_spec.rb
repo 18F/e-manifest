@@ -23,10 +23,14 @@ describe "search", elasticsearch: true do
   end
 
   def search_for(query)
-    get "/api/v0/manifests/search?q=#{query}"
+    es_execute_with_retries 3 do
+      get "/api/v0/manifests/search?q=#{query}", nil, set_headers
+    end
   end
 
   def search_for_advanced(query)
-    get "/api/v0/manifests/search?#{QueryParams.encode({ aq: query })}"
+    es_execute_with_retries 3 do
+      get "/api/v0/manifests/search?#{QueryParams.encode({ aq: query })}", nil, set_headers
+    end
   end
 end

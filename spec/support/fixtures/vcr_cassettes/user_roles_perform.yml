@@ -1,0 +1,2475 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://devngn.epacdxnode.net/cdx-register/services/RegisterSignService?wsdl
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2016 20:44:49 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - text/xml
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="RegisterSignService" targetNamespace="http://www.exchangenetwork.net/wsdl/register/sign/1">
+          <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.exchangenetwork.net/wsdl/register/sign/1">
+          <xs:import namespace="http://www.w3.org/2005/05/xmlmime"/>
+          <xs:element name="ActivityAcls" type="tns:activityAcls"/>
+          <xs:element name="ActivityTags" type="tns:activityTags"/>
+          <xs:element name="Authenticate" type="tns:Authenticate"/>
+          <xs:element name="AuthenticateResponse" type="tns:AuthenticateResponse"/>
+          <xs:element name="AuthenticateUser" type="tns:AuthenticateUser"/>
+          <xs:element name="AuthenticateUserResponse" type="tns:AuthenticateUserResponse"/>
+          <xs:element name="CreateAcls" type="tns:CreateAcls"/>
+          <xs:element name="CreateAclsResponse" type="tns:CreateAclsResponse"/>
+          <xs:element name="CreateActivity" type="tns:CreateActivity"/>
+          <xs:element name="CreateActivityResponse" type="tns:CreateActivityResponse"/>
+          <xs:element name="CreateActivityWithProperties" type="tns:CreateActivityWithProperties"/>
+          <xs:element name="CreateActivityWithPropertiesResponse" type="tns:CreateActivityWithPropertiesResponse"/>
+          <xs:element name="CreateTags" type="tns:CreateTags"/>
+          <xs:element name="CreateTagsResponse" type="tns:CreateTagsResponse"/>
+          <xs:element name="DecryptAndDownloadByDocumentId" type="tns:DecryptAndDownloadByDocumentId"/>
+          <xs:element name="DecryptAndDownloadByDocumentIdResponse" type="tns:DecryptAndDownloadByDocumentIdResponse"/>
+          <xs:element name="DownloadByDocumentId" type="tns:DownloadByDocumentId"/>
+          <xs:element name="DownloadByDocumentIdResponse" type="tns:DownloadByDocumentIdResponse"/>
+          <xs:element name="GetQuestion" type="tns:GetQuestion"/>
+          <xs:element name="GetQuestionResponse" type="tns:GetQuestionResponse"/>
+          <xs:element name="Properties" type="tns:properties"/>
+          <xs:element name="RecordSecondFactorEvent" type="tns:RecordSecondFactorEvent"/>
+          <xs:element name="RecordSecondFactorEventResponse" type="tns:RecordSecondFactorEventResponse"/>
+          <xs:element name="Sign" type="tns:Sign"/>
+          <xs:element name="SignEncryptSign" type="tns:SignEncryptSign"/>
+          <xs:element name="SignEncryptSignResponse" type="tns:SignEncryptSignResponse"/>
+          <xs:element name="SignResponse" type="tns:SignResponse"/>
+          <xs:element name="ValidateAnswer" type="tns:ValidateAnswer"/>
+          <xs:element name="ValidateAnswerResponse" type="tns:ValidateAnswerResponse"/>
+          <xs:complexType name="AuthenticateUser">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="password" type="xs:string"/>
+              <xs:element minOccurs="0" name="properties" type="tns:properties"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="properties">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Property" type="tns:Property"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="Property">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Key" type="xs:string"/>
+              <xs:element minOccurs="0" name="Value" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="AuthenticateUserResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="signatureUser" type="tns:SignatureUserType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignatureUserType">
+            <xs:sequence>
+              <xs:element name="UserId" type="xs:string"/>
+              <xs:element name="FirstName" type="xs:string"/>
+              <xs:element name="LastName" type="xs:string"/>
+              <xs:element name="MiddleInitial" type="xs:string"/>
+              <xs:element minOccurs="0" name="OrganizationName" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateActivity">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="signatureUser" type="tns:SignatureUserType"/>
+              <xs:element minOccurs="0" name="dataflowName" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateActivityResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateTags">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityTags" type="tns:activityTags"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="activityTags">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="ActivityTag" type="tns:ActivityTag"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ActivityTag">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Value" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateTagsResponse">
+            <xs:sequence/>
+          </xs:complexType>
+          <xs:complexType name="GetQuestion">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="GetQuestionResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="question" type="tns:question"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="question">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="questionId" type="xs:string"/>
+              <xs:element minOccurs="0" name="text" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="Sign">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="signatureDocument" type="tns:SignatureDocumentType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignatureDocumentType">
+            <xs:sequence>
+              <xs:element name="Name" type="xs:string"/>
+              <xs:element name="Format" type="tns:SignatureDocumentFormatType"/>
+              <xs:element name="Content" type="xs:base64Binary" xmime:expectedContentTypes="*/*"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="documentId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DecryptAndDownloadByDocumentId">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="documentId" type="xs:string"/>
+              <xs:element minOccurs="0" name="passphrase" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DecryptAndDownloadByDocumentIdResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="signatureDocument" type="tns:SignatureDocumentType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="Authenticate">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="credential" type="xs:string"/>
+              <xs:element minOccurs="0" name="domain" type="xs:string"/>
+              <xs:element minOccurs="0" name="authenticationMethod" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="AuthenticateResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignEncryptSign">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="signatureDocument" type="tns:SignatureDocumentType"/>
+              <xs:element minOccurs="0" name="recipientId" type="xs:string"/>
+              <xs:element minOccurs="0" name="passphrase" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignEncryptSignResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="documentId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateActivityWithProperties">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="signatureUser" type="tns:SignatureUserType"/>
+              <xs:element minOccurs="0" name="dataflowName" type="xs:string"/>
+              <xs:element minOccurs="0" name="properties" type="tns:properties"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateActivityWithPropertiesResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateAcls">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityAcls" type="tns:activityAcls"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="activityAcls">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="ActivityAcl" type="tns:ActivityAcl"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ActivityAcl">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="RoleId" type="xs:string"/>
+              <xs:element minOccurs="0" name="RoleDescription" type="xs:string"/>
+              <xs:element minOccurs="0" name="Subject" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateAclsResponse">
+            <xs:sequence/>
+          </xs:complexType>
+          <xs:complexType name="RecordSecondFactorEvent">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="secondFactorType" type="tns:SecondFactorType"/>
+              <xs:element minOccurs="0" name="evidence" type="tns:properties"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RecordSecondFactorEventResponse">
+            <xs:sequence/>
+          </xs:complexType>
+          <xs:complexType name="ValidateAnswer">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="questionId" type="xs:string"/>
+              <xs:element minOccurs="0" name="answer" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ValidateAnswerResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="validAnswer" type="xs:boolean"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DownloadByDocumentId">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="documentId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DownloadByDocumentIdResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="signatureDocument" type="tns:SignatureDocumentType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:simpleType name="RegisterErrorCode">
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="E_UnknownUser"/>
+              <xs:enumeration value="E_InvalidCredential"/>
+              <xs:enumeration value="E_AccessDenied"/>
+              <xs:enumeration value="E_InvalidToken"/>
+              <xs:enumeration value="E_TokenExpired"/>
+              <xs:enumeration value="E_AuthMethod"/>
+              <xs:enumeration value="E_UserAlreadyExists"/>
+              <xs:enumeration value="E_InsufficientPrivileges"/>
+              <xs:enumeration value="E_WeakPassword"/>
+              <xs:enumeration value="E_InvalidArgument"/>
+              <xs:enumeration value="E_InvalidAnswerResetCode"/>
+              <xs:enumeration value="E_MaxNumberOfResetAttemptsReached"/>
+              <xs:enumeration value="E_AnswersAlreadyExist"/>
+              <xs:enumeration value="E_RoleAlreadyExists"/>
+              <xs:enumeration value="E_WrongUserId"/>
+              <xs:enumeration value="E_ReachedMaxNumberOfAttempts"/>
+              <xs:enumeration value="E_WrongAnswer"/>
+              <xs:enumeration value="E_WrongIdPassword"/>
+              <xs:enumeration value="E_AccountLocked"/>
+              <xs:enumeration value="E_AccountExpired"/>
+              <xs:enumeration value="E_DuplicateAssociation"/>
+              <xs:enumeration value="E_InternalError"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType name="SignatureDocumentFormatType">
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="XML"/>
+              <xs:enumeration value="BIN"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType name="SecondFactorType">
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="PAY_GOV_LEXIS"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:element name="RegisterFault" type="tns:RegisterFault"/>
+          <xs:complexType name="RegisterFault">
+            <xs:sequence>
+              <xs:element name="description" nillable="true" type="xs:string"/>
+              <xs:element name="errorCode" nillable="true" type="tns:RegisterErrorCode"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:schema>
+          </wsdl:types>
+          <wsdl:message name="AuthenticateUser">
+            <wsdl:part element="tns:AuthenticateUser" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateActivity">
+            <wsdl:part element="tns:CreateActivity" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="AuthenticateUserResponse">
+            <wsdl:part element="tns:AuthenticateUserResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DecryptAndDownloadByDocumentId">
+            <wsdl:part element="tns:DecryptAndDownloadByDocumentId" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RecordSecondFactorEventResponse">
+            <wsdl:part element="tns:RecordSecondFactorEventResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="SignResponse">
+            <wsdl:part element="tns:SignResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="Authenticate">
+            <wsdl:part element="tns:Authenticate" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateActivityResponse">
+            <wsdl:part element="tns:CreateActivityResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="SignEncryptSignResponse">
+            <wsdl:part element="tns:SignEncryptSignResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateActivityWithProperties">
+            <wsdl:part element="tns:CreateActivityWithProperties" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RegisterException">
+            <wsdl:part element="tns:RegisterFault" name="RegisterException">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateAclsResponse">
+            <wsdl:part element="tns:CreateAclsResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="AuthenticateResponse">
+            <wsdl:part element="tns:AuthenticateResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateAcls">
+            <wsdl:part element="tns:CreateAcls" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DownloadByDocumentIdResponse">
+            <wsdl:part element="tns:DownloadByDocumentIdResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="ValidateAnswer">
+            <wsdl:part element="tns:ValidateAnswer" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateTags">
+            <wsdl:part element="tns:CreateTags" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="GetQuestion">
+            <wsdl:part element="tns:GetQuestion" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="Sign">
+            <wsdl:part element="tns:Sign" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DecryptAndDownloadByDocumentIdResponse">
+            <wsdl:part element="tns:DecryptAndDownloadByDocumentIdResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="ValidateAnswerResponse">
+            <wsdl:part element="tns:ValidateAnswerResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateTagsResponse">
+            <wsdl:part element="tns:CreateTagsResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="SignEncryptSign">
+            <wsdl:part element="tns:SignEncryptSign" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="GetQuestionResponse">
+            <wsdl:part element="tns:GetQuestionResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateActivityWithPropertiesResponse">
+            <wsdl:part element="tns:CreateActivityWithPropertiesResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RecordSecondFactorEvent">
+            <wsdl:part element="tns:RecordSecondFactorEvent" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DownloadByDocumentId">
+            <wsdl:part element="tns:DownloadByDocumentId" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:portType name="RegisterSignService">
+            <wsdl:operation name="AuthenticateUser">
+              <wsdl:input message="tns:AuthenticateUser" name="AuthenticateUser">
+            </wsdl:input>
+              <wsdl:output message="tns:AuthenticateUserResponse" name="AuthenticateUserResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateActivity">
+              <wsdl:input message="tns:CreateActivity" name="CreateActivity">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateActivityResponse" name="CreateActivityResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateTags">
+              <wsdl:input message="tns:CreateTags" name="CreateTags">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateTagsResponse" name="CreateTagsResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="GetQuestion">
+              <wsdl:input message="tns:GetQuestion" name="GetQuestion">
+            </wsdl:input>
+              <wsdl:output message="tns:GetQuestionResponse" name="GetQuestionResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Sign">
+              <wsdl:input message="tns:Sign" name="Sign">
+            </wsdl:input>
+              <wsdl:output message="tns:SignResponse" name="SignResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DecryptAndDownloadByDocumentId">
+              <wsdl:input message="tns:DecryptAndDownloadByDocumentId" name="DecryptAndDownloadByDocumentId">
+            </wsdl:input>
+              <wsdl:output message="tns:DecryptAndDownloadByDocumentIdResponse" name="DecryptAndDownloadByDocumentIdResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Authenticate">
+              <wsdl:input message="tns:Authenticate" name="Authenticate">
+            </wsdl:input>
+              <wsdl:output message="tns:AuthenticateResponse" name="AuthenticateResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="SignEncryptSign">
+              <wsdl:input message="tns:SignEncryptSign" name="SignEncryptSign">
+            </wsdl:input>
+              <wsdl:output message="tns:SignEncryptSignResponse" name="SignEncryptSignResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateActivityWithProperties">
+              <wsdl:input message="tns:CreateActivityWithProperties" name="CreateActivityWithProperties">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateActivityWithPropertiesResponse" name="CreateActivityWithPropertiesResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateAcls">
+              <wsdl:input message="tns:CreateAcls" name="CreateAcls">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateAclsResponse" name="CreateAclsResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RecordSecondFactorEvent">
+              <wsdl:input message="tns:RecordSecondFactorEvent" name="RecordSecondFactorEvent">
+            </wsdl:input>
+              <wsdl:output message="tns:RecordSecondFactorEventResponse" name="RecordSecondFactorEventResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="ValidateAnswer">
+              <wsdl:input message="tns:ValidateAnswer" name="ValidateAnswer">
+            </wsdl:input>
+              <wsdl:output message="tns:ValidateAnswerResponse" name="ValidateAnswerResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DownloadByDocumentId">
+              <wsdl:input message="tns:DownloadByDocumentId" name="DownloadByDocumentId">
+            </wsdl:input>
+              <wsdl:output message="tns:DownloadByDocumentIdResponse" name="DownloadByDocumentIdResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+          </wsdl:portType>
+          <wsdl:binding name="RegisterSignServiceSoapBinding" type="tns:RegisterSignService">
+            <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+            <wsdl:operation name="AuthenticateUser">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="AuthenticateUser">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="AuthenticateUserResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateActivity">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateActivity">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateActivityResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateTags">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateTags">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateTagsResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Sign">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="Sign">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="SignResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="GetQuestion">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="GetQuestion">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="GetQuestionResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DecryptAndDownloadByDocumentId">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="DecryptAndDownloadByDocumentId">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="DecryptAndDownloadByDocumentIdResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Authenticate">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="Authenticate">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="AuthenticateResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="SignEncryptSign">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="SignEncryptSign">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="SignEncryptSignResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateActivityWithProperties">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateActivityWithProperties">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateActivityWithPropertiesResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateAcls">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateAcls">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateAclsResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RecordSecondFactorEvent">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RecordSecondFactorEvent">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RecordSecondFactorEventResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="ValidateAnswer">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="ValidateAnswer">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="ValidateAnswerResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DownloadByDocumentId">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="DownloadByDocumentId">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="DownloadByDocumentIdResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+          </wsdl:binding>
+          <wsdl:service name="RegisterSignService">
+            <wsdl:port binding="tns:RegisterSignServiceSoapBinding" name="RegisterSignServicePort">
+              <soap12:address location="https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService"/>
+            </wsdl:port>
+          </wsdl:service>
+        </wsdl:definitions>
+    http_version: 
+  recorded_at: Tue, 09 Feb 2016 20:44:49 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId><CDX_USERNAME></userId><credential><CDX_PASSWORD></credential><domain>default</domain><authenticationMethod>password</authenticationMethod></tns:Authenticate></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"Authenticate"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '496'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2016 20:44:49 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - multipart/related; type="application/xop+xml"; boundary="uuid:c9b9c77f-bc67-4c4a-b0ac-ce627b121d39";
+        start="<root.message@cxf.apache.org>"; start-info="application/soap+xml"
+      Content-Length:
+      - '731'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: "--uuid:c9b9c77f-bc67-4c4a-b0ac-ce627b121d39\r\nContent-Type: application/xop+xml;
+        charset=UTF-8; type=\"application/soap+xml\";\r\nContent-Transfer-Encoding:
+        binary\r\nContent-ID: <root.message@cxf.apache.org>\r\n\r\n<soap:Envelope
+        xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\"><soap:Body><ns2:AuthenticateResponse
+        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.T4Tq2ZTaSvohH020eG8cIg,,.</securityToken></ns2:AuthenticateResponse></soap:Body></soap:Envelope>\r\n--uuid:c9b9c77f-bc67-4c4a-b0ac-ce627b121d39--"
+    http_version: 
+  recorded_at: Tue, 09 Feb 2016 20:44:49 GMT
+- request:
+    method: get
+    uri: https://devngn.epacdxnode.net/cdx-register/services/RegisterService?wsdl
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2016 20:44:49 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - text/xml
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="RegisterService" targetNamespace="http://www.exchangenetwork.net/wsdl/register/1">
+          <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.exchangenetwork.net/wsdl/register/1">
+          <xs:element name="AddRole" type="tns:AddRole"/>
+          <xs:element name="AddRoleResponse" type="tns:AddRoleResponse"/>
+          <xs:element name="ApproveRole" type="tns:ApproveRole"/>
+          <xs:element name="ApproveRoleResponse" type="tns:ApproveRoleResponse"/>
+          <xs:element name="Authenticate" type="tns:Authenticate"/>
+          <xs:element name="AuthenticateResponse" type="tns:AuthenticateResponse"/>
+          <xs:element name="ChangePassword" type="tns:ChangePassword"/>
+          <xs:element name="ChangePasswordResponse" type="tns:ChangePasswordResponse"/>
+          <xs:element name="CreateAnswers" type="tns:CreateAnswers"/>
+          <xs:element name="CreateAnswersResponse" type="tns:CreateAnswersResponse"/>
+          <xs:element name="CreateOrganization" type="tns:CreateOrganization"/>
+          <xs:element name="CreateOrganizationResponse" type="tns:CreateOrganizationResponse"/>
+          <xs:element name="CreateSecretAnswers" type="tns:CreateSecretAnswers"/>
+          <xs:element name="CreateSecretAnswersResponse" type="tns:CreateSecretAnswersResponse"/>
+          <xs:element name="CreateUser" type="tns:CreateUser"/>
+          <xs:element name="CreateUserResponse" type="tns:CreateUserResponse"/>
+          <xs:element name="DeactiveRole" type="tns:DeactiveRole"/>
+          <xs:element name="DeactiveRoleResponse" type="tns:DeactiveRoleResponse"/>
+          <xs:element name="DeleteAnswers" type="tns:DeleteAnswers"/>
+          <xs:element name="DeleteAnswersResponse" type="tns:DeleteAnswersResponse"/>
+          <xs:element name="DenyRole" type="tns:DenyRole"/>
+          <xs:element name="DenyRoleResponse" type="tns:DenyRoleResponse"/>
+          <xs:element name="GenerateAnswerResetCode" type="tns:GenerateAnswerResetCode"/>
+          <xs:element name="GenerateAnswerResetCodeResponse" type="tns:GenerateAnswerResetCodeResponse"/>
+          <xs:element name="RetrieveAllApprovedQuestions" type="tns:RetrieveAllApprovedQuestions"/>
+          <xs:element name="RetrieveAllApprovedQuestionsResponse" type="tns:RetrieveAllApprovedQuestionsResponse"/>
+          <xs:element name="RetrieveAllRegistrationCountries" type="tns:RetrieveAllRegistrationCountries"/>
+          <xs:element name="RetrieveAllRegistrationCountriesResponse" type="tns:RetrieveAllRegistrationCountriesResponse"/>
+          <xs:element name="RetrieveAllRegistrationStates" type="tns:RetrieveAllRegistrationStates"/>
+          <xs:element name="RetrieveAllRegistrationStatesResponse" type="tns:RetrieveAllRegistrationStatesResponse"/>
+          <xs:element name="RetrieveAllSecretQuestions" type="tns:RetrieveAllSecretQuestions"/>
+          <xs:element name="RetrieveAllSecretQuestionsResponse" type="tns:RetrieveAllSecretQuestionsResponse"/>
+          <xs:element name="RetrieveAllUserSuffixes" type="tns:RetrieveAllUserSuffixes"/>
+          <xs:element name="RetrieveAllUserSuffixesResponse" type="tns:RetrieveAllUserSuffixesResponse"/>
+          <xs:element name="RetrieveAllUserTitles" type="tns:RetrieveAllUserTitles"/>
+          <xs:element name="RetrieveAllUserTitlesResponse" type="tns:RetrieveAllUserTitlesResponse"/>
+          <xs:element name="RetrieveOrganizationByUserOrganizationId" type="tns:RetrieveOrganizationByUserOrganizationId"/>
+          <xs:element name="RetrieveOrganizationByUserOrganizationIdResponse" type="tns:RetrieveOrganizationByUserOrganizationIdResponse"/>
+          <xs:element name="RetrieveOrganizations" type="tns:RetrieveOrganizations"/>
+          <xs:element name="RetrieveOrganizationsByDataflow" type="tns:RetrieveOrganizationsByDataflow"/>
+          <xs:element name="RetrieveOrganizationsByDataflowResponse" type="tns:RetrieveOrganizationsByDataflowResponse"/>
+          <xs:element name="RetrieveOrganizationsByUserOrganizationIds" type="tns:RetrieveOrganizationsByUserOrganizationIds"/>
+          <xs:element name="RetrieveOrganizationsByUserOrganizationIdsResponse" type="tns:RetrieveOrganizationsByUserOrganizationIdsResponse"/>
+          <xs:element name="RetrieveOrganizationsResponse" type="tns:RetrieveOrganizationsResponse"/>
+          <xs:element name="RetrieveRoleTypes" type="tns:RetrieveRoleTypes"/>
+          <xs:element name="RetrieveRoleTypesResponse" type="tns:RetrieveRoleTypesResponse"/>
+          <xs:element name="RetrieveRoles" type="tns:RetrieveRoles"/>
+          <xs:element name="RetrieveRolesForDataflow" type="tns:RetrieveRolesForDataflow"/>
+          <xs:element name="RetrieveRolesForDataflowResponse" type="tns:RetrieveRolesForDataflowResponse"/>
+          <xs:element name="RetrieveRolesResponse" type="tns:RetrieveRolesResponse"/>
+          <xs:element name="RetrieveSecretAnswers" type="tns:RetrieveSecretAnswers"/>
+          <xs:element name="RetrieveSecretAnswersResponse" type="tns:RetrieveSecretAnswersResponse"/>
+          <xs:element name="RetrieveUser" type="tns:RetrieveUser"/>
+          <xs:element name="RetrieveUserQuestionsStatus" type="tns:RetrieveUserQuestionsStatus"/>
+          <xs:element name="RetrieveUserQuestionsStatusResponse" type="tns:RetrieveUserQuestionsStatusResponse"/>
+          <xs:element name="RetrieveUserResponse" type="tns:RetrieveUserResponse"/>
+          <xs:element name="UpdateOrganization" type="tns:UpdateOrganization"/>
+          <xs:element name="UpdateOrganizationResponse" type="tns:UpdateOrganizationResponse"/>
+          <xs:element name="UpdateSecretAnswers" type="tns:UpdateSecretAnswers"/>
+          <xs:element name="UpdateSecretAnswersResponse" type="tns:UpdateSecretAnswersResponse"/>
+          <xs:element name="UpdateUser" type="tns:UpdateUser"/>
+          <xs:element name="UpdateUserResponse" type="tns:UpdateUserResponse"/>
+          <xs:complexType name="RetrieveOrganizationByUserOrganizationId">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="userOrganizationId" type="xs:long"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationUser">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+              <xs:element minOccurs="0" name="governmentPartner" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="lastLogin" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+              <xs:element minOccurs="0" name="legacySecretAnswer" type="xs:string"/>
+              <xs:element minOccurs="0" name="legacySecretQuestion" type="xs:string"/>
+              <xs:element minOccurs="0" name="lexisNexisAttempts" type="xs:long"/>
+              <xs:element minOccurs="0" name="middleInitial" type="xs:string"/>
+              <xs:element minOccurs="0" name="password" type="xs:string"/>
+              <xs:element minOccurs="0" name="passwordResetAttempts" type="xs:long"/>
+              <xs:element minOccurs="0" name="registrationDate" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="status" type="xs:string"/>
+              <xs:element minOccurs="0" name="suffix" type="tns:registrationUserSuffix"/>
+              <xs:element minOccurs="0" name="title" type="tns:registrationUserTitle"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="verificationIndexElectronic" type="xs:long"/>
+              <xs:element minOccurs="0" name="verificationIndexPaper" type="xs:long"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationUserSuffix">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="description" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationUserTitle">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="description" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveOrganizationByUserOrganizationIdResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Organization" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationOrganization">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="cdxEsaStatus" type="xs:string"/>
+              <xs:element minOccurs="0" name="city" type="xs:string"/>
+              <xs:element minOccurs="0" name="country" type="tns:registrationCountry"/>
+              <xs:element minOccurs="0" name="email" type="xs:string"/>
+              <xs:element minOccurs="0" name="fax" type="xs:string"/>
+              <xs:element minOccurs="0" name="mailingAddress1" type="xs:string"/>
+              <xs:element minOccurs="0" name="mailingAddress2" type="xs:string"/>
+              <xs:element minOccurs="0" name="mailingAddress3" type="xs:string"/>
+              <xs:element minOccurs="0" name="mailingAddress4" type="xs:string"/>
+              <xs:element minOccurs="0" name="organizationId" type="xs:long"/>
+              <xs:element minOccurs="0" name="organizationName" type="xs:string"/>
+              <xs:element minOccurs="0" name="phone" type="xs:string"/>
+              <xs:element minOccurs="0" name="phoneExtension" type="xs:string"/>
+              <xs:element minOccurs="0" name="primaryOrg" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="state" type="tns:registrationState"/>
+              <xs:element minOccurs="0" name="userOrganizationId" type="xs:long"/>
+              <xs:element minOccurs="0" name="zip" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationCountry">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="code" type="xs:string"/>
+              <xs:element minOccurs="0" name="name" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationState">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="code" type="xs:string"/>
+              <xs:element minOccurs="0" name="countryCode" type="xs:string"/>
+              <xs:element minOccurs="0" name="name" type="xs:string"/>
+              <xs:element minOccurs="0" name="region" type="xs:long"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="GenerateAnswerResetCode">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="GenerateAnswerResetCodeResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="AnswerResetCode" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ChangePassword">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="newPassword" type="xs:string"/>
+              <xs:element minOccurs="0" name="expire" type="xs:boolean"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ChangePasswordResponse">
+            <xs:sequence/>
+          </xs:complexType>
+          <xs:complexType name="DeactiveRole">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="organization" type="tns:registrationOrganization"/>
+              <xs:element minOccurs="0" name="role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationRole">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="dataflow" type="xs:string"/>
+              <xs:element minOccurs="0" name="status" type="tns:registrationRoleStatus"/>
+              <xs:element minOccurs="0" name="subject" type="xs:string"/>
+              <xs:element minOccurs="0" name="type" type="tns:registrationRoleType"/>
+              <xs:element minOccurs="0" name="userRoleId" type="xs:long"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationRoleStatus">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="code" type="xs:string"/>
+              <xs:element minOccurs="0" name="description" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationRoleType">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="code" type="xs:long"/>
+              <xs:element minOccurs="0" name="description" type="xs:string"/>
+              <xs:element minOccurs="0" name="status" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DeactiveRoleResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllSecretQuestions">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllSecretQuestionsResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:registrationQuestion"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationQuestion">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="id" type="xs:long"/>
+              <xs:element minOccurs="0" name="text" type="xs:string"/>
+              <xs:element minOccurs="0" name="type" type="xs:string"/>
+              <xs:element minOccurs="0" name="useType" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DeleteAnswers">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="answerResetCode" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DeleteAnswersResponse">
+            <xs:sequence/>
+          </xs:complexType>
+          <xs:complexType name="ApproveRole">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="organization" type="tns:registrationOrganization"/>
+              <xs:element minOccurs="0" name="role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ApproveRoleResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllUserSuffixes">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllUserSuffixesResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="UserSuffix" type="tns:registrationUserSuffix"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllRegistrationStates">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllRegistrationStatesResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="state" type="tns:registrationState"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="Authenticate">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="credential" type="xs:string"/>
+              <xs:element minOccurs="0" name="domain" type="xs:string"/>
+              <xs:element minOccurs="0" name="authenticationMethod" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="AuthenticateResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="AddRole">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="organization" type="tns:registrationOrganization"/>
+              <xs:element minOccurs="0" name="role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="AddRoleResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateSecretAnswers">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="answers" type="tns:registrationAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationAnswer">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="answer" type="xs:string"/>
+              <xs:element minOccurs="0" name="question" type="tns:registrationQuestion"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateSecretAnswersResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:registrationAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="UpdateOrganization">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="organization" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="UpdateOrganizationResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Organization" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveRoleTypes">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="dataflow" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveRoleTypesResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="RoleType" type="tns:registrationRoleType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllApprovedQuestions">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllApprovedQuestionsResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="ApprovedQuestion" type="tns:registrationQuestion"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="UpdateSecretAnswers">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="answers" type="tns:registrationAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="UpdateSecretAnswersResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:registrationAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllRegistrationCountries">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllRegistrationCountriesResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Country" type="tns:registrationCountry"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveUser">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveUserResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="User" type="tns:registrationUser"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveRolesForDataflow">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="organzation" type="tns:registrationOrganization"/>
+              <xs:element minOccurs="0" name="dataflow" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveRolesForDataflowResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateUser">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="organization" type="tns:registrationOrganization"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="answers" type="tns:registrationAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateUserResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="User" type="tns:registrationUser"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DenyRole">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="organization" type="tns:registrationOrganization"/>
+              <xs:element minOccurs="0" name="role" type="tns:registrationRole"/>
+              <xs:element minOccurs="0" name="reason" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DenyRoleResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllUserTitles">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveAllUserTitlesResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="UserTitle" type="tns:registrationUserTitle"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateOrganization">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="organization" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateOrganizationResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Organization" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveOrganizationsByDataflow">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="dataflow" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveOrganizationsByDataflowResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Organization" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveUserQuestionsStatus">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveUserQuestionsStatusResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="UserQuestionsStatus" type="tns:registrationUserQuestionsStatus"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="registrationUserQuestionsStatus">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="exist" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="locked" type="xs:boolean"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveOrganizations">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveOrganizationsResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Organization" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateAnswers">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="answers" type="tns:registrationAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateAnswersResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Answer" type="tns:registrationAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveRoles">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+              <xs:element minOccurs="0" name="org" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveRolesResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Role" type="tns:registrationRole"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveSecretAnswers">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveSecretAnswersResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:registrationAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveOrganizationsByUserOrganizationIds">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="userOrgIds" type="xs:long"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RetrieveOrganizationsByUserOrganizationIdsResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Organization" type="tns:registrationOrganization"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="UpdateUser">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="user" type="tns:registrationUser"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="UpdateUserResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="User" type="tns:registrationUser"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:simpleType name="RegisterErrorCode">
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="E_UnknownUser"/>
+              <xs:enumeration value="E_InvalidCredential"/>
+              <xs:enumeration value="E_AccessDenied"/>
+              <xs:enumeration value="E_InvalidToken"/>
+              <xs:enumeration value="E_TokenExpired"/>
+              <xs:enumeration value="E_AuthMethod"/>
+              <xs:enumeration value="E_UserAlreadyExists"/>
+              <xs:enumeration value="E_InsufficientPrivileges"/>
+              <xs:enumeration value="E_WeakPassword"/>
+              <xs:enumeration value="E_InvalidArgument"/>
+              <xs:enumeration value="E_InvalidAnswerResetCode"/>
+              <xs:enumeration value="E_MaxNumberOfResetAttemptsReached"/>
+              <xs:enumeration value="E_AnswersAlreadyExist"/>
+              <xs:enumeration value="E_RoleAlreadyExists"/>
+              <xs:enumeration value="E_WrongUserId"/>
+              <xs:enumeration value="E_ReachedMaxNumberOfAttempts"/>
+              <xs:enumeration value="E_WrongAnswer"/>
+              <xs:enumeration value="E_WrongIdPassword"/>
+              <xs:enumeration value="E_AccountLocked"/>
+              <xs:enumeration value="E_AccountExpired"/>
+              <xs:enumeration value="E_DuplicateAssociation"/>
+              <xs:enumeration value="E_InternalError"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:element name="RegisterFault" type="tns:RegisterFault"/>
+          <xs:complexType name="RegisterFault">
+            <xs:sequence>
+              <xs:element name="description" nillable="true" type="xs:string"/>
+              <xs:element name="errorCode" nillable="true" type="tns:RegisterErrorCode"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:schema>
+          </wsdl:types>
+          <wsdl:message name="RetrieveOrganizationByUserOrganizationId">
+            <wsdl:part element="tns:RetrieveOrganizationByUserOrganizationId" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="GenerateAnswerResetCode">
+            <wsdl:part element="tns:GenerateAnswerResetCode" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="ChangePassword">
+            <wsdl:part element="tns:ChangePassword" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DeactiveRole">
+            <wsdl:part element="tns:DeactiveRole" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllSecretQuestions">
+            <wsdl:part element="tns:RetrieveAllSecretQuestions" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DeleteAnswers">
+            <wsdl:part element="tns:DeleteAnswers" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllUserSuffixes">
+            <wsdl:part element="tns:RetrieveAllUserSuffixes" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllUserTitlesResponse">
+            <wsdl:part element="tns:RetrieveAllUserTitlesResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllRegistrationStates">
+            <wsdl:part element="tns:RetrieveAllRegistrationStates" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="UpdateSecretAnswersResponse">
+            <wsdl:part element="tns:UpdateSecretAnswersResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateAnswersResponse">
+            <wsdl:part element="tns:CreateAnswersResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="AddRole">
+            <wsdl:part element="tns:AddRole" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveOrganizationByUserOrganizationIdResponse">
+            <wsdl:part element="tns:RetrieveOrganizationByUserOrganizationIdResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateSecretAnswers">
+            <wsdl:part element="tns:CreateSecretAnswers" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="AddRoleResponse">
+            <wsdl:part element="tns:AddRoleResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveRoleTypesResponse">
+            <wsdl:part element="tns:RetrieveRoleTypesResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="UpdateSecretAnswers">
+            <wsdl:part element="tns:UpdateSecretAnswers" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllRegistrationCountries">
+            <wsdl:part element="tns:RetrieveAllRegistrationCountries" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveUser">
+            <wsdl:part element="tns:RetrieveUser" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveOrganizationsResponse">
+            <wsdl:part element="tns:RetrieveOrganizationsResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateOrganizationResponse">
+            <wsdl:part element="tns:CreateOrganizationResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateUser">
+            <wsdl:part element="tns:CreateUser" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DenyRole">
+            <wsdl:part element="tns:DenyRole" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveOrganizationsByDataflow">
+            <wsdl:part element="tns:RetrieveOrganizationsByDataflow" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveOrganizationsByUserOrganizationIdsResponse">
+            <wsdl:part element="tns:RetrieveOrganizationsByUserOrganizationIdsResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveUserResponse">
+            <wsdl:part element="tns:RetrieveUserResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveOrganizations">
+            <wsdl:part element="tns:RetrieveOrganizations" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveSecretAnswers">
+            <wsdl:part element="tns:RetrieveSecretAnswers" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveUserQuestionsStatusResponse">
+            <wsdl:part element="tns:RetrieveUserQuestionsStatusResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="UpdateUserResponse">
+            <wsdl:part element="tns:UpdateUserResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="UpdateUser">
+            <wsdl:part element="tns:UpdateUser" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="AuthenticateResponse">
+            <wsdl:part element="tns:AuthenticateResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllRegistrationCountriesResponse">
+            <wsdl:part element="tns:RetrieveAllRegistrationCountriesResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveRolesResponse">
+            <wsdl:part element="tns:RetrieveRolesResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RegisterException">
+            <wsdl:part element="tns:RegisterFault" name="RegisterException">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllSecretQuestionsResponse">
+            <wsdl:part element="tns:RetrieveAllSecretQuestionsResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="ApproveRole">
+            <wsdl:part element="tns:ApproveRole" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllApprovedQuestionsResponse">
+            <wsdl:part element="tns:RetrieveAllApprovedQuestionsResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllUserSuffixesResponse">
+            <wsdl:part element="tns:RetrieveAllUserSuffixesResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DenyRoleResponse">
+            <wsdl:part element="tns:DenyRoleResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="Authenticate">
+            <wsdl:part element="tns:Authenticate" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DeactiveRoleResponse">
+            <wsdl:part element="tns:DeactiveRoleResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="UpdateOrganization">
+            <wsdl:part element="tns:UpdateOrganization" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllRegistrationStatesResponse">
+            <wsdl:part element="tns:RetrieveAllRegistrationStatesResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveRoleTypes">
+            <wsdl:part element="tns:RetrieveRoleTypes" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateUserResponse">
+            <wsdl:part element="tns:CreateUserResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllApprovedQuestions">
+            <wsdl:part element="tns:RetrieveAllApprovedQuestions" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveRolesForDataflowResponse">
+            <wsdl:part element="tns:RetrieveRolesForDataflowResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="GenerateAnswerResetCodeResponse">
+            <wsdl:part element="tns:GenerateAnswerResetCodeResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="ApproveRoleResponse">
+            <wsdl:part element="tns:ApproveRoleResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveRolesForDataflow">
+            <wsdl:part element="tns:RetrieveRolesForDataflow" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveAllUserTitles">
+            <wsdl:part element="tns:RetrieveAllUserTitles" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DeleteAnswersResponse">
+            <wsdl:part element="tns:DeleteAnswersResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateOrganization">
+            <wsdl:part element="tns:CreateOrganization" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveUserQuestionsStatus">
+            <wsdl:part element="tns:RetrieveUserQuestionsStatus" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateSecretAnswersResponse">
+            <wsdl:part element="tns:CreateSecretAnswersResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateAnswers">
+            <wsdl:part element="tns:CreateAnswers" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveRoles">
+            <wsdl:part element="tns:RetrieveRoles" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveSecretAnswersResponse">
+            <wsdl:part element="tns:RetrieveSecretAnswersResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="UpdateOrganizationResponse">
+            <wsdl:part element="tns:UpdateOrganizationResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveOrganizationsByUserOrganizationIds">
+            <wsdl:part element="tns:RetrieveOrganizationsByUserOrganizationIds" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RetrieveOrganizationsByDataflowResponse">
+            <wsdl:part element="tns:RetrieveOrganizationsByDataflowResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="ChangePasswordResponse">
+            <wsdl:part element="tns:ChangePasswordResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:portType name="RegisterService">
+            <wsdl:operation name="RetrieveOrganizationByUserOrganizationId">
+              <wsdl:input message="tns:RetrieveOrganizationByUserOrganizationId" name="RetrieveOrganizationByUserOrganizationId">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveOrganizationByUserOrganizationIdResponse" name="RetrieveOrganizationByUserOrganizationIdResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="GenerateAnswerResetCode">
+              <wsdl:input message="tns:GenerateAnswerResetCode" name="GenerateAnswerResetCode">
+            </wsdl:input>
+              <wsdl:output message="tns:GenerateAnswerResetCodeResponse" name="GenerateAnswerResetCodeResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="ChangePassword">
+              <wsdl:input message="tns:ChangePassword" name="ChangePassword">
+            </wsdl:input>
+              <wsdl:output message="tns:ChangePasswordResponse" name="ChangePasswordResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DeactiveRole">
+              <wsdl:input message="tns:DeactiveRole" name="DeactiveRole">
+            </wsdl:input>
+              <wsdl:output message="tns:DeactiveRoleResponse" name="DeactiveRoleResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllSecretQuestions">
+              <wsdl:input message="tns:RetrieveAllSecretQuestions" name="RetrieveAllSecretQuestions">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveAllSecretQuestionsResponse" name="RetrieveAllSecretQuestionsResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DeleteAnswers">
+              <wsdl:input message="tns:DeleteAnswers" name="DeleteAnswers">
+            </wsdl:input>
+              <wsdl:output message="tns:DeleteAnswersResponse" name="DeleteAnswersResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="ApproveRole">
+              <wsdl:input message="tns:ApproveRole" name="ApproveRole">
+            </wsdl:input>
+              <wsdl:output message="tns:ApproveRoleResponse" name="ApproveRoleResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllUserSuffixes">
+              <wsdl:input message="tns:RetrieveAllUserSuffixes" name="RetrieveAllUserSuffixes">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveAllUserSuffixesResponse" name="RetrieveAllUserSuffixesResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllRegistrationStates">
+              <wsdl:input message="tns:RetrieveAllRegistrationStates" name="RetrieveAllRegistrationStates">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveAllRegistrationStatesResponse" name="RetrieveAllRegistrationStatesResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Authenticate">
+              <wsdl:input message="tns:Authenticate" name="Authenticate">
+            </wsdl:input>
+              <wsdl:output message="tns:AuthenticateResponse" name="AuthenticateResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="AddRole">
+              <wsdl:input message="tns:AddRole" name="AddRole">
+            </wsdl:input>
+              <wsdl:output message="tns:AddRoleResponse" name="AddRoleResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateSecretAnswers">
+              <wsdl:input message="tns:CreateSecretAnswers" name="CreateSecretAnswers">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateSecretAnswersResponse" name="CreateSecretAnswersResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="UpdateOrganization">
+              <wsdl:input message="tns:UpdateOrganization" name="UpdateOrganization">
+            </wsdl:input>
+              <wsdl:output message="tns:UpdateOrganizationResponse" name="UpdateOrganizationResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveRoleTypes">
+              <wsdl:input message="tns:RetrieveRoleTypes" name="RetrieveRoleTypes">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveRoleTypesResponse" name="RetrieveRoleTypesResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllApprovedQuestions">
+              <wsdl:input message="tns:RetrieveAllApprovedQuestions" name="RetrieveAllApprovedQuestions">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveAllApprovedQuestionsResponse" name="RetrieveAllApprovedQuestionsResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="UpdateSecretAnswers">
+              <wsdl:input message="tns:UpdateSecretAnswers" name="UpdateSecretAnswers">
+            </wsdl:input>
+              <wsdl:output message="tns:UpdateSecretAnswersResponse" name="UpdateSecretAnswersResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllRegistrationCountries">
+              <wsdl:input message="tns:RetrieveAllRegistrationCountries" name="RetrieveAllRegistrationCountries">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveAllRegistrationCountriesResponse" name="RetrieveAllRegistrationCountriesResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveUser">
+              <wsdl:input message="tns:RetrieveUser" name="RetrieveUser">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveUserResponse" name="RetrieveUserResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveRolesForDataflow">
+              <wsdl:input message="tns:RetrieveRolesForDataflow" name="RetrieveRolesForDataflow">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveRolesForDataflowResponse" name="RetrieveRolesForDataflowResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateUser">
+              <wsdl:input message="tns:CreateUser" name="CreateUser">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateUserResponse" name="CreateUserResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DenyRole">
+              <wsdl:input message="tns:DenyRole" name="DenyRole">
+            </wsdl:input>
+              <wsdl:output message="tns:DenyRoleResponse" name="DenyRoleResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllUserTitles">
+              <wsdl:input message="tns:RetrieveAllUserTitles" name="RetrieveAllUserTitles">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveAllUserTitlesResponse" name="RetrieveAllUserTitlesResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateOrganization">
+              <wsdl:input message="tns:CreateOrganization" name="CreateOrganization">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateOrganizationResponse" name="CreateOrganizationResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveOrganizationsByDataflow">
+              <wsdl:input message="tns:RetrieveOrganizationsByDataflow" name="RetrieveOrganizationsByDataflow">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveOrganizationsByDataflowResponse" name="RetrieveOrganizationsByDataflowResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveUserQuestionsStatus">
+              <wsdl:input message="tns:RetrieveUserQuestionsStatus" name="RetrieveUserQuestionsStatus">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveUserQuestionsStatusResponse" name="RetrieveUserQuestionsStatusResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveOrganizations">
+              <wsdl:input message="tns:RetrieveOrganizations" name="RetrieveOrganizations">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveOrganizationsResponse" name="RetrieveOrganizationsResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateAnswers">
+              <wsdl:input message="tns:CreateAnswers" name="CreateAnswers">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateAnswersResponse" name="CreateAnswersResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveRoles">
+              <wsdl:input message="tns:RetrieveRoles" name="RetrieveRoles">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveRolesResponse" name="RetrieveRolesResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveSecretAnswers">
+              <wsdl:input message="tns:RetrieveSecretAnswers" name="RetrieveSecretAnswers">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveSecretAnswersResponse" name="RetrieveSecretAnswersResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveOrganizationsByUserOrganizationIds">
+              <wsdl:input message="tns:RetrieveOrganizationsByUserOrganizationIds" name="RetrieveOrganizationsByUserOrganizationIds">
+            </wsdl:input>
+              <wsdl:output message="tns:RetrieveOrganizationsByUserOrganizationIdsResponse" name="RetrieveOrganizationsByUserOrganizationIdsResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="UpdateUser">
+              <wsdl:input message="tns:UpdateUser" name="UpdateUser">
+            </wsdl:input>
+              <wsdl:output message="tns:UpdateUserResponse" name="UpdateUserResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+          </wsdl:portType>
+          <wsdl:binding name="RegisterServiceSoapBinding" type="tns:RegisterService">
+            <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+            <wsdl:operation name="RetrieveOrganizationByUserOrganizationId">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveOrganizationByUserOrganizationId">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveOrganizationByUserOrganizationIdResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="GenerateAnswerResetCode">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="GenerateAnswerResetCode">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="GenerateAnswerResetCodeResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DeactiveRole">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="DeactiveRole">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="DeactiveRoleResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="ChangePassword">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="ChangePassword">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="ChangePasswordResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllSecretQuestions">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveAllSecretQuestions">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveAllSecretQuestionsResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DeleteAnswers">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="DeleteAnswers">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="DeleteAnswersResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="ApproveRole">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="ApproveRole">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="ApproveRoleResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllUserSuffixes">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveAllUserSuffixes">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveAllUserSuffixesResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllRegistrationStates">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveAllRegistrationStates">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveAllRegistrationStatesResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Authenticate">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="Authenticate">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="AuthenticateResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="AddRole">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="AddRole">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="AddRoleResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateSecretAnswers">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateSecretAnswers">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateSecretAnswersResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="UpdateOrganization">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="UpdateOrganization">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="UpdateOrganizationResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveRoleTypes">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveRoleTypes">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveRoleTypesResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllApprovedQuestions">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveAllApprovedQuestions">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveAllApprovedQuestionsResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="UpdateSecretAnswers">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="UpdateSecretAnswers">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="UpdateSecretAnswersResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllRegistrationCountries">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveAllRegistrationCountries">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveAllRegistrationCountriesResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveUser">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveUser">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveUserResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveRolesForDataflow">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveRolesForDataflow">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveRolesForDataflowResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateUser">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateUser">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateUserResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DenyRole">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="DenyRole">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="DenyRoleResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveAllUserTitles">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveAllUserTitles">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveAllUserTitlesResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateOrganization">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateOrganization">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateOrganizationResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveOrganizationsByDataflow">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveOrganizationsByDataflow">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveOrganizationsByDataflowResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveUserQuestionsStatus">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveUserQuestionsStatus">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveUserQuestionsStatusResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveOrganizations">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveOrganizations">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveOrganizationsResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateAnswers">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateAnswers">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateAnswersResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveRoles">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveRoles">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveRolesResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveSecretAnswers">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveSecretAnswers">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveSecretAnswersResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RetrieveOrganizationsByUserOrganizationIds">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RetrieveOrganizationsByUserOrganizationIds">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RetrieveOrganizationsByUserOrganizationIdsResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="UpdateUser">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="UpdateUser">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="UpdateUserResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+          </wsdl:binding>
+          <wsdl:service name="RegisterService">
+            <wsdl:port binding="tns:RegisterServiceSoapBinding" name="RegisterServicePort">
+              <soap12:address location="https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService"/>
+            </wsdl:port>
+          </wsdl:service>
+        </wsdl:definitions>
+    http_version: 
+  recorded_at: Tue, 09 Feb 2016 20:44:50 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:RetrieveUser><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.T4Tq2ZTaSvohH020eG8cIg,,.</securityToken><userId>e-manifest-dev</userId></tns:RetrieveUser></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"RetrieveUser"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '621'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2016 20:44:50 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '739'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:RetrieveUserResponse
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/1"><User><firstName>Test</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-02-02T16:13:41-05:00</lastLogin><lastName>Tester</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-09-30T14:35:53-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>E-MANIFEST-DEV</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></User></ns2:RetrieveUserResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Tue, 09 Feb 2016 20:44:50 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:RetrieveOrganizationsByDataflow><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.T4Tq2ZTaSvohH020eG8cIg,,.</securityToken><user><firstName>Test</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-02-02T16:13:41-05:00</lastLogin><lastName>Tester</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-09-30T14:35:53-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>E-MANIFEST-DEV</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></user><dataflow>eManifest</dataflow></tns:RetrieveOrganizationsByDataflow></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"RetrieveOrganizationsByDataflow"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '1178'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2016 20:44:50 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '792'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:RetrieveOrganizationsByDataflowResponse
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/1"><Organization><cdxEsaStatus>Received</cdxEsaStatus><city>WASHINGTON</city><country><code>US</code><name>UNITED
+        STATES</name></country><email>emanifest@epa.gov</email><mailingAddress1>1200
+        PENN AVE</mailingAddress1><organizationId>15404</organizationId><organizationName>EPA
+        2</organizationName><phone>7033080022</phone><primaryOrg>true</primaryOrg><state><code>DC</code><countryCode>US</countryCode><name>District
+        of Columbia</name><region>3</region></state><userOrganizationId>86328</userOrganizationId><zip>20460</zip></Organization></ns2:RetrieveOrganizationsByDataflowResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Tue, 09 Feb 2016 20:44:50 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId><CDX_USERNAME></userId><credential><CDX_PASSWORD></credential><domain>default</domain><authenticationMethod>password</authenticationMethod></tns:Authenticate></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"Authenticate"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '496'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2016 20:44:50 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - multipart/related; type="application/xop+xml"; boundary="uuid:06084c3d-50c3-4ccb-8bb3-691d6ed1e4f6";
+        start="<root.message@cxf.apache.org>"; start-info="application/soap+xml"
+      Content-Length:
+      - '731'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: "--uuid:06084c3d-50c3-4ccb-8bb3-691d6ed1e4f6\r\nContent-Type: application/xop+xml;
+        charset=UTF-8; type=\"application/soap+xml\";\r\nContent-Transfer-Encoding:
+        binary\r\nContent-ID: <root.message@cxf.apache.org>\r\n\r\n<soap:Envelope
+        xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\"><soap:Body><ns2:AuthenticateResponse
+        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.T4Tq2ZTaSvoy9OuiKIwp9w,,.</securityToken></ns2:AuthenticateResponse></soap:Body></soap:Envelope>\r\n--uuid:06084c3d-50c3-4ccb-8bb3-691d6ed1e4f6--"
+    http_version: 
+  recorded_at: Tue, 09 Feb 2016 20:44:50 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:RetrieveUser><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.T4Tq2ZTaSvoy9OuiKIwp9w,,.</securityToken><userId>e-manifest-dev</userId></tns:RetrieveUser></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"RetrieveUser"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '621'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2016 20:44:50 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '739'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:RetrieveUserResponse
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/1"><User><firstName>Test</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-02-02T16:13:41-05:00</lastLogin><lastName>Tester</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-09-30T14:35:53-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>E-MANIFEST-DEV</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></User></ns2:RetrieveUserResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Tue, 09 Feb 2016 20:44:51 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:RetrieveRolesForDataflow><securityToken>csm:IiKaBeCRDqLQCDSlyPFQ5L2Wh58w_dbWJ6Vv1CCqcOgJH-GgGOBnI1P3PlH4UTzq.5zSAx_QQQqT042Z7Uhro_V4S96kicfK-RhihgtLOohiCVrj8Cf-blBj8KSqDmFsL.yB258ezD3gvO5HGlQrnRqEhXMVzKXDhpci2C7X_RZy3zroYZ0Sb4kcn3AS8g9eM8.T4Tq2ZTaSvoy9OuiKIwp9w,,.</securityToken><user><firstName>Test</firstName><governmentPartner>false</governmentPartner><lastLogin>2016-02-02T16:13:41-05:00</lastLogin><lastName>Tester</lastName><lexisNexisAttempts>0</lexisNexisAttempts><passwordResetAttempts>0</passwordResetAttempts><registrationDate>2015-09-30T14:35:53-04:00</registrationDate><status>Valid</status><title><description>Mr</description></title><userId>E-MANIFEST-DEV</userId><verificationIndexElectronic>0</verificationIndexElectronic><verificationIndexPaper>700</verificationIndexPaper></user><organzation><cdxEsaStatus>Received</cdxEsaStatus><city>WASHINGTON</city><country><code>US</code><name>UNITED
+        STATES</name></country><email>emanifest@epa.gov</email><mailingAddress1>1200
+        PENN AVE</mailingAddress1><organizationId>15404</organizationId><organizationName>EPA
+        2</organizationName><phone>7033080022</phone><primaryOrg>true</primaryOrg><state><code>DC</code><countryCode>US</countryCode><name>District
+        of Columbia</name><region>3</region></state><userOrganizationId>86328</userOrganizationId><zip>20460</zip></organzation><dataflow>eManifest</dataflow></tns:RetrieveRolesForDataflow></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"RetrieveRolesForDataflow"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '1697'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2016 20:44:50 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '502'
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><ns2:RetrieveRolesForDataflowResponse
+        xmlns:ns2="http://www.exchangenetwork.net/wsdl/register/1"><Role><dataflow>eManifest</dataflow><status><code>Active</code><description>Active</description></status><subject>EPA123456789</subject><type><code>112090</code><description>TSDF</description><status>Active</status></type><userRoleId>87638</userRoleId></Role></ns2:RetrieveRolesForDataflowResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Tue, 09 Feb 2016 20:44:51 GMT
+recorded_with: VCR 3.0.1

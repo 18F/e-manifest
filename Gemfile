@@ -7,7 +7,7 @@ ruby '2.2.3'
 gem 'kaminari'
 gem 'elasticsearch-dsl'
 gem 'elasticsearch-model'
-gem 'elasticsearch-rails-ha', git: 'https://github.com/18F/elasticsearch-rails-ha-gem.git'
+gem 'elasticsearch-rails-ha', '~> 1.0.2'
 
 gem 'autoprefixer-rails'
 gem 'active_model_serializers'
@@ -18,13 +18,15 @@ gem 'email_validator'
 gem 'flutie'
 gem 'jquery-rails'
 gem 'json-patch'
-gem 'json-schema'
+gem 'json-schema', git: 'https://github.com/pkarman/json-schema', branch: 'require_all'
 gem 'neat', '~> 1.7.0'
 gem 'normalize-rails', '~> 3.0.0'
 gem 'pg'
 gem 'puma'
 gem 'rack-canonical-host'
+gem 'rack-cors'
 gem 'rails', '~> 4.2.0'
+gem 'redis-namespace'
 gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'simple_form'
@@ -34,7 +36,7 @@ gem 'uglifier'
 gem 'redcarpet'
 gem 'savon-multipart', git: 'https://github.com/jessieay/savon-multipart.git'
 gem 'swagger-ui_rails', git: 'https://github.com/pkarman/swagger-ui_rails.git', submodules: true
-gem 'us_web_design_standards'
+gem 'us_web_design_standards', git: 'https://github.com/jessieay/us_web_design_standards_gem.git', branch: 'rails-assets-fixes'
 
 group :development do
   gem 'spring'
@@ -54,7 +56,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara-webkit', '>= 1.2.0'
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'elasticsearch-extensions'
   gem 'queryparams'
@@ -63,6 +65,7 @@ group :test do
   gem 'simplecov', require: false
   gem 'timecop'
   gem 'webmock'
+  gem 'vcr'
 end
 
 group :staging, :production do

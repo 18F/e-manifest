@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="ROBOTS" content="NOODP" />
-  <meta name="viewport" content="initial-scale=1" />
-  <title>e-Manifest API Documentation</title>
-  <%= stylesheet_link_tag 'swagger-ui' %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="swagger-section">
-  <header>
-    <div class='container'>
-      <div>
-        <h1>e-Manifest</h1>
-        <%= link_to 'Home', root_path %>
-        <%= link_to 'Industry', new_submission_path %>
-      </div>
-    </div>
-  </header>
-<%= render "javascript" %>
-<%= render 'swagger_ui/swagger_ui', discovery_url: 'swagger.json' %>
-</body>
-</html>
+<div class="swagger-section usa-width-one-whole">
+  <div>
+   This page is an interactive reference to the API. You can also read <%= link_to 'API examples', '/api-examples' %>.
+  </div>
+
+  <% unless current_user %>
+   <div>
+    <strong>NOTE:</strong> many API methods will not work unless you first
+    <%= link_to "Sign in", login_path(back: request.original_url) %>.
+   </div>
+  <% end %>
+
+  <%= render 'swagger_ui/swagger_ui', discovery_url: 'swagger.json' %>
+
+  <% if current_user %>
+    <script type="text/javascript">
+      window.authorizations.add("key", new ApiKeyAuthorization("Authorization", "Bearer <%= user_session.token %>", "header"));
+    </script>
+  <% end %>
+</div>

@@ -1,19 +1,27 @@
 GIT
-  remote: https://github.com/18F/elasticsearch-rails-ha-gem.git
-  revision: a5af4828e3c688b67911e85ea7cdddcce31885b3
-  specs:
-    elasticsearch-rails-ha (1.0.0)
-      ansi
-      elasticsearch-model
-      elasticsearch-rails
-
-GIT
   remote: https://github.com/jessieay/savon-multipart.git
   revision: 6771eaee41aacb5220af9a096164d63acca05b1b
   specs:
     savon-multipart (2.1.1)
       mail (~> 2.6)
       savon (~> 2)
+
+GIT
+  remote: https://github.com/jessieay/us_web_design_standards_gem.git
+  revision: 0d777d5ee7c486e64733944cce5ab4d35c6f6c95
+  branch: rails-assets-fixes
+  specs:
+    us_web_design_standards (0.0.2)
+      railties
+      sass (~> 3.4)
+
+GIT
+  remote: https://github.com/pkarman/json-schema
+  revision: 8802742564720b3119a69addf906c1a5e0e237f1
+  branch: require_all
+  specs:
+    json-schema (2.6.0)
+      addressable (~> 2.3.8)
 
 GIT
   remote: https://github.com/pkarman/swagger-ui_rails.git
@@ -37,38 +45,38 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.2.5)
-      actionpack (= 4.2.5)
-      actionview (= 4.2.5)
-      activejob (= 4.2.5)
+    actionmailer (4.2.5.1)
+      actionpack (= 4.2.5.1)
+      actionview (= 4.2.5.1)
+      activejob (= 4.2.5.1)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 1.0, >= 1.0.5)
-    actionpack (4.2.5)
-      actionview (= 4.2.5)
-      activesupport (= 4.2.5)
+    actionpack (4.2.5.1)
+      actionview (= 4.2.5.1)
+      activesupport (= 4.2.5.1)
       rack (~> 1.6)
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (4.2.5)
-      activesupport (= 4.2.5)
+    actionview (4.2.5.1)
+      activesupport (= 4.2.5.1)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
     active_model_serializers (0.9.4)
       activemodel (>= 3.2)
-    activejob (4.2.5)
-      activesupport (= 4.2.5)
+    activejob (4.2.5.1)
+      activesupport (= 4.2.5.1)
       globalid (>= 0.3.0)
-    activemodel (4.2.5)
-      activesupport (= 4.2.5)
+    activemodel (4.2.5.1)
+      activesupport (= 4.2.5.1)
       builder (~> 3.1)
-    activerecord (4.2.5)
-      activemodel (= 4.2.5)
-      activesupport (= 4.2.5)
+    activerecord (4.2.5.1)
+      activemodel (= 4.2.5.1)
+      activesupport (= 4.2.5.1)
       arel (~> 6.0)
-    activesupport (4.2.5)
+    activesupport (4.2.5.1)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -92,15 +100,14 @@ GEM
       bundler (~> 1.2)
       thor (~> 0.18)
     byebug (8.2.1)
-    capybara (2.5.0)
+    capybara (2.6.0)
+      addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.7.1)
-      capybara (>= 2.3.0, < 2.6.0)
-      json
+    cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -135,6 +142,10 @@ GEM
       elasticsearch (> 0.4)
       hashie
     elasticsearch-rails (0.1.8)
+    elasticsearch-rails-ha (1.0.2)
+      ansi
+      elasticsearch-model
+      elasticsearch-rails
     elasticsearch-transport (1.0.15)
       faraday
       multi_json
@@ -165,8 +176,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     json-patch (1.0.0)
-    json-schema (2.6.0)
-      addressable (~> 2.3.8)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -179,17 +188,22 @@ GEM
     method_source (0.8.2)
     mime-types (2.99)
     mini_portile2 (2.0.0)
-    minitest (5.8.3)
+    minitest (5.8.4)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     neat (1.7.2)
       bourbon (>= 4.0)
       sass (>= 3.3)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     nori (2.6.0)
     normalize-rails (3.0.3)
     pg (0.18.4)
+    poltergeist (1.8.1)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -202,21 +216,22 @@ GEM
     rack-canonical-host (0.1.0)
       addressable
       rack (~> 1.0)
+    rack-cors (0.4.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.3.2)
-    rails (4.2.5)
-      actionmailer (= 4.2.5)
-      actionpack (= 4.2.5)
-      actionview (= 4.2.5)
-      activejob (= 4.2.5)
-      activemodel (= 4.2.5)
-      activerecord (= 4.2.5)
-      activesupport (= 4.2.5)
+    rails (4.2.5.1)
+      actionmailer (= 4.2.5.1)
+      actionpack (= 4.2.5.1)
+      actionview (= 4.2.5.1)
+      activejob (= 4.2.5.1)
+      activemodel (= 4.2.5.1)
+      activerecord (= 4.2.5.1)
+      activesupport (= 4.2.5.1)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.2.5)
+      railties (= 4.2.5.1)
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -224,21 +239,23 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.2)
+    rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
     rails_serve_static_assets (0.0.4)
     rails_stdout_logging (0.0.4)
-    railties (4.2.5)
-      actionpack (= 4.2.5)
-      activesupport (= 4.2.5)
+    railties (4.2.5.1)
+      actionpack (= 4.2.5.1)
+      activesupport (= 4.2.5.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.4.2)
+    rake (10.5.0)
     redcarpet (3.3.4)
     redis (3.2.2)
+    redis-namespace (1.5.2)
+      redis (~> 3.0, >= 3.0.4)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -318,9 +335,7 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    us_web_design_standards (0.0.2)
-      railties
-      sass (~> 3.4)
+    vcr (3.0.1)
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
@@ -332,6 +347,9 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    websocket-driver (0.6.3)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -346,7 +364,6 @@ DEPENDENCIES
   bourbon (~> 4.2.0)
   bundler-audit
   byebug
-  capybara-webkit (>= 1.2.0)
   coderay
   coffee-rails (~> 4.1.0)
   database_cleaner
@@ -354,26 +371,29 @@ DEPENDENCIES
   elasticsearch-dsl
   elasticsearch-extensions
   elasticsearch-model
-  elasticsearch-rails-ha!
+  elasticsearch-rails-ha (~> 1.0.2)
   email_validator
   factory_girl_rails
   flutie
   jquery-rails
   json-patch
-  json-schema
+  json-schema!
   kaminari
   launchy
   neat (~> 1.7.0)
   normalize-rails (~> 3.0.0)
   pg
+  poltergeist
   pry-rails
   puma
   queryparams
   rack-canonical-host
+  rack-cors
   rack-timeout
   rails (~> 4.2.0)
   rails_12factor
   redcarpet
+  redis-namespace
   rspec-rails (~> 3.3.0)
   sass-rails (~> 5.0)
   savon-multipart!
@@ -388,7 +408,8 @@ DEPENDENCIES
   timecop
   title
   uglifier
-  us_web_design_standards
+  us_web_design_standards!
+  vcr
   web-console
   webmock
 

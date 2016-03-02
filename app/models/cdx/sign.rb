@@ -1,19 +1,24 @@
 class CDX::Sign < CDX::LoggedRequest
+  private
+
   def request
-    client.call(:sign, {
-      message: {
-        :securityToken => opts["token"],
-        :activityId => opts["activity_id"],
-        :signatureDocument => signature_document
+    client.call(
+      :sign,
+      {
+        message: {
+          securityToken: opts[:token],
+          activityId: opts[:activity_id],
+          signatureDocument: signature_document
+        }
       }
-    })
+    )
   end
 
   def signature_document
     {
-      :Name => "e-manifest #{opts['id']}",
-      :Format => "BIN",
-      :Content => opts[:manifest_content]
+      Name: "e-manifest #{opts[:id]}",
+      Format: "BIN",
+      Content: opts[:manifest_content]
     }
   end
 

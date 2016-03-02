@@ -1,0 +1,30 @@
+<%= form.simple_fields_for :designated_facility do |facility| %>
+  <%= facility.input :name, label: 'Name (8)' %>
+  <%= render partial: 'address', locals: { fields: 'address', object: facility, number: 8 } %>
+  <%= facility.input :phone_number, label: 'Phone number (8)' %>
+  <%= facility.input :us_epa_id_number, label: 'U.S. EPA ID Number (8)' %>
+  <%= facility.input :shipment_has_discrepancy, as: :radio_buttons, label: 'This shipment has a discrepancy', boolean_style: :inline %>
+  <div class="discrepancy">
+    <%= facility.simple_fields_for :discrepancy do |discrepancy| %>
+      <%= discrepancy.input :description, as: :text, label: "Discrepancy description (18)" %>
+
+      <h4>Discrepancy Indication (18a)</h4>
+      <%= discrepancy.input :manifest_tracking_number, label: "New manifest tracking number (18a)" %>
+      <%= discrepancy.input :category_quantity, as: :radio_buttons, label: "Discrepancy due to quantity (18a)", boolean_style: :inline %>
+      <%= discrepancy.input :category_type, as: :radio_buttons, label: "Discrepancy due to type (18a)", boolean_style: :inline %>
+      <%= discrepancy.input :category_residue, as: :radio_buttons, label: "Discrepancy due to residue (18a)", boolean_style: :inline %>
+      <%= discrepancy.input :type, as: :select, collection: discrepancy_types, label: "Type of rejection (18a)", boolean_style: :inline %>
+
+      <h4>Alternative facility (or Generator)</h4>
+      <%= discrepancy.input :name, label: "Facility name (18b)" %>
+      <%= render partial: 'address', locals: { fields: 'address', object: discrepancy, number: '18b' } %>
+      <%= discrepancy.input :phone_number, label: "Phone number (18b)" %>
+      <%= discrepancy.input :us_epa_id_number, label: "U.S. EPA ID Number (18b)" %>
+      <%= discrepancy.simple_fields_for :signatory do |signature| %>
+        <%= signature.input :name, label: 'Name of signatory (18c)' %>
+        <%= label_tag 'Date of signature (18c)' %>
+        <%= date_field_tag 'date', nil, name: "manifest[designated_facility][discrepancy][signatory][date]"  %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

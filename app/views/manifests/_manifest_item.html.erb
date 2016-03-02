@@ -1,0 +1,16 @@
+<div class="manifest-item">
+  <h4>Manifest Item 1</h4>
+  <%= simple_fields_for :manifest_items do |manifest_item| %>
+    <%= manifest_item.input :hazardous_material, label: 'This shipment contains hazardous material (9a)', as: :select, collection: ['True', 'False'], input_html: { class: 'js-manifest-item', name: "manifest[manifest_items][][hazardous_material]", data: { number: '1' } } %>
+    <%= manifest_item.input :hazard_classes, label: 'Comma separated hazard classes (9b)', input_html: { name: "manifest[manifest_items][][hazard_classes]" } %>
+    <%= manifest_item.input :proper_shipping_name, label: 'Proper shipping name (9b)', input_html: { name: "manifest[manifest_items][][proper_shipping_name]" } %>
+    <%= manifest_item.input :id_number, label: 'ID number (9b)', input_html: { name: "manifest[manifest_items][][id_number]" } %>
+    <%= manifest_item.input :packing_group, as: :select, collection: ["I", "II", "III"], label: 'Packing group (9b)', input_html: { name: "manifest[manifest_items][][packing_group]" } %>
+    <%= manifest_item.input :number_of_containers, as: :integer, label: 'Number of containers (10)', input_html: { name: "manifest[manifest_items][][number_of_containers]" } %>
+    <%= manifest_item.input :container_type, as: :select, collection: container_types, label: 'Container type (10)', input_html: { name: "manifest[manifest_items][][container_type]" } %>
+    <%= manifest_item.input :total_quantity, as: :integer, label: 'Total quantity for the listed unit of measure (11)', input_html: { name: "manifest[manifest_items][][total_quantity]" } %>
+    <%= manifest_item.input :unit_wt_vol, as: :select, collection: units_of_measure, label: 'Unit Wt./Vol. (12)', input_html: { name: "manifest[manifest_items][][unit_wt_vol]" } %>
+    <%= manifest_item.input :epa_waste_codes, label: 'Comma separated list of federal waste codes (13)', input_html: { name: "manifest[manifest_items][][epa_waste_codes]" } %>
+    <%= manifest_item.input :state_waste_codes, label: 'Comma separated list of state and other waste codes (13)', input_html: { name: "manifest[manifest_items][][state_waste_codes]" } %>
+  <% end %>
+</div>

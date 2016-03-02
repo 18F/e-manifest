@@ -9,23 +9,29 @@ class CDX::Manifest
   def sign
     validate_answer
     repackage_response
-  rescue Exception => error
-    CDX::HandleError.new(error, output_stream).perform
+  rescue Savon::SOAPFault => error
+    log_and_repackage_error(error)
   end
 
   private
 
-  def repackage_response
-    {
-      document_id: document_id
-    }
+  def validate_answer
+    @_answer ||= CDX::Answer.new(opts, output_stream).perform
   end
 
-  def validate_answer
-    CDX::Answer.new(opts, output_stream).validate
+  def repackage_response
+    if validate_answer == true
+      { document_id: document_id }
+    else
+      validate_answer
+    end
   end
 
   def document_id
     @document_id ||= CDX::Sign.new(opts, output_stream).perform
+  end
+
+  def log_and_repackage_error(error)
+    CDX::HandleError.new(error, output_stream).perform
   end
 end

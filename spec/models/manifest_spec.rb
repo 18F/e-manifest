@@ -7,6 +7,29 @@ describe Manifest do
 
       expect(manifest).to be_invalid
     end
+
+    it 'validates uniqueness of manifest tracking number' do
+      manifest = create(:manifest)
+      duplicate_manifest = build(
+        :manifest,
+        content: { generator: { manifest_tracking_number: manifest.tracking_number} }
+      )
+
+      expect(duplicate_manifest).to be_invalid
+    end
+
+    it 'does not validate uniqueness of manifest trackig number against itself' do
+      manifest = create(:manifest)
+      manifest.content['generator']['manifest_tracking_number'] = manifest.tracking_number
+
+      expect(manifest).to be_valid
+    end
+
+    it 'validates format of manifest tracking number' do
+      manifest = build(:manifest, content: { generator: { manifest_tracking_number: '123' } })
+
+      expect(manifest).to be_invalid
+    end
   end
 
   describe '#uuid' do
@@ -44,12 +67,22 @@ describe Manifest do
       end
 
       it 'does not allow manifests with duplicate tracking number' do
-        tracking_number = '12345'
+       tracking_number = '987654321ABC'
 
         manifest = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
         expect {
           manifest_dup = create(:manifest, content: { generator: { manifest_tracking_number: tracking_number } })
-        }.to raise_exception(ActiveRecord::RecordNotUnique)
+        }.to raise_exception(ActiveRecord::RecordInvalid)
+      end
+
+      it 'does not allow tracking number to change to non-unique' do
+        manifest = create(:manifest)
+        manifest2 = create(:manifest)
+        manifest.content['generator']['manifest_tracking_number'] = manifest2.tracking_number
+
+        expect {
+          manifest.save!
+        }.to raise_exception(ActiveRecord::RecordInvalid)
       end
     end
   end
@@ -73,7 +106,7 @@ describe Manifest do
       it 'raises exception when called as find_by_uuid_or_tracking_number! and not found' do
         expect {
           Manifest.find_by_uuid_or_tracking_number!('foo')
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(ManifestNotFound)
       end
     end
   end
@@ -94,6 +127,39 @@ describe Manifest do
         manifest = build(:manifest, content: { generator: { name: nil } })
 
         expect(manifest.generator_name).to eq ''
+      end
+    end
+  end
+
+  describe '#generator_mailing_address' do
+    context 'generator_mailing_address is present' do
+      it 'returns hash of generator_mailing_address' do
+        manifest = build(:manifest, content: { generator: { mailing_address: { zip_code: '12345' } } } )
+
+        expect(manifest.generator_mailing_address).to eq({ 'zip_code' => '12345' })
+      end
+    end
+
+    context 'generator_mailing_address is absent' do
+      it 'returns empty hash' do
+        manifest = build(:manifest)
+
+        expect(manifest.generator_mailing_address).to eq({})
+      end
+    end
+  end
+
+  describe '#is_public?' do
+    context 'calculates public status' do
+      it 'is true for older than 90 days' do
+        manifest = create(:manifest)
+        manifest.created_at = Time.current - 91.days.ago.to_f
+        expect(manifest.is_public?).to eq true
+      end
+
+      it 'is false for newer than 90 days' do
+        manifest = create(:manifest)
+        expect(manifest.is_public?).to eq false
       end
     end
   end

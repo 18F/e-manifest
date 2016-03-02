@@ -15,6 +15,8 @@
   <%= render "analytics" %>
 </head>
 <body>
+  <%# js loaded at the top for ensuring dependencies are loaded %>
+  <%= render "javascript" %>
   <%= render "disclaimer" %>
   <nav>
     <div class="usa-grid">
@@ -25,7 +27,13 @@
       <div class="usa-width-one-half text-right">
         <%= link_to 'Search', root_path %>
         <%= link_to 'Industry', new_submission_path %>
-        <%= link_to 'Learn About Submitting Manifests', '/api-documentation/' %>
+        <%= link_to 'API', '/api-documentation/' %>
+        <% if current_user %>
+        <%= link_to "Sign Out", logout_path %>
+        <%= link_to "#{user_session.user_name}", profile_path %>
+        <% else %>
+        <%= link_to "Sign in", login_path %>
+        <% end %>
       </div>
     </div>
   </nav>
@@ -34,7 +42,7 @@
 
   <header class="usa-grid">
     <div class="usa-width-one-whole">
-      <h1>E-Manifest</h1>
+      <h1>e-Manifest</h1>
       <p>An electronic system of tracking hazardous waste</p>
     </div>
   </header>
@@ -42,7 +50,5 @@
   <main class="usa-grid">
     <%= yield %>
   </main>
-
-  <%= render "javascript" %>
 </body>
 </html>

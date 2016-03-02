@@ -1,0 +1,18 @@
+nav.pagination {
+  a {
+    color: #477dca;
+    padding: 0 4px;
+  }
+  span.page.current {
+    padding: 0 4px;
+    color: #000;
+  }
+  span.page.gap {
+    padding: 0 4px;
+    color: #000;
+  }
+}
+.pager {
+  background-color: #fff;
+  border: 1px solid #eee;
+}

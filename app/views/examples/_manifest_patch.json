@@ -23,7 +23,7 @@
       "path" : "/transporters",
       "value" : {
          "company_name" : "AAAA Transporter",
-         "us_epa_id_number" : "3882",
+         "us_epa_id_number" : "EPA321123321",
          "signatory" : {
             "month" : "10",
             "name" : "John Smith",

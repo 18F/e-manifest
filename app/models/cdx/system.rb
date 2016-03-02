@@ -5,8 +5,6 @@ class CDX::System < CDX::LoggedRequest
     @output_stream = output_stream
   end
 
-  alias :authenticate :perform
-
   private
 
   def log_opts
@@ -14,14 +12,15 @@ class CDX::System < CDX::LoggedRequest
   end
 
   def log_response
-    output_stream.puts client.operations
+    output_stream.puts(client.operations)
     super
   end
 
   def response
-    @response ||= client.call(:authenticate, {
-      message: credentials
-    })
+    @response ||= client.call(
+      :authenticate,
+      { message: credentials }
+    )
   end
 
   def repackage_response
@@ -30,8 +29,10 @@ class CDX::System < CDX::LoggedRequest
 
   def credentials
     {
-      :userId => ENV['CDX_USERNAME'], :credential => ENV['CDX_PASSWORD'],
-      :domain => "default", :authenticationMethod => "password"
+      userId: ENV['CDX_USERNAME'],
+      credential: ENV['CDX_PASSWORD'],
+      domain: 'default',
+      authenticationMethod: 'password'
     }
   end
 end

@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ExampleJsonHelper
 
 describe "validate manifest" do
   it "returns error for invalid JSON" do
@@ -16,7 +17,7 @@ describe "validate manifest" do
   end
 
   it "accepts documented example manifest" do
-    json = File.read("#{Rails.root.join('app', 'views', 'examples')}/_manifest.json")
+    json = read_example_json_file('manifest')
     post "/api/v0/manifests/validate", json, set_headers
     expect(response.status).to eq 200
   end

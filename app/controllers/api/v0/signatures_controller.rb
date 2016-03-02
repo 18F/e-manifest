@@ -1,32 +1,28 @@
 class Api::V0::SignaturesController < ApiController
   def create
     manifest = find_manifest(params[:manifest_id])
+    signature_request = read_body_as_json(symbolize_names: true)
 
-    if manifest.nil?
-      status 404
-      return
+    if validate_signature(signature_request)
+      cdx_response = ManifestSigner.new(signature_request.merge(manifest: manifest)).perform
+
+      unless performed?
+        render(json: cdx_response.to_json, status: status_code(cdx_response))
+      end
     end
-
-    sign_request = JSON.parse(request.body.read)
-    manifest_content = manifest[:content].to_json
-    sign_request[:manifest_content] = manifest_content
-    system_session_token = session[:system_session_token]
-    sign_request["token"] = system_session_token
-
-    response = CDX::Manifest.new(sign_request).sign
-
-    if (response.key?(:document_id))
-      manifest[:document_id] = response[:document_id]
-      manifest[:activity_id] = sign_request["activity_id"]
-      manifest.save
-    end
-
-    render json: response.to_json
   end
 
   private
 
-  def find_manifest(id)
-    Manifest.find_by_uuid_or_tracking_number!(id)
+  def validate_signature(content)
+    run_validator(SignatureValidator.new(content))
+  end
+
+  def status_code(cdx_response)
+    if cdx_response.key?(:document_id)
+      200
+    else
+      422
+    end
   end
 end

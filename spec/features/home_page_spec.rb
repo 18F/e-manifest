@@ -11,17 +11,22 @@ feature 'Home page' do
     old_manifest.reindex
     Manifest.__elasticsearch__.refresh_index!
 
-    visit root_path
+    es_execute_with_retries 3 do
+      visit root_path
 
-    expect(page).to have_content old_manifest.tracking_number
-    expect(page).to_not have_content new_manifest.tracking_number
+      expect(page).to have_content old_manifest.tracking_number
+      expect(page).to_not have_content new_manifest.tracking_number
+      expect(page).to have_link(old_manifest.tracking_number, href: manifest_path(old_manifest.uuid))
+    end
   end
 
   scenario 'navigates to submit manifest page', elasticsearch: true do
-    visit root_path
+    es_execute_with_retries 3 do
+      visit root_path
 
-    click_link 'Industry'
+      click_link 'Industry'
 
-    expect(page).to have_content 'Submit a manifest'
+      expect(page).to have_content 'Submit a manifest'
+    end
   end
 end
