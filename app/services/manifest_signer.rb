@@ -32,7 +32,7 @@ class ManifestSigner
   end
 
   def parsed_args
-    args[:manifest] = manifest.content.to_s
+    args[:manifest] = manifest.content.to_json
 
     if args[:token]
       args[:token] = lookup_signature_token(args[:token])
