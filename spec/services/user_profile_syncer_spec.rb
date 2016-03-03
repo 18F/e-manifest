@@ -6,6 +6,6 @@ describe UserProfileSyncer do
     syncer = UserProfileSyncer.new(user, mock_cdx_user_profile)
     syncer.run
     expect(user.organizations.map(&:cdx_org_name)).to eq(['EPA 2'])
-    expect(user.roles.map(&:cdx_role_name)).to eq(['TSDF'])
+    expect(user.roles.map(&:cdx_role_name)).to eq(['TSDF Certifier'])
   end
 end
