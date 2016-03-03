@@ -3,6 +3,7 @@ if ENV.fetch("COVERAGE", false)
       SimpleCov.start "rails"
 end
 
+require 'pundit/rspec'
 require 'webmock/rspec'
 require 'vcr'
 

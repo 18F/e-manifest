@@ -1,6 +1,6 @@
 class ManifestPolicy < ApplicationPolicy
   def can_sign?
-    user && signer? && shares_org?
+    user && signer_in_shared_org?
   end
 
   def debug_user
@@ -14,6 +14,13 @@ class ManifestPolicy < ApplicationPolicy
 
   def owner?
     record.user_id == user.id
+  end
+
+  def signer_in_shared_org?
+    shared_org_ids = user.shares_organizations(record.user)
+    user.user_org_roles.select do |uor| 
+      shared_org_ids.include?(uor.organization_id) && uor.role.tsdf_certifier?
+    end.any?
   end
 
   def signer?

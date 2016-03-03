@@ -30,9 +30,13 @@ class User < ActiveRecord::Base
     roles.select { |role| role.tsdf_certifier? }.any?
   end
 
-  def shares_organization?(user)
+  def shares_organizations(user)
     this_orgs = organizations.pluck(:id)
     other_user_orgs = user.organizations.pluck(:id)
-    (this_orgs & other_user_orgs).any?
+    (this_orgs & other_user_orgs)
+  end
+
+  def shares_organization?(user)
+    shares_organizations(user).any?
   end
 end
