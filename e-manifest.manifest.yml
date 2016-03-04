@@ -2,6 +2,7 @@
 memory: 1024MB
 env:
   RAILS_ENV: production
+  CDX_DEFAULT_DATAFLOW: e-Manifest
 services:
   - e-manifest-db
   - emanifest-es-prod
