@@ -28,7 +28,7 @@ class CDX::Authenticator
       {
         token: security_token,
         signature_user: signature_user,
-        dataflow_name: "eManifest",
+        dataflow_name: (opts[:dataflow] || ENV['CDX_DEFAULT_DATAFLOW']),
         activity_description: "development test",
         role_name: "TSDF",
         role_code: 112090

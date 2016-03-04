@@ -5,6 +5,13 @@ class ApiController < ApplicationController
 
   private
 
+  def user_not_authorized
+    render json: {
+      message: "Permission denied",
+      error: "You are not authorized to perform this action."
+    }, status: 403
+  end
+
   def authenticate_user!
     unless authenticated?
       render json: {

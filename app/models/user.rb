@@ -25,4 +25,18 @@ class User < ActiveRecord::Base
       role_for_org(org_name, role_name).first.cdx_status
     end
   end
+
+  def tsdf_certifier?
+    roles.select { |role| role.tsdf_certifier? }.any?
+  end
+
+  def shares_organizations(user)
+    this_orgs = organizations.pluck(:id)
+    other_user_orgs = user.organizations.pluck(:id)
+    (this_orgs & other_user_orgs)
+  end
+
+  def shares_organization?(user)
+    shares_organizations(user).any?
+  end
 end

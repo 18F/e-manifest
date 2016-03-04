@@ -1,4 +1,6 @@
 class ManifestSigner
+  attr_reader :args
+
   def initialize(args)
     @args = args
   end
@@ -20,16 +22,14 @@ class ManifestSigner
     cdx_response
   end
 
-  private
-
-  attr_reader :args
-
   def update_manifest(cdx_response, args)
     manifest.document_id = cdx_response[:document_id]
     manifest.activity_id = args[:activity_id]
     manifest.signed_at = Time.current
     manifest.save!
   end
+
+  private
 
   def parsed_args
     args[:manifest] = manifest.content.to_json
