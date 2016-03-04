@@ -26,9 +26,19 @@ module UserAuthenticatorHelper
     allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Bad user_id or password')
   end
 
+  def mock_cdx_signature_response
+    {
+      document_id: 'mock_document_id',
+      activity_id: 'mock_activity_id'
+    }
+  end
+
   def mock_user_signature_authorize_pass
     session = mock_authenticated_session
-    allow_any_instance_of(ManifestSigner).to receive(:perform).and_return({ document_id: 'abc123' })
+    allow_any_instance_of(ManifestSigner).to receive(:perform) do |manifest_signer|
+      manifest_signer.update_manifest(mock_cdx_signature_response, manifest_signer.args)
+      mock_cdx_signature_response
+    end
     session
   end
 

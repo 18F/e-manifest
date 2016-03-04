@@ -2,6 +2,7 @@ class Api::V0::SignaturesController < ApiController
   def create
     manifest = find_manifest(params[:manifest_id])
     signature_request = read_body_as_json(symbolize_names: true)
+    authorize manifest, :can_sign?
 
     if validate_signature(signature_request)
       cdx_response = ManifestSigner.new(signature_request.merge(manifest: manifest)).perform
