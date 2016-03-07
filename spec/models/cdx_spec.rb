@@ -131,7 +131,7 @@ describe "CDX" do
           signatureDocument: {
             Name: 'e-manifest id',
             Format: 'BIN',
-            Content: 'content'
+            Content: Base64.encode64('content')
           }
         }
       })
