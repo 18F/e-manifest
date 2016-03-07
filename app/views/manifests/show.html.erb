@@ -88,6 +88,9 @@
 </div>
 
 <div class="usa-width-one-third">
+  <div class="actions">
+    <%= link_to 'Sign this manifest', new_manifest_sign_or_upload_path(@manifest.uuid) %>
+  </div>
   <div class="callout">
     <dl>
       <dt>Manifest #</dt>
