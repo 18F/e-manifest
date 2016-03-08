@@ -42,6 +42,13 @@ module UserAuthenticatorHelper
     session
   end
 
+  def mock_user_signature_authn_fail
+    session = mock_authenticated_session
+    allow_any_instance_of(UserAuthenticator).to receive(:authorize_signature).and_return(nil)
+    allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Bad user_id or password')
+    session
+  end
+
   def mock_user_signature_authorize_fail
     session = mock_authenticated_session
     allow_any_instance_of(ManifestSigner).to receive(:perform).and_return({
