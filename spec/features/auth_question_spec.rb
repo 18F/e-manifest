@@ -31,13 +31,10 @@ feature 'Authentication question for signing manifest' do
     fill_in 'Username', with: 'correct_username'
     fill_in 'Password', with: 'correct_password'
     click_on 'Login'
-    fill_in 'Answer', with: 'Test'
-    click_on 'Sign manifest'
 
     expect(page).to have_content(
       "You are not authorized to perform this action"
     )
-    expect(page).to have_content("color?")
   end
 
   scenario 'submits incorrect answer to auth question' do

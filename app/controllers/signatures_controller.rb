@@ -1,6 +1,8 @@
 class SignaturesController < ApplicationController
   def new
     @manifest = Manifest.find_by_uuid_or_tracking_number!(params[:manifest_id])
+    authorize @manifest, :can_sign?
+
     @response = parsed_response_params
   end
 
