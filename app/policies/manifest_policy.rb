@@ -1,4 +1,8 @@
 class ManifestPolicy < ApplicationPolicy
+  def can_submit?
+    can_sign?
+  end
+
   def can_sign?
     user && signer_in_shared_org?
   end

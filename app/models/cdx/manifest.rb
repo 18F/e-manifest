@@ -13,6 +13,9 @@ class CDX::Manifest
     log_and_repackage_error(error)
   end
 
+  def submit
+  end
+
   private
 
   def validate_answer
