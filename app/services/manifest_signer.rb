@@ -24,8 +24,6 @@ class ManifestSigner
     cdx_response
   end
 
-  private
-  
   def update_manifest(cdx_response, args)
     manifest.document_id = cdx_response[:document_id]
     manifest.activity_id = args[:activity_id]
@@ -33,6 +31,8 @@ class ManifestSigner
     manifest.save!
   end
 
+  private
+  
   def manifest
     @_manifest ||= args[:manifest]
   end
