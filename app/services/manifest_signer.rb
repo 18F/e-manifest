@@ -10,6 +10,8 @@ class ManifestSigner
 
     cdx_start = Time.current
 
+    parsed_args = ManifestTokenJsonConverter.new(args).replace_with_json_cdx_token
+
     cdx_response = CDX::Manifest.new(parsed_args, output_stream).sign
 
     cdx_stop = Time.current
@@ -22,6 +24,8 @@ class ManifestSigner
     cdx_response
   end
 
+  private
+  
   def update_manifest(cdx_response, args)
     manifest.document_id = cdx_response[:document_id]
     manifest.activity_id = args[:activity_id]
@@ -29,24 +33,7 @@ class ManifestSigner
     manifest.save!
   end
 
-  private
-
-  def parsed_args
-    args[:manifest] = manifest.content.to_json
-
-    if args[:token]
-      args[:token] = lookup_signature_token(args[:token])
-    end
-
-    args
-  end
-
   def manifest
     @_manifest ||= args[:manifest]
-  end
-
-  def lookup_signature_token(user_token)
-    session = UserSession.new(user_token)
-    session.cdx_token
   end
 end
