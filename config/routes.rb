@@ -29,7 +29,7 @@ Rails.application.routes.draw do
       post 'manifests/validate', to: 'manifests#validate'
       resources :manifests, only: [:create, :show, :update] do
         resource :signature, only: [:create]
-        resource :submit_to_cromerr, only: [:create]
+        resource :cromerr_submit_transaction, only: [:create]
       end
       resources :method_codes, only: [:index]
     end

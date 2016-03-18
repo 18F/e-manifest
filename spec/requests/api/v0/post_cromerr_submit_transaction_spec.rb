@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'post /api/v0/manifests/:manifest_id/submit_to_cromerr' do
+describe 'post /api/v0/manifests/:manifest_id/cromerr_submit_transaction' do
   context 'submits successfully' do
     context 'submit by manifest id' do
       it 'creates retrieves and transmits a manifest' do
@@ -18,7 +18,7 @@ describe 'post /api/v0/manifests/:manifest_id/submit_to_cromerr' do
           user_id: user_id,
         }
 
-        post "/api/v0/manifests/#{manifest.uuid}/submit_to_cromerr",
+        post "/api/v0/manifests/#{manifest.uuid}/cromerr_submit_transaction",
           submit_payload.to_json,
           set_headers
 
@@ -42,7 +42,7 @@ describe 'post /api/v0/manifests/:manifest_id/submit_to_cromerr' do
           user_id: user_id,
         }
 
-        post "/api/v0/manifests/#{manifest.tracking_number}/submit_to_cromerr",
+        post "/api/v0/manifests/#{manifest.tracking_number}/cromerr_submit_transaction",
           submit_payload.to_json,
           set_headers
 
@@ -66,7 +66,7 @@ describe 'post /api/v0/manifests/:manifest_id/submit_to_cromerr' do
           user_id: user_id,
         }
 
-        post "/api/v0/manifests/#{manifest.uuid}/submit_to_cromerr",
+        post "/api/v0/manifests/#{manifest.uuid}/cromerr_submit_transaction",
              submit_payload.to_json,
              set_headers
 
@@ -86,7 +86,7 @@ describe 'post /api/v0/manifests/:manifest_id/submit_to_cromerr' do
           user_id: user_id,
         }
 
-        post "/api/v0/manifests/#{manifest.uuid}/submit_to_cromerr",
+        post "/api/v0/manifests/#{manifest.uuid}/cromerr_submit_transaction",
              submit_payload.to_json,
              set_headers
 
@@ -104,7 +104,7 @@ describe 'post /api/v0/manifests/:manifest_id/submit_to_cromerr' do
           user_id: user_id,
         }
 
-        post "/api/v0/manifests/#{manifest.uuid}/submit_to_cromerr",
+        post "/api/v0/manifests/#{manifest.uuid}/cromerr_submit_transaction",
           submit_payload.to_json,
           set_headers
 

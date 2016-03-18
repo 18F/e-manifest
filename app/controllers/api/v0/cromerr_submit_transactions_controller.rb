@@ -1,4 +1,4 @@
-class Api::V0::SubmitToCromerrsController < ApiController
+class Api::V0::CromerrSubmitTransactionsController < ApiController
   def create
     manifest = find_manifest(params[:manifest_id])
     authorize manifest, :can_submit?

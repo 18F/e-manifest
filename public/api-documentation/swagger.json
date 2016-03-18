@@ -262,7 +262,7 @@
         }
       }
     },
-    "/manifests/{id}/submit_to_cromerr": {
+    "/manifests/{id}/cromerr_submit_transaction": {
       "post": {
         "summary": "Submit a manifest for signing",
         "description": "Sends the manifest to CDX to start the CROMERR signing process.",
@@ -288,7 +288,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful submission"
+            "description": "Successful submission",
+            "schema": {
+              "$ref": "#/definitions/SubmitTransaction"
+            }
           },
           "403": {
             "description": "User does not have permissions to submit the manifest"
@@ -456,6 +459,14 @@
         },
         "user_id": {
           "description": "CDX user id",
+          "type": "string"
+        }
+      }
+    },
+    "SubmitTransaction": {
+      "type": "object",
+      "properties": {
+        "transaction_id": {
           "type": "string"
         }
       }
