@@ -447,10 +447,6 @@
         "answer": {
           "type": "string"
         },
-        "id": {
-          "description": "e-Manifest ID",
-          "type": "string"
-        },
         "question_id": {
           "type": "string"
         },

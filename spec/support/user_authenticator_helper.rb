@@ -143,5 +143,13 @@ module UserAuthenticatorHelper
     session
   end
 
+  def mock_cdx_submit_wrong_role
+    session = mock_authenticated_session
+    allow_any_instance_of(ManifestSubmitter).to receive(:perform) do
+      raise Pundit::NotAuthorizedError
+    end
+    session
+  end
+
 
 end

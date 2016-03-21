@@ -96,10 +96,12 @@ describe 'post /api/v0/manifests/:manifest_id/cromerr_submit_transaction' do
     end
     context 'user lacks signer/submitter role' do
       it 'returns 403 response' do
-        session = mock_cdx_submit_authorize_pass
+        session = mock_cdx_submit_wrong_role
         manifest = create(:manifest, user: session.user)
 
         submit_payload = {
+          answer: "Tester",
+          question_id: question_id,
           token: token,
           user_id: user_id,
         }

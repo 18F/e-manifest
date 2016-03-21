@@ -1,4 +1,5 @@
 class ManifestSubmitter
+  include Pundit
   attr_reader :args
 
   def initialize(args)
@@ -7,6 +8,9 @@ class ManifestSubmitter
 
   def perform
     output_stream = StreamLogger.new(Rails.logger)
+
+    manifest = Manifest.find_by_uuid_or_tracking_number!(args[:manifest_id])
+    authorize manifest, :can_submit?
 
     cdx_start = Time.current
 

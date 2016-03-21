@@ -1,12 +1,9 @@
 class Api::V0::CromerrSubmitTransactionsController < ApiController
   def create
-    manifest = find_manifest(params[:manifest_id])
-    authorize manifest, :can_submit?
-
     submit_request = read_body_as_json(symbolize_names: true)
     
     if validate_submit(submit_request)
-      cdx_response = ManifestSubmitter.new(submit_request.merge(manifest: manifest)).perform
+      cdx_response = ManifestSubmitter.new(submit_request).perform
 
       unless performed?
         render(json: cdx_response.to_json, status: status_code(cdx_response))
