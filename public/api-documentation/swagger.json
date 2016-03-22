@@ -11,7 +11,7 @@
   ],
   "externalDocs": {
     "description": "API Examples",
-    "url": "https://e-manifest.18f.gov/api-examples"
+    "url": "https://e-manifest.cld.epa.gov/api-examples"
   },
   "consumes": [
     "application/json"
