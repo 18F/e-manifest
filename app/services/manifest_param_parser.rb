@@ -20,6 +20,10 @@ class ManifestParamParser
     if manifest_params[:generator]
       manifest_params[:generator].delete(:site_address_same_as_mailing)
     end
+
+    if manifest_params[:designated_facility]
+      manifest_params[:designated_facility].delete(:shipment_has_discrepancy)
+    end
   end
     if manifest_params[:designated_facility]
       manifest_params[:designated_facility].delete(:shipment_has_discrepancy)

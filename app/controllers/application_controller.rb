@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   protect_from_forgery with: :exception
 
   helper_method :current_user, :user_session
 
   after_action :extend_session
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
@@ -51,5 +55,10 @@ class ApplicationController < ActionController::Base
 
   def authorization_token
     request.headers['Authorization'].match(/^Bearer (\S+)/i)[1]
+  end
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
   end
 end

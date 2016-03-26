@@ -26,6 +26,37 @@ module UserAuthenticatorHelper
     allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Bad user_id or password')
   end
 
+  def mock_cdx_signature_response
+    {
+      document_id: 'mock_document_id',
+      activity_id: 'mock_activity_id'
+    }
+  end
+
+  def mock_user_signature_authorize_pass
+    session = mock_authenticated_session
+    allow_any_instance_of(ManifestSigner).to receive(:perform) do |manifest_signer|
+      manifest_signer.update_manifest(mock_cdx_signature_response, manifest_signer.args)
+      mock_cdx_signature_response
+    end
+    session
+  end
+
+  def mock_user_signature_authn_fail
+    session = mock_authenticated_session
+    allow_any_instance_of(UserAuthenticator).to receive(:authorize_signature).and_return(nil)
+    allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Bad user_id or password')
+    session
+  end
+
+  def mock_user_signature_authorize_fail
+    session = mock_authenticated_session
+    allow_any_instance_of(ManifestSigner).to receive(:perform).and_return({
+      description: 'Your answer does not match our records.'
+    })
+    session
+  end
+
   def mock_cdx_user_profile
     {
       organizations: {
@@ -37,15 +68,15 @@ module UserAuthenticatorHelper
             userOrganizationId: "86328",
           },
           roles: {
-            "TSDF" => {
+            "TSDF Certifier" => {
               dataflow: "eManifest",
               status: {
                 code: "Active",
                 description: "Active"
               },
               type: {
-                code: "112090",
-                description: "TSDF",
+                code: "112110",
+                description: "TSDF Certifier",
                 status: "Active"
               },
               userRoleId: "87638"

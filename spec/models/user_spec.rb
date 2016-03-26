@@ -52,5 +52,35 @@ describe User do
       role = user_org_role.role
       expect(user.org_role_status_for(organization.cdx_org_name, role.cdx_role_name)).to eq('foo')
     end
+
+    it '#shares_organization?' do
+      user_org_role1 = create(:user_org_role)
+      user1 = user_org_role1.user
+      user_org_role2 = create(:user_org_role, organization: user_org_role1.organization)
+      user2 = user_org_role2.user
+      user_org_role3 = create(:user_org_role)
+      user3 = user_org_role3.user
+
+      expect(user1.shares_organization?(user2)).to eq true
+      expect(user1.shares_organization?(user3)).to eq false
+    end
+
+    it '#shares_organizations' do
+      user_org_role1 = create(:user_org_role)
+      user1 = user_org_role1.user
+      user_org_role2 = create(:user_org_role, organization: user_org_role1.organization)
+      user2 = user_org_role2.user
+      user_org_role3 = create(:user_org_role)
+      user3 = user_org_role3.user
+
+      expect(user1.shares_organizations(user2)).to eq([user_org_role1.organization_id])
+      expect(user1.shares_organizations(user3)).to eq([])
+    end
+
+    it '#tsdf_certifier?' do
+      user_org_role = create(:user_org_role, :tsdf_certifier)
+
+      expect(user_org_role.user.tsdf_certifier?).to eq true
+    end
   end
 end

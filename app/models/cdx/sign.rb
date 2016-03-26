@@ -18,7 +18,7 @@ class CDX::Sign < CDX::LoggedRequest
     {
       Name: "e-manifest #{opts[:id]}",
       Format: "BIN",
-      Content: opts[:manifest_content]
+      Content: Base64.encode64(opts[:manifest])
     }
   end
 
