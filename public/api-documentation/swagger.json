@@ -11,7 +11,7 @@
   ],
   "externalDocs": {
     "description": "API Examples",
-    "url": "https://e-manifest.18f.gov/api-examples"
+    "url": "https://e-manifest.cld.epa.gov/api-examples"
   },
   "consumes": [
     "application/json"
@@ -70,7 +70,7 @@
           {
             "name": "manifest",
             "in": "body",
-            "description": "JSON adhering to <a href='https://e-manifest.18f.gov/schemas/post-manifest.json'>full schema</a>. See also <a href='/api-examples#submit-a-manifest'>example</a>.",
+            "description": "JSON adhering to <a href='https://e-manifest.cld.epa.gov/schemas/post-manifest.json'>full schema</a>. See also <a href='/api-examples#submit-a-manifest'>example</a>.",
             "required": true,
             "schema": {
               "$ref": "#/definitions/PostManifest"
@@ -202,7 +202,7 @@
           {
             "name": "manifest",
             "in": "body",
-            "description": "JSON adhering to <a href='https://e-manifest.18f.gov/schemas/post-manifest.json'>full schema</a>. See also <a href='/api-examples#validate-a-manifest'>example</a>.",
+            "description": "JSON adhering to <a href='https://e-manifest.cld.epa.gov/schemas/post-manifest.json'>full schema</a>. See also <a href='/api-examples#validate-a-manifest'>example</a>.",
             "required": true,
             "schema": {
               "$ref" : "#/definitions/PostManifest"
@@ -311,7 +311,7 @@
     },
     "PostManifest": {
       "type": "object",
-      "description": "<a href='https://e-manifest.18f.gov/schemas/post-manifest.json'>full schema</a>",
+      "description": "<a href='https://e-manifest.cld.epa.gov/schemas/post-manifest.json'>full schema</a>",
       "properties": {
         "generator": {
           "type" : "object",
@@ -325,7 +325,7 @@
     },
     "GetManifest": {
       "type": "object",
-      "description": "<a href='https://e-manifest.18f.gov/schemas/get-manifest.json'>full schema</a>",
+      "description": "<a href='https://e-manifest.cld.epa.gov/schemas/get-manifest.json'>full schema</a>",
       "properties": {
         "content": {
           "$ref": "#/definitions/PostManifest"
