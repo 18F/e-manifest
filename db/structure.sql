@@ -165,7 +165,8 @@ CREATE TABLE user_org_roles (
     cdx_user_role_id character varying NOT NULL,
     cdx_status character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    profile json
 );
 
 
@@ -448,4 +449,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160126221849');
 INSERT INTO schema_migrations (version) VALUES ('20160203154355');
 
 INSERT INTO schema_migrations (version) VALUES ('20160328162353');
+
+INSERT INTO schema_migrations (version) VALUES ('20160328220451');
 

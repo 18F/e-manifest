@@ -32,7 +32,7 @@ class UserProfileSyncer
       if !user.has_role_for_org?(org_name, role_name)
         add_org_role_to_user(cdx_org[:org], cdx_role)
       elsif user.org_role_status_for(org_name, role_name) != cdx_role[:status][:code]
-        update_org_role_status(org_name, role_name, cdx_role[:status][:code])
+        update_org_role_status(org_name, role_name, cdx_role)
       end
     end
   end
@@ -64,9 +64,10 @@ class UserProfileSyncer
     user.user_org_roles << user_org_role
   end
 
-  def update_org_role_status(org_name, role_name, status)
+  def update_org_role_status(org_name, role_name, cdx_role)
     user_org_role = user.role_for_org(org_name, role_name).first
-    user_org_role.cdx_status = status
+    user_org_role.cdx_status = cdx_role[:status][:code]
+    user_org_role.profile = cdx_role
     user_org_role.save!
   end
 end
