@@ -108,5 +108,10 @@
     </dl>
 
     <%= file_upload_button(@manifest) %>
+    <% if @manifest.content['uploaded_file'] %>
+    Uploaded <strong><%= file_uploaded_at(@manifest) %></strong>
+    <br />
+    by <strong><%= file_uploaded_by(@manifest) %></strong>
+    <% end %>
   </div>
 </div>

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'View manifest' do
   scenario 'manifest has a file uploaded during creation', elasticsearch: true do
-    mock_authenticated_session
+    session = mock_authenticated_session
     manifest_tracking_number = '987654321abc'
     visit new_manifest_upload_path
     fill_in 'Manifest Tracking Number', with: manifest_tracking_number
@@ -12,6 +12,7 @@ feature 'View manifest' do
     visit manifest_path(manifest_tracking_number)
 
     expect(page).to have_content('Download Scanned Image')
+    expect(page).to have_content(/Uploaded \d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d UTC by #{session.user.cdx_user_id}/)
   end
 
   scenario 'manifest has file uploaded after creation', elasticsearch: true do
