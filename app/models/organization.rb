@@ -9,20 +9,27 @@ class Organization < ActiveRecord::Base
     find_from_cdx(cdx_org) || create_from_cdx(cdx_org)
   end
 
+  def profile_field(json_xpath)
+    fields = json_xpath.split('.')
+    if profile && fields.inject(profile) { |h,k| h[k] if h }
+      fields.inject(profile) { |h,k| h[k] if h }
+    end
+  end
+
   def state
-    profile["state"]["code"]
+    profile_field('state.code')
   end
 
   def city
-    profile["city"]
+    profile_field('city')
   end
 
   def email
-    profile["email"]
+    profile_field('email')
   end
 
   def zip
-    profile["zip"]
+    profile_field('zip')
   end
 
   private

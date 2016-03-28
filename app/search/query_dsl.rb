@@ -24,7 +24,15 @@ module Search
     end
 
     def apply_authz?
-      user != nil
+      if user == nil
+        false
+      else
+        !(user.epa_data_downloader? || user.state_data_downloader?) 
+      end
+    end
+
+    def apply_state_authz?
+      user && user.states.any? && user.state_data_downloader?
     end
 
     def apply_public_filter?
@@ -103,8 +111,8 @@ module Search
       if bools.any?
         @dsl.filter = Filter.new
         @dsl.filter.bool do
-          bools.each do |must_filter|
-            filter_block = must_filter.instance_variable_get(:@block)
+          bools.each do |should_filter|
+            filter_block = should_filter.instance_variable_get(:@block)
             should &filter_block
           end
         end
@@ -116,10 +124,13 @@ module Search
       if apply_authz?
         bools.push authz_filter
       end
+      if apply_state_authz?
+        bools.push state_authz_filter
+      end
       if apply_public_filter?
         bools.push public_filter
       end
-      bools
+      bools.flatten
     end
 
     def authz_filter
@@ -135,6 +146,31 @@ module Search
           lt 'now-90d'
         end
       end
+    end
+
+    def state_fields
+      [
+        'generator.mailing_address.state',
+        'generator.site_address.state',
+        'international_shipment.port_of_entry_exit.state',
+        'designated_facility.address.state',
+        'designated_facility.discrepancy.address.state'
+      ]
+    end
+
+    def state_authz_filter
+      searchdsl = self
+      user_states = @user.states
+      field_states = state_fields
+      state_filters = []
+      user_states.each do |user_state|
+        field_states.each do |field|
+          state_filters << Filter.new do
+            term "content.#{field}" => user_state
+          end
+        end
+      end
+      state_filters
     end
 
     def add_sort

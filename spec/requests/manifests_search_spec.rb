@@ -56,5 +56,56 @@ describe 'manifests search', elasticsearch: true do
       expect(response.body).to include(public_manifest.tracking_number)
       expect(response.body).to include(private_manifest.tracking_number)
     end
+
+    it 'filters by state if newer than 90 days and user has state_data_download role' do
+      user_session = mock_authenticated_session
+      user = user_session.user
+      user_org_role = create(:user_org_role, :state_data_download, user: user)
+      user_org_role.organization.profile = { state: { code: 'AA' } }
+      user_org_role.organization.save!
+
+      manifest_aa = create(:manifest)
+      manifest_aa.content['generator']['mailing_address'] = { state: 'AA' }
+      manifest_aa.save!
+      manifest_aa.reindex
+      manifest_bb = create(:manifest)
+      manifest_bb.content['generator']['mailing_address'] = { state: 'BB' }
+      manifest_bb.save!
+      manifest_bb.reindex
+      manifest_zz = create(:manifest, :indexed, created_at: 100.days.ago)
+
+      get "/manifests?q=company&state_data_download"
+
+      expect(user.states).to eq(['AA'])
+      expect(response.body).to include(manifest_aa.tracking_number)
+      expect(response.body).to include(manifest_zz.tracking_number)
+      expect(response.body).to_not include(manifest_bb.tracking_number)
+    end
+
+    it 'epa_data_download may see all manifests regardless of org, state or date' do
+      user_session = mock_authenticated_session
+      user = user_session.user
+      user_org_role = create(:user_org_role, :epa_data_download, user: user)
+      user_org_role.organization.profile = { state: { code: 'AA' } }
+      user_org_role.organization.save!
+
+      manifest_aa = create(:manifest)
+      manifest_aa.content['generator']['mailing_address'] = { state: 'AA' }
+      manifest_aa.save!
+      manifest_aa.reindex
+      manifest_bb = create(:manifest)
+      manifest_bb.content['generator']['mailing_address'] = { state: 'BB' }
+      manifest_bb.save!
+      manifest_bb.reindex
+      manifest_cc = create(:manifest, :indexed, created_at: 100.days.ago)
+      manifest_zz = create(:manifest, :indexed)
+
+      get "/manifests?q=company"
+
+      expect(response.body).to include(manifest_aa.tracking_number)
+      expect(response.body).to include(manifest_bb.tracking_number)
+      expect(response.body).to include(manifest_cc.tracking_number)
+      expect(response.body).to include(manifest_zz.tracking_number)
+    end
   end
 end

@@ -3,7 +3,11 @@
   <h3>Manifests</h3>
 
   <div class="stats">
+    <% if @stats[:total] > 0 %>
     Currently viewing <%= @stats[:from] %>-<%= @stats[:to] %> of <%= number_with_delimiter @stats[:total] %> results.
+    <% else %>
+    No results
+    <% end %>
   </div>
 
   <table>

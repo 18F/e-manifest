@@ -23,7 +23,7 @@ class UserProfileSyncer
   def add_or_update_roles
     profile[:organizations].each do |org_name, cdx_org|
       sync_roles_for_org(org_name, cdx_org)
-      sync_org_profile(org_name, cdx_org[:org])
+      sync_org_profile(cdx_org[:org])
     end
   end
 
@@ -37,8 +37,8 @@ class UserProfileSyncer
     end
   end
 
-  def sync_org_profile(org_name, org_profile)
-    org = Organization.from_cdx(org_name)
+  def sync_org_profile(org_profile)
+    org = Organization.from_cdx(org_profile)
     if !org.profile || org.profile.to_json != org_profile.to_json
       org.profile = org_profile
       org.save!
