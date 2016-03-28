@@ -72,14 +72,16 @@ describe 'manifests search', elasticsearch: true do
       manifest_bb.content['generator']['mailing_address'] = { state: 'BB' }
       manifest_bb.save!
       manifest_bb.reindex
+      manifest_yy = create(:manifest, :indexed)
       manifest_zz = create(:manifest, :indexed, created_at: 100.days.ago)
 
       get "/manifests?q=company&state_data_download"
 
       expect(user.states).to eq(['AA'])
-      expect(response.body).to include(manifest_aa.tracking_number)
-      expect(response.body).to include(manifest_zz.tracking_number)
-      expect(response.body).to_not include(manifest_bb.tracking_number)
+      expect(response.body).to include(manifest_aa.tracking_number)     # same state
+      expect(response.body).to_not include(manifest_yy.tracking_number) # no state, < 90 days
+      expect(response.body).to include(manifest_zz.tracking_number) # no state, > 90 days
+      expect(response.body).to_not include(manifest_bb.tracking_number) # different state
     end
 
     it 'epa_data_download may see all manifests regardless of org, state or date' do

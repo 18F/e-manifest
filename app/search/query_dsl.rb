@@ -27,16 +27,16 @@ module Search
       if user == nil
         false
       else
-        !(user.epa_data_downloader? || user.state_data_downloader?) 
+        !(user.epa_data_download? || user.state_data_download?)
       end
     end
 
     def apply_state_authz?
-      user && user.states.any? && user.state_data_downloader?
+      user && user.states.any? && user.state_data_download?
     end
 
     def apply_public_filter?
-      params[:public]
+      params[:public] || apply_state_authz?
     end
 
     def composite_query_string
@@ -160,13 +160,11 @@ module Search
 
     def state_authz_filter
       searchdsl = self
-      user_states = @user.states
-      field_states = state_fields
       state_filters = []
-      user_states.each do |user_state|
-        field_states.each do |field|
+      @user.states.each do |user_state|
+        state_fields.each do |field|
           state_filters << Filter.new do
-            term "content.#{field}" => user_state
+            term "content.#{field}" => user_state.downcase
           end
         end
       end

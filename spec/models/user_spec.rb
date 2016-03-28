@@ -83,16 +83,16 @@ describe User do
       expect(user_org_role.user.tsdf_certifier?).to eq true
     end
 
-    it '#state_data_downloader?' do
+    it '#state_data_download?' do
       user_org_role = create(:user_org_role, :state_data_download)
 
-      expect(user_org_role.user.state_data_downloader?).to eq true
+      expect(user_org_role.user.state_data_download?).to eq true
     end
 
-    it '#epa_data_downloader?' do
+    it '#epa_data_download?' do
       user_org_role = create(:user_org_role, :epa_data_download)
 
-      expect(user_org_role.user.epa_data_downloader?).to eq true
+      expect(user_org_role.user.epa_data_download?).to eq true
     end
   end
 end

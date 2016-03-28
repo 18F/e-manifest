@@ -30,11 +30,11 @@ class User < ActiveRecord::Base
     roles.select { |role| role.tsdf_certifier? }.any?
   end
 
-  def state_data_downloader?
+  def state_data_download?
     roles.select { |role| role.state_data_download? }.any?
   end
 
-  def epa_data_downloader?
+  def epa_data_download?
     roles.select { |role| role.epa_data_download? }.any?
   end
 
