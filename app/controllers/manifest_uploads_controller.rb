@@ -68,6 +68,8 @@ class ManifestUploadsController < ApplicationController
 
   def image_details
     {
+      uploaded_at: Time.current,
+      uploaded_by: current_user.id,
       file_name: upload.try(:original_filename),
       content: encoded_file,
       content_type: upload.try(:content_type),
