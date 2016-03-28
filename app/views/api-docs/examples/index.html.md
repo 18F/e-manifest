@@ -4,7 +4,7 @@ Code examples of using the e-Manifest API.
 
 Using the e-Manifest API consists of two major steps: uploading and signing manifests.
 
-The production base URL is **https://e-manifest.18f.gov/api/v0**
+The production base URL is **https://e-manifest.cld.epa.gov/api/v0**
 
 Notation note: path variables are expressed as `:variable_name`. The colon is not part of the URI.
 
@@ -31,7 +31,7 @@ Before you submit a manifest, you may validate its content and structure.
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
   --data @manifest.json \
-  https://e-manifest.18f.gov/api/v0/manifests/validate
+  https://e-manifest.cld.epa.gov/api/v0/manifests/validate
 ```
 
 If there is a validation error, the response status code will be 422 and the response body
@@ -47,7 +47,7 @@ create an Authorization Token.
 ```bash
 curl -i -X POST -H 'Content-Type: application/json' \
   --data @auth-creds.json \
-  'https://e-manifest.18f.gov/api/v0/tokens?authenticate=1'
+  'https://e-manifest.cld.epa.gov/api/v0/tokens?authenticate=1'
 ```
 
 An example `auth-creds.json` file looks like:
@@ -70,7 +70,7 @@ You will use the *token* value as the `Authorization` HTTP header value in all o
 curl -i -X POST -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer your-auth-token' \
   --data @manifest.json \
-  https://e-manifest.18f.gov/api/v0/manifests
+  https://e-manifest.cld.epa.gov/api/v0/manifests
 ```
 
 *Note* that `manifest.json` must include a Manifest Tracking Number, from Line 4 of form 8700-22.
@@ -90,7 +90,7 @@ submission should return a 201 status.
 ```json
 {
   "message": "Manifest 987654321ABC submitted successfully.",
-  "location": "https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014"
+  "location": "https://e-manifest.cld.epa.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014"
 }
 ```
 
@@ -101,7 +101,7 @@ the [Submit a manifest example](#submit-a-manifest).
 
 ```bash
 curl -i -X GET -H 'Authorization: Bearer your-auth-token' \
-  https://e-manifest.18f.gov/api/v0/manifest/de305d54-75b4-431b-adb2-eb6b9e546014
+  https://e-manifest.cld.epa.gov/api/v0/manifest/de305d54-75b4-431b-adb2-eb6b9e546014
 ```
 
 If you do not know the e-Manifest ID, but you do have the Manifest Tracking Number from Line 4 of form 8700-22,
@@ -109,7 +109,7 @@ you can fetch the e-Manifest object with the Manifest Tracking Number.
 
 ```bash
 curl -i -X GET -H 'Authorization: Bearer your-auth-token' \
-   https://e-manifest.18f.gov/api/v0/manifest/987654321abc
+   https://e-manifest.cld.epa.gov/api/v0/manifest/987654321abc
 ```
 
 The response for both endpoints looks the same:
@@ -135,7 +135,7 @@ Manifest Tracking Number.
 curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
   -H 'Authorization: Bearer your-auth-token' \
   --data @manifest-patch.json \
-  https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014
+  https://e-manifest.cld.epa.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014
 ```
 
 or
@@ -144,7 +144,7 @@ or
 curl -i -X PATCH -H 'Content-Type: application/json-patch+json' \
   -H 'Authorization: Bearer your-auth-token' \
   --data @manifest-patch.json \
-  https://e-manifest.18f.gov/api/v0/manifests/987654321abc
+  https://e-manifest.cld.epa.gov/api/v0/manifests/987654321abc
 ```
 
 An example `manifest-patch.json` file looks like:
@@ -166,14 +166,14 @@ Example of looking for a manifest by Manifest Tracking Number `987654321abc`:
 
 ```bash
 curl -i -X GET -H 'Authorization: Bearer your-auth-token' \
-  'https://e-manifest.18f.gov/api/v0/manifests/search?q=content.generator.manifest_tracking_number:987654321abc'
+  'https://e-manifest.cld.epa.gov/api/v0/manifests/search?q=content.generator.manifest_tracking_number:987654321abc'
 ```
 
 You can page through results with the `size` and `from` URL query parameters, and sort results by any field.
 
 ```bash
 curl -i -X GET -H 'Authorization: Bearer your-auth-token' \
-  'https://e-manifest.18f.gov/api/v0/manifests/search?q=abc123&from=0&size=10&sort[]=id:desc'
+  'https://e-manifest.cld.epa.gov/api/v0/manifests/search?q=abc123&from=0&size=10&sort[]=id:desc'
 ```
 
 The search response format looks like:
@@ -190,7 +190,7 @@ You must re-authenticate with the CDX CROMERR service for signing a manifest. Va
 curl -i -X POST -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer your-auth-token' \
   --data @auth-creds.json \
-  https://e-manifest.18f.gov/api/v0/tokens
+  https://e-manifest.cld.epa.gov/api/v0/tokens
 ```
 
 An example `auth-creds.json` file looks like:
@@ -217,7 +217,7 @@ You can sign a manifest with either the e-Manifest ID or the Manifest Tracking N
 curl -i -X POST -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer your-auth-token' \
   --data @sign-manifest.json \
-  https://e-manifest.18f.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014/signature
+  https://e-manifest.cld.epa.gov/api/v0/manifests/de305d54-75b4-431b-adb2-eb6b9e546014/signature
 ```
 
 where `sign-manifest.json` looks like:
@@ -231,7 +231,7 @@ where `sign-manifest.json` looks like:
 Fetch the list of valid hazardous waste report management method codes like this:
 
 ```bash
-curl -i -X GET https://e-manifest.18f.gov/api/v0/method_codes
+curl -i -X GET https://e-manifest.cld.epa.gov/api/v0/method_codes
 ```
 
 The response will look like:
