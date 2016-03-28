@@ -46,6 +46,14 @@ class Manifest < ActiveRecord::Base
     content_field('transporters') || []
   end
 
+  def designated_facility
+    content_field('designated_facility') || {}
+  end
+
+  def designated_facility_address
+    content_field('designated_facility.address') || {}
+  end
+
   def designated_facility_name
     content_field('designated_facility.name')
   end

@@ -37,14 +37,14 @@
     <dd><%= @manifest.designated_facility_name %></dd>
     <dt>Mailing Address</dt>
     <dd>
-      <%= @manifest.designated_facility.address["address_1"] %><br>
-      <%= @manifest.designated_facility.address["address_2"] %><br>
-      <%= @manifest.designated_facility.address["city"] %>, <%= @manifest.@manifest.designated_facility.address["state"] %> <%= @manifest.@manifest.designated_facility.address["zip_code"] %>
+      <%= @manifest.designated_facility_address["address_1"] %><br>
+      <%= @manifest.designated_facility_address["address_2"] %><br>
+      <%= @manifest.designated_facility_address["city"] %>, <%= @manifest.designated_facility_address["state"] %> <%= @manifest.designated_facility_address["zip_code"] %>
     </dd>
     <dt>Phone</dt>
-    <dd><%= @manifest.designated_facility.phone_number %></dd>
+    <dd><%= @manifest.designated_facility["phone_number"] %></dd>
     <dt>U.S. EPA ID Number</dt>
-    <dd><%= @manifest.designated_facility.us_epa_id_number %></dd>
+    <dd><%= @manifest.designated_facility["us_epa_id_number"] %></dd>
   </dl>
 
   <h3>Waste</h3>
