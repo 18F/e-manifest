@@ -66,6 +66,13 @@ module UserAuthenticatorHelper
             organizationName: "EPA 2",
             primaryOrg: true,
             userOrganizationId: "86328",
+            cdxEsaStatus: "None",
+            city: "FAIRFAX",
+            country: {code: "US", name: "UNITED STATES"},
+            email: "someorg@example.com",
+            mailingAddress1: "123 ENDLESS CIRCLE",
+            state: {code: "VA", countryCode: "US", name: "Virginia", region: "3"},
+            zip: 12345
           },
           roles: {
             "TSDF Certifier" => {

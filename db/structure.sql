@@ -88,7 +88,8 @@ CREATE TABLE organizations (
     cdx_org_name character varying NOT NULL,
     cdx_org_id character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    profile json
 );
 
 
@@ -445,4 +446,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160126213552');
 INSERT INTO schema_migrations (version) VALUES ('20160126221849');
 
 INSERT INTO schema_migrations (version) VALUES ('20160203154355');
+
+INSERT INTO schema_migrations (version) VALUES ('20160328162353');
 

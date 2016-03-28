@@ -9,6 +9,22 @@ class Organization < ActiveRecord::Base
     find_from_cdx(cdx_org) || create_from_cdx(cdx_org)
   end
 
+  def state
+    profile["state"]["code"]
+  end
+
+  def city
+    profile["city"]
+  end
+
+  def email
+    profile["email"]
+  end
+
+  def zip
+    profile["zip"]
+  end
+
   private
 
   def self.find_from_cdx(cdx_org)
