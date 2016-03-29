@@ -1,4 +1,6 @@
 class Organization < ActiveRecord::Base
+  include JsonProfile
+
   has_many :user_org_roles
   has_many :users, through: :user_org_roles
   has_many :roles, through: :user_org_roles
@@ -7,13 +9,6 @@ class Organization < ActiveRecord::Base
 
   def self.from_cdx(cdx_org)
     find_from_cdx(cdx_org) || create_from_cdx(cdx_org)
-  end
-
-  def profile_field(json_xpath)
-    fields = json_xpath.split('.')
-    if profile && fields.inject(profile) { |h,k| h[k] if h }
-      fields.inject(profile) { |h,k| h[k] if h }
-    end
   end
 
   def state
