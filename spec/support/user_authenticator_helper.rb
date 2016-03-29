@@ -11,6 +11,7 @@ module UserAuthenticatorHelper
 
   def mock_user_authenticator_pass
     user = create(:user)
+    user_org_role = create(:user_org_role, :tsdf_certifier, user: user)
     session = UserSession.create(user, { firstName: 'Jane', lastName: 'Doe' })
     cdx_signature = { token: SecureRandom.hex, question: { question_id: 123, question_text: 'color?' }, activity_id: SecureRandom.hex }
     allow_any_instance_of(UserAuthenticator).to receive(:authenticate).and_return(session)

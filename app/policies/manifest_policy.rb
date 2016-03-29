@@ -8,7 +8,7 @@ class ManifestPolicy < ApplicationPolicy
   end
 
   def can_create?
-    user && !(epa_data_download? || state_data_download?)
+    user && signer?
   end
 
   def can_update?

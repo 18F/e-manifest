@@ -91,6 +91,16 @@ describe ManifestPolicy do
 
       expect(ManifestPolicy).to_not permit(user, manifest)
     end
+
+    it 'only signers may create' do
+      user = create(:user)
+      user2 = create(:user)
+      user_org_role = create(:user_org_role, :tsdf_certifier, user: user)
+      manifest = build(:manifest)
+
+      expect(ManifestPolicy).to permit(user, manifest)
+      expect(ManifestPolicy).to_not permit(user2, manifest)
+    end
   end
 
   permissions :can_update? do
