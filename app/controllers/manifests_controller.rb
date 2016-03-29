@@ -4,6 +4,7 @@ class ManifestsController < ApplicationController
 
   def new
     authenticate_user!
+    authorize Manifest.new, :can_create?
   end
 
   def create
@@ -11,6 +12,8 @@ class ManifestsController < ApplicationController
 
     unless performed?
       @manifest = Manifest.new(content: manifest_params, user: current_user)
+
+      authorize @manifest, :can_create?
 
       if @manifest.valid? && validate_manifest(manifest_params)
         create_manifest

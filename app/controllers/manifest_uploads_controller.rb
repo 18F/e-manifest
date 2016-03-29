@@ -10,6 +10,8 @@ class ManifestUploadsController < ApplicationController
 
     @manifest = update_manifest(find_or_initialize_manifest)
 
+    authorize @manifest, :can_update?
+
     if !upload_missing? && @manifest.save
       flash[:notice] = "Upload for manifest #{@manifest.tracking_number} submitted successfully."
       redirect_to root_path
