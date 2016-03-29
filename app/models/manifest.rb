@@ -7,6 +7,23 @@ class Manifest < ActiveRecord::Base
   validates :user_id, presence: true
   belongs_to :user, class_name: 'User'
 
+  def self.state_fields
+    [
+      'generator.mailing_address.state',
+      'generator.site_address.state',
+      'international_shipment.port_of_entry_exit.state',
+      'designated_facility.address.state',
+      'designated_facility.discrepancy.address.state'
+    ]
+  end
+
+  def has_state?(state)
+    self.class.state_fields.select do |state_field|
+      state_value = content_field(state_field)
+      state_value == state
+    end.any?
+  end
+
   def content_field(json_xpath)
     fields = json_xpath.split('.')
     if content && fields.inject(content) { |h,k| h[k] if h }

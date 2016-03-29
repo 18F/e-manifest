@@ -17,7 +17,9 @@ FactoryGirl.define do
       content {{ uploaded_file: {
           file_name: 'test',
           content: '12345',
-          content_type: 'application/pdf'
+          content_type: 'application/pdf',
+          uploaded_at: Time.current,
+          uploaded_by: user.id,
         }
       }}
     end
@@ -46,6 +48,14 @@ FactoryGirl.define do
     trait :tsdf_certifier do
       cdx_role_name 'TSDF Certifier'
     end
+
+    trait :state_data_download do
+      cdx_role_name 'State Data Download'
+    end
+
+    trait :epa_data_download do
+      cdx_role_name 'EPA Data Download'
+    end
   end
 
   factory :user_org_role do
@@ -57,6 +67,14 @@ FactoryGirl.define do
 
     trait :tsdf_certifier do
       association :role, :tsdf_certifier
+    end
+
+    trait :state_data_download do
+      association :role, :state_data_download
+    end
+
+    trait :epa_data_download do
+      association :role, :epa_data_download
     end
   end
 end

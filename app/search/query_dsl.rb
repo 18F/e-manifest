@@ -24,11 +24,19 @@ module Search
     end
 
     def apply_authz?
-      user != nil
+      if user == nil
+        false
+      else
+        !(user.epa_data_download? || user.state_data_download?)
+      end
+    end
+
+    def apply_state_authz?
+      user && user.state_data_download_states.any? && user.state_data_download?
     end
 
     def apply_public_filter?
-      params[:public]
+      params[:public] || apply_state_authz?
     end
 
     def composite_query_string
@@ -103,8 +111,8 @@ module Search
       if bools.any?
         @dsl.filter = Filter.new
         @dsl.filter.bool do
-          bools.each do |must_filter|
-            filter_block = must_filter.instance_variable_get(:@block)
+          bools.each do |should_filter|
+            filter_block = should_filter.instance_variable_get(:@block)
             should &filter_block
           end
         end
@@ -116,10 +124,13 @@ module Search
       if apply_authz?
         bools.push authz_filter
       end
+      if apply_state_authz?
+        bools.push state_authz_filter
+      end
       if apply_public_filter?
         bools.push public_filter
       end
-      bools
+      bools.flatten
     end
 
     def authz_filter
@@ -135,6 +146,19 @@ module Search
           lt 'now-90d'
         end
       end
+    end
+
+    def state_authz_filter
+      searchdsl = self
+      state_filters = []
+      @user.state_data_download_states.each do |user_state|
+        Manifest.state_fields.each do |field|
+          state_filters << Filter.new do
+            term "content.#{field}" => user_state.downcase
+          end
+        end
+      end
+      state_filters
     end
 
     def add_sort

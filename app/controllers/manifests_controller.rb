@@ -50,18 +50,10 @@ class ManifestsController < ApplicationController
       authenticate_user!
 
       unless performed?
-        # TODO apply org+roles authz policy
-        if @manifest.user != current_user
-          render_authz_error
-          false
-        end
+        authorize @manifest, :can_view?
       end
     end
     true
-  end
-
-  def render_authz_error
-    render "authorization_error", status: 403, locals: { msg: "You do not have permission to view this record." }
   end
 
   def validate_manifest(content)

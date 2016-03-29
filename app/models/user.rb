@@ -30,6 +30,22 @@ class User < ActiveRecord::Base
     roles.select { |role| role.tsdf_certifier? }.any?
   end
 
+  def state_data_download?
+    roles.select { |role| role.state_data_download? }.any?
+  end
+
+  def epa_data_download?
+    roles.select { |role| role.epa_data_download? }.any?
+  end
+
+  def states
+    organizations.map(&:state).select(&:present?)
+  end
+
+  def state_data_download_states
+    user_org_roles.map(&:state).select(&:present?)
+  end
+
   def shares_organizations(user)
     this_orgs = organizations.pluck(:id)
     other_user_orgs = user.organizations.pluck(:id)

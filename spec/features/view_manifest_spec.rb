@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'View manifest' do
-  scenario 'manifest has a file uploaded during creation', elasticsearch: true do
+feature 'View manifest', elasticsearch: true do
+  scenario 'manifest has a file uploaded during creation' do
     session = mock_authenticated_session
     manifest_tracking_number = '987654321abc'
     visit new_manifest_upload_path
@@ -15,7 +15,7 @@ feature 'View manifest' do
     expect(page).to have_content(/Uploaded \d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d UTC by #{session.user.cdx_user_id}/)
   end
 
-  scenario 'manifest has file uploaded after creation', elasticsearch: true do
+  scenario 'manifest has file uploaded after creation' do
     mock_authenticated_session
     manifest_tracking_number = '987654321abc'
     visit new_manifest_path
@@ -43,8 +43,8 @@ feature 'View manifest' do
 
     visit manifest_path(manifest_tracking_number)
 
-    expect(page).to have_content('You do not have permission to view this record.')
-    expect(page.status_code).to eq(403)
+    expect(page).to have_content('You are not authorized to perform this action.')
+    expect(page.status_code).to eq(200)
   end
 
   scenario 'anyone may view any public manifest' do

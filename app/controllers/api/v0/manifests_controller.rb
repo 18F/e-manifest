@@ -107,8 +107,7 @@ class Api::V0::ManifestsController < ApiController
     if manifest.is_public?
       true
     elsif authenticated?
-      # TODO more complicated authz based on roles+orgs
-      manifest.user == current_user
+      authorize manifest, :can_view?
     else
       false
     end
