@@ -25,7 +25,8 @@ GIT
 
 GIT
   remote: https://github.com/pkarman/swagger-ui_rails.git
-  revision: 9b73a7fc76753af3ebd03d30fecf4038251bf3c3
+  revision: 519f4a24067e225556c52169b5cf5959143d115e
+  branch: swagger-ui-2.1.4
   submodules: true
   specs:
     swagger-ui_rails (2.1.0.alpha.7.1)
