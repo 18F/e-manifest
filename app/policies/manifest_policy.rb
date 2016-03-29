@@ -19,7 +19,7 @@ class ManifestPolicy < ApplicationPolicy
   def signer_in_shared_org?
     shared_org_ids = user.shares_organizations(record.user)
     user.user_org_roles.select do |uor| 
-      shared_org_ids.include?(uor.organization_id) && uor.role.tsdf_certifier?
+      shared_org_ids.include?(uor.organization_id) && uor.role.tsdf_certifier? && uor.cdx_status == 'Active'
     end.any?
   end
 
