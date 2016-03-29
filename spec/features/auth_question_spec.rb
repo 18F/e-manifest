@@ -24,7 +24,7 @@ feature 'Authentication question for signing manifest' do
 
   scenario 'submits correct answer to auth question, but lacks role' do
     session = mock_user_signature_authorize_pass
-
+    session.user.user_org_roles.map(&:destroy!)
     manifest = create(:manifest, user: session.user)
 
     visit new_manifest_token_path(manifest.uuid)
