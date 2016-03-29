@@ -7,6 +7,24 @@ module ManifestHelper
     end
   end
 
+  def file_uploaded_at(manifest)
+    if manifest.content['uploaded_file']['uploaded_at']
+      datetime = Time.parse(manifest.content['uploaded_file']['uploaded_at'])
+      datetime.strftime('%F %T UTC')
+    else
+      "unknown"
+    end
+  end
+
+  def file_uploaded_by(manifest)
+    if manifest.content['uploaded_file']['uploaded_by']
+      user = User.find( manifest.content['uploaded_file']['uploaded_by'])
+      user ? user.cdx_user_id : "unknown"
+    else
+      "unknown"
+    end
+  end
+
   def container_types
     [
       ["BA (Burlap, cloth, paper or plastic bags)", "BA"],

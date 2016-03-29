@@ -25,7 +25,7 @@
   <% @manifest.transporters.each do |t| %>
     <dl>
       <dt>Company Name</dt>
-      <dd><%= t['company_name'] %></dd>
+      <dd><%= t['name'] %></dd>
       <dt>U.S. EPA ID Number</dt>
       <dd><%= t['us_epa_id_number'] %></dd>
     </dl>
@@ -34,18 +34,22 @@
   <h3>Designated Facility</h3>
   <dl>
     <dt>Company Name</dt>
-    <dd><%= @manifest.tracking_number %></dd>
+    <dd><%= @manifest.designated_facility_name %></dd>
     <dt>Mailing Address</dt>
-    <dd><%= @manifest.tracking_number %></dd>
+    <dd>
+      <%= @manifest.designated_facility_address["address_1"] %><br>
+      <%= @manifest.designated_facility_address["address_2"] %><br>
+      <%= @manifest.designated_facility_address["city"] %>, <%= @manifest.designated_facility_address["state"] %> <%= @manifest.designated_facility_address["zip_code"] %>
+    </dd>
     <dt>Phone</dt>
-    <dd></dd>
+    <dd><%= @manifest.designated_facility["phone_number"] %></dd>
     <dt>U.S. EPA ID Number</dt>
-    <dd></dd>
+    <dd><%= @manifest.designated_facility["us_epa_id_number"] %></dd>
   </dl>
 
   <h3>Waste</h3>
   <% @manifest.manifest_items.each_with_index do |m, i| %>
-    <h4>MM <%= i + 1 %></h4>
+    <h4>Manifest Line Item <%= i + 1 %></h4>
     <dl>
       <dt>U.S. DOT Description</dt>
       <dd><%= m["proper_shipping_name"] %></dd>
@@ -97,12 +101,17 @@
       <dd><%= @manifest.tracking_number %></dd>
       <dt>Generator</dt>
       <dd><%= @manifest.generator_name %></dd>
-      <dt>Disposal Facility</dt>
-      <dd><%= @manifest.disposal_facility %></dd>
+      <dt>Designated Facility</dt>
+      <dd><%= @manifest.designated_facility_name %></dd>
       <dt>Date</dt>
       <dd><%= @manifest.created_on %></dd>
     </dl>
 
     <%= file_upload_button(@manifest) %>
+    <% if @manifest.content['uploaded_file'] %>
+    Uploaded <strong><%= file_uploaded_at(@manifest) %></strong>
+    <br />
+    by <strong><%= file_uploaded_by(@manifest) %></strong>
+    <% end %>
   </div>
 </div>
