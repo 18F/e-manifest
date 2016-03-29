@@ -58,6 +58,22 @@ class UserSession
     end
   end
 
+  def first_name
+    if cdx[:FirstName]
+      cdx[:FirstName]
+    else
+      ""
+    end
+  end
+    
+  def last_name
+    if cdx[:LastName]
+      cdx[:LastName]
+    else
+      ""
+    end
+  end
+    
   def cdx_token
     cdx[:token]
   end

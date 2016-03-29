@@ -35,7 +35,7 @@ module UserAuthenticatorHelper
 
   def mock_cdx_signature_response
     {
-      document_id: 'mock_document_id',
+      transaction_id: 'mock_transaction_id',
       activity_id: 'mock_activity_id'
     }
   end

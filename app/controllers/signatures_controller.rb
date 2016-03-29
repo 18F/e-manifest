@@ -1,14 +1,14 @@
 class SignaturesController < ApplicationController
   def new
     @manifest = Manifest.find_by_uuid_or_tracking_number!(params[:manifest_id])
-    authorize @manifest, :can_sign?
+    authorize @manifest, :can_submit?
 
     @response = parsed_response_params
   end
 
   def create
     @manifest = Manifest.find_by_uuid_or_tracking_number(params[:manifest_id])
-    authorize @manifest, :can_sign?
+    authorize @manifest, :can_submit?
 
     cdx_response = ManifestSigner.new(parsed_signature_params).perform
 

@@ -3,26 +3,34 @@ class CDX::Sign < CDX::LoggedRequest
 
   def request
     client.call(
-      :sign,
+      :submit,
       {
         message: {
           securityToken: opts[:token],
-          activityId: opts[:activity_id],
-          signatureDocument: signature_document
+          dataflow: (opts[:dataflow] || ENV['CDX_MANIFEST_SUBMIT_DATAFLOW']),
+          documents: signature_document
         }
       }
     )
   end
 
+  def client
+    CDX::Client::Submit
+  end
+  
   def signature_document
     {
-      Name: "e-manifest #{opts[:id]}",
-      Format: "BIN",
-      Content: Base64.encode64(opts[:manifest])
+      documentName: "e-manifest #{opts[:id]}",
+      documentFormat: "OTHER",
+      documentContent: Base64.encode64(opts[:manifest])
     }
   end
 
   def repackage_response
-    response.body[:sign_response][:document_id]
+    status = response.body[:submit_response][:status]
+
+    if status != "Failed"
+      response.body[:submit_response][:transaction_id]
+    end
   end
 end

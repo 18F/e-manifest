@@ -230,40 +230,6 @@
     },
     "/manifests/{id}/signature": {
       "post": {
-        "summary": "Sign manifest",
-        "description": "Signs a specified manifest with CDX's CROMERR services.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "the e-Manifest ID or Manifest Tracking Number",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "signature",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Signature"
-            }
-          }
-        ],
-        "tags": [
-          "manifests"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful signature",
-            "schema": {
-              "$ref": "#/definitions/Document"
-            }
-          }
-        }
-      }
-    },
-    "/manifests/{id}/cromerr_submit_transaction": {
-      "post": {
         "summary": "Submit a manifest for signing",
         "description": "Sends the manifest to CDX to start the CROMERR signing process.",
         "parameters": [
@@ -279,7 +245,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SubmitSignature"
+              "$ref": "#/definitions/Signature"
             }
           }
         ],
@@ -422,28 +388,6 @@
         "activity_id": {
           "type": "string"
         },
-        "answer": {
-          "type": "string"
-        },
-        "id": {
-          "description": "e-Manifest ID",
-          "type": "string"
-        },
-        "question_id": {
-          "type": "string"
-        },
-        "token": {
-          "type": "string"
-        },
-        "user_id": {
-          "description": "CDX user id",
-          "type": "string"
-        }
-      }
-    },
-    "SubmitSignature": {
-      "type": "object",
-      "properties": {
         "answer": {
           "type": "string"
         },

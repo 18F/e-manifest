@@ -6,14 +6,11 @@ class CDX::Manifest
     @output_stream = output_stream
   end
 
-  def sign
+  def submit
     validate_answer
     repackage_response
   rescue Savon::SOAPFault => error
     log_and_repackage_error(error)
-  end
-
-  def submit
   end
 
   private
@@ -24,14 +21,14 @@ class CDX::Manifest
 
   def repackage_response
     if validate_answer == true
-      { document_id: document_id }
+      { transaction_id: transaction_id }
     else
       validate_answer
     end
   end
 
-  def document_id
-    @document_id ||= CDX::Sign.new(opts, output_stream).perform
+  def transaction_id
+    @transaction_id ||= CDX::Sign.new(opts, output_stream).perform
   end
 
   def log_and_repackage_error(error)
