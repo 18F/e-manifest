@@ -26,6 +26,12 @@ module UserAuthenticatorHelper
     allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Bad user_id or password')
   end
 
+  def mock_user_authenticator_inactive
+    allow_any_instance_of(UserAuthenticator).to receive(:authenticate).and_return(nil)
+    allow_any_instance_of(UserAuthenticator).to receive(:authorize_signature).and_return(nil)
+    allow_any_instance_of(UserAuthenticator).to receive(:error_message).and_return('Account is not yet active')
+  end
+
   def mock_cdx_signature_response
     {
       document_id: 'mock_document_id',

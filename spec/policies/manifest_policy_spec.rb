@@ -46,6 +46,18 @@ describe ManifestPolicy do
 
       expect(ManifestPolicy).to_not permit(user, manifest)
     end
+
+    it 'disallows signer with non-active signer role' do
+      user = create(:user)
+      manifest = create(:manifest, user: user)
+      profile = mock_cdx_user_profile
+      profile[:organizations]['EPA 2'][:roles]['TSDF Certifier'][:status][:code] = 'AwaitingApproval'
+      profile[:organizations]['EPA 2'][:roles]['TSDF Certifier'][:status][:description] = 'Awaiting Approval'
+      profile_syncer = UserProfileSyncer.new(user, profile)
+      profile_syncer.run
+
+      expect(ManifestPolicy).to_not permit(user, manifest)
+    end
   end
 
   permissions :can_view? do
