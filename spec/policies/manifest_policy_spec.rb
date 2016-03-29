@@ -51,7 +51,7 @@ describe ManifestPolicy do
       user = create(:user)
       manifest = create(:manifest, user: user)
       profile = mock_cdx_user_profile
-      profile[:organizations]['EPA 2'][:roles]['TSDF Certifier'][:status][:code] = 'Awaiting Approval'
+      profile[:organizations]['EPA 2'][:roles]['TSDF Certifier'][:status][:code] = 'AwaitingApproval'
       profile[:organizations]['EPA 2'][:roles]['TSDF Certifier'][:status][:description] = 'Awaiting Approval'
       profile_syncer = UserProfileSyncer.new(user, profile)
       profile_syncer.run
