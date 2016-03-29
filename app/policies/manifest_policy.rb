@@ -3,6 +3,10 @@ class ManifestPolicy < ApplicationPolicy
     user && signer_in_shared_org?
   end
 
+  def can_view?
+    public_manifest? || (user && (owner? || shares_org? || epa_data_download? || shares_state?))
+  end
+
   def debug_user
     puts "user=#{user.pretty_inspect}"
     puts "signer?=#{signer?}"
@@ -29,5 +33,19 @@ class ManifestPolicy < ApplicationPolicy
 
   def shares_org?
     user.shares_organization?(record.user)
+  end
+
+  def epa_data_download?
+    user.epa_data_download?
+  end
+
+  def shares_state?
+    user.state_data_download_states.select do |state|
+      record.has_state?(state)
+    end.any?
+  end
+
+  def public_manifest?
+    record.is_public?
   end
 end

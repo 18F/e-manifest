@@ -163,4 +163,26 @@ describe Manifest do
       end
     end
   end
+
+  describe '#has_state?' do
+    context 'any matching state field equals a match' do
+      it 'matches all state_fields' do
+        state = 'KS'
+        Manifest.state_fields.each do |field|
+          parts = field.split('.')
+          content = {}
+          parts.inject(content) do |h,k|
+            h[k] = {}
+            if k == parts.last
+              h[k] = state
+            end
+            h[k]
+          end
+          manifest = build(:manifest, content: content)
+
+          expect(manifest.has_state?(state)).to eq true
+        end
+      end
+    end
+  end
 end

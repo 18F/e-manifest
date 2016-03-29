@@ -42,8 +42,8 @@ feature 'View manifest' do
 
     visit manifest_path(manifest_tracking_number)
 
-    expect(page).to have_content('You do not have permission to view this record.')
-    expect(page.status_code).to eq(403)
+    expect(page).to have_content('You are not authorized to perform this action.')
+    expect(page.status_code).to eq(200)
   end
 
   scenario 'anyone may view any public manifest' do

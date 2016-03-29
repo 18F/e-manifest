@@ -148,21 +148,11 @@ module Search
       end
     end
 
-    def state_fields
-      [
-        'generator.mailing_address.state',
-        'generator.site_address.state',
-        'international_shipment.port_of_entry_exit.state',
-        'designated_facility.address.state',
-        'designated_facility.discrepancy.address.state'
-      ]
-    end
-
     def state_authz_filter
       searchdsl = self
       state_filters = []
       @user.state_data_download_states.each do |user_state|
-        state_fields.each do |field|
+        Manifest.state_fields.each do |field|
           state_filters << Filter.new do
             term "content.#{field}" => user_state.downcase
           end
