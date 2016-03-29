@@ -60,9 +60,7 @@ describe 'manifests search', elasticsearch: true do
     it 'filters by state if newer than 90 days and user has state_data_download role' do
       user_session = mock_authenticated_session
       user = user_session.user
-      user_org_role = create(:user_org_role, :state_data_download, user: user)
-      user_org_role.organization.profile = { state: { code: 'AA' } }
-      user_org_role.organization.save!
+      user_org_role = create(:user_org_role, :state_data_download, user: user, profile: { subject: 'AA' })
 
       manifest_aa = create(:manifest)
       manifest_aa.content['generator']['mailing_address'] = { state: 'AA' }
@@ -77,7 +75,7 @@ describe 'manifests search', elasticsearch: true do
 
       get "/manifests?q=company&state_data_download"
 
-      expect(user.states).to eq(['AA'])
+      expect(user.state_data_download_states).to eq(['AA'])
       expect(response.body).to include(manifest_aa.tracking_number)     # same state
       expect(response.body).to_not include(manifest_yy.tracking_number) # no state, < 90 days
       expect(response.body).to include(manifest_zz.tracking_number) # no state, > 90 days
@@ -88,8 +86,6 @@ describe 'manifests search', elasticsearch: true do
       user_session = mock_authenticated_session
       user = user_session.user
       user_org_role = create(:user_org_role, :epa_data_download, user: user)
-      user_org_role.organization.profile = { state: { code: 'AA' } }
-      user_org_role.organization.save!
 
       manifest_aa = create(:manifest)
       manifest_aa.content['generator']['mailing_address'] = { state: 'AA' }

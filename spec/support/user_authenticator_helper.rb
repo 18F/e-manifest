@@ -86,6 +86,7 @@ module UserAuthenticatorHelper
                 description: "TSDF Certifier",
                 status: "Active"
               },
+              subject: "KS",
               userRoleId: "87638"
             }
           }

@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
     organizations.map(&:state).select(&:present?)
   end
 
+  def state_data_download_states
+    user_org_roles.map(&:state).select(&:present?)
+  end
+
   def shares_organizations(user)
     this_orgs = organizations.pluck(:id)
     other_user_orgs = user.organizations.pluck(:id)

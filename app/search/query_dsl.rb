@@ -32,7 +32,7 @@ module Search
     end
 
     def apply_state_authz?
-      user && user.states.any? && user.state_data_download?
+      user && user.state_data_download_states.any? && user.state_data_download?
     end
 
     def apply_public_filter?
@@ -161,7 +161,7 @@ module Search
     def state_authz_filter
       searchdsl = self
       state_filters = []
-      @user.states.each do |user_state|
+      @user.state_data_download_states.each do |user_state|
         state_fields.each do |field|
           state_filters << Filter.new do
             term "content.#{field}" => user_state.downcase
