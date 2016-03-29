@@ -82,4 +82,25 @@ describe ManifestPolicy do
       expect(ManifestPolicy).to permit(user, manifest)
     end
   end
+
+  permissions :can_create? do
+    it 'dis-allows epa and state data download users' do
+      user = create(:user)
+      user_org_role = create(:user_org_role, :epa_data_download, user: user)
+      manifest = build(:manifest)
+
+      expect(ManifestPolicy).to_not permit(user, manifest)
+    end
+  end
+
+  permissions :can_update? do
+    it 'allows only owner' do
+      user = create(:user)
+      user2 = create(:user)
+      manifest = create(:manifest, user: user2)
+
+      expect(ManifestPolicy).to permit(user2, manifest)
+      expect(ManifestPolicy).to_not permit(user, manifest)
+    end
+  end
 end

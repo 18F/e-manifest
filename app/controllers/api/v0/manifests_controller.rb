@@ -22,7 +22,6 @@ class Api::V0::ManifestsController < ApiController
 
   def create
     authenticate_user!
-    # TODO authz based on roles
     unless performed?
       manifest_content = read_body_as_json
     end
@@ -30,6 +29,7 @@ class Api::V0::ManifestsController < ApiController
     unless performed?
       if validate_manifest(manifest_content)
         @manifest = Manifest.new(content: manifest_content, user: current_user)
+        authorize @manifest, :can_create?
         create_manifest(@manifest)
       end
     end
@@ -95,11 +95,8 @@ class Api::V0::ManifestsController < ApiController
   def has_permission_to_update?(manifest)
     if !authenticated?
       false
-    # TODO more complicated authz based on roles+orgs
-    elsif manifest.user == current_user
-      true
     else
-      false
+      authorize manifest, :can_update?
     end
   end
 

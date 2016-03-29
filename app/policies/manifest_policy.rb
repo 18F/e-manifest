@@ -7,6 +7,14 @@ class ManifestPolicy < ApplicationPolicy
     public_manifest? || (user && (owner? || shares_org? || epa_data_download? || shares_state?))
   end
 
+  def can_create?
+    user && !(epa_data_download? || state_data_download?)
+  end
+
+  def can_update?
+    user && owner?
+  end
+
   def debug_user
     puts "user=#{user.pretty_inspect}"
     puts "signer?=#{signer?}"
@@ -37,6 +45,10 @@ class ManifestPolicy < ApplicationPolicy
 
   def epa_data_download?
     user.epa_data_download?
+  end
+
+  def state_data_download?
+    user.state_data_download?
   end
 
   def shares_state?
