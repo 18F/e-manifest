@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
     find_by(cdx_user_id: cdx_user_id) || create(cdx_user_id: cdx_user_id)
   end
 
-  def cdx_sync
-    profiler = UserProfileBuilder.new(self)
+  def cdx_sync(dataflow = ENV['CDX_DEFAULT_DATAFLOW'])
+    profiler = UserProfileBuilder.new(self, dataflow)
     profile = profiler.run
     syncer = UserProfileSyncer.new(self, profile)
     syncer.run
