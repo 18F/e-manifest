@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
     syncer.run
   end
 
+  def active_cdx?
+    user_org_roles.select { |user_org_role| user_org_role.cdx_status == 'Active' }.any?
+  end
+
   def role_for_org(org_name, role_name)
     user_org_roles.select do |user_org_role|
       user_org_role.organization.cdx_org_name == org_name && user_org_role.role.cdx_role_name == role_name
