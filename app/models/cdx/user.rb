@@ -35,7 +35,11 @@ class CDX::User < CDX::LoggedRequest
       UserId: user_data[:user_id],
       FirstName: user_data[:first_name],
       LastName: user_data[:last_name],
-      MiddleInitial: user_data[:middle_initial]
+      MiddleInitial: user_data[:middle_initial],
+      Title: user_data[:title][:description],
+      Status: user_data[:status],
+      LastLogin: user_data[:last_login],
+      Registered: user_data[:registration_date]
     }
   end
 
