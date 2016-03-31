@@ -14,10 +14,6 @@ describe '#CDX::User.new(args, output_stream).perform' do
         FirstName: first_name_from_fixture,
         LastName: last_name_from_fixture,
         MiddleInitial: nil,
-        LastLogin: 'Wed, 20 Jan 2016 13:30:52.000000000 -0500',
-        Registered: 'Fri, 21 Aug 2015 16:11:14.000000000 -0400',
-        Status: 'Valid',
-        Title: 'Mr'
       })
     end
   end

@@ -53,8 +53,8 @@ class UserAuthenticator
 
   def create_session(cdx_response)
     session = nil
-    if cdx_response[:description] || cdx_response[:Status] != 'Valid'
-      @error_message = cdx_response[:description] || 'Account is not yet active'
+    if cdx_response[:description]
+      @error_message = cdx_response[:description]
     else
       user = User.find_or_create(user_id)
       user.cdx_sync
