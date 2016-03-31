@@ -7,6 +7,45 @@ class Manifest < ActiveRecord::Base
   validates :user_id, presence: true
   belongs_to :user, class_name: 'User'
 
+  # Elasticsearch configuration
+  settings index: {
+    number_of_shards: 1, # increase this if we ever get more than N records
+    number_of_replicas: 1
+  } do
+    # with dynamic mapping==true, we only need to explicitly define overrides.
+    # https://www.elastic.co/guide/en/elasticsearch/guide/current/dynamic-mapping.html
+    mappings dynamic: "true" do
+      indexes :content do
+        indexes :generator do
+          indexes :signatory do
+            indexes :date, type: "string"
+          end
+        end
+        indexes :transporters do
+          indexes :signatory do
+            indexes :date, type: "string"
+          end
+        end
+        indexes :designated_facility do
+          indexes :certification do
+            indexes :date, type: "string"
+          end
+          indexes :discrepancy do
+            indexes :signatory do
+              indexes :date, type: "string"
+            end
+          end
+        end
+        indexes :international_shipment do
+          indexes :port_of_entry_exit do
+            indexes :city, type: "string"
+            indexes :state, type: "string"
+          end
+        end
+      end
+    end
+  end
+
   def self.state_fields
     [
       'generator.mailing_address.state',
