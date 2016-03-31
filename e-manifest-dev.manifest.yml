@@ -2,6 +2,7 @@
 env:
   RAILS_ENV: production
   CDX_DEFAULT_DATAFLOW: e-Manifest
+  CDX_BASE_URL: https://testngn.epacdxnode.net/cdx-register-II/services
 services:
   - e-manifest-dev-db
   - emanifest-es-dev
