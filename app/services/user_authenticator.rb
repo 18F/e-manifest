@@ -58,6 +58,7 @@ class UserAuthenticator
     else
       user = User.find_or_create(user_id)
       user.cdx_sync
+      user.reload
       unless user.active_cdx?
         @error_message = 'Account is not yet active'
       else
@@ -69,7 +70,13 @@ class UserAuthenticator
 
   def merge_session(cdx_response)
     @session.user = User.find_or_create(user_id)
-    UserProfileWorker.perform_async(@session.user.id)
-    @session.merge_cdx(cdx_response)
+    @session.user.cdx_sync
+    @session.user.reload
+    unless @session.user.active_cdx?
+      @error_message = 'Account is not yet active'
+      @session = nil
+    else
+      @session.merge_cdx(cdx_response)
+    end
   end
 end
