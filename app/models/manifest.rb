@@ -26,6 +26,16 @@ class Manifest < ActiveRecord::Base
             indexes :date, type: "string"
           end
         end
+        indexes :designated_facility do
+          indexes :certification do
+            indexes :date, type: "string"
+          end
+          indexes :discrepancy do
+            indexes :signatory do
+              indexes :date, type: "string"
+            end
+          end
+        end
         indexes :international_shipment do
           indexes :port_of_entry_exit do
             indexes :city, type: "string"
