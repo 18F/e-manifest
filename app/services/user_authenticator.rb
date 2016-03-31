@@ -52,20 +52,34 @@ class UserAuthenticator
   end
 
   def create_session(cdx_response)
-    if cdx_response[:description] || cdx_response[:Status] != 'Valid'
-      @error_message = cdx_response[:description] || 'Account is not yet active'
-      nil
+    session = nil
+    if cdx_response[:description]
+      @error_message = cdx_response[:description]
     else
-      user = User.find_or_create(user_id)
-      session = UserSession.create(user, cdx_response)
-      UserProfileWorker.perform_async(user.id)
-      session
+      user = sync_user
+      unless @error_message
+        session = UserSession.create(user, cdx_response)
+      end
     end
+    session
   end
 
   def merge_session(cdx_response)
-    @session.user = User.find_or_create(user_id)
-    UserProfileWorker.perform_async(@session.user.id)
-    @session.merge_cdx(cdx_response)
+    @session.user = sync_user
+    if @error_message
+      @session = nil
+    else
+      @session.merge_cdx(cdx_response)
+    end
+  end
+
+  def sync_user
+    user = User.find_or_create(user_id)
+    user.cdx_sync
+    user.reload
+    unless user.active_cdx?
+      @error_message = 'Account is not yet active'
+    end
+    user
   end
 end

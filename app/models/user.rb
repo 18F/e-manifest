@@ -10,11 +10,15 @@ class User < ActiveRecord::Base
     find_by(cdx_user_id: cdx_user_id) || create(cdx_user_id: cdx_user_id)
   end
 
-  def cdx_sync
-    profiler = UserProfileBuilder.new(self)
+  def cdx_sync(dataflow = ENV['CDX_DEFAULT_DATAFLOW'])
+    profiler = UserProfileBuilder.new(self, dataflow)
     profile = profiler.run
     syncer = UserProfileSyncer.new(self, profile)
     syncer.run
+  end
+
+  def active_cdx?
+    user_org_roles.select { |user_org_role| user_org_role.cdx_status == 'Active' }.any?
   end
 
   def role_for_org(org_name, role_name)

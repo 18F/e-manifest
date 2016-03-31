@@ -94,5 +94,19 @@ describe User do
 
       expect(user_org_role.user.epa_data_download?).to eq true
     end
+
+    describe "#active_cdx?" do
+      it "tests for active status" do
+        user_org_role = create(:user_org_role, :tsdf_certifier, cdx_status: 'Active')
+
+        expect(user_org_role.user.active_cdx?).to eq(true)
+      end
+
+      it "tests for inactive status" do
+        user_org_role = create(:user_org_role, :tsdf_certifier, cdx_status: 'Inactive')
+
+        expect(user_org_role.user.active_cdx?).to eq(false)
+      end
+    end
   end
 end

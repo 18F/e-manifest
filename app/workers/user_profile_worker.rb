@@ -4,10 +4,6 @@ class UserProfileWorker
 
   def perform(user_id, dataflow = ENV['CDX_DEFAULT_DATAFLOW'])
     user = User.find(user_id)
-    builder = UserProfileBuilder.new(user, dataflow)
-    profile = builder.run
-    puts profile.pretty_inspect
-    syncer = UserProfileSyncer.new(user, profile)
-    syncer.run
+    user.cdx_sync(dataflow)
   end
 end
