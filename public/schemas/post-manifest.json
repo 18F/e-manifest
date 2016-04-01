@@ -187,7 +187,9 @@
         },
         "date": {
            "description": "Date of signature (15)",
-           "type": "date"
+           "type": "string",
+           "format": "date",
+           "pattern": "^[0-9]{4}[\-\/][0-9]{2}[\-\/][0-9]{2}$"
         }
       }
     },
@@ -285,7 +287,9 @@
       "properties": {
         "date_leaving_us": {
            "description": "Date leaving U.S. (16)",
-           "type": "date"
+           "type": "string",
+           "format": "date",
+           "pattern": "^[0-9]{4}[\-\/][0-9]{2}[\-\/][0-9]{2}$"
         },
         "export_import": {
           "description": "(16)",
