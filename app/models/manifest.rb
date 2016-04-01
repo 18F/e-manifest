@@ -118,15 +118,7 @@ class Manifest < ActiveRecord::Base
   end
 
   def designated_facility_signed_date
-    if content_field('designated_facility')
-      certification = content_field('designated_facility.certification')
-      if certification
-        y = certification['year'].to_i
-        m = certification['month'].to_i
-        d = certification['day'].to_i
-        Date.new(y, m, d)
-      end
-    end
+    content_field('designated_facility.certification') || ''
   end
 
   def manifest_items
