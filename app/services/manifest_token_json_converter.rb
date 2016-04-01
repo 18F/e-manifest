@@ -28,7 +28,7 @@ class ManifestTokenJsonConverter
         "first_name" => args[:user_session].first_name,
         "last_name" => args[:user_session].last_name,
         "cdx_user_role_id" => args[:cdx_user_role_id],
-        "cdx_user_id" => args[:current_user].cdx_user_id
+        "cdx_user_id" => args[:current_user].cdx_user_id.upcase
       }
       
       args[:manifest].content[:cromerr_signature] = cromerr_signature
