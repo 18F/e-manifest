@@ -50,7 +50,7 @@ feature 'Create manifest' do
     fill_in 'Emergency Response Phone (3)', with: '555-555-5555'
     fill_in 'Manifest Tracking Number (4)', with: manifest_tracking_number
     fill_in 'Name of generator/offeror signatory (15)', with: 'Jane Doe'
-    fill_in 'manifest[generator][signatory][date]', with: '11/23/2016'
+    fill_in 'manifest[generator][signatory][date]', with: '2016/11/23'
 
     # Mailing address
     fill_in 'Name (5)', with: 'Mailing name'
@@ -70,7 +70,7 @@ feature 'Create manifest' do
       fill_in 'manifest[transporters][][name]', with: 'Transporter company 1 name'
       fill_in 'manifest[transporters][][us_epa_id_number]', with: 'def987654321'
       fill_in 'manifest[transporters][][signatory][name]', with: 'TransporterSigner Smith'
-      fill_in 'manifest[transporters][][signatory][date]', with: '11/23/2016'
+      fill_in 'manifest[transporters][][signatory][date]', with: '2016/11/23'
     end
 
     # Designated facility
@@ -123,7 +123,7 @@ feature 'Create manifest' do
     select 'Export from U.S.', from: 'Import/Export (16)'
     fill_in 'City of Entry/Exit (16)', with: 'Anytown'
     select 'Maine', from: 'State of Entry/Exit (16)'
-    fill_in 'manifest[international_shipment][date_leaving_us]', with: '11/23/2016'
+    fill_in 'manifest[international_shipment][date_leaving_us]', with: '2016/11/23'
 
     click_on 'Continue'
 
