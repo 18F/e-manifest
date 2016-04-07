@@ -22,17 +22,6 @@ class ManifestTokenJsonConverter
 
   def get_cdx_manifest_json
     if args[:token]
-      session = lookup_session(args[:token])
-      cdx_user_id = args[:current_user].cdx_user_id
-      cdx_user = CDX::UserProfile.new(user_id: cdx_user_id).perform
-
-      cromerr_signature = {
-        "first_name" => cdx_user[:firstName],
-        "last_name" => cdx_user[:lastName],
-        "cdx_user_role_id" => args[:cdx_user_role_id],
-        "cdx_user_id" => cdx_user_id.upcase
-      }
-      
       args[:manifest].content[:cromerr_signature] = cromerr_signature
     end
 
@@ -42,6 +31,18 @@ class ManifestTokenJsonConverter
     json_manifest
   end
 
+  def cromerr_signature
+    cdx_user_id = args[:current_user].cdx_user_id
+    cdx_user = CDX::UserProfile.new(user_id: cdx_user_id).perform
+    
+    cromerr_signature = {
+      "first_name" => cdx_user[:firstName],
+      "last_name" => cdx_user[:lastName],
+      "cdx_user_role_id" => args[:cdx_user_role_id],
+      "cdx_user_id" => cdx_user_id.upcase
+    }
+  end
+  
   def lookup_session(user_token)
     session = UserSession.new(user_token)
   end
