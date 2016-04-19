@@ -1,32 +1,17 @@
-require File.dirname(__FILE__) + "/lib/app"
-require 'sinatra/activerecord/rake'
+# Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-task default: 'build'
+require File.expand_path('../config/application', __FILE__)
 
-desc 'Build Jekyll static site'
-task :build do
-  system '( cd _static/ ; jekyll build --destination ../public )'
+Rails.application.load_tasks
+task(:default).clear
+task default: [:spec]
+
+if defined? RSpec
+  task(:spec).clear
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.verbose = false
+  end
 end
 
-desc 'Build and watch for dev mode: Jekyll static site'
-task :build_dev do
-  system '( cd _static/ ; jekyll build --watch --destination ../public )'
-end
-
-desc 'Build jekyll and serve the sinatra app'
-task :serve do
-  Rake::Task['build'].invoke
-  system 'rackup'
-end
-
-desc 'Deceptive name: just runs Sinatra without building Jekyll'
-task :serve_dev do
-  # Run `rake build_dev` in another terminal to get auto-reloading
-  system 'rackup'
-end
-
-desc 'Push to Cloud Foundry'
-task :deploy do
-  Rake::Task['build'].invoke
-  system 'cf push'
-end
+task default: "bundler:audit"

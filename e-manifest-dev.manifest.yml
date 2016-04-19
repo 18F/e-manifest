@@ -1,0 +1,22 @@
+---
+env:
+  RAILS_ENV: production
+  CDX_DEFAULT_DATAFLOW: e-Manifest
+  CDX_BASE_URL: https://testngn.epacdxnode.net/cdx-register-II/services
+services:
+  - e-manifest-dev-db
+  - emanifest-es-dev
+  - emanifest-redis-dev
+applications:
+- name: e-manifest-dev
+  host: e-manifest-dev
+  instances: 1
+  domain: 18f.gov
+  command: script/web-start
+  memory: 640MB
+- name: e-manifest-dev-worker
+  instances: 1
+  domain: 18f.gov
+  no-route: true
+  command: script/worker-start
+  memory: 256MB

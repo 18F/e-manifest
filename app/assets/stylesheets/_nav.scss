@@ -1,0 +1,28 @@
+nav {
+  color: $nav-font-color;
+  padding: 1em;
+}
+
+nav img,
+nav p {
+  height: 30px;
+}
+
+nav p {
+  display: inline-block;
+  font-size: .7em;
+  line-height: 1em;
+  margin: 0;
+  width: 130px;
+}
+
+nav a,
+nav a:active,
+nav a:hover,
+nav a:visited {
+  color: $nav-font-color;
+}
+
+nav a + a {
+  margin-left: 2em;
+}

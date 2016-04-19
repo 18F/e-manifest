@@ -1,0 +1,118 @@
+<div class="usa-width-two-thirds">
+
+  <h3>Manifests</h3>
+
+  <div class="stats">
+    <% if @stats[:total] > 0 %>
+    Currently viewing <%= @stats[:from] %>-<%= @stats[:to] %> of <%= number_with_delimiter @stats[:total] %> results.
+    <% else %>
+    No results
+    <% end %>
+  </div>
+
+  <table>
+    <thead>
+      <th>Tracking Number</th>
+      <th>Generator Name</th>
+      <th>Disposal Facility</th>
+      <th>Date</th>
+    </thead>
+    <tbody>
+      <% @manifests.each do |manifest| %>
+        <tr>
+          <td><%= link_to manifest.tracking_number, manifest_path(manifest.uuid) %></td>
+          <td><%= manifest.generator_name %></td>
+          <td><%= manifest.disposal_facility %></td>
+          <td><%= manifest.created_on %></td>
+        </tr>
+      <% end %>
+      <% if @manifests.length == 0 %>
+        <tr>
+          <td colspan="4" class="text-center">No records were found that match the criteria.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="pager">
+    <%= paginate @es_response, current_page: (params[:page]||1).to_i %>
+  </div>
+</div>
+
+<div class="usa-width-one-third">
+
+  <%= simple_form_for :aq, url: manifests_path, method: :get, html: { class: "callout"} do |form| %>
+    <h2>Search  manifests</h2>
+
+    <label class="featured" for="manifest_tracking_number">Manifest Tracking Number</label>
+    <input id="manifest_tracking_number" name="aq[content.generator.manifest_tracking_number]" type="text">
+
+    <label class="featured" for="generator_name">Generator name</label>
+    <input id="generator_name" name="aq[content.generator.name]" type="text">
+    <label class="featured" for="tsdf_name">Disposal facility name</label>
+    <input id="tsdf_name" name="aq[content.designated_facility.name]" type="text">
+
+    <div class="usa-grid-full">
+      <div class="usa-width-one-half">
+        <label for="origin_state">Generator state</label>
+        <select name="aq[content.generator.mailing_address.state]" id="origin_state" class="usa-input-grid-tiny tiny-input">
+          <option value="">--</option>
+          <optgroup label="United States">
+            <% us_states.each do |state| %>
+             <option value=<%=state[1]%>><%=state[1]%></option>
+            <% end %>
+          </optgroup>
+          <optgroup label="Canadian Provinces">
+            <% canadian_provinces.each do |province| %>
+             <option value=<%=province[1]%>><%=province[1]%></option>
+            <% end %>
+          </optgroup>
+          <optgroup label="Mexican States">
+            <% mexican_states.each do |state| %>
+             <option value=<%=state[1]%>><%=state[1]%></option>
+            <% end %>
+          </optgroup>
+        </select>
+      </div>
+      <div class="usa-width-one-half">
+        <label for="disposal_state">Disposal facility state</label>
+        <select name="aq[content.designated_facility.address.state]" id="disposal_state" class="tiny-input">
+          <option value="">--</option>
+          <optgroup label="United States">
+            <% us_states.each do |state| %>
+             <option value=<%=state[1]%>><%=state[1]%></option>
+            <% end %>
+          </optgroup>
+          <optgroup label="Canadian Provinces">
+            <% canadian_provinces.each do |province| %>
+             <option value=<%=province[1]%>><%=province[1]%></option>
+            <% end %>
+          </optgroup>
+          <optgroup label="Mexican States">
+            <% mexican_states.each do |state| %>
+             <option value=<%=state[1]%>><%=state[1]%></option>
+            <% end %>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <div class="usa-grid-full">
+      <div class="usa-width-one-whole">
+        <label for="from_date">Beginning Date</label>
+        <input id="from_date" name="aq[created_on]" type="date">
+      </div>
+      <div class="usa-width-one-whole">
+        <label for="to_date">Ending Date</label>
+        <input id="to_date" name="to_date" type="date">
+      </div>
+    </div>
+
+    <label class="featured" for="general">General search</label>
+    <input id="general" name="q" type="text">
+
+    <%= form.submit 'Search' %>
+    <input type="reset" class="usa-button-outline" value="Clear">
+  <% end %>
+
+</div>

@@ -1,15 +1,20 @@
-public/
-tmp/
-_static/.sass-cache/
-Gemfile.lock
-log/*.log
-node_modules/
-
-# Ignore Cloud Foundry files
-cf-ssh.yml
-
-# Ignore emacs autosave
-**/*~
-
-# Ignore configuration secrets file
-secret.rb
+!.keep
+*.DS_Store
+*.swo
+*.swp
+/.bundle
+.env
+.env.development
+.foreman
+/coverage/*
+/db/*.sqlite3
+/log/*
+/public/system
+/public/assets
+/tags
+/tmp/*
+test_cdx_config.yml
+e-manifest-dev-worker_manifest.yml
+e-manifest-dev_manifest.yml
+e-manifest-worker_manifest.yml
+e-manifest_manifest.yml

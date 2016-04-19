@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+/*
+
+ * = require us_web_design_standards
+ * = require us_web_design_standards_fonts
+ * = require swagger-ui/screen
+ */
+
+ @import "variables";
+
+ @import "callout";
+ @import "disclaimer";
+ @import "header";
+ @import "headings";
+ @import "lists";
+ @import "nav";
+ @import "swagger";
+ @import "tables";
+ @import "text";
+ @import "search";
+ @import "flashes";
+ @import "manifest";
+
+ body {
+   background-color: $secondary-background-color;
+   // font-family: $base-font-family;
+ }
+
+ header,
+ main {
+   background-color: $base-background-color;
+ }

@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://e-manifest.18f.gov/schemas/post-signature.json",
+  "method": "POST",
+  "type": "object",
+  "additionalProperties": false,
+  "required" : [
+    "activity_id",
+    "answer",
+    "question_id",
+    "token",
+    "user_id"
+  ],
+  "properties": {
+    "activity_id": {
+      "description": "activity id from CDX API",
+      "type": "string"
+    },
+    "answer": {
+      "description": "reply to security question from CDX",
+      "type": "string"
+    },
+    "question_id": {
+      "description": "question id from CDX API",
+      "type": "string"
+    },
+    "token": {
+      "description": "security token from CDX API",
+      "type": "string"
+    },
+    "user_id": {
+      "description": "user_id used to access CDX API",
+      "type": "string"
+    }
+  }
+}

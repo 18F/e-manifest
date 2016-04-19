@@ -1,0 +1,7 @@
+<%= object.simple_fields_for fields.to_sym do |address| %>
+  <%= address.input :address_1, label: "Address 1 (#{number})" %>
+  <%= address.input :address_2, label: "Address 2 (#{number})" %>
+  <%= address.input :city, label: "City (#{number})" %>
+  <%= address.input :state, collection: us_states, label: "State (#{number})" %>
+  <%= address.input :zip_code, label: "ZIP code (#{number})" %>
+<% end %>

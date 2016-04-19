@@ -1,0 +1,768 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://devngn.epacdxnode.net/cdx-register/services/RegisterSignService?wsdl
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 21 Jan 2016 00:45:35 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - text/xml
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="RegisterSignService" targetNamespace="http://www.exchangenetwork.net/wsdl/register/sign/1">
+          <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.exchangenetwork.net/wsdl/register/sign/1">
+          <xs:import namespace="http://www.w3.org/2005/05/xmlmime"/>
+          <xs:element name="ActivityAcls" type="tns:activityAcls"/>
+          <xs:element name="ActivityTags" type="tns:activityTags"/>
+          <xs:element name="Authenticate" type="tns:Authenticate"/>
+          <xs:element name="AuthenticateResponse" type="tns:AuthenticateResponse"/>
+          <xs:element name="AuthenticateUser" type="tns:AuthenticateUser"/>
+          <xs:element name="AuthenticateUserResponse" type="tns:AuthenticateUserResponse"/>
+          <xs:element name="CreateAcls" type="tns:CreateAcls"/>
+          <xs:element name="CreateAclsResponse" type="tns:CreateAclsResponse"/>
+          <xs:element name="CreateActivity" type="tns:CreateActivity"/>
+          <xs:element name="CreateActivityResponse" type="tns:CreateActivityResponse"/>
+          <xs:element name="CreateActivityWithProperties" type="tns:CreateActivityWithProperties"/>
+          <xs:element name="CreateActivityWithPropertiesResponse" type="tns:CreateActivityWithPropertiesResponse"/>
+          <xs:element name="CreateTags" type="tns:CreateTags"/>
+          <xs:element name="CreateTagsResponse" type="tns:CreateTagsResponse"/>
+          <xs:element name="DecryptAndDownloadByDocumentId" type="tns:DecryptAndDownloadByDocumentId"/>
+          <xs:element name="DecryptAndDownloadByDocumentIdResponse" type="tns:DecryptAndDownloadByDocumentIdResponse"/>
+          <xs:element name="DownloadByDocumentId" type="tns:DownloadByDocumentId"/>
+          <xs:element name="DownloadByDocumentIdResponse" type="tns:DownloadByDocumentIdResponse"/>
+          <xs:element name="GetQuestion" type="tns:GetQuestion"/>
+          <xs:element name="GetQuestionResponse" type="tns:GetQuestionResponse"/>
+          <xs:element name="Properties" type="tns:properties"/>
+          <xs:element name="RecordSecondFactorEvent" type="tns:RecordSecondFactorEvent"/>
+          <xs:element name="RecordSecondFactorEventResponse" type="tns:RecordSecondFactorEventResponse"/>
+          <xs:element name="Sign" type="tns:Sign"/>
+          <xs:element name="SignEncryptSign" type="tns:SignEncryptSign"/>
+          <xs:element name="SignEncryptSignResponse" type="tns:SignEncryptSignResponse"/>
+          <xs:element name="SignResponse" type="tns:SignResponse"/>
+          <xs:element name="ValidateAnswer" type="tns:ValidateAnswer"/>
+          <xs:element name="ValidateAnswerResponse" type="tns:ValidateAnswerResponse"/>
+          <xs:complexType name="AuthenticateUser">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="password" type="xs:string"/>
+              <xs:element minOccurs="0" name="properties" type="tns:properties"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="properties">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="Property" type="tns:Property"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="Property">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Key" type="xs:string"/>
+              <xs:element minOccurs="0" name="Value" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="AuthenticateUserResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="signatureUser" type="tns:SignatureUserType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignatureUserType">
+            <xs:sequence>
+              <xs:element name="UserId" type="xs:string"/>
+              <xs:element name="FirstName" type="xs:string"/>
+              <xs:element name="LastName" type="xs:string"/>
+              <xs:element name="MiddleInitial" type="xs:string"/>
+              <xs:element minOccurs="0" name="OrganizationName" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateActivity">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="signatureUser" type="tns:SignatureUserType"/>
+              <xs:element minOccurs="0" name="dataflowName" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateActivityResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateTags">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityTags" type="tns:activityTags"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="activityTags">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="ActivityTag" type="tns:ActivityTag"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ActivityTag">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Value" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateTagsResponse">
+            <xs:sequence/>
+          </xs:complexType>
+          <xs:complexType name="GetQuestion">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="GetQuestionResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="question" type="tns:question"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="question">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="questionId" type="xs:string"/>
+              <xs:element minOccurs="0" name="text" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="Sign">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="signatureDocument" type="tns:SignatureDocumentType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignatureDocumentType">
+            <xs:sequence>
+              <xs:element name="Name" type="xs:string"/>
+              <xs:element name="Format" type="tns:SignatureDocumentFormatType"/>
+              <xs:element name="Content" type="xs:base64Binary" xmime:expectedContentTypes="*/*"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="documentId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DecryptAndDownloadByDocumentId">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="documentId" type="xs:string"/>
+              <xs:element minOccurs="0" name="passphrase" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DecryptAndDownloadByDocumentIdResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="signatureDocument" type="tns:SignatureDocumentType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="Authenticate">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="credential" type="xs:string"/>
+              <xs:element minOccurs="0" name="domain" type="xs:string"/>
+              <xs:element minOccurs="0" name="authenticationMethod" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="AuthenticateResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignEncryptSign">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="signatureDocument" type="tns:SignatureDocumentType"/>
+              <xs:element minOccurs="0" name="recipientId" type="xs:string"/>
+              <xs:element minOccurs="0" name="passphrase" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="SignEncryptSignResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="documentId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateActivityWithProperties">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="signatureUser" type="tns:SignatureUserType"/>
+              <xs:element minOccurs="0" name="dataflowName" type="xs:string"/>
+              <xs:element minOccurs="0" name="properties" type="tns:properties"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateActivityWithPropertiesResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateAcls">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityAcls" type="tns:activityAcls"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="activityAcls">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="ActivityAcl" type="tns:ActivityAcl"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ActivityAcl">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="RoleId" type="xs:string"/>
+              <xs:element minOccurs="0" name="RoleDescription" type="xs:string"/>
+              <xs:element minOccurs="0" name="Subject" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="CreateAclsResponse">
+            <xs:sequence/>
+          </xs:complexType>
+          <xs:complexType name="RecordSecondFactorEvent">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="secondFactorType" type="tns:SecondFactorType"/>
+              <xs:element minOccurs="0" name="evidence" type="tns:properties"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="RecordSecondFactorEventResponse">
+            <xs:sequence/>
+          </xs:complexType>
+          <xs:complexType name="ValidateAnswer">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="userId" type="xs:string"/>
+              <xs:element minOccurs="0" name="questionId" type="xs:string"/>
+              <xs:element minOccurs="0" name="answer" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="ValidateAnswerResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="validAnswer" type="xs:boolean"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DownloadByDocumentId">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+              <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+              <xs:element minOccurs="0" name="documentId" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:complexType name="DownloadByDocumentIdResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="signatureDocument" type="tns:SignatureDocumentType"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:simpleType name="RegisterErrorCode">
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="E_UnknownUser"/>
+              <xs:enumeration value="E_InvalidCredential"/>
+              <xs:enumeration value="E_AccessDenied"/>
+              <xs:enumeration value="E_InvalidToken"/>
+              <xs:enumeration value="E_TokenExpired"/>
+              <xs:enumeration value="E_AuthMethod"/>
+              <xs:enumeration value="E_UserAlreadyExists"/>
+              <xs:enumeration value="E_InsufficientPrivileges"/>
+              <xs:enumeration value="E_WeakPassword"/>
+              <xs:enumeration value="E_InvalidArgument"/>
+              <xs:enumeration value="E_InvalidAnswerResetCode"/>
+              <xs:enumeration value="E_MaxNumberOfResetAttemptsReached"/>
+              <xs:enumeration value="E_AnswersAlreadyExist"/>
+              <xs:enumeration value="E_RoleAlreadyExists"/>
+              <xs:enumeration value="E_WrongUserId"/>
+              <xs:enumeration value="E_ReachedMaxNumberOfAttempts"/>
+              <xs:enumeration value="E_WrongAnswer"/>
+              <xs:enumeration value="E_WrongIdPassword"/>
+              <xs:enumeration value="E_AccountLocked"/>
+              <xs:enumeration value="E_AccountExpired"/>
+              <xs:enumeration value="E_DuplicateAssociation"/>
+              <xs:enumeration value="E_InternalError"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType name="SignatureDocumentFormatType">
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="XML"/>
+              <xs:enumeration value="BIN"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType name="SecondFactorType">
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="PAY_GOV_LEXIS"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:element name="RegisterFault" type="tns:RegisterFault"/>
+          <xs:complexType name="RegisterFault">
+            <xs:sequence>
+              <xs:element name="description" nillable="true" type="xs:string"/>
+              <xs:element name="errorCode" nillable="true" type="tns:RegisterErrorCode"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:schema>
+          </wsdl:types>
+          <wsdl:message name="AuthenticateUser">
+            <wsdl:part element="tns:AuthenticateUser" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateActivity">
+            <wsdl:part element="tns:CreateActivity" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="AuthenticateUserResponse">
+            <wsdl:part element="tns:AuthenticateUserResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DecryptAndDownloadByDocumentId">
+            <wsdl:part element="tns:DecryptAndDownloadByDocumentId" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RecordSecondFactorEventResponse">
+            <wsdl:part element="tns:RecordSecondFactorEventResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="SignResponse">
+            <wsdl:part element="tns:SignResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="Authenticate">
+            <wsdl:part element="tns:Authenticate" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateActivityResponse">
+            <wsdl:part element="tns:CreateActivityResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="SignEncryptSignResponse">
+            <wsdl:part element="tns:SignEncryptSignResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateActivityWithProperties">
+            <wsdl:part element="tns:CreateActivityWithProperties" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RegisterException">
+            <wsdl:part element="tns:RegisterFault" name="RegisterException">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateAclsResponse">
+            <wsdl:part element="tns:CreateAclsResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="AuthenticateResponse">
+            <wsdl:part element="tns:AuthenticateResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateAcls">
+            <wsdl:part element="tns:CreateAcls" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DownloadByDocumentIdResponse">
+            <wsdl:part element="tns:DownloadByDocumentIdResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="ValidateAnswer">
+            <wsdl:part element="tns:ValidateAnswer" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateTags">
+            <wsdl:part element="tns:CreateTags" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="GetQuestion">
+            <wsdl:part element="tns:GetQuestion" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="Sign">
+            <wsdl:part element="tns:Sign" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DecryptAndDownloadByDocumentIdResponse">
+            <wsdl:part element="tns:DecryptAndDownloadByDocumentIdResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="ValidateAnswerResponse">
+            <wsdl:part element="tns:ValidateAnswerResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateTagsResponse">
+            <wsdl:part element="tns:CreateTagsResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="SignEncryptSign">
+            <wsdl:part element="tns:SignEncryptSign" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="GetQuestionResponse">
+            <wsdl:part element="tns:GetQuestionResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="CreateActivityWithPropertiesResponse">
+            <wsdl:part element="tns:CreateActivityWithPropertiesResponse" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="RecordSecondFactorEvent">
+            <wsdl:part element="tns:RecordSecondFactorEvent" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:message name="DownloadByDocumentId">
+            <wsdl:part element="tns:DownloadByDocumentId" name="parameters">
+            </wsdl:part>
+          </wsdl:message>
+          <wsdl:portType name="RegisterSignService">
+            <wsdl:operation name="AuthenticateUser">
+              <wsdl:input message="tns:AuthenticateUser" name="AuthenticateUser">
+            </wsdl:input>
+              <wsdl:output message="tns:AuthenticateUserResponse" name="AuthenticateUserResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateActivity">
+              <wsdl:input message="tns:CreateActivity" name="CreateActivity">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateActivityResponse" name="CreateActivityResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateTags">
+              <wsdl:input message="tns:CreateTags" name="CreateTags">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateTagsResponse" name="CreateTagsResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="GetQuestion">
+              <wsdl:input message="tns:GetQuestion" name="GetQuestion">
+            </wsdl:input>
+              <wsdl:output message="tns:GetQuestionResponse" name="GetQuestionResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Sign">
+              <wsdl:input message="tns:Sign" name="Sign">
+            </wsdl:input>
+              <wsdl:output message="tns:SignResponse" name="SignResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DecryptAndDownloadByDocumentId">
+              <wsdl:input message="tns:DecryptAndDownloadByDocumentId" name="DecryptAndDownloadByDocumentId">
+            </wsdl:input>
+              <wsdl:output message="tns:DecryptAndDownloadByDocumentIdResponse" name="DecryptAndDownloadByDocumentIdResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Authenticate">
+              <wsdl:input message="tns:Authenticate" name="Authenticate">
+            </wsdl:input>
+              <wsdl:output message="tns:AuthenticateResponse" name="AuthenticateResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="SignEncryptSign">
+              <wsdl:input message="tns:SignEncryptSign" name="SignEncryptSign">
+            </wsdl:input>
+              <wsdl:output message="tns:SignEncryptSignResponse" name="SignEncryptSignResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateActivityWithProperties">
+              <wsdl:input message="tns:CreateActivityWithProperties" name="CreateActivityWithProperties">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateActivityWithPropertiesResponse" name="CreateActivityWithPropertiesResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateAcls">
+              <wsdl:input message="tns:CreateAcls" name="CreateAcls">
+            </wsdl:input>
+              <wsdl:output message="tns:CreateAclsResponse" name="CreateAclsResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RecordSecondFactorEvent">
+              <wsdl:input message="tns:RecordSecondFactorEvent" name="RecordSecondFactorEvent">
+            </wsdl:input>
+              <wsdl:output message="tns:RecordSecondFactorEventResponse" name="RecordSecondFactorEventResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="ValidateAnswer">
+              <wsdl:input message="tns:ValidateAnswer" name="ValidateAnswer">
+            </wsdl:input>
+              <wsdl:output message="tns:ValidateAnswerResponse" name="ValidateAnswerResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DownloadByDocumentId">
+              <wsdl:input message="tns:DownloadByDocumentId" name="DownloadByDocumentId">
+            </wsdl:input>
+              <wsdl:output message="tns:DownloadByDocumentIdResponse" name="DownloadByDocumentIdResponse">
+            </wsdl:output>
+              <wsdl:fault message="tns:RegisterException" name="RegisterException">
+            </wsdl:fault>
+            </wsdl:operation>
+          </wsdl:portType>
+          <wsdl:binding name="RegisterSignServiceSoapBinding" type="tns:RegisterSignService">
+            <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+            <wsdl:operation name="AuthenticateUser">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="AuthenticateUser">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="AuthenticateUserResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateActivity">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateActivity">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateActivityResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateTags">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateTags">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateTagsResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Sign">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="Sign">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="SignResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="GetQuestion">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="GetQuestion">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="GetQuestionResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DecryptAndDownloadByDocumentId">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="DecryptAndDownloadByDocumentId">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="DecryptAndDownloadByDocumentIdResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="Authenticate">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="Authenticate">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="AuthenticateResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="SignEncryptSign">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="SignEncryptSign">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="SignEncryptSignResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateActivityWithProperties">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateActivityWithProperties">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateActivityWithPropertiesResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="CreateAcls">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="CreateAcls">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="CreateAclsResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="RecordSecondFactorEvent">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="RecordSecondFactorEvent">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="RecordSecondFactorEventResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="ValidateAnswer">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="ValidateAnswer">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="ValidateAnswerResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+            <wsdl:operation name="DownloadByDocumentId">
+              <soap12:operation soapAction="" style="document"/>
+              <wsdl:input name="DownloadByDocumentId">
+                <soap12:body use="literal"/>
+              </wsdl:input>
+              <wsdl:output name="DownloadByDocumentIdResponse">
+                <soap12:body use="literal"/>
+              </wsdl:output>
+              <wsdl:fault name="RegisterException">
+                <soap12:fault name="RegisterException" use="literal"/>
+              </wsdl:fault>
+            </wsdl:operation>
+          </wsdl:binding>
+          <wsdl:service name="RegisterSignService">
+            <wsdl:port binding="tns:RegisterSignServiceSoapBinding" name="RegisterSignServicePort">
+              <soap12:address location="https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService"/>
+            </wsdl:port>
+          </wsdl:service>
+        </wsdl:definitions>
+    http_version: 
+  recorded_at: Thu, 21 Jan 2016 00:46:11 GMT
+- request:
+    method: post
+    uri: https://devngn.epacdxnode.net/cdx-register-II/services/RegisterSignService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://www.exchangenetwork.net/wsdl/register/sign/1"
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:Authenticate><userId>change_me</userId><credential>change_me</credential><domain>default</domain><authenticationMethod>password</authenticationMethod></tns:Authenticate></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - '"Authenticate"'
+      Content-Type:
+      - application/soap+xml;charset=UTF-8
+      Content-Length:
+      - '477'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Date:
+      - Thu, 21 Jan 2016 00:45:35 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Frame-Options:
+      - SAMEORIGIN, SAMEORIGIN
+      Content-Type:
+      - multipart/related; type="application/xop+xml"; boundary="uuid:3fbadf41-5eb0-4e8a-a810-348be99ac1ba";
+        start="<root.message@cxf.apache.org>"; start-info="application/soap+xml"
+      Content-Length:
+      - '1105'
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: "--uuid:3fbadf41-5eb0-4e8a-a810-348be99ac1ba\r\nContent-Type: application/xop+xml;
+        charset=UTF-8; type=\"application/soap+xml\";\r\nContent-Transfer-Encoding:
+        binary\r\nContent-ID: <root.message@cxf.apache.org>\r\n\r\n<soap:Envelope
+        xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\"><soap:Body><soap:Fault><soap:Code><soap:Value>soap:Receiver</soap:Value></soap:Code><soap:Reason><soap:Text
+        xml:lang=\"en\">Fault occurred while processing.</soap:Text></soap:Reason><soap:Detail><ns1:RegisterFault
+        xmlns:ns1=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"><description
+        xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\">Unable to
+        authenticate user - The user account could not be located. Could not perform
+        central authentication for user &lt;change_me> in domain &lt;default></description><errorCode
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:ns2=\"http://www.exchangenetwork.net/wsdl/register/sign/1\"
+        xsi:type=\"ns2:RegisterErrorCode\">E_UnknownUser</errorCode></ns1:RegisterFault></soap:Detail></soap:Fault></soap:Body></soap:Envelope>\r\n--uuid:3fbadf41-5eb0-4e8a-a810-348be99ac1ba--"
+    http_version: 
+  recorded_at: Thu, 21 Jan 2016 00:46:11 GMT
+recorded_with: VCR 3.0.1

@@ -1,0 +1,93 @@
+<div class="usa-width-one-whole">
+  <h3>Submit new manifest</h3>
+
+  <%= simple_form_for :manifest, url: manifests_path, method: :post do |form| %>
+    <fieldset>
+      <h3>Generator</h3>
+      <%= form.simple_fields_for :generator do |generator| %>
+        <%= generator.input :us_epa_id_number, label: 'U.S. EPA ID Number (1)' %>
+        <%= generator.input :emergency_response_phone, label: 'Emergency Response Phone (3)' %>
+        <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number (4)', required: true %>
+        <%= generator.input :name, label: 'Name (5)' %>
+        <%= generator.simple_fields_for :signatory do |signature| %>
+          <%= signature.input :name, label: 'Name of generator/offeror signatory (15)' %>
+          <%= label_tag 'Date of signature (15)' %>
+          <%= date_field_tag 'date', nil, name: "manifest[generator][signatory][date]"  %>
+        <% end %>
+
+        <div class="mailing-address">
+          <h3>Mailing address</h3>
+          <%= render partial: 'address', locals: { fields: 'mailing_address', object: generator, number: 5 } %>
+        </div>
+
+        <%= generator.input :phone_number, label: 'Phone number (5)' %>
+
+        <%= generator.input :site_address_same_as_mailing, as: :radio_buttons, label: 'Site address same as mailing address', boolean_style: :inline %>
+
+        <div class="site-address">
+          <h3>Site address</h3>
+          <%= render partial: 'address', locals: { fields: 'site_address', object: generator, number: 5 } %>
+        </div>
+      <% end %>
+
+    </fieldset>
+
+    <fieldset>
+      <h3>Transporters</h3>
+      <div class="transporters">
+        <%= render 'transporter' %>
+      </div>
+
+      <div>
+        <%= link_to '+ Add an additional transporter', '#', class: 'add-transporter' %>
+      </div>
+
+      <div>
+        <%= link_to '- Remove transporter', '#', class: 'remove-transporter' %>
+      </div>
+    </fieldset>
+
+    <div class="designated-facility">
+      <fieldset>
+        <h3>Designated Facility</h3>
+        <%= render 'designated_facility', form: form %>
+      </fieldset>
+    </div>
+
+    <fieldset>
+      <h3>Waste</h3>
+      <div class="manifest-items">
+        <%= render 'manifest_item' %>
+      </div>
+
+      <div>
+        <%= link_to '+ Add an additional manifest item', '#', class: 'add-manifest-item' %>
+      </div>
+
+      <div>
+        <%= link_to '- Remove manifest item', '#', class: 'remove-manifest-item' %>
+      </div>
+    </fieldset>
+
+    <h3>Other</h3>
+    <%= form.input :waste_pcb_description, label: 'PCB description (14)' %>
+    <%= form.input :waste_handling_instructions, as: :text, label: 'Special handling instructions and additional information (14)' %>
+
+  <h3>International</h3>
+    <%= form.input :international, as: :radio_buttons, label: 'This shipment is international', boolean_style: :inline %>
+
+    <div class="international">
+      <%= form.simple_fields_for :international_shipment do |shipment| %>
+        <%= shipment.input :export_import, label: 'Import/Export (16)', as: :select, collection: import_options %>
+        <%= label_tag :date_leaving_us, 'Date Entering/leaving U.S. (16)' %>
+        <%= date_field_tag 'date_leaving_us', nil, name: "manifest[international_shipment][date_leaving_us]" %>
+        <%= shipment.simple_fields_for :port_of_entry_exit do |port| %>
+          <%= port.input :city, label: 'City of Entry/Exit (16)' %>
+          <%= port.input :state, label: 'State of Entry/Exit (16)', collection: us_states %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= form.submit 'Continue' %>
+  <% end %>
+</div>

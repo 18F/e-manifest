@@ -1,0 +1,46 @@
+.callout {
+  background-color: $light-gray;
+  border: 1px solid $medium-gray;
+  font-size: .8em;
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+.callout h1,
+.callout h2,
+.callout h3,
+.callout h4,
+.callout h5 {
+  font-family: $heading-font-family;
+  margin: 0;
+}
+
+.callout a {
+  color: $secondary-background-color;
+}
+
+.expand-control {
+  background-color: $secondary-background-color;
+  border-radius: 10px;
+  color: $nav-font-color;
+}
+
+.callout [type=submit],
+.callout [type=reset] {
+  display: inline-block;
+}
+
+.callout dl {
+  padding: 0;
+}
+
+.callout dt {
+  margin: 0;
+  width: 9.5em;
+}
+
+.callout dd {
+  width: auto;
+}

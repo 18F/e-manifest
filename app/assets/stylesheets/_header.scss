@@ -1,0 +1,14 @@
+header h1,
+header p {
+  float: left;
+}
+
+header h1 + p {
+  margin-left: 2em;
+}
+
+header::after {
+  clear: both;
+  content: "";
+  display: "table";
+}

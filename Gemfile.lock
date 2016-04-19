@@ -1,0 +1,421 @@
+GIT
+  remote: https://github.com/jessieay/savon-multipart.git
+  revision: 6771eaee41aacb5220af9a096164d63acca05b1b
+  specs:
+    savon-multipart (2.1.1)
+      mail (~> 2.6)
+      savon (~> 2)
+
+GIT
+  remote: https://github.com/jessieay/us_web_design_standards_gem.git
+  revision: 0d777d5ee7c486e64733944cce5ab4d35c6f6c95
+  branch: rails-assets-fixes
+  specs:
+    us_web_design_standards (0.0.2)
+      railties
+      sass (~> 3.4)
+
+GIT
+  remote: https://github.com/pkarman/json-schema
+  revision: 8802742564720b3119a69addf906c1a5e0e237f1
+  branch: require_all
+  specs:
+    json-schema (2.6.0)
+      addressable (~> 2.3.8)
+
+GIT
+  remote: https://github.com/pkarman/swagger-ui_rails.git
+  revision: 519f4a24067e225556c52169b5cf5959143d115e
+  branch: swagger-ui-2.1.4
+  submodules: true
+  specs:
+    swagger-ui_rails (2.1.0.alpha.7.1)
+
+GIT
+  remote: https://github.com/westfieldlabs/apivore.git
+  revision: 2775011346a708c5bac3a5fc8a7aaacb9381f99a
+  specs:
+    apivore (1.4.5)
+      actionpack (~> 4)
+      hashie (~> 3.3)
+      json-schema (~> 2.5)
+      rspec (~> 3)
+      rspec-expectations (~> 3.1)
+      rspec-mocks (~> 3.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionmailer (4.2.5.1)
+      actionpack (= 4.2.5.1)
+      actionview (= 4.2.5.1)
+      activejob (= 4.2.5.1)
+      mail (~> 2.5, >= 2.5.4)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+    actionpack (4.2.5.1)
+      actionview (= 4.2.5.1)
+      activesupport (= 4.2.5.1)
+      rack (~> 1.6)
+      rack-test (~> 0.6.2)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview (4.2.5.1)
+      activesupport (= 4.2.5.1)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.9.4)
+      activemodel (>= 3.2)
+    activejob (4.2.5.1)
+      activesupport (= 4.2.5.1)
+      globalid (>= 0.3.0)
+    activemodel (4.2.5.1)
+      activesupport (= 4.2.5.1)
+      builder (~> 3.1)
+    activerecord (4.2.5.1)
+      activemodel (= 4.2.5.1)
+      activesupport (= 4.2.5.1)
+      arel (~> 6.0)
+    activesupport (4.2.5.1)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    addressable (2.3.8)
+    akami (1.3.1)
+      gyoku (>= 0.4.0)
+      nokogiri
+    ansi (1.5.0)
+    arel (6.0.3)
+    autoprefixer-rails (6.2.3)
+      execjs
+      json
+    awesome_print (1.6.1)
+    bourbon (4.2.6)
+      sass (~> 3.4)
+      thor (~> 0.19)
+    builder (3.2.2)
+    bundler-audit (0.4.0)
+      bundler (~> 1.2)
+      thor (~> 0.18)
+    byebug (8.2.1)
+    capybara (2.6.0)
+      addressable
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    cliver (0.3.2)
+    coderay (1.1.0)
+    coffee-rails (4.1.1)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0, < 5.1.x)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.10.0)
+    concurrent-ruby (1.0.0)
+    connection_pool (2.2.0)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
+    database_cleaner (1.5.1)
+    debug_inspector (0.0.2)
+    diff-lcs (1.2.5)
+    docile (1.1.5)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
+    elasticsearch (1.0.15)
+      elasticsearch-api (= 1.0.15)
+      elasticsearch-transport (= 1.0.15)
+    elasticsearch-api (1.0.15)
+      multi_json
+    elasticsearch-dsl (0.1.3)
+    elasticsearch-extensions (0.0.20)
+      ansi
+      ruby-prof
+    elasticsearch-model (0.1.8)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.8)
+    elasticsearch-rails-ha (1.0.2)
+      ansi
+      elasticsearch-model
+      elasticsearch-rails
+    elasticsearch-transport (1.0.15)
+      faraday
+      multi_json
+    email_validator (1.6.0)
+      activemodel
+    erubis (2.7.0)
+    execjs (2.6.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    flutie (2.0.0)
+    globalid (0.3.6)
+      activesupport (>= 4.1.0)
+    gyoku (1.3.1)
+      builder (>= 2.1.2)
+    hashdiff (0.2.3)
+    hashie (3.4.3)
+    httpi (2.4.1)
+      rack
+    i18n (0.7.0)
+    jquery-rails (4.0.5)
+      rails-dom-testing (~> 1.0)
+      railties (>= 4.2.0)
+      thor (>= 0.14, < 2.0)
+    json (1.8.3)
+    json-patch (1.0.0)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    loofah (2.0.3)
+      nokogiri (>= 1.5.9)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
+    method_source (0.8.2)
+    mime-types (2.99)
+    mini_portile2 (2.0.0)
+    minitest (5.8.4)
+    multi_json (1.11.2)
+    multipart-post (2.0.0)
+    neat (1.7.2)
+      bourbon (>= 4.0)
+      sass (>= 3.3)
+    nokogiri (1.6.7.2)
+      mini_portile2 (~> 2.0.0.rc2)
+    nori (2.6.0)
+    normalize-rails (3.0.3)
+    pg (0.18.4)
+    poltergeist (1.8.1)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
+    puma (2.15.3)
+    pundit (1.0.1)
+      activesupport (>= 3.0.0)
+    queryparams (0.0.3)
+    rack (1.6.4)
+    rack-canonical-host (0.1.0)
+      addressable
+      rack (~> 1.0)
+    rack-cors (0.4.0)
+    rack-protection (1.5.3)
+      rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rack-timeout (0.3.2)
+    rails (4.2.5.1)
+      actionmailer (= 4.2.5.1)
+      actionpack (= 4.2.5.1)
+      actionview (= 4.2.5.1)
+      activejob (= 4.2.5.1)
+      activemodel (= 4.2.5.1)
+      activerecord (= 4.2.5.1)
+      activesupport (= 4.2.5.1)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.2.5.1)
+      sprockets-rails
+    rails-deprecated_sanitizer (1.0.3)
+      activesupport (>= 4.2.0.alpha)
+    rails-dom-testing (1.0.7)
+      activesupport (>= 4.2.0.beta, < 5.0)
+      nokogiri (~> 1.6.0)
+      rails-deprecated_sanitizer (>= 1.0.1)
+    rails-html-sanitizer (1.0.3)
+      loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.4)
+    rails_stdout_logging (0.0.4)
+    railties (4.2.5.1)
+      actionpack (= 4.2.5.1)
+      activesupport (= 4.2.5.1)
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
+    rake (10.5.0)
+    redcarpet (3.3.4)
+    redis (3.2.2)
+    redis-namespace (1.5.2)
+      redis (~> 3.0, >= 3.0.4)
+    rspec (3.3.0)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
+    rspec-core (3.3.2)
+      rspec-support (~> 3.3.0)
+    rspec-expectations (3.3.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-mocks (3.3.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-rails (3.3.3)
+      actionpack (>= 3.0, < 4.3)
+      activesupport (>= 3.0, < 4.3)
+      railties (>= 3.0, < 4.3)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
+      rspec-support (~> 3.3.0)
+    rspec-support (3.3.0)
+    ruby-prof (0.15.9)
+    safe_yaml (1.0.4)
+    sass (3.4.20)
+    sass-rails (5.0.4)
+      railties (>= 4.0.0, < 5.0)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (>= 1.1, < 3)
+    savon (2.11.1)
+      akami (~> 1.2)
+      builder (>= 2.1.2)
+      gyoku (~> 1.2)
+      httpi (~> 2.3)
+      nokogiri (>= 1.4.0)
+      nori (~> 2.4)
+      wasabi (~> 3.4)
+    shoulda-matchers (3.1.0)
+      activesupport (>= 4.0.0)
+    sidekiq (4.0.2)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
+    simple_form (3.2.1)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
+    simplecov (0.11.1)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
+    sinatra (1.4.6)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    slop (3.6.0)
+    spring (1.6.2)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
+    sprockets (3.5.2)
+      concurrent-ruby (~> 1.0)
+      rack (> 1, < 3)
+    sprockets-rails (3.0.0)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
+    thor (0.19.1)
+    thread_safe (0.3.5)
+    tilt (2.0.2)
+    timecop (0.8.0)
+    title (0.0.5)
+      i18n
+      rails (>= 3.1)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    uglifier (2.7.2)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
+    vcr (3.0.1)
+    wasabi (3.5.0)
+      httpi (~> 2.0)
+      nokogiri (>= 1.4.2)
+    web-console (3.0.0)
+      activemodel (>= 4.2)
+      debug_inspector
+      railties (>= 4.2)
+    webmock (1.22.6)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
+    websocket-driver (0.6.3)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  active_model_serializers
+  apivore!
+  autoprefixer-rails
+  awesome_print
+  bourbon (~> 4.2.0)
+  bundler-audit
+  byebug
+  coderay
+  coffee-rails (~> 4.1.0)
+  database_cleaner
+  dotenv-rails
+  elasticsearch-dsl
+  elasticsearch-extensions
+  elasticsearch-model
+  elasticsearch-rails-ha (~> 1.0.2)
+  email_validator
+  factory_girl_rails
+  flutie
+  jquery-rails
+  json-patch
+  json-schema!
+  kaminari
+  launchy
+  neat (~> 1.7.0)
+  normalize-rails (~> 3.0.0)
+  pg
+  poltergeist
+  pry-rails
+  puma
+  pundit
+  queryparams
+  rack-canonical-host
+  rack-cors
+  rack-timeout
+  rails (~> 4.2.0)
+  rails_12factor
+  redcarpet
+  redis-namespace
+  rspec-rails (~> 3.3.0)
+  sass-rails (~> 5.0)
+  savon-multipart!
+  shoulda-matchers
+  sidekiq
+  simple_form
+  simplecov
+  sinatra
+  spring
+  spring-commands-rspec
+  swagger-ui_rails!
+  timecop
+  title
+  uglifier
+  us_web_design_standards!
+  vcr
+  web-console
+  webmock
+
+BUNDLED WITH
+   1.11.2

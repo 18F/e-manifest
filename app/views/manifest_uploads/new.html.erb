@@ -1,0 +1,14 @@
+<div class="usa-width-one-whole">
+
+  <h3>Attach a scan of the manifest</h3>
+
+  <%= simple_form_for :manifest, url: upload_path, method: :post do |form| %>
+    <%= form.input :uploaded_file, as: :file %>
+    <% if !@manifest.persisted? %>
+      <%= form.simple_fields_for :generator do |generator| %>
+        <%= generator.input :manifest_tracking_number, label: 'Manifest Tracking Number' %>
+      <% end %>
+    <% end %>
+    <%= form.submit 'Submit' %>
+  <% end %>
+</div>

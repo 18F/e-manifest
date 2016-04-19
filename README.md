@@ -1,56 +1,37 @@
 # The e-Manifest App for EPA
 
-Visit [18F Consulting](https://pages.18f.gov/consulting/projects/epa/e-manifest/) for details about this project, or check out our [Trello board](https://trello.com/b/0geMlbgF/epa-emanifest) to see what we're working on right now.
-
-This is a Ruby/Sinatra/Angular app, with a Jekyll static site in the `_static` directory. The Jekyll site will be generated in the `public/` directory, which Sinatra routes to automatically.
-
-Don't edit the `public/` folder directly! Jekyll will overwrite everything when building the site.
-
 [View the live application »](https://e-manifest.18f.gov)
 
-## Running Locally
-
-0. Copy the secret.rb.template to secret.rb. See below CROMERR Signing
-1. Install Ruby
-2. Install Bundler (`gem install bundler`)
-3. Install Postgres and make sure postgres/bin is on your $PATH.
-4. Start postgres if it isn't automatically running: `postgres -D /usr/local/var/postgres`
-5. Run `bundle install` to grab the required gems.
-4. Use `rake db:create:all` to create the databases.
-5. User `rake db:migrate` to transform the database structure to what is
-   needed by the app. For test you will need to preface with env
-variables to indicate the environment: `RACK_ENV=test rake db:migrate`
-6. Run `rake serve`. This will build the Jekyll site and start the Sinatra server. If you have set a postgres username and password, try this: `DATABASE_URL=postgres://<postgres user>:<password>@localhost/e-manifest rake serve` or configure the DATABASE_URL environment variable as you see fit. Otherwise the app will just use the config/database.yml.
-7. Go to `localhost:9292` and enjoy!
-
-## Rake Tasks
-
-- To build the static site, run `rake build`.
-- To build and serve the app, run `rake serve`.
-- To deploy to 18F's cloud, run `rake deploy`.
-
-To add analytics support needed for production, prepend `JEKYLL_ENV=production` to any of the above commands.
-
-## Running Tests
-Server tests are in rspec. Just run `rspec`.
-
-Client tests use karma/mocha/chai:
-
-- [Install node](https://nodejs.org/en/download/stable/)
-- `npm install`
-- `npm test`
+[![Build Status](https://travis-ci.org/18F/e-manifest.svg?branch=master)](https://travis-ci.org/18F/e-manifest)
+[![Code
+Climate](https://codeclimate.com/github/18F/e-manifest/badges/gpa.svg)](https://codeclimate.com/github/18F/e-manifest)
 
 
-## CROMERR Signing
+## Application architecture
 
-In order to access the development CDX system for CROMERR signing of a manifest, one needs a system account set up with rights to sign on behalf of authenticated users.
+This is a Rails application with a Postgres database containing both API
+endpoints and web views. The API is a JSON REST API. The web app and the API
+use the same database.
 
-The username and password should be placed in a `secret.rb` file located in the root with the following form:
+We use Elasticsearch to search for manifest records. Elasticsearch offloads
+read-access from the database and provides full-text search capabilities painful
+to apply directly to a database.
 
-	$cdx_username = "put username here"
-	$cdx_password = "put password here"
+Redis is used for Sidekiq job processing. The Redis + Sidekiq solution
+offloads the database/Elasticsearch syncing to an async process.
 
-In other words, `cp secret.rb.template secret.rb` and edit the file.
+## Developer onboarding
+
+Here are some tips and resources for getting started on this project. Note not all resources are available to people outside of the EPA / 18F for security reasons.
+
+* Join the `#c-epa-emanifest` and `#e-manifest-partners` channels in the 18F
+  Slack organization.
+* Ask in Slack for the Vendor Onboarding document for background on the problem space.
+* Read the [project
+  brief](https://docs.google.com/document/d/1v_rRaV5euxmBdH8D_Huo37kN3Yu76sNn2TXVJJB4v40/edit).
+* Make sure you're added to the [Trello
+  board](https://trello.com/b/0geMlbgF/epa-emanifest).
+* Set up the app using the instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Public domain
 

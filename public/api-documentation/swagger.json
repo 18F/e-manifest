@@ -1,0 +1,469 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "e-Manifest API Documentation | US EPA",
+    "description": "Endpoints for the e-Manifest application programming interfaces (API).",
+    "version": "v0"
+  },
+  "basePath": "/api/v0",
+  "schemes": [
+    "https"
+  ],
+  "externalDocs": {
+    "description": "API Examples",
+    "url": "https://e-manifest.cld.epa.gov/api-examples"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/tokens": {
+      "post": {
+        "summary": "Authenticate a user",
+        "description": "Authenticates a user with CDX's CROMERR services for signing a manifest. Values in the response are needed to sign the manifest.",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credentials"
+            }
+          },
+          {
+            "name": "authenticate",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "authentication"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful authentication",
+            "schema": {
+              "$ref": "#/definitions/Authentication"
+            }
+          },
+          "401": {
+            "description": "Authentication failed",
+            "schema": {
+              "$ref": "#/definitions/FailedAction"
+            }
+          }
+        }
+      }
+    },
+    "/manifests": {
+      "post": {
+        "summary": "Submit new manifest",
+        "description": "Submit a new manifest to the eManifest system.",
+        "parameters": [
+          {
+            "name": "manifest",
+            "in": "body",
+            "description": "JSON adhering to <a href='https://e-manifest.cld.epa.gov/schemas/post-manifest.json'>full schema</a>. See also <a href='/api-examples#submit-a-manifest'>example</a>.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostManifest"
+            }
+          }
+        ],
+        "tags": [
+          "manifests"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful creation of e-Manifest. The Location header denotes the manifest URL (e.g. `/api/0.1/manifest/:id`).",
+            "schema": {
+              "$ref": "#/definitions/CreationSuccessful"
+            }
+          },
+          "422": {
+            "description": "Failed to create e-Manifest. Validation messages are included in the response."
+          }
+        }
+      }
+    },
+    "/manifests/{id}": {
+      "get": {
+        "summary": "Get manifest",
+        "description": "Retrieve a manifest previously submitted to the e-Manifest system.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the e-Manifest ID or Manifest Tracking Number",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "manifests"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of the e-Manifest.",
+            "schema": {
+              "$ref": "#/definitions/GetManifest"
+            }
+          },
+          "404": {
+            "description": "Not found. The parameters did not match any record.",
+            "schema": {
+              "$ref": "#/definitions/ManifestNotFound"
+            }
+          }
+        }
+      },
+      "patch": {
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "summary": "Update manifest",
+        "description": "Update a manifest previously submitted to the e-Manifest system. Updating does not change what has been signed. After updating, you must repeat the authentication and signature process.\n<br>\nSee JSON Patch (http://tools.ietf.org/html/rfc6902) \nand JSON Pointer (http://tools.ietf.org/html/rfc6901) specifications.\n```\n{\"op\": \"replace\", \"path\": \"/generator/name\", \"value\": \"Generator ZZ\"},\n{\"op\": \"add\", \"path\": \"/generator/mailing_address/zip_code\", \"value\": \"11211\"},\n{\"op\": \"remove\", \"path\": \"/manifest_items/1\"},\n{\"op\": \"replace\", \"path\": \"/non_hazardous_material_present\", \"value\": \"no\"},\n{\"op\": \"add\", \"path\": \"/transporters\", \"value\": {\n  \"company_name\": \"AAAA Transporter\",\n  \"us_epa_id_number\": \"3882\",\n  \"signatory\": {\n    \"name\": \"John Smith\",\n    \"month\": \"10\",\n    \"day\": \"28\",\n    \"year\": \"2015\"\n  }\n  }\n}\n```\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the e-Manifest ID or Manifest Tracking Number",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "manifests"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated."
+          },
+          "404": {
+            "description": "The given parameter did not match an existing manifest.",
+            "schema": {
+               "$ref": "#/definitions/ManifestNotFound"
+             }
+          }
+        }
+      }
+    },
+    "/manifests/search": {
+      "get": {
+        "summary": "Search for manifests",
+        "description": "Search for manifests matching provided criteria.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "search terms",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "aq",
+            "in": "query",
+            "description": "advanced search terms",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "manifests"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search. Does not indicate any non-zero number of results.",
+            "schema": {
+              "$ref": "#/definitions/SearchResults"
+            }
+          },
+          "400": {
+            "description": "Invalid request. Typically means missing the :q or :aq parameter.",
+            "schema": {
+              "$ref": "#/definitions/InvalidSearch"
+            }
+          }
+        }
+      }
+    },
+    "/manifests/validate": {
+      "post": {
+        "summary": "Validate manifest JSON",
+        "description": "Validate the structure and content of an e-Manifest",
+        "parameters": [
+          {
+            "name": "manifest",
+            "in": "body",
+            "description": "JSON adhering to <a href='https://e-manifest.cld.epa.gov/schemas/post-manifest.json'>full schema</a>. See also <a href='/api-examples#validate-a-manifest'>example</a>.",
+            "required": true,
+            "schema": {
+              "$ref" : "#/definitions/PostManifest"
+            }
+          }
+        ],
+        "tags": [
+          "manifests"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful validation of e-Manifest.",
+            "schema": {
+              "$ref" : "#/definitions/ValidManifest"
+            }
+          },
+          "422": {
+            "description": "Failed to validate e-Manifest. Validation messages are included in the response.",
+            "schema": {
+              "$ref" : "#/definitions/InvalidManifest"
+            }
+          }
+        }
+      }
+    },
+    "/manifests/{id}/signature": {
+      "post": {
+        "summary": "Sign manifest",
+        "description": "Signs a specified manifest with CDX's CROMERR services.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the e-Manifest ID or Manifest Tracking Number",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "signature",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signature"
+            }
+          }
+        ],
+        "tags": [
+          "manifests"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful signature",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          }
+        }
+      }
+    },
+    "/method_codes": {
+      "get": {
+        "summary": "Management method codes",
+        "description": "Retrieve the valid hazardous waste report management method codes.",
+        "tags": [
+          "management methods"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MethodCodes"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "MethodCodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MethodCode"
+      }
+    },
+    "MethodCode": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "document_id": {
+          "type": "string"
+        }
+      }
+    },
+    "PostManifest": {
+      "type": "object",
+      "description": "<a href='https://e-manifest.cld.epa.gov/schemas/post-manifest.json'>full schema</a>",
+      "properties": {
+        "generator": {
+          "type" : "object",
+          "properties": {
+            "manifest_tracking_number": {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "GetManifest": {
+      "type": "object",
+      "description": "<a href='https://e-manifest.cld.epa.gov/schemas/get-manifest.json'>full schema</a>",
+      "properties": {
+        "content": {
+          "$ref": "#/definitions/PostManifest"
+        }
+      }
+    },
+    "Credentials": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "$ref": "#/definitions/Token"
+        }
+      }
+    },
+    "Token": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Authentication": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "activity_id": {
+          "type": "string"
+        },
+        "question": {
+          "type": "object",
+          "properties": {
+            "question_id": {
+              "type": "string"
+            },
+            "question_text": {
+              "type": "string"
+            }
+          }
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "Signature": {
+      "type": "object",
+      "properties": {
+        "activity_id": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "id": {
+          "description": "e-Manifest ID",
+          "type": "string"
+        },
+        "question_id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "user_id": {
+          "description": "CDX user id",
+          "type": "string"
+        }
+      }
+    },
+    "ManifestNotFound": {
+      "$ref" : "#/definitions/FailedAction"
+    },
+    "SearchResults": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "number"
+        },
+        "max_score": {
+          "type": "number"
+        },
+        "hits": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "InvalidSearch": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CreationSuccessful": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      }
+    },
+    "FailedAction": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ValidManifest": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "InvalidManifest": {
+      "$ref" : "#/definitions/FailedAction"
+    }
+  }
+}

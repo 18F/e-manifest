@@ -1,0 +1,20 @@
+---
+engines:
+  coffeelint:
+    enabled: true
+  csslint:
+    enabled: true
+  eslint:
+    enabled: true
+  rubocop:
+    enabled: true
+  bundler-audit:
+    enabled: true
+  brakeman:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript

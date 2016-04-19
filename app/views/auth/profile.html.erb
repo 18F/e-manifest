@@ -1,0 +1,24 @@
+<div class="usa-width-one-whole">
+
+  <div class="profile">
+    <% if !current_user %>
+      You must <%= link_to("sign in", login_path) %> to view your profile.
+    <% else %>
+      Welcome, <%= user_session.user_name %> (<%= current_user.cdx_user_id %>).
+      <table class="roles">
+        <thead>
+          <tr><th>Organization</th><th>Role</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <% current_user.user_org_roles.each do |user_org_role| %>
+          <tr class="user-org-role">
+            <td><%= user_org_role.organization.cdx_org_name %></td>
+            <td><%= user_org_role.role.cdx_role_name %></td>
+            <td><%= user_org_role.cdx_status %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+ </div>
+</div>
