@@ -46,5 +46,71 @@ describe ManifestPolicy do
 
       expect(ManifestPolicy).to_not permit(user, manifest)
     end
+
+    it 'disallows signer with non-active signer role' do
+      user = create(:user)
+      manifest = create(:manifest, user: user)
+      profile = mock_cdx_user_profile
+      profile[:organizations]['EPA 2'][:roles]['TSDF Certifier'][:status][:code] = 'AwaitingApproval'
+      profile[:organizations]['EPA 2'][:roles]['TSDF Certifier'][:status][:description] = 'Awaiting Approval'
+      profile_syncer = UserProfileSyncer.new(user, profile)
+      profile_syncer.run
+
+      expect(ManifestPolicy).to_not permit(user, manifest)
+    end
+  end
+
+  permissions :can_view? do
+    it 'allows state_data_download user to see all manifests in their state' do
+      user = create(:user)
+      user_org_role = create(:user_org_role, :state_data_download, user: user, profile: { subject: 'KS' })
+      manifest = create(:manifest, content: {
+        generator: {
+          manifest_tracking_number: random_tracking_number,
+          mailing_address: { state: 'KS' }
+        }
+      })
+
+      expect(ManifestPolicy).to permit(user, manifest)
+    end
+
+    it 'allows epa_data_download user to see all manifests' do
+      user = create(:user)
+      user_org_role = create(:user_org_role, :epa_data_download, user: user)
+      manifest = create(:manifest)
+
+      expect(ManifestPolicy).to permit(user, manifest)
+    end
+  end
+
+  permissions :can_create? do
+    it 'dis-allows epa and state data download users' do
+      user = create(:user)
+      user_org_role = create(:user_org_role, :epa_data_download, user: user)
+      manifest = build(:manifest)
+
+      expect(ManifestPolicy).to_not permit(user, manifest)
+    end
+
+    it 'only signers may create' do
+      user = create(:user)
+      user2 = create(:user)
+      user_org_role = create(:user_org_role, :tsdf_certifier, user: user)
+      manifest = build(:manifest)
+
+      expect(ManifestPolicy).to permit(user, manifest)
+      expect(ManifestPolicy).to_not permit(user2, manifest)
+    end
+  end
+
+  permissions :can_update? do
+    it 'allows only owner' do
+      user = create(:user)
+      user2 = create(:user)
+      manifest = create(:manifest, user: user2)
+
+      expect(ManifestPolicy).to permit(user2, manifest)
+      expect(ManifestPolicy).to_not permit(user, manifest)
+    end
   end
 end

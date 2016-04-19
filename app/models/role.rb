@@ -13,6 +13,14 @@ class Role < ActiveRecord::Base
     cdx_role_name == "TSDF Certifier" || cdx_role_code == "112110"
   end
 
+  def state_data_download?
+    cdx_role_name == "State Data Download"
+  end
+
+  def epa_data_download?
+    cdx_role_name == "EPA Data Download"
+  end
+
   private
 
   def self.find_from_cdx(cdx_role)

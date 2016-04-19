@@ -22,6 +22,13 @@ describe UserAuthenticator do
       expect(authenticator.error_message).to eq 'Bad user_id or password'
     end
 
+    it '#authenticate checks user status' do
+      mock_user_authenticator_inactive
+      authenticator = UserAuthenticator.new(user_id: 'user', password: 'pass')
+      expect(authenticator.authenticate).to be_nil
+      expect(authenticator.error_message).to eq 'Account is not yet active'
+    end
+
     it '#new requires user_id' do
       expect {
         UserAuthenticator.new(password: 'foo')

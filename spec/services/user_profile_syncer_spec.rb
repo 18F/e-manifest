@@ -7,5 +7,6 @@ describe UserProfileSyncer do
     syncer.run
     expect(user.organizations.map(&:cdx_org_name)).to eq(['EPA 2'])
     expect(user.roles.map(&:cdx_role_name)).to eq(['TSDF Certifier'])
+    expect(user.organizations.first.state).to eq "VA"
   end
 end

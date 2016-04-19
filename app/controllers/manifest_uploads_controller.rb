@@ -10,6 +10,8 @@ class ManifestUploadsController < ApplicationController
 
     @manifest = update_manifest(find_or_initialize_manifest)
 
+    authorize @manifest, :can_update?
+
     if !upload_missing? && @manifest.save
       flash[:notice] = "Upload for manifest #{@manifest.tracking_number} submitted successfully."
       redirect_to root_path
@@ -68,6 +70,8 @@ class ManifestUploadsController < ApplicationController
 
   def image_details
     {
+      uploaded_at: Time.current,
+      uploaded_by: current_user.id,
       file_name: upload.try(:original_filename),
       content: encoded_file,
       content_type: upload.try(:content_type),

@@ -63,6 +63,7 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
     context 'user lacks signer role' do
       it 'returns 403 response' do
         session = mock_user_signature_authorize_pass
+        session.user.user_org_roles.map(&:destroy!)
         manifest = create(:manifest, user: session.user)
         cdx_response = mock_cdx_signature_response
 
