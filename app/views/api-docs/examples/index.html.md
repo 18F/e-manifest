@@ -22,21 +22,33 @@ On this page you may learn about how to:
 * [Management method codes](#management-method-codes)
 
 ## Register for a Test Account
-In order to obtain a test account from EPA's Central Data Exchange (CDX):
-Visit: https://test.epacdx.net and click the green ìRegister with CDXî button
-1) After reading and accepting the ìTerms and Conditionsî you may select the ìprogram serviceî ìe-Manifest: Hazardous Waste Electronic Manifest Systemî from the list of available program services
-2) Next select your role; either State Data Download or TSDF Certifier (select if you want to submit manifests).  Click the green ìRequest Role Accessî to proceed
-3) Fill out your user and organization information and click the green ìSubmit Request for Accessî button.  Please note, if you wish to sign manifests you must use your correct information.  For example, if your name is Jane Smith, you need to enter Jane Smith as your 	name.
-4) You will be navigated to a confirm screen wait for an email titled ìCore Registration Email Verification Request (TEST)î from helpdesk@epacdx.net to complete the process.  Once you receive the email click the link to the complete the process and confirm your address.
-5) After logging into CDX from the page the link navigates you to with the username and password you just created, you will either be taken:
- 	State Data Download users are taken to their CDX home page Skip to step 7
-	TSDF Certifier users are taken to page to verify their identity.  Proceed to step 6
-6) TSDF Certifierís only: Your next steps in order to sign manifests only take a few minutes
-   i) Verify your identity, this is done through LexisNexis. If you did not provide correct information in step 3 or do not pass the identify proofing step, you will need to mail a paper version of the electronic signature agreement in order to receive access to the system. Please allow at least a week for the mail to get to them  We can not accept scans.
-   ii) After your identity has been verified you will be able set up your knowledge based questions to sign manifests 
-   iii) After setting up your knowledge based questions, you may either use them to electronically sign your electronic signature agreement or mail a paper version of the electronic signature agreement to EPA per the instructions on that form. Please allow at least a week for the mail to get to them  We can not accept scans.
-7) All users: Once you have completed these steps email emanifest@epa.gov with your user name and role.  In the event you needed to mail a paper version of the  electronic signature agreement please include any tracking information.  
+Users that wish to view and submit manifests need to obtain a test account from EPA's Central Data Exchange (CDX).  In order to do so:
 
+Visit: https://test.epacdx.net and click the green ‚ÄúRegister with CDX‚Äù button
+
+1) After reading and accepting the ‚ÄúTerms and Conditions‚Äù you may select the ‚Äúprogram service‚Äù ‚Äúe-Manifest: Hazardous Waste Electronic Manifest System‚Äù from the list of available program services
+
+2) Next select your role; either State Data Download or TSDF Certifier (select if you want to submit manifests).  Click the green ‚ÄúRequest Role Access‚Äù to proceed
+
+3) Fill out your user and organization information and click the green ‚ÄúSubmit Request for Access‚Äù button.  Please note, if you wish to sign manifests you must use your correct information.  For example, if your name is Jane Smith, you need to enter Jane Smith as your 	name.
+
+4) You will be navigated to a confirm screen wait for an email titled ‚ÄúCore Registration Email Verification Request (TEST)‚Äù from helpdesk@epacdx.net to complete the process.  Once you receive the email click the link to the complete the process and confirm your address.
+
+5) After logging into CDX from the page the link navigates you to with the username and password you just created, you will either be taken:
+
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;State Data Download users are taken to their CDX home page Skip to step 7
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSDF Certifier users are taken to page to verify their identity.  Proceed to step 6
+
+6) TSDF Certifier‚Äôs only: Your next steps in order to sign manifests only take a few minutes
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i) Verify your identity, this is done through LexisNexis. If you did not provide correct information in step 3 or do not pass the identify proofing step, you will need to mail a paper version of the electronic signature agreement in order to receive access to the system. Please allow at least a week for the mail to get to them  We can not accept scans.
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ii) After your identity has been verified you will be able set up your knowledge based questions to sign manifests 
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iii) After setting up your knowledge based questions, you may either use them to electronically sign your electronic signature agreement or mail a paper version of the electronic signature agreement to EPA per the instructions on that form. Please allow at least a week for the mail to get to them  We can not accept scans.
+
+7) All users: Once you have completed these steps email emanifest@epa.gov with your user name and role.  In the event you needed to mail a paper version of the  electronic signature agreement please include any tracking information.  
 
 ## Get an API Key
 If you are a developer from a TSDF and you'd like to request an API key so you can use the e-Manifest APIs, please check your organization's policies on implementing e-manifest.  Some companies may use unique API keys for each facility, others may use one API key for an entire company.  If you have questions please email emanifest@epa.gov.
