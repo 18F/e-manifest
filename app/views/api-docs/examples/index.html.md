@@ -28,7 +28,9 @@ Visit: https://test.epacdx.net and click the green “Register with CDX” butto
 
 1) After reading and accepting the “Terms and Conditions” you may select the “program service” “e-Manifest: Hazardous Waste Electronic Manifest System” from the list of available program services
 
-2) Next select your role; either State Data Download or TSDF Certifier (select if you want to submit manifests).  Click the green “Request Role Access” to proceed
+2) Next select your role; either State Data Download or TSDF Certifier (select if you want to submit manifests).  Click the green “Request Role Access” to proceed.
+
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSDF Certifier users are then taken to a series of screens and asked to associate with a facility a user may associate with more than one facility.  If you do not have a facility, please contact emanifest@epa.gov and we will provide you with a shared test facility.
 
 3) Fill out your user and organization information and click the green “Submit Request for Access” button.  Please note, if you wish to sign manifests you must use your correct information.  For example, if your name is Jane Smith, you need to enter Jane Smith as your 	name.
 
