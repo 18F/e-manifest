@@ -34,7 +34,7 @@ Visit: https://test.epacdx.net and click the green “Register with CDX” butto
 
 3) Fill out your user and organization information and click the green “Submit Request for Access” button.  Please note, if you wish to sign manifests you must use your correct information.  For example, if your name is Jane Smith, you need to enter Jane Smith as your 	name.
 
-4) You will be navigated to a confirm screen wait for an email titled “Core Registration Email Verification Request (TEST)” from helpdesk@epacdx.net to complete the process.  Once you receive the email click the link to the complete the process and confirm your address.
+4) You will be navigated to a confirmation screen wait for an email titled “Core Registration Email Verification Request (TEST)” from helpdesk@epacdx.net to complete the process.  Once you receive the email click the link to the complete the process and confirm your address.
 
 5) After logging into CDX from the page the link navigates you to with the username and password you just created, you will either be taken:
 
