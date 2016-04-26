@@ -230,8 +230,8 @@
     },
     "/manifests/{id}/signature": {
       "post": {
-        "summary": "Sign manifest",
-        "description": "Signs a specified manifest with CDX's CROMERR services.",
+        "summary": "Submit a manifest for signing",
+        "description": "Sends the manifest to CDX to start the CROMERR signing process.",
         "parameters": [
           {
             "name": "id",
@@ -254,10 +254,16 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful signature",
+            "description": "Successful submission",
             "schema": {
-              "$ref": "#/definitions/Document"
+              "$ref": "#/definitions/SubmitTransaction"
             }
+          },
+          "403": {
+            "description": "User does not have permissions to submit the manifest"
+          },
+          "422": {
+            "description": "Malformed request"
           }
         }
       }
@@ -385,10 +391,6 @@
         "answer": {
           "type": "string"
         },
-        "id": {
-          "description": "e-Manifest ID",
-          "type": "string"
-        },
         "question_id": {
           "type": "string"
         },
@@ -397,6 +399,14 @@
         },
         "user_id": {
           "description": "CDX user id",
+          "type": "string"
+        }
+      }
+    },
+    "SubmitTransaction": {
+      "type": "object",
+      "properties": {
+        "transaction_id": {
           "type": "string"
         }
       }

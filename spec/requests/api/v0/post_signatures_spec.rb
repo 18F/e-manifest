@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe 'post /api/v0/manifests/:manifest_id/signature' do
-  context 'signs successfully' do
-    context 'sign by manifest id' do
-      it 'creates retrieves and resaves a manifest with document id' do
+  context 'submits successfully' do
+    context 'submit by manifest id' do
+      it 'creates retrieves and resaves a manifest with transaction id' do
         session = mock_user_signature_authorize_pass
         profile_syncer = UserProfileSyncer.new(session.user, mock_cdx_user_profile)
         profile_syncer.run
@@ -25,13 +25,13 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
 
         manifest.reload
         expect(manifest.activity_id).to eq(signature_payload[:activity_id])
-        expect(manifest.document_id).to eq(mock_cdx_signature_response[:document_id])
-        expect(manifest.signed_at).not_to eq nil
+        expect(manifest.transaction_id).to eq(mock_cdx_signature_response[:transaction_id])
+        expect(manifest.submitted_at).not_to eq nil
       end
     end
 
-    context 'sign by manifest tracking number' do
-      it 'creates retrieves and resaves a manifest with document id' do
+    context 'submit by manifest tracking number' do
+      it 'creates retrieves and resaves a manifest with transaction id' do
         session = mock_user_signature_authorize_pass
         profile_syncer = UserProfileSyncer.new(session.user, mock_cdx_user_profile)
         profile_syncer.run
@@ -53,14 +53,14 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
 
         manifest.reload
         expect(manifest.activity_id).to eq(signature_payload[:activity_id])
-        expect(manifest.document_id).to eq(mock_cdx_signature_response[:document_id])
-        expect(manifest.signed_at).not_to eq nil
+        expect(manifest.transaction_id).to eq(mock_cdx_signature_response[:transaction_id])
+        expect(manifest.submitted_at).not_to eq nil
       end
     end
   end
 
   context 'sign failure' do
-    context 'user lacks signer role' do
+    context 'user lacks submitter role' do
       it 'returns 403 response' do
         session = mock_user_signature_authorize_pass
         session.user.user_org_roles.map(&:destroy!)
@@ -97,7 +97,7 @@ describe 'post /api/v0/manifests/:manifest_id/signature' do
 
         manifest.reload
         expect(response.status).to eq 422
-        expect(manifest.signed_at).to eq nil
+        expect(manifest.submitted_at).to eq nil
       end
     end
   end

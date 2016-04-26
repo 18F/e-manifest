@@ -35,7 +35,7 @@ module UserAuthenticatorHelper
 
   def mock_cdx_signature_response
     {
-      document_id: 'mock_document_id',
+      transaction_id: 'mock_transaction_id',
       activity_id: 'mock_activity_id'
     }
   end
@@ -112,4 +112,44 @@ module UserAuthenticatorHelper
     allow(UserProfileWorker).to receive(:perform_async).and_return(true)
     allow_any_instance_of(UserProfileBuilder).to receive(:run).and_return(mock_cdx_user_profile)
   end
+
+  def mock_cdx_submit_response
+    {
+      transaction_id: 'mock_transaction_id',
+      status: 'Received'
+    }
+  end
+
+  def mock_cdx_submit_response_fails
+    {
+      transaction_id: 'mock_transaction_id',
+      status: 'Failed'
+    }
+  end
+
+  def mock_cdx_submit_authorize_pass
+    session = mock_authenticated_session
+    allow_any_instance_of(ManifestSubmitter).to receive(:perform) do
+      mock_cdx_submit_response
+    end
+    session
+  end
+
+  def mock_cdx_submit_authorize_fails
+    session = mock_authenticated_session
+    allow_any_instance_of(ManifestSubmitter).to receive(:perform) do
+      mock_cdx_submit_response_fails
+    end
+    session
+  end
+
+  def mock_cdx_submit_wrong_role
+    session = mock_authenticated_session
+    allow_any_instance_of(ManifestSubmitter).to receive(:perform) do
+      raise Pundit::NotAuthorizedError
+    end
+    session
+  end
+
+
 end

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe ManifestPolicy do
-  permissions :can_sign? do
-    it 'allows user with signer role to sign own manifest' do
+  permissions :can_submit? do
+    it 'allows user with submit role to submit own manifest' do
       user = create(:user)
       manifest = create(:manifest, user: user)
       profile_syncer = UserProfileSyncer.new(user, mock_cdx_user_profile)
@@ -11,7 +11,7 @@ describe ManifestPolicy do
       expect(ManifestPolicy).to permit(user, manifest)
     end
 
-    it 'disallows user with signer role to sign manifest owned by someone in different org' do
+    it 'disallows user with submit role to submit manifest owned by someone in different org' do
       user = create(:user)
       manifest = create(:manifest)
       profile_syncer = UserProfileSyncer.new(user, mock_cdx_user_profile)
@@ -20,7 +20,7 @@ describe ManifestPolicy do
       expect(ManifestPolicy).to_not permit(user, manifest)
     end
 
-    it 'allows user with signer role to sign manifest owned by someone in shared org' do
+    it 'allows user with submit role to submit manifest owned by someone in shared org' do
       user = create(:user)
       user2 = create(:user)
       manifest = create(:manifest, user: user2)
@@ -32,7 +32,7 @@ describe ManifestPolicy do
       expect(ManifestPolicy).to permit(user, manifest)
     end
 
-    it 'disallows user with signer role in different org from the org shared with manifest owner' do
+    it 'disallows user with submit role in different org from the org shared with manifest owner' do
       user = create(:user)
       user2 = create(:user)
       manifest = create(:manifest, user: user2)
@@ -47,7 +47,7 @@ describe ManifestPolicy do
       expect(ManifestPolicy).to_not permit(user, manifest)
     end
 
-    it 'disallows signer with non-active signer role' do
+    it 'disallows submitter with non-active submit role' do
       user = create(:user)
       manifest = create(:manifest, user: user)
       profile = mock_cdx_user_profile

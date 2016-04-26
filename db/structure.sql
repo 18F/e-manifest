@@ -54,8 +54,9 @@ CREATE TABLE manifests (
     updated_at timestamp without time zone NOT NULL,
     activity_id character varying,
     document_id character varying,
+    transaction_id character varying,
     uuid uuid DEFAULT uuid_generate_v4(),
-    signed_at timestamp without time zone,
+    submitted_at timestamp without time zone,
     user_id integer DEFAULT 0 NOT NULL
 );
 
@@ -447,6 +448,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160126213552');
 INSERT INTO schema_migrations (version) VALUES ('20160126221849');
 
 INSERT INTO schema_migrations (version) VALUES ('20160203154355');
+
+INSERT INTO schema_migrations (version) VALUES ('20160328102100');
 
 INSERT INTO schema_migrations (version) VALUES ('20160328162353');
 
