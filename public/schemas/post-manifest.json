@@ -2,11 +2,17 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "https://e-manifest.18f.gov/schemas/post-manifest.json",
   "method": "POST",
+  "epa_version":"0.2",
   "definitions":{
     "address": {
       "type": "object",
       "required": ["address_1", "city", "state"],
       "properties":{
+        "name": {
+          "description": "Company name or name listed on mailing address as presented in RCRAInfo",
+          "type": "string",
+          "maxLength": 80
+        },
         "address_1":   {
           "description": "Address line 1",
           "type": "string",
@@ -26,25 +32,21 @@
           "description": "Two character abbreviation for State or Province",
           "type": "string",
           "maxLength":2,
-          "minLength":2,
-          "COMMENT":" add Enummerated value"
-        },
+          "minLength":2        },
         "country":   {
           "description": "Name of Country, optional for domestic shipments",
           "type": "string",
-          "maxLength":70,
-          "COMMENT":" add Enummerated value"
+          "maxLength":70
         },
         "zip_code":   {
           "description": "Postal Code",
           "type": "string",
-          "maxLength":14,
-          "COMMENT":" add Regular Expression"
+          "maxLength":14
         }
       }
     },
     "handler_defined_datum": {
-      "description":"Industry requested optional field, handlers define the description, content and the handler who requested this information.",
+      "description":"Industry requested optional field, handlers define the description, content and the handler who requested this information be placed on the manifest.",
       "type": "object",
       "properties": {
         "label": {
@@ -52,11 +54,11 @@
           "type": "string"
         },
         "content": {
-          "description":"handler defined content, this field may be used for holding and/or describing special ids, purchase orders, or other non-manifest related items",
+          "description":"handler defined content, this field may be used for holding and/or describing special ids, purchase orders, or other non-manifest related items.  This field is where the data related to the handler defined field is inputted.",
           "type": "string"
         },
         "us_epa_id_number": {
-          "description": "Handler Id number of entity using this field to ensure uniqueness and assist in retrieval",
+          "description": "Handler Id number of entity using this individual handler defined data.  The id is used to ensure uniqueness, assist in retrieval, and avoid confusion if two companies use the same label.",
           "$ref": "#/definitions/us_epa_id_number"
         }
       }
@@ -64,6 +66,10 @@
     "manifest_item": {
       "type": "object",
       "properties": {
+        "line_item_number": {
+          "description": "Line item number that corespondes to the paper form.",
+          "type": "number"
+        },
         "total_quantity": {
           "description": "(11) Total quantity for the listed unit of measure",
           "type": "number"
@@ -84,12 +90,19 @@
           "minLength": 4
         },
         "state_waste_codes": {
-          "type": "array",
-          "items": {
-            "description":"(13) State waste codes as per state regulations",
-            "type": "string",
-            "maxLength": 8,
-            "minLength": 4
+          "type": "object",
+          "properties":{
+            "type": "array",
+            "items": {
+              "description":"(13) State waste codes as per state regulations",
+              "type": "string",
+              "maxLength": 8,
+              "minLength": 1
+            },
+              "State": {
+              "description": "State that owns this waste code",
+              "$ref": "#/definitions/address/state"
+            }
           }
         },
         "epa_waste_codes": {
@@ -101,6 +114,11 @@
             "minLength": 4,
             "pattern": "^[DFKPU][0-9]{3}$"
           }
+        },
+        "consent_number": {
+          "description": "Imports and Exports ONLY. Consent number provided so that the waste can be exported out of a country.",
+          "type": "string",
+          "pattern": "^[0-9]{6}[EI][0-9]{5}$"
         },
         "form_code": {
           "description":"Bienial Report place to the form code for the waste stream",
@@ -142,9 +160,17 @@
           "type": "integer"
         },
         "container_type": {
-          "description": "(10) List of codes for type of container used in as described the e-Manifest instructions",
-          "type": "string",
-          "enum":["BA","CF","CM","CW","CY","DF","DM","DT","DW","HG","TC","TT","TP"]
+          "description": "(10) List of codes for type of container used in as described the e-Manifest instructions.  For containers not listed in the instructions user may use the NL code.  If using the NL code the user must describe the container being used.",
+          "type": "object",
+          "properties":{
+            "container_type_code":{
+              "type": "string",
+              "enum":["BA","CF","CM","CW","CY","DF","DM","DT","DW","HG","TC","TP","TT","NL"]
+            },
+            "not_listed_nl_container_description":{
+              "type": "string"
+            }
+          }
         },
         "hazardous_material": {
           "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
@@ -158,24 +184,32 @@
             "COMMENT": "DOT Enumerated Values, I would like to see if there is a service for these.  There are around 26 of these "
           }
         },
-        "waste_handling_instruction": {
+        "waste_handling_instruction_item": {
           "description":"(14) Special Handling instructions on the manifest form.",
           "type": "string"
         },
-        "report_management_method_codes": {
+        "handler_defined_dataum_item": {
           "type": "array",
           "items": {
-            "type": "string",
-            "$ref": "#/definitions/report_management_method_code"
+            "type": "object",
+            "$ref": "#/definitions/handler_defined_datum"
           }
+        },
+        "emergency_response_phone_item": {
+          "description": "Emergency Phone number for each waste line if used.",
+          "$ref": "#/definitions/telephone_number_data_type"
+        },
+        "emergency_response_manual_id": {
+          "description": "Emergency manual id number for each waste line if used.",
+          "type": "string"
+        },
+        "report_management_method_codes": {
+            "description":"(19) Federal Management method codes as listed in EPA guidance.",  
+            "type": "string",
+            "maxLength": 4,
+            "minLength": 4
         }
       }
-    },
-    "report_management_method_code": {
-      "description":"(19) Federal Management method codes as listed in EPA guidance.  Current codes are listed in e-Manifest at https://e-manifest.18f.gov/method-codes.json",
-      "type": "string",
-      "maxLength": 4,
-      "minLength": 4
     },
     "signature_info": {
       "type": "object",
@@ -204,8 +238,7 @@
       "properties": {
         "name": {
           "description": "(6,7) Transporter company name as presented in RCRAInfo",
-          "type": "string",
-          "maxLength": 80
+          "$ref": "#/definitions/address/name"
         },
         "us_epa_id_number": {
           "description": "(6,7) Unique tracking number assigned to each RCRA Handler/Site.  Starts with 3 Letters and ends with 9 numbers",
@@ -218,36 +251,32 @@
       }
     },
     "us_epa_id_number": {
+      "description": "A future release will address CESQG numbers at a later date.",
       "type": "string",
       "maxLength": 12,
       "minLength": 12,
-      "pattern": "^[A-Za-z]{3}[0-9]{9}$"
+      "pattern": "^[A-Za-z]{2,3}[0-9]{9,10}$"
     }
   },
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "generator"
+    "manifest_tracking_number"
   ],
   "properties": {
+    "manifest_tracking_number": {
+      "description": "(4) Unique tracking number assigned to each manifest...Starts with 9 numbers and ends with 3 Letters",
+      "type": "string",
+      "maxLength": 12,
+      "minLength": 12,
+      "pattern": "^[0-9]{9}[A-Za-z]{3}$"
+    },
     "generator": {
       "type": "object",
       "properties": {
-        "name": {
-          "description": "(5) Generator company name as presented in RCRAInfo",
-          "type": "string",
-          "maxLength": 80
-        },
         "us_epa_id_number": {
           "description": "(1) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
           "$ref": "#/definitions/us_epa_id_number"
-        },
-        "manifest_tracking_number": {
-          "description": "(4) Unique tracking number assigned to each manifest...Starts with 9 numbers and ends with 3 Letters",
-          "type": "string",
-          "maxLength": 12,
-          "minLength": 12,
-          "pattern": "^[0-9]{9}[A-Za-z]{3}$"
         },
         "emergency_response_phone": {
           "description": "(3) Emergency Phone number",
@@ -285,7 +314,7 @@
     "international_shipment": {
       "type": "object",
       "properties": {
-        "date_leaving_us": {
+        "date_entry_exit_us": {
            "description": "Date leaving U.S. (16)",
            "type": "string",
            "format": "date",
@@ -296,10 +325,9 @@
           "type": "string",
           "enum":["export_from_us", "import_to_us"]
         },
-        "consent_number": {
-          "description": "Consent number provided so that the waste can be exported out of a country.",
-          "type": "string",
-          "pattern": "^[0-9]{6}[EI][0-9]{5}$"
+        "signatory": {
+          "description": "(17) Transporter acknowledgement of reciept of materials signature information",
+          "$ref": "#/definitions/signature_info"
         },
         "port_of_entry_exit": {
           "description": "(16) City and State of point of entry or export.",
@@ -320,11 +348,6 @@
     "designated_facility": {
       "type": "object",
       "properties": {
-        "name": {
-          "description":"(8) Designated facility company name as presented in RCRAInfo",
-          "type": "string",
-          "maxLength": 80
-        },
         "us_epa_id_number": {
           "description": "(8) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
           "$ref": "#/definitions/us_epa_id_number"
@@ -344,17 +367,12 @@
         "discrepancy": {
           "type": "object",
           "properties": {
-            "manifest_tracking_number": {
+            "new_manifest_tracking_number": {
               "description": "(18a) If a new manifest is created due to the rejection of manifested waste. This is where the new manifest ID goes.",
               "type": "string",
               "maxLength": 12,
               "minLength": 12,
               "pattern": "^[0-9]{9}[A-Za-z]{3}$"
-            },
-            "name": {
-              "description":"(18b) Alternative designated facility company name as presented in RCRAInfo",
-              "type": "string",
-              "maxLength": 80
             },
             "us_epa_id_number": {
               "description": "(18b) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
@@ -405,7 +423,7 @@
       }
     },
     "waste_pcb_description": {
-      "description":"(14) Special Handling instructions on the manifest form. Use this field for required PCB information.",
+      "description":"(14) Special Handling instructions on the manifest form. Use this field for required PCB information. PCB manifest requirements need further user needs analysis.  This will be handled in a future release.",
       "type": "string"
     },
     "number_of_pages": {
@@ -425,13 +443,6 @@
       "items": {
         "type": "object",
         "$ref": "#/definitions/handler_defined_datum"
-      }
-    },
-    "report_management_method_codes": {
-      "type": "array",
-      "items": {
-         "type": "string",
-         "$ref": "#/definitions/report_management_method_code"
       }
     },
     "uploaded_file": {
