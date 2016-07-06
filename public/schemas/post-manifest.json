@@ -170,8 +170,8 @@
           "description": "Emergency Phone number for each waste line if used.",
           "$ref": "#/definitions/telephone_number_data_type"
         },
-        "emergency_response_manual_id": {
-          "description": "Emergency manual id number for each waste line if used.",
+        "emergency_response_guidebook_id": {
+          "description": "DOT Emergency Response Guidebook id number for each waste line if used.",
           "type": "string"
         },
         "consent_number": {
