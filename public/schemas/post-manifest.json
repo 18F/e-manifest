@@ -9,48 +9,48 @@
       "required": ["address_1", "city", "state"],
       "properties":{
         "name": {
-          "description": "Company name or name listed on mailing address as presented in RCRAInfo",
+          "description": "Company name or name listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength": 80
         },
         "address_1":   {
-          "description": "Address line 1",
+          "description": "Address line 1 listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":30
         },
         "address_2":   {
-          "description": "Address line 2",
+          "description": "Address line 2 listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":30
         },
         "city": {
-          "description": "City name",
+          "description": "City name listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":25
         },
         "state":   {
-          "description": "Two character abbreviation for State or Province",
+          "description": "Two character abbreviation for State or Province listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":2,
           "minLength":2        },
         "country":   {
-          "description": "Name of Country, optional for domestic shipments",
+          "description": "Name of Country, optional for domestic shipments listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":70
         },
         "zip_code":   {
-          "description": "Postal Code",
+          "description": "Postal Code listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":14
         }
       }
     },
     "handler_defined_datum": {
-      "description":"Industry requested optional field, handlers define the description, content and the handler who requested this information be placed on the manifest.",
+      "description":"Industry requested optional field for tracking information not specifically on the manifest, but needed by the users.  In order to use this field handlers must define the description, content and the handler who requested this information be placed on the manifest.",
       "type": "object",
       "properties": {
         "label": {
-          "description": "Label for the handler defined data.  This label is for the use of the handler for labeling the content of non-manifest related items",
+          "description": "Label for the handler defined data.  This label is for the use of the handler for labeling the content of non-manifest related items.",
           "type": "string"
         },
         "content": {
@@ -67,17 +67,12 @@
       "type": "object",
       "properties": {
         "line_item_number": {
-          "description": "Line item number that corespondes to the paper form.",
+          "description": "Line item number that corespondes to a manifest line item on the paper form.",
           "type": "number"
         },
-        "total_quantity": {
-          "description": "(11) Total quantity for the listed unit of measure",
-          "type": "number"
-        },
-        "unit_wt_vol": {
-          "description": "(12) List of codes for unit measure as described the e-Manifest instructions",
-          "type": "string",
-          "enum":["G","K","L","M","N","P","T","Y"]
+        "hazardous_material": {
+          "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
+          "type": "boolean"
         },
         "proper_shipping_name": {
           "description": "(9b) Proper shipping name as directed by US Department Of Transportation",
@@ -89,71 +84,27 @@
           "maxLength": 8,
           "minLength": 4
         },
-        "state_waste_codes": {
-          "type": "object",
-          "properties":{
-            "type": "array",
-            "items": {
-              "description":"(13) State waste codes as per state regulations",
-              "type": "string",
-              "maxLength": 8,
-              "minLength": 1
-            },
-              "State": {
-              "description": "State that owns this waste code",
-              "$ref": "#/definitions/address/state"
-            }
-          }
-        },
-        "epa_waste_codes": {
-          "type": "array",
-          "items": {
-            "description":"(13) Federal EPA waste codes as listed in the regulations",
-            "type": "string",
-            "maxLength": 4,
-            "minLength": 4,
-            "pattern": "^[DFKPU][0-9]{3}$"
-          }
-        },
-        "consent_number": {
-          "description": "Imports and Exports ONLY. Consent number provided so that the waste can be exported out of a country.",
-          "type": "string",
-          "pattern": "^[0-9]{6}[EI][0-9]{5}$"
-        },
-        "form_code": {
-          "description":"Bienial Report place to the form code for the waste stream",
-          "type": "string",
-          "maxLength": 4,
-          "minLength": 4,
-          "pattern": "^W[0-9]{3}$"
-        },
-        "source_code": {
-          "description":"Bienial Report place to the source code for the waste stream",
-          "type": "string",
-          "maxLength": 3,
-          "minLength": 3,
-          "pattern": "^G[0-9]{2}$",
-          "COMMENT": "pattern does not match min/max length (only 3 chars defined)"
-        },
-        "density": {
-          "description":"Bienial Report field captures the density and whether the density is measured in pounds per gallon or specific gravity.",
-          "type": "object",
-          "properties":{
-            "density":{
-              "description":"the density of the material",
-              "type":"number"
-            },
-            "measurement":{
-              "description":"whther the material is measured in pounds per gallon or uses specific gravity.",
-              "type":"string",
-              "enum":["lbs_per_gallon","specific_gravity"]
-            }
-          }
-        },
         "packing_group": {
           "description": "(9b) Packing group defined by the US Department of Transportation",
           "type": "string",
           "enum":["I","II","III"]
+        },
+        "hazard_classes": {
+          "type": "array",
+          "items": {
+            "description": "(9b) List of Hazard classes as defined by the US Department of Transportation",
+            "type": "string",
+            "COMMENT": "DOT Enumerated Values, I would like to see if there is a service for these.  There are around 26 of these "
+          }
+        },
+        "total_quantity": {
+          "description": "(11) Total quantity for the listed unit of measure",
+          "type": "number"
+        },
+        "unit_wt_vol": {
+          "description": "(12) List of codes for unit measure as described the e-Manifest instructions",
+          "type": "string",
+          "enum":["G","K","L","M","N","P","T","Y"]
         },
         "number_of_containers": {
           "description": "(10) number of containers identified by container type",
@@ -172,16 +123,36 @@
             }
           }
         },
-        "hazardous_material": {
-          "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
-          "type": "boolean"
+        "report_management_method_codes": {
+            "description":"(19) Federal Management method codes as listed in EPA guidance.",  
+            "type": "string",
+            "maxLength": 4,
+            "minLength": 4
         },
-        "hazard_classes": {
+        "state_waste_codes": {
+          "type": "object",
+          "properties":{
+            "type": "array",
+            "items": {
+              "description":"(13) State waste codes as per state regulations",
+              "type": "string",
+              "maxLength": 8,
+              "minLength": 1
+            },
+              "State": {
+              "description": "State that owns and mandates this waste code be used on the manifest",
+              "$ref": "#/definitions/address/state"
+            }
+          }
+        },
+        "epa_waste_codes": {
           "type": "array",
           "items": {
-            "description": "(9b) List of Hazard classes as defined by the US Department of Transportation",
+            "description":"(13) Federal EPA waste codes as listed in the regulations",
             "type": "string",
-            "COMMENT": "DOT Enumerated Values, I would like to see if there is a service for these.  There are around 26 of these "
+            "maxLength": 4,
+            "minLength": 4,
+            "pattern": "^[DFKPU][0-9]{3}$"
           }
         },
         "waste_handling_instruction_item": {
@@ -203,11 +174,40 @@
           "description": "Emergency manual id number for each waste line if used.",
           "type": "string"
         },
-        "report_management_method_codes": {
-            "description":"(19) Federal Management method codes as listed in EPA guidance.",  
-            "type": "string",
-            "maxLength": 4,
-            "minLength": 4
+        "consent_number": {
+          "description": "Imports and Exports ONLY. Consent number provided so that the waste can be exported out of a country.",
+          "type": "string",
+          "pattern": "^[0-9]{6}[EI][0-9]{5}$"
+        },
+        "form_code": {
+          "description":"Currently optional, EPA will at a later date work with industry and states to integrate e-Manifest and the Bienial Report place to the form code for the waste stream",
+          "type": "string",
+          "maxLength": 4,
+          "minLength": 4,
+          "pattern": "^W[0-9]{3}$"
+        },
+        "source_code": {
+          "description":"Currently optional, EPA will at a later date work with industry and states to integrate e-Manifest and the Bienial Report place to the source code for the waste stream",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 3,
+          "pattern": "^G[0-9]{2}$",
+          "COMMENT": "pattern does not match min/max length (only 3 chars defined)"
+        },
+        "density": {
+          "description":"Currently optional, EPA will at a later date work with industry and states to integrate e-Manifest and the Bienial Report field captures the density and whether the density is measured in pounds per gallon or specific gravity.",
+          "type": "object",
+          "properties":{
+            "density":{
+              "description":"the density of the material",
+              "type":"number"
+            },
+            "measurement":{
+              "description":"Field stating how the density of the material is measured.  The values can either be in pounds per gallon or uses specific gravity.",
+              "type":"string",
+              "enum":["lbs_per_gallon","specific_gravity"]
+            }
+          }
         }
       }
     },
@@ -241,7 +241,7 @@
           "$ref": "#/definitions/address/name"
         },
         "us_epa_id_number": {
-          "description": "(6,7) Unique tracking number assigned to each RCRA Handler/Site.  Starts with 3 Letters and ends with 9 numbers",
+          "description": "(6,7) Unique tracking number assigned to each RCRA Handler/Site.  Starts with 2 or 3 Letters and ends with 9 or 10 numbers",
           "$ref": "#/definitions/us_epa_id_number"
         },
         "signatory": {
@@ -251,7 +251,7 @@
       }
     },
     "us_epa_id_number": {
-      "description": "A future release will address CESQG numbers at a later date.",
+      "description": "Unique tracking number assigned to each RCRA Handler/Site. Starts with 2 or 3 Letters and ends with 9 or 10 numbers.  A future release will address CESQG numbers at a later date.",
       "type": "string",
       "maxLength": 12,
       "minLength": 12,
@@ -265,7 +265,7 @@
   ],
   "properties": {
     "manifest_tracking_number": {
-      "description": "(4) Unique tracking number assigned to each manifest...Starts with 9 numbers and ends with 3 Letters",
+      "description": "(4) Unique tracking number assigned to each manifest.  Starts with 9 numbers and ends with 3 Letters",
       "type": "string",
       "maxLength": 12,
       "minLength": 12,
@@ -275,7 +275,7 @@
       "type": "object",
       "properties": {
         "us_epa_id_number": {
-          "description": "(1) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
+          "description": "(1) Unique tracking number assigned to each RCRA Handler/Site. Starts with 2 or 3 Letters and ends with 9 or 10 numbers",
           "$ref": "#/definitions/us_epa_id_number"
         },
         "emergency_response_phone": {
@@ -349,7 +349,7 @@
       "type": "object",
       "properties": {
         "us_epa_id_number": {
-          "description": "(8) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
+          "description": "(8) Unique tracking number assigned to each RCRA Handler/Site. Starts with 2 or 3 Letters and ends with 9 or 10 numbers",
           "$ref": "#/definitions/us_epa_id_number"
         },
         "phone_number": {
@@ -375,7 +375,7 @@
               "pattern": "^[0-9]{9}[A-Za-z]{3}$"
             },
             "us_epa_id_number": {
-              "description": "(18b) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
+              "description": "(18b) Unique tracking number assigned to each RCRA Handler/Site. Starts with 2 or 3 Letters and ends with 9 or 10 numbers",
               "$ref": "#/definitions/us_epa_id_number"
             },
             "phone_number": {
@@ -423,7 +423,7 @@
       }
     },
     "waste_pcb_description": {
-      "description":"(14) Special Handling instructions on the manifest form. Use this field for required PCB information. PCB manifest requirements need further user needs analysis.  This will be handled in a future release.",
+      "description":"Included in item (14) Special Handling instructions on the manifest form. Use this field for required PCB information. PCB manifest requirements need further user needs analysis.  This will be handled in a future release.",
       "type": "string"
     },
     "number_of_pages": {
@@ -435,7 +435,7 @@
       "type": "boolean"
     },
     "waste_handling_instructions": {
-      "description":"(14) Special Handling instructions on the manifest form.",
+      "description":"(14) Special Handling instructions on the manifest form.  For electronic manifests, please note that there are additional fields that support manifest item 14, such as waste_pcb_description and handler_defined_data.",
       "$ref": "#/definitions/manifest_item/properties/waste_handling_instruction"
     },
     "handler_defined_data": {
@@ -449,16 +449,16 @@
       "type": "object",
       "properties": {
         "content": {
-          "description":"base 64 encoded file",
+          "description":"Base 64 encoded pdf file for upload to e-Manifest.  This field is for a paper manifest where the industry user chooses to upload a scanned manifest.  The industry user must convert the pdf file to base64 encoding before uploading the file. Please note, a file while it may have more than one page, a file can only contain one manifest.",
           "type": "string"
         },
         "content_type": {
-          "description":"file type",
+          "description":"File type of the file being uploaded.  The only option offered is PDF.",
           "type": "string",
           "enum":["application/pdf"]
         },
         "file_name": {
-          "description":"name of manifest upload file",
+          "description":"The file name of the manifest upload file. Please note, a file while it may have more than one page, a file can only contain one manifest",
           "type": "string"
         }
       }
