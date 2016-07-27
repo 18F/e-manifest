@@ -159,7 +159,7 @@
           "description":"(14) Special Handling instructions on the manifest form.",
           "type": "string"
         },
-        "handler_defined_dataum_item": {
+        "handler_defined_data_item": {
           "type": "array",
           "items": {
             "type": "object",
