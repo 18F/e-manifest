@@ -320,7 +320,7 @@
     "international_shipment": {
       "type": "object",
       "properties": {
-        "date_entry_exit_us": {
+        "date_exit_us": {
            "description": "Date leaving U.S. (16)",
            "type": "string",
            "format": "date",
