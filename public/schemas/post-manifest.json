@@ -46,7 +46,7 @@
       }
     },
     "handler_defined_datum": {
-      "description":"Industry requested optional field for tracking information not specifically on the manifest, but needed by the users.  In order to use this field handlers must define the description, content and the handler who requested this information be placed on the manifest.",
+      "description":"Optional-Industry requested optional field for tracking information not specifically on the manifest, but needed by the users.  In order to use this field handlers must define the description, content and the handler who requested this information be placed on the manifest.",
       "type": "object",
       "properties": {
         "label": {
