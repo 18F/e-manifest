@@ -98,6 +98,10 @@
             "COMMENT": "DOT Enumerated Values, I would like to see if there is a service for these.  There are around 26 of these "
           }
         },
+        "additional_dot_information":{
+          "description": "(9b) Additional DOT information that is allowed to be put in item 9b.  For non hazardous materials on screen this is called waste descriptions.",
+          "type": "string"        
+        },
         "total_quantity": {
           "description": "(11) Total quantity for the listed unit of measure",
           "type": "number"
