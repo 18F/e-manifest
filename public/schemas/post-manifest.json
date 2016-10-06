@@ -32,7 +32,8 @@
           "description": "Two character abbreviation for State or Province listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":2,
-          "minLength":2        },
+          "minLength":2
+        },
         "country":   {
           "description": "Name of Country, optional for domestic shipments listed on the applicable address as presented in RCRAInfo",
           "type": "string",
@@ -171,6 +172,10 @@
           "type": "string",
           "pattern": "^[0-9]{6}[EI][0-9]{5}$"
         },
+        "provide_BR_information": {
+          "description": "Indication if the user will be on filling out the BR fields form_code source_code and density.",
+          "type": "boolean"
+        },
         "form_code": {
           "description":"Currently optional, EPA will at a later date work with industry and states to integrate e-Manifest and the Bienial Report place to the form code for the waste stream",
           "type": "string",
@@ -277,6 +282,18 @@
       "minLength": 12,
       "pattern": "^[0-9]{9}[A-Za-z]{3}$"
     },
+    "paper_manifest_tracking_number": {
+      "description": "(4) Unique tracking number assigned to each paper manifest.  This is not the system generated manifest ID  Starts with 9 numbers and ends with 3 Letters",
+      "type": "string",
+      "maxLength": 12,
+      "minLength": 12,
+      "pattern": "^[0-9]{9}[A-Za-z]{3}$"
+    },
+    "status": {
+      "description": "Electronic manifest status to run back end processes and comunicate with users of the e-Manifest system",
+      "type": "string",
+      "enum":["draft","pending","scheduled","in_transit","received","completed"]
+    },
     "generator": {
       "type": "object",
       "properties": {
@@ -320,6 +337,10 @@
     "international_shipment": {
       "type": "object",
       "properties": {
+        "is_international_shipment": {
+          "description": "Indication if the user will be on filling out this international shipment section.",
+          "type": "boolean"
+        },
         "date_exit_us": {
            "description": "Date leaving U.S. (16)",
            "type": "string",
@@ -373,6 +394,10 @@
         "discrepancy": {
           "type": "object",
           "properties": {
+            "discrepancy_present": {
+              "description": "Indication if the user will be on filling out this discrepancy section.",
+              "type": "boolean"
+            },
             "new_manifest_tracking_number": {
               "description": "(18a) If a new manifest is created due to the rejection of manifested waste. This is where the new manifest ID goes.",
               "type": "string",
