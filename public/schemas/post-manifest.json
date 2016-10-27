@@ -167,6 +167,10 @@
           "description": "Emergency Phone number for each waste line if used.",
           "$ref": "#/definitions/telephone_number_data_type"
         },
+        "emergency_response_phone_extension_item": {
+          "description": "Emergency Phone number extension for each waste line if used.",
+          "$ref": "#/definitions/telephone_number_extension_data_type"
+        },
         "emergency_response_guidebook_id": {
           "description": "DOT Emergency Response Guidebook id number for each waste line if used.",
           "type": "string"
@@ -233,6 +237,10 @@
       "type": "string",
       "maxLength":15,
       "COMMENT": "add Regular Expressions"
+    },
+    "telephone_number_extension": {
+       "description": "Extension for phone numbers.",
+       "type": "string"
     },
     "transporter": {
       "type": "object",
@@ -309,9 +317,17 @@
           "description": "(3) Emergency Phone number",
           "$ref": "#/definitions/telephone_number_data_type"
         },
+        "emergency_response_phone_extension": {
+          "description": "Emergency Phone number extension.",
+          "$ref": "#/definitions/telephone_number_extension_data_type"
+        },
         "phone_number": {
           "description": "(5) Generator contact phone number",
           "$ref": "#/definitions/telephone_number_data_type"
+        },
+        "phone_number_extension": {
+          "description": "Phone number extension.",
+          "$ref": "#/definitions/telephone_number_extension_data_type"
         },
         "mailing_address": {
           "description": "(5) Generator mailing address as presented in RCRAInfo",
@@ -386,6 +402,10 @@
         "phone_number": {
           "description": "(8) Designated facility contact phone number",
           "$ref": "#/definitions/telephone_number_data_type"
+        },
+        "phone_number_extension": {
+          "description": "Phone number extension.",
+          "$ref": "#/definitions/telephone_number_extension_data_type"
         },
         "certification": {
           "description": "(20) Designated facility owner or operator: Certification of receipt of hazardous materials covered by the manifest except as noted in Item 18a signature information",
