@@ -2,61 +2,64 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "https://e-manifest.18f.gov/schemas/post-manifest.json",
   "method": "POST",
+  "epa_version":"0.2",
   "definitions":{
     "address": {
       "type": "object",
       "required": ["address_1", "city", "state"],
       "properties":{
+        "name": {
+          "description": "Company name or name listed on the applicable address as presented in RCRAInfo",
+          "type": "string",
+          "maxLength": 80
+        },
         "address_1":   {
-          "description": "Address line 1",
+          "description": "Address line 1 listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":30
         },
         "address_2":   {
-          "description": "Address line 2",
+          "description": "Address line 2 listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":30
         },
         "city": {
-          "description": "City name",
+          "description": "City name listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":25
         },
         "state":   {
-          "description": "Two character abbreviation for State or Province",
+          "description": "Two character abbreviation for State or Province listed on the applicable address as presented in RCRAInfo",
           "type": "string",
           "maxLength":2,
-          "minLength":2,
-          "COMMENT":" add Enummerated value"
+          "minLength":2
         },
         "country":   {
-          "description": "Name of Country, optional for domestic shipments",
+          "description": "Name of Country, optional for domestic shipments listed on the applicable address as presented in RCRAInfo",
           "type": "string",
-          "maxLength":70,
-          "COMMENT":" add Enummerated value"
+          "maxLength":70
         },
         "zip_code":   {
-          "description": "Postal Code",
+          "description": "Postal Code listed on the applicable address as presented in RCRAInfo",
           "type": "string",
-          "maxLength":14,
-          "COMMENT":" add Regular Expression"
+          "maxLength":14
         }
       }
     },
     "handler_defined_datum": {
-      "description":"Industry requested optional field, handlers define the description, content and the handler who requested this information.",
+      "description":"Optional-Industry requested optional field for tracking information not specifically on the manifest, but needed by the users.  In order to use this field handlers must define the description, content and the handler who requested this information be placed on the manifest.",
       "type": "object",
       "properties": {
         "label": {
-          "description": "Label for the handler defined data.  This label is for the use of the handler for labeling the content of non-manifest related items",
+          "description": "Label for the handler defined data.  This label is for the use of the handler for labeling the content of non-manifest related items.",
           "type": "string"
         },
         "content": {
-          "description":"handler defined content, this field may be used for holding and/or describing special ids, purchase orders, or other non-manifest related items",
+          "description":"handler defined content, this field may be used for holding and/or describing special ids, purchase orders, or other non-manifest related items.  This field is where the data related to the handler defined field is inputted.",
           "type": "string"
         },
         "us_epa_id_number": {
-          "description": "Handler Id number of entity using this field to ensure uniqueness and assist in retrieval",
+          "description": "Handler Id number of entity using this individual handler defined data.  The id is used to ensure uniqueness, assist in retrieval, and avoid confusion if two companies use the same label.",
           "$ref": "#/definitions/us_epa_id_number"
         }
       }
@@ -64,14 +67,13 @@
     "manifest_item": {
       "type": "object",
       "properties": {
-        "total_quantity": {
-          "description": "(11) Total quantity for the listed unit of measure",
+        "line_item_number": {
+          "description": "Line item number that corespondes to a manifest line item on the paper form.",
           "type": "number"
         },
-        "unit_wt_vol": {
-          "description": "(12) List of codes for unit measure as described the e-Manifest instructions",
-          "type": "string",
-          "enum":["G","K","L","M","N","P","T","Y"]
+        "hazardous_material": {
+          "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
+          "type": "boolean"
         },
         "proper_shipping_name": {
           "description": "(9b) Proper shipping name as directed by US Department Of Transportation",
@@ -83,14 +85,62 @@
           "maxLength": 8,
           "minLength": 4
         },
-        "state_waste_codes": {
+        "packing_group": {
+          "description": "(9b) Packing group defined by the US Department of Transportation",
+          "type": "string",
+          "enum":["I","II","III"]
+        },
+        "hazard_classes": {
           "type": "array",
           "items": {
-            "description":"(13) State waste codes as per state regulations",
+            "description": "(9b) List of Hazard classes as defined by the US Department of Transportation",
             "type": "string",
-            "maxLength": 8,
-            "minLength": 4
+            "COMMENT": "DOT Enumerated Values, I would like to see if there is a service for these.  There are around 26 of these "
           }
+        },
+        "additional_dot_information":{
+          "description": "(9b) Additional DOT information that is allowed to be put in item 9b.  For non hazardous materials on screen this is called waste descriptions.",
+          "type": "string"        
+        },
+        "total_quantity": {
+          "description": "(11) Total quantity for the listed unit of measure",
+          "type": "number"
+        },
+        "unit_wt_vol": {
+          "description": "(12) List of codes for unit measure as described the e-Manifest instructions",
+          "type": "string",
+          "enum":["G","K","L","M","N","P","T","Y"]
+        },
+        "number_of_containers": {
+          "description": "(10) number of containers identified by container type",
+          "type": "integer"
+        },
+        "container_type": {
+          "description": "(10) List of codes for type of container used in as described the e-Manifest instructions.  For containers not listed in the instructions user may use the NL code.  If using the NL code the user must describe the container being used.",
+          "type": "object",
+          "properties":{
+            "container_type_code":{
+              "type": "string",
+              "enum":["BA","CF","CM","CW","CY","DF","DM","DT","DW","HG","TC","TP","TT","NL"]
+            },
+            "not_listed_nl_container_description":{
+              "type": "string"
+            }
+          }
+        },
+        "report_management_method_code": {
+            "description":"(19) Federal Management method codes as listed in EPA guidance.",  
+            "type": "string",
+            "maxLength": 4,
+            "minLength": 4
+        },
+        "state_waste_codes": {
+          "description":"(13) State waste codes as per state regulations",
+          "type": "array",
+            "items": { 
+              "type":"object",
+              "$ref": "#/definitions/state_waste_code"
+           }
         },
         "epa_waste_codes": {
           "type": "array",
@@ -102,15 +152,47 @@
             "pattern": "^[DFKPU][0-9]{3}$"
           }
         },
+        "waste_handling_instruction_item": {
+          "description":"(14) Special Handling instructions on the manifest form.",
+          "type": "string"
+        },
+        "handler_defined_data_item": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/handler_defined_datum"
+          }
+        },
+        "emergency_response_phone_item": {
+          "description": "Emergency Phone number for each waste line if used.",
+          "$ref": "#/definitions/telephone_number_data_type"
+        },
+        "emergency_response_phone_extension_item": {
+          "description": "Emergency Phone number extension for each waste line if used.",
+          "$ref": "#/definitions/telephone_number_extension_data_type"
+        },
+        "emergency_response_guidebook_id": {
+          "description": "DOT Emergency Response Guidebook id number for each waste line if used.",
+          "type": "string"
+        },
+        "consent_number": {
+          "description": "Imports and Exports ONLY. Consent number provided so that the waste can be exported out of a country.",
+          "type": "string",
+          "pattern": "^[0-9]{6}[EI][0-9]{5}$"
+        },
+        "provide_BR_information": {
+          "description": "Indication if the user will be on filling out the BR fields form_code source_code and density.",
+          "type": "boolean"
+        },
         "form_code": {
-          "description":"Bienial Report place to the form code for the waste stream",
+          "description":"Currently optional, EPA will at a later date work with industry and states to integrate e-Manifest and the Bienial Report place to the form code for the waste stream",
           "type": "string",
           "maxLength": 4,
           "minLength": 4,
           "pattern": "^W[0-9]{3}$"
         },
         "source_code": {
-          "description":"Bienial Report place to the source code for the waste stream",
+          "description":"Currently optional, EPA will at a later date work with industry and states to integrate e-Manifest and the Bienial Report place to the source code for the waste stream",
           "type": "string",
           "maxLength": 3,
           "minLength": 3,
@@ -118,7 +200,7 @@
           "COMMENT": "pattern does not match min/max length (only 3 chars defined)"
         },
         "density": {
-          "description":"Bienial Report field captures the density and whether the density is measured in pounds per gallon or specific gravity.",
+          "description":"Currently optional, EPA will at a later date work with industry and states to integrate e-Manifest and the Bienial Report field captures the density and whether the density is measured in pounds per gallon or specific gravity.",
           "type": "object",
           "properties":{
             "density":{
@@ -126,56 +208,13 @@
               "type":"number"
             },
             "measurement":{
-              "description":"whther the material is measured in pounds per gallon or uses specific gravity.",
+              "description":"Field stating how the density of the material is measured.  The values can either be in pounds per gallon or uses specific gravity.",
               "type":"string",
               "enum":["lbs_per_gallon","specific_gravity"]
             }
           }
-        },
-        "packing_group": {
-          "description": "(9b) Packing group defined by the US Department of Transportation",
-          "type": "string",
-          "enum":["I","II","III"]
-        },
-        "number_of_containers": {
-          "description": "(10) number of containers identified by container type",
-          "type": "integer"
-        },
-        "container_type": {
-          "description": "(10) List of codes for type of container used in as described the e-Manifest instructions",
-          "type": "string",
-          "enum":["BA","CF","CM","CW","CY","DF","DM","DT","DW","HG","TC","TT","TP"]
-        },
-        "hazardous_material": {
-          "description": "(9a) Indication if the waste is a hazardous material per the Department of transportation",
-          "type": "boolean"
-        },
-        "hazard_classes": {
-          "type": "array",
-          "items": {
-            "description": "(9b) List of Hazard classes as defined by the US Department of Transportation",
-            "type": "string",
-            "COMMENT": "DOT Enumerated Values, I would like to see if there is a service for these.  There are around 26 of these "
-          }
-        },
-        "waste_handling_instruction": {
-          "description":"(14) Special Handling instructions on the manifest form.",
-          "type": "string"
-        },
-        "report_management_method_codes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "$ref": "#/definitions/report_management_method_code"
-          }
         }
       }
-    },
-    "report_management_method_code": {
-      "description":"(19) Federal Management method codes as listed in EPA guidance.  Current codes are listed in e-Manifest at https://e-manifest.18f.gov/method-codes.json",
-      "type": "string",
-      "maxLength": 4,
-      "minLength": 4
     },
     "signature_info": {
       "type": "object",
@@ -189,7 +228,7 @@
            "description": "Date of signature (15)",
            "type": "string",
            "format": "date",
-           "pattern": "^[0-9]{4}[\-\/][0-9]{2}[\-\/][0-9]{2}$"
+           "pattern": "^[0-9]{4}[\\-\\/][0-9]{2}[\\-\\/][0-9]{2}$"
         }
       }
     },
@@ -199,16 +238,19 @@
       "maxLength":15,
       "COMMENT": "add Regular Expressions"
     },
+    "telephone_number_extension_data_type": {
+       "description": "Extension for phone numbers.",
+       "type": "string"
+    },
     "transporter": {
       "type": "object",
       "properties": {
         "name": {
           "description": "(6,7) Transporter company name as presented in RCRAInfo",
-          "type": "string",
-          "maxLength": 80
+          "$ref": "#/definitions/address/properties/name"
         },
         "us_epa_id_number": {
-          "description": "(6,7) Unique tracking number assigned to each RCRA Handler/Site.  Starts with 3 Letters and ends with 9 numbers",
+          "description": "(6,7) Unique tracking number assigned to each RCRA Handler/Site.  Starts with 2 or 3 Letters and ends with 9 or 10 numbers",
           "$ref": "#/definitions/us_epa_id_number"
         },
         "signatory": {
@@ -218,44 +260,74 @@
       }
     },
     "us_epa_id_number": {
+      "description": "Unique tracking number assigned to each RCRA Handler/Site. Starts with 2 or 3 Letters and ends with 9 or 10 numbers.  A future release will address CESQG numbers at a later date.",
       "type": "string",
       "maxLength": 12,
       "minLength": 12,
-      "pattern": "^[A-Za-z]{3}[0-9]{9}$"
+      "pattern": "^[A-Za-z]{2,3}[0-9]{9,10}$"
+    },
+    "state_waste_code":{
+      "type": "object",
+      "properties": {
+        "state_waste_code_item":{
+           "type": "string",
+           "maxLength": 8,
+           "minLength": 1
+        },
+        "state_item": {
+          "description": "State that owns and mandates this waste code be used on the manifest",
+          "$ref": "#/definitions/address/properties/state"
+        } 
+      }
     }
   },
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "generator"
+    "manifest_tracking_number"
   ],
   "properties": {
+    "manifest_tracking_number": {
+      "description": "(4) Unique tracking number assigned to each manifest.  Starts with 9 numbers and ends with 3 Letters",
+      "type": "string",
+      "maxLength": 12,
+      "minLength": 12,
+      "pattern": "^[0-9]{9}[A-Za-z]{3}$"
+    },
+    "paper_manifest_tracking_number": {
+      "description": "(4) Unique tracking number assigned to each paper manifest.  This is not the system generated manifest ID  Starts with 9 numbers and ends with 3 Letters",
+      "type": "string",
+      "maxLength": 12,
+      "minLength": 12,
+      "pattern": "^[0-9]{9}[A-Za-z]{3}$"
+    },
+    "status": {
+      "description": "Electronic manifest status to run back end processes and comunicate with users of the e-Manifest system",
+      "type": "string",
+      "enum":["draft","pending","scheduled","in_transit","received","completed"]
+    },
     "generator": {
       "type": "object",
       "properties": {
-        "name": {
-          "description": "(5) Generator company name as presented in RCRAInfo",
-          "type": "string",
-          "maxLength": 80
-        },
         "us_epa_id_number": {
-          "description": "(1) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
+          "description": "(1) Unique tracking number assigned to each RCRA Handler/Site. Starts with 2 or 3 Letters and ends with 9 or 10 numbers",
           "$ref": "#/definitions/us_epa_id_number"
-        },
-        "manifest_tracking_number": {
-          "description": "(4) Unique tracking number assigned to each manifest...Starts with 9 numbers and ends with 3 Letters",
-          "type": "string",
-          "maxLength": 12,
-          "minLength": 12,
-          "pattern": "^[0-9]{9}[A-Za-z]{3}$"
         },
         "emergency_response_phone": {
           "description": "(3) Emergency Phone number",
           "$ref": "#/definitions/telephone_number_data_type"
         },
+        "emergency_response_phone_extension": {
+          "description": "Emergency Phone number extension.",
+          "$ref": "#/definitions/telephone_number_extension_data_type"
+        },
         "phone_number": {
           "description": "(5) Generator contact phone number",
           "$ref": "#/definitions/telephone_number_data_type"
+        },
+        "phone_number_extension": {
+          "description": "Phone number extension.",
+          "$ref": "#/definitions/telephone_number_extension_data_type"
         },
         "mailing_address": {
           "description": "(5) Generator mailing address as presented in RCRAInfo",
@@ -285,21 +357,24 @@
     "international_shipment": {
       "type": "object",
       "properties": {
-        "date_leaving_us": {
+        "is_international_shipment": {
+          "description": "Indication if the user will be on filling out this international shipment section.",
+          "type": "boolean"
+        },
+        "date_exit_us": {
            "description": "Date leaving U.S. (16)",
            "type": "string",
            "format": "date",
-           "pattern": "^[0-9]{4}[\-\/][0-9]{2}[\-\/][0-9]{2}$"
+           "pattern": "^[0-9]{4}[\\-\\/][0-9]{2}[\\-\\/][0-9]{2}$"
         },
         "export_import": {
           "description": "(16)",
           "type": "string",
           "enum":["export_from_us", "import_to_us"]
         },
-        "consent_number": {
-          "description": "Consent number provided so that the waste can be exported out of a country.",
-          "type": "string",
-          "pattern": "^[0-9]{6}[EI][0-9]{5}$"
+        "signatory": {
+          "description": "(17) Transporter acknowledgement of reciept of materials signature information",
+          "$ref": "#/definitions/signature_info"
         },
         "port_of_entry_exit": {
           "description": "(16) City and State of point of entry or export.",
@@ -320,18 +395,17 @@
     "designated_facility": {
       "type": "object",
       "properties": {
-        "name": {
-          "description":"(8) Designated facility company name as presented in RCRAInfo",
-          "type": "string",
-          "maxLength": 80
-        },
         "us_epa_id_number": {
-          "description": "(8) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
+          "description": "(8) Unique tracking number assigned to each RCRA Handler/Site. Starts with 2 or 3 Letters and ends with 9 or 10 numbers",
           "$ref": "#/definitions/us_epa_id_number"
         },
         "phone_number": {
           "description": "(8) Designated facility contact phone number",
           "$ref": "#/definitions/telephone_number_data_type"
+        },
+        "phone_number_extension": {
+          "description": "Phone number extension.",
+          "$ref": "#/definitions/telephone_number_extension_data_type"
         },
         "certification": {
           "description": "(20) Designated facility owner or operator: Certification of receipt of hazardous materials covered by the manifest except as noted in Item 18a signature information",
@@ -344,20 +418,19 @@
         "discrepancy": {
           "type": "object",
           "properties": {
-            "manifest_tracking_number": {
+            "discrepancy_present": {
+              "description": "Indication if the user will be on filling out this discrepancy section.",
+              "type": "boolean"
+            },
+            "new_manifest_tracking_number": {
               "description": "(18a) If a new manifest is created due to the rejection of manifested waste. This is where the new manifest ID goes.",
               "type": "string",
               "maxLength": 12,
               "minLength": 12,
               "pattern": "^[0-9]{9}[A-Za-z]{3}$"
             },
-            "name": {
-              "description":"(18b) Alternative designated facility company name as presented in RCRAInfo",
-              "type": "string",
-              "maxLength": 80
-            },
             "us_epa_id_number": {
-              "description": "(18b) Unique tracking number assigned to each RCRA Handler/Site. Starts with 3 Letters and ends with 9 numbers",
+              "description": "(18b) Unique tracking number assigned to each RCRA Handler/Site. Starts with 2 or 3 Letters and ends with 9 or 10 numbers",
               "$ref": "#/definitions/us_epa_id_number"
             },
             "phone_number": {
@@ -405,7 +478,7 @@
       }
     },
     "waste_pcb_description": {
-      "description":"(14) Special Handling instructions on the manifest form. Use this field for required PCB information.",
+      "description":"Included in item (14) Special Handling instructions on the manifest form. Use this field for required PCB information. PCB manifest requirements need further user needs analysis.  This will be handled in a future release.",
       "type": "string"
     },
     "number_of_pages": {
@@ -417,8 +490,8 @@
       "type": "boolean"
     },
     "waste_handling_instructions": {
-      "description":"(14) Special Handling instructions on the manifest form.",
-      "$ref": "#/definitions/manifest_item/properties/waste_handling_instruction"
+      "description":"(14) Special Handling instructions on the manifest form.  For electronic manifests, please note that there are additional fields that support manifest item 14, such as waste_pcb_description and handler_defined_data.",
+      "$ref": "#/definitions/manifest_item/properties/waste_handling_instruction_item"
     },
     "handler_defined_data": {
       "type": "array",
@@ -427,27 +500,20 @@
         "$ref": "#/definitions/handler_defined_datum"
       }
     },
-    "report_management_method_codes": {
-      "type": "array",
-      "items": {
-         "type": "string",
-         "$ref": "#/definitions/report_management_method_code"
-      }
-    },
     "uploaded_file": {
       "type": "object",
       "properties": {
         "content": {
-          "description":"base 64 encoded file",
+          "description":"Base 64 encoded pdf file for upload to e-Manifest.  This field is for a paper manifest where the industry user chooses to upload a scanned manifest.  The industry user must convert the pdf file to base64 encoding before uploading the file. Please note, a file while it may have more than one page, a file can only contain one manifest.",
           "type": "string"
         },
         "content_type": {
-          "description":"file type",
+          "description":"File type of the file being uploaded.  The only option offered is PDF.",
           "type": "string",
           "enum":["application/pdf"]
         },
         "file_name": {
-          "description":"name of manifest upload file",
+          "description":"The file name of the manifest upload file. Please note, a file while it may have more than one page, a file can only contain one manifest",
           "type": "string"
         }
       }
