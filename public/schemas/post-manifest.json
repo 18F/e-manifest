@@ -238,7 +238,7 @@
       "maxLength":15,
       "COMMENT": "add Regular Expressions"
     },
-    "telephone_number_extension": {
+    "telephone_number_extension_data_type": {
        "description": "Extension for phone numbers.",
        "type": "string"
     },
